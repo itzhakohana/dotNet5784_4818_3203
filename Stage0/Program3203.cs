@@ -9,8 +9,9 @@
 
     private static void Welcome3203()
     {
-        Console.WriteLine("Hello, World!");
         Console.WriteLine("Enter your name:");
+        string userName = Console.ReadLine();
+        Console.WriteLine("{0}, Welcome to my first console application!", userName);
     }
 
     static partial void Welcome4818();
