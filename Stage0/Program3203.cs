@@ -16,10 +16,9 @@
 
 
     static partial void Welcome4818()
-
     {
 
-        Console.WriteLine("Enter your name please :");
+        Console.WriteLine("Enter your name UPDATED!!!:");
         string userName = Console.ReadLine();
         Console.WriteLine("{0}, Welcome to my first console application!", userName);
     }
