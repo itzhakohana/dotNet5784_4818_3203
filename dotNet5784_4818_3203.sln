@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalFacade", "DalFacade\DalF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalList", "DalList\DalList.csproj", "{7FA4D3B2-0BE5-49EE-A2CD-0BEB55B14285}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalTest", "DalTest\DalTest.csproj", "{D4A462ED-7217-4EBA-8E0B-97233C4960E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{7FA4D3B2-0BE5-49EE-A2CD-0BEB55B14285}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FA4D3B2-0BE5-49EE-A2CD-0BEB55B14285}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FA4D3B2-0BE5-49EE-A2CD-0BEB55B14285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4A462ED-7217-4EBA-8E0B-97233C4960E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4A462ED-7217-4EBA-8E0B-97233C4960E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4A462ED-7217-4EBA-8E0B-97233C4960E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4A462ED-7217-4EBA-8E0B-97233C4960E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
