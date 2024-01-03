@@ -1,7 +1,7 @@
 ﻿namespace DO;
 
 /// <summary>
-/// Represent engineer working in the company
+/// Represents engineer working in the company
 /// </summary>
 /// <param name="Id"> ID number of the engineer (uniqe) </param>
 /// <param name="Cost"> Daily cost of the engineer including salary, workplace, tools </param>
@@ -13,10 +13,10 @@ public record Engineer
     int Id,
     double Cost,
     DO.EngineerExperience Level,
-    string Name,
-    string Email
+    string Email,
+    string Name
 )
 {
-    public Engineer() : this(0, 0, 0, "", "") { } //empty ctor for stage 3
+    public Engineer() : this(0, 0, 0, "", "") { } 
 }
 

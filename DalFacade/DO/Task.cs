@@ -1,7 +1,7 @@
 ﻿namespace DO;
 
 /// <summary>
-/// Represent a task in the system
+/// Represents a task in the system
 /// </summary>
 /// <param name="Id"> ID number of the task </param>
 /// <param name="Alias"> Name of the task </param>
