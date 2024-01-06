@@ -1,5 +1,9 @@
 ﻿namespace DalApi;
 using DO;
+
+/// <summary>
+/// Interface for Task entity
+/// </summary>
 public interface ITask
 {
     int Create(Task item); //Creates new entity object in DAL

@@ -2,7 +2,8 @@
 
 
 /// <summary>
-/// 
+/// Contains our Data base in the form of lists
+/// and an internal Config class
 /// </summary>
 internal static class DataSource
 {
@@ -12,10 +13,15 @@ internal static class DataSource
 
 
     /// <summary>
-    /// This class configures running ID numbers for Tasks and Dependencies
+    /// Configures running ID numbers for Tasks and Dependencies
+    /// and start&end dates for a given project(task)
     /// </summary>
     internal static class Config
     {
+        //start and deadline date for a project's schedule
+        internal static DateTime? startDate = null;
+        internal static DateTime? deadlineDate = null;
+
         //running number for Task ID
         internal const int startTaskId = 1000;
         private static int nextTaskId = startTaskId;

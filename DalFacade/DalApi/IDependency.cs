@@ -1,5 +1,9 @@
 ﻿namespace DalApi;
 using DO;
+
+/// <summary>
+/// Interface for Dependency entity
+/// </summary>
 public interface IDependency
 {
 
