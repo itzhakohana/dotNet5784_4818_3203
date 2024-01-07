@@ -1,4 +1,5 @@
-﻿namespace DO;
+﻿
+namespace DO;
 
 /// <summary>
 /// Represents engineer working in the company
@@ -17,6 +18,8 @@ public record Engineer
     string Name
 )
 {
+    public DateTime? StartDate;
+
     public Engineer() : this(0, 0, 0, "", "") { } 
 }
 

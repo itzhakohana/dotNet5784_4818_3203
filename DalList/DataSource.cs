@@ -7,6 +7,9 @@
 /// </summary>
 internal static class DataSource
 {
+    public static object Engineer { get; internal set; }
+    public static object Dependency { get; internal set; }
+    public static object Dependencys { get; internal set; }
     internal static List<DO.Task?> Tasks { get; } = new();
     internal static List<DO.Dependency?> Dependencies { get; } = new();
     internal static List<DO.Engineer?> Engineers { get; } = new();
@@ -31,7 +34,7 @@ internal static class DataSource
         internal const int startDependancyId = 100;
         private static int nextDependancyId = startDependancyId;
         internal static int NextDependancyId { get => nextDependancyId++; }
-
+        public static int NextEngineerId { get; internal set; }
     }
 
 
