@@ -1,6 +1,8 @@
 ﻿namespace DalTest;
 using DalApi;
 using DO;
+using System.ComponentModel;
+using System.Runtime.Intrinsics.X86;
 
 
 /// <summary>
@@ -14,9 +16,121 @@ public static class Initialization
 
     private static readonly Random s_rand = new();
 
-    
+    private static readonly int s_tasksAmount = 20;
+    private static readonly int s_dependenciesAmount = 40;
+    private static readonly int s_engineersAmount = 10;
+    private static readonly int min_Id = 200000000;
+    private static readonly int max_Id = 400000000;
+
     /// <summary>
-    /// initializes task-list with 20 uniqe tasks
+    /// Initializes 10 uniqe Engineers
+    /// </summary>
+    private static void creatEngineers()
+    {
+        string[] firstNames =
+        {
+            "Ethan",
+            "Ava",
+            "Liam",
+            "Mia",
+            "Noah",
+            "Olivia",
+            "Lucas",
+            "Sophia",
+            "Jackson",
+            "Emma",
+            "Aiden",
+            "Isabella",
+            "Mason",
+            "Harper",
+            "Benjamin",
+            "Amelia",
+            "Elijah",
+            "Abigail",
+            "Logan",
+            "Evelyn",
+        }; // array of first names
+        string[] surNames = 
+        {
+            "Smith",
+            "Johnson",
+            "Williams",
+            "Jones",
+            "Brown",
+            "Davis",
+            "Miller",
+            "Wilson",
+            "Moore",
+            "Taylor",
+            "Anderson",
+            "Thomas",
+            "Jackson",
+            "White",
+            "Harris",
+            "Martinez",
+            "Nelson",
+            "Carter",
+            "Cooper",
+            "Stewart",
+        };   //array of surnames
+
+        for (int i = 0; i < s_engineersAmount; i++) //randomizing 10 Engineers
+        {
+            //Randomly assembles a name from the two arrays
+            int firstNameIndex = s_rand.Next(firstNames.Length);
+            int surNameIndex = s_rand.Next(surNames.Length);
+            string randName = (firstNames[firstNameIndex] + " " + surNames[surNameIndex]);
+
+            //setting email address based on the randomized name
+            string randEmail = (surNames[surNameIndex] + "@gmail.com");
+
+            //randomizing ID number (range: 200000000 to 400000000)
+            int randId = s_rand.Next(min_Id, max_Id);
+
+            //randomizing expertise level
+            int myComlexity = s_rand.Next(0, 5);
+            DO.EngineerExperience randLevel = (DO.EngineerExperience)myComlexity;
+
+            //creating and adding a new Engineer to the database
+            Engineer myEngineer = new Engineer(randId, randLevel, randName, randEmail);
+            s_dalEngineer.Create(myEngineer);
+
+        }
+    }
+
+    /// <summary>
+    /// Initializes 40 unique Dependencies
+    /// </summary>
+    private static void creatDependencies() 
+    {
+        List<Task> listCopy = s_dalTask!.ReadAll();
+        for (int i = 0; i < s_dependenciesAmount; i++) //randomizing 40 Dependencies
+        {
+            //randomly picking a dependent-task from the task-list
+            int randListIndex = s_rand.Next(listCopy.Count);
+            Task depTask = listCopy.ElementAt(randListIndex);
+            int depTaskId = depTask.Id;
+
+            //randomly picking a dependent-ON-task from the task-list
+            randListIndex = s_rand.Next(listCopy.Count);
+            Task depOnTask = listCopy.ElementAt(randListIndex);
+            int depOnTaskId = depOnTask.Id;
+
+            //if the two chosen tasks are the same or the dependency between between them already exists
+            if (depTask == depOnTask || s_dalDependency.Read(depTaskId, depOnTaskId) != null)
+            {
+                i--;
+                continue;
+            }
+
+            //creating and adding a new Dependency to the database
+            Dependency myDependency = new Dependency(0, depTaskId, depOnTaskId);
+            s_dalDependency.Create(myDependency);
+        }
+    }
+
+    /// <summary>
+    /// Initializes 20 unique tasks
     /// </summary>
     private static void creatTasks()
     {
@@ -65,9 +179,9 @@ public static class Initialization
             }; //random task to choose from
         int[] usedTasks = new int[taskTypes.Length]; // keeps track of which tasks are used
         
-        for (int i = 0; i < 20; i++) //initialize 20 tasks
+        for (int i = 0; i < s_tasksAmount; i++) //initialize 20 tasks
         {
-            //randomizing task
+            //randomizing task-Alias
             int randIndex;
             do
             {
@@ -81,19 +195,18 @@ public static class Initialization
             DO.EngineerExperience randLevel = (DO.EngineerExperience)myComlexity;
 
             //randomizing date of creation
-            DateTime start = new DateTime(2010, 1, 1);
-            DateTime randDate = start.AddDays(s_rand.Next(3000));
+            DateTime start = new DateTime(2023, 1, 1);
+            DateTime randDate = start.AddDays(s_rand.Next(300));
 
-            //creating a new task and adding to the list
+            //creating and adding a new task to the database
             Task newTask = new Task(0, randAlias, "", randDate, null, false, randLevel);
             s_dalTask.Create(newTask);
         }
     }
 
 
-
     /// <summary>
-    /// Calls the "creat" methods which initialize the data-lists
+    /// Calls the "creat" methods which initialize the database
     /// </summary>
     /// <param name="dalDependency"></param>
     /// <param name="dalEngineer"></param>
@@ -105,8 +218,8 @@ public static class Initialization
         s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
         s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
         creatTasks();
-        //creatEngineers();
-        //creatDependencies();
+        creatEngineers();
+        creatDependencies();
     }
 
 

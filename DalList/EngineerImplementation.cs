@@ -1,31 +1,48 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using System.Collections.Generic;
 
+/// <summary>
+/// Interface implementation for Engineer entity
+/// </summary>
 public class EngineerImplementation : IEngineer
 {
+    /// <summary>
+    /// Adds the given Engineer to the list. if not present already 
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
     public int Create(Engineer item)
     {
-        if (item.Id != 0)
-            throw new Exception($"Cannot add Engineer with Id {item.Id} since it already exists in the system");
-        int newId = DataSource.Config.NextEngineerId;
-        Engineer newEngineer = item with { Id = newId, StartDate = DataSource.Config.startDate };
-        DataSource.Engineers.Add(newEngineer);
-        return newId;
+        //if a student with the same Id already exists
+        if (Read(item.Id) != null) 
+            throw new Exception($"A student with Id {item.Id} already exists in the system");
+        DataSource.Engineers.Add(item);
+        return item.Id;
     }
 
+    /// <summary>
+    /// Deletes the Engineer that matches the given ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
         foreach (Engineer? engineer in DataSource.Engineers)
             if (engineer!.Id == id)
             {
-                DataSource.Engineer.Remove(engineer);
+                DataSource.Engineers.Remove(engineer);
                 return;
             }
         throw new Exception($"Cannot delete Engineer with Id {id} since it does not exist in the system");
     }
 
+    /// <summary>
+    /// Returns the Engineer with the given ID number, null if not found
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     public Engineer? Read(int id)
     {
         foreach (Engineer? engineer in DataSource.Engineers)
@@ -34,21 +51,29 @@ public class EngineerImplementation : IEngineer
         return null;
     }
 
+    /// <summary>
+    /// Returns a copy of the list
+    /// </summary>
+    /// <returns></returns>
     public List<Engineer> ReadAll()
     {
         List<DO.Engineer?> myList = new List<DO.Engineer?>(DataSource.Engineers);
         return myList;
     }
 
+    /// <summary>
+    /// Updates an Engineer in the list that matches the Given Engineer's ID
+    /// </summary>
+    /// <param name="item"></param>
+    /// <exception cref="Exception"></exception>
     public void Update(Engineer item)
     {
-        foreach (Engineer? engineer in DataSource.Engineers)
-            if (engineer!.Id == item.Id)
-            {
-                DataSource.Engineers.Remove(engineer);
-                DataSource.Engineers.Add(item);
-                return;
-            }
-        throw new Exception($"Cannot updateEngineer with Id {item.Id} since it does not exist in the system");
+        if (Read(item.Id) != null)
+        {
+            DataSource.Engineers.Remove(Read(item.Id));
+            DataSource.Engineers.Add(item);
+            return;
+        }
+        throw new Exception($"Cannot update Engineer with Id {item.Id} since it does not exist in the system");
     }
 }

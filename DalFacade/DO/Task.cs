@@ -35,6 +35,10 @@ public record Task
     int? EngineerId = null
 )
 {
+    public override string ToString()
+    {
+        return ($"Task ID: {Id + ".",-6} Task Name: {Alias + ".", -30} Complexity: {Complexity + ".", -18} Creation Date: {CreatedAtDate + "."}");
+    }
     public Task() : this(0, "", "", DateTime.Now) { } 
 
 }

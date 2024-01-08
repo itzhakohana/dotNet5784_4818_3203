@@ -14,6 +14,10 @@ public record Dependency
     int DependsOnTask
 )
 {
+    public override string ToString()
+    {
+        return ($"Dependency ID: {Id + ".",-5} Dependent Task ID: {DependentTask + ".",-6} Depends On Task: {DependsOnTask + ".",-6}");
+    }
     public Dependency() : this(0, 0, 0) { }
 
 }
