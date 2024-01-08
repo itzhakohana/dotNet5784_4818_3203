@@ -61,7 +61,6 @@ public class TaskImplementation : ITask
     {
         return new List<DO.Task?>(DataSource.Tasks);
     }
-
     /// <summary>
     /// Updates an existing Task
     /// </summary>

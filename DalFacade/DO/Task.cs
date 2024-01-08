@@ -1,4 +1,6 @@
-﻿namespace DO;
+﻿using System;
+
+namespace DO;
 
 /// <summary>
 /// Represents a task in the system
@@ -24,8 +26,8 @@ public record Task
     string Description,
     DateTime CreatedAtDate,
     TimeSpan? RequiredEffortTime = null,
-    bool IsMilestone = false,
     DO.EngineerExperience Complexity = 0,
+    bool IsMilestone = false,
     DateTime? StartDate = null,
     DateTime? ScheduledDate = null,
     DateTime? DeadlineDate = null,
@@ -37,7 +39,9 @@ public record Task
 {
     public override string ToString()
     {
-        return ($"Task ID: {Id + ".",-6} Task Name: {Alias + ".", -30} Complexity: {Complexity + ".", -18} Creation Date: {CreatedAtDate + "."}");
+        return ($"Task ID: {Id + ".",-6} Task Name: {Alias + ".", -30} Complexity: {Complexity, -18} " +
+            $"Creation Date: {CreatedAtDate, -23}" +  $"{ (RequiredEffortTime != null ? $"Required Time: {RequiredEffortTime ,-13} " : "")}"
+             + $"{(Description != "" ? $"Task Description: {Description + "."} " : "")}");
     }
     public Task() : this(0, "", "", DateTime.Now) { } 
 

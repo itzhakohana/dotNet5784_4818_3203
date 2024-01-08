@@ -6,7 +6,7 @@
 /// </summary>
 public enum EngineerExperience
 {
-    Beginner,
+    Beginner = 1,
     AdvancedBeginner, 
     Intermediate, 
     Advanced, 

@@ -16,14 +16,14 @@ public static class Initialization
 
     private static readonly Random s_rand = new();
 
-    private static readonly int s_tasksAmount = 20;
-    private static readonly int s_dependenciesAmount = 40;
-    private static readonly int s_engineersAmount = 10;
-    private static readonly int min_Id = 200000000;
-    private static readonly int max_Id = 400000000;
+    private static readonly int s_tasksAmount = 20; //amount of Tasks created randomly 
+    private static readonly int s_dependenciesAmount = 40; //amount of Dependencies created randomly 
+    private static readonly int s_engineersAmount = 10;  //amount of Engineers created randomly 
+    private static readonly int MIN_ID = 200000000;
+    private static readonly int MAX_ID = 400000000;
 
     /// <summary>
-    /// Initializes 10 uniqe Engineers
+    /// Initializes predecided amount of uniqe Engineers
     /// </summary>
     private static void creatEngineers()
     {
@@ -85,10 +85,10 @@ public static class Initialization
             string randEmail = (surNames[surNameIndex] + "@gmail.com");
 
             //randomizing ID number (range: 200000000 to 400000000)
-            int randId = s_rand.Next(min_Id, max_Id);
+            int randId = s_rand.Next(MIN_ID, MAX_ID);
 
             //randomizing expertise level
-            int myComlexity = s_rand.Next(0, 5);
+            int myComlexity = s_rand.Next(1, 6);
             DO.EngineerExperience randLevel = (DO.EngineerExperience)myComlexity;
 
             //creating and adding a new Engineer to the database
@@ -99,7 +99,7 @@ public static class Initialization
     }
 
     /// <summary>
-    /// Initializes 40 unique Dependencies
+    /// Initializes predecided amount of unique Dependencies
     /// </summary>
     private static void creatDependencies() 
     {
@@ -130,7 +130,7 @@ public static class Initialization
     }
 
     /// <summary>
-    /// Initializes 20 unique tasks
+    /// Initializes predecided amount of unique tasks
     /// </summary>
     private static void creatTasks()
     {
@@ -191,7 +191,7 @@ public static class Initialization
             string randAlias = taskTypes[randIndex];
 
             //randomizing complexity
-            int myComlexity = s_rand.Next(0, 5);
+            int myComlexity = s_rand.Next(1, 6);
             DO.EngineerExperience randLevel = (DO.EngineerExperience)myComlexity;
 
             //randomizing date of creation
@@ -199,7 +199,7 @@ public static class Initialization
             DateTime randDate = start.AddDays(s_rand.Next(300));
 
             //creating and adding a new task to the database
-            Task newTask = new Task(0, randAlias, "", randDate, null, false, randLevel);
+            Task newTask = new Task(0, randAlias, "", randDate, null, randLevel);
             s_dalTask.Create(newTask);
         }
     }
