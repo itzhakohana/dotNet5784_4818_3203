@@ -5,7 +5,7 @@ using DO;
 /// <summary>
 /// Interface implementation for Engineer entity
 /// </summary>
-public class EngineerImplementation : IEngineer
+internal class EngineerImplementation : IEngineer
 {
     /// <summary>
     /// Adds the given Engineer to the list. if not present already 
@@ -29,12 +29,12 @@ public class EngineerImplementation : IEngineer
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        foreach (Engineer? engineer in DataSource.Engineers)
-            if (engineer!.Id == id)
-            {
-                DataSource.Engineers.Remove(engineer);
-                return;
-            }
+        Engineer? engineer = Read(id);
+        if (engineer != null)
+        {
+            DataSource.Engineers.Remove(engineer);
+            return;
+        }
         throw new Exception($"Cannot delete Engineer with Id {id} since it does not exist in the system");
     }
 
@@ -45,20 +45,31 @@ public class EngineerImplementation : IEngineer
     /// <returns></returns>
     public Engineer? Read(int id)
     {
-        foreach (Engineer? engineer in DataSource.Engineers)
-            if (engineer!.Id == id)
-                return engineer;
-        return null;
+        return DataSource.Engineers.FirstOrDefault(item => item!.Id == id);
     }
 
     /// <summary>
-    /// Returns a copy of the list
+    /// Reads an Engineer by a given filter
     /// </summary>
+    /// <param name="filter"></param>
     /// <returns></returns>
-    public List<Engineer> ReadAll()
+    public Engineer? Read(Func<Engineer, bool> filter)
     {
-        List<DO.Engineer?> myList = new List<DO.Engineer?>(DataSource.Engineers);
-        return myList;
+        return DataSource.Engineers.FirstOrDefault(item => filter(item!));
+    }
+
+    /// <summary>
+    /// Returns all the Engineers that satisfy a given condition.
+    /// if a condition is not provided, returns all Engineers.
+    /// </summary>
+    /// <param name="filter">Optional filter condition.</param>
+    /// <returns></returns>
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)
+    {
+        if (filter != null)
+            return DataSource.Engineers.Where(item => filter!(item!));
+
+        return DataSource.Engineers;
     }
 
     /// <summary>
@@ -68,9 +79,10 @@ public class EngineerImplementation : IEngineer
     /// <exception cref="Exception"></exception>
     public void Update(Engineer item)
     {
-        if (Read(item.Id) != null)
+        Engineer? engineer = Read(item.Id);
+        if (engineer != null)
         {
-            DataSource.Engineers.Remove(Read(item.Id));
+            DataSource.Engineers.Remove(engineer);
             DataSource.Engineers.Add(item);
             return;
         }

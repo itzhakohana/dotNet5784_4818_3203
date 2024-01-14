@@ -10,9 +10,10 @@ using System.Runtime.Intrinsics.X86;
 /// </summary>
 public static class Initialization
 {
-    private static ITask? s_dalTask; //stage 1
-    private static IEngineer? s_dalEngineer; //stage 1
-    private static IDependency? s_dalDependency; //stage 1
+    //private static ITask? s_dalTask; //stage 1
+    //private static IEngineer? s_dalEngineer; //stage 1
+    //private static IDependency? s_dalDependency; //stage 1
+    private static IDal? s_dal; //stage 2
 
     private static readonly Random s_rand = new();
 
@@ -93,7 +94,7 @@ public static class Initialization
 
             //creating and adding a new Engineer to the database
             Engineer myEngineer = new Engineer(randId, randLevel, randName, randEmail);
-            s_dalEngineer.Create(myEngineer);
+            s_dal!.Engineer.Create(myEngineer);
 
         }
     }
@@ -103,7 +104,7 @@ public static class Initialization
     /// </summary>
     private static void creatDependencies() 
     {
-        List<Task> listCopy = s_dalTask!.ReadAll();
+        List<Task> listCopy = (List<Task>)s_dal!.Task.ReadAll();
         for (int i = 0; i < s_dependenciesAmount; i++) //randomizing 40 Dependencies
         {
             //randomly picking a dependent-task from the task-list
@@ -117,7 +118,7 @@ public static class Initialization
             int depOnTaskId = depOnTask.Id;
 
             //if the two chosen tasks are the same or the dependency between between them already exists
-            if (depTask == depOnTask || s_dalDependency.Read(depTaskId, depOnTaskId) != null)
+            if (depTask == depOnTask || s_dal!.Dependency.Read(depTaskId, depOnTaskId) != null)
             {
                 i--;
                 continue;
@@ -125,7 +126,7 @@ public static class Initialization
 
             //creating and adding a new Dependency to the database
             Dependency myDependency = new Dependency(0, depTaskId, depOnTaskId);
-            s_dalDependency.Create(myDependency);
+            s_dal!.Dependency.Create(myDependency);
         }
     }
 
@@ -200,23 +201,19 @@ public static class Initialization
 
             //creating and adding a new task to the database
             Task newTask = new Task(0, randAlias, "", randDate, null, randLevel);
-            s_dalTask.Create(newTask);
+            s_dal!.Task.Create(newTask);
         }
     }
-
 
     /// <summary>
     /// Calls the "creat" methods which initialize the database
     /// </summary>
-    /// <param name="dalDependency"></param>
-    /// <param name="dalEngineer"></param>
-    /// <param name="dalTask"></param>
-    /// <exception cref="NullReferenceException"></exception>
-    public static void DO(IDependency dalDependency, IEngineer dalEngineer, ITask dalTask) 
+    public static void Do(IDal dal) 
     {
-        s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+        //s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+        //s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
+        //s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
+        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2;
         creatTasks();
         creatEngineers();
         creatDependencies();

@@ -6,7 +6,7 @@ using DO;
 /// <summary>
 /// Interface implementation for Task entity
 /// </summary>
-public class TaskImplementation : ITask
+internal class TaskImplementation : ITask
 {
     
     /// <summary>
@@ -31,12 +31,12 @@ public class TaskImplementation : ITask
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        foreach (Task? task in DataSource.Tasks)
-            if (task!.Id == id)
-            {       
-                DataSource.Tasks.Remove(task);
-                return;
-            }
+        Task? task = Read(id);
+        if(task != null)
+        {
+            DataSource.Tasks.Remove(task);
+            return;
+        }
         throw new Exception($"Cannot delete Task with Id {id} since it does not exist in the system");
     }
 
@@ -46,21 +46,34 @@ public class TaskImplementation : ITask
     /// <param name="id"></param>
     /// <returns></returns>
     public Task? Read(int id)
-    { 
-        foreach(Task? task in DataSource.Tasks) 
-            if (task!.Id == id)
-                return task;
-        return null;
+    {
+        return DataSource.Tasks.FirstOrDefault(item => item!.Id == id);
     }
 
     /// <summary>
-    /// Returns a copy of the Tasks-list
+    /// Reads a Task by a given filter
     /// </summary>
+    /// <param name="filter"></param>
     /// <returns></returns>
-    public List<Task?> ReadAll()
+    public Task? Read(Func<Task, bool> filter)
     {
-        return new List<DO.Task?>(DataSource.Tasks);
+        return DataSource.Tasks.FirstOrDefault(item => filter(item!));
     }
+
+    /// <summary>
+    /// Returns all the Tasks that satisfy a given condition.
+    /// if a condition is not provided, returns all Tasks.
+    /// </summary>
+    /// <param name="filter">Optional filter condition.</param>
+    /// <returns></returns>
+    public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
+    {
+        if (filter != null)
+            return DataSource.Tasks.Where(item => filter!(item!));
+
+        return DataSource.Tasks;
+    }
+
     /// <summary>
     /// Updates an existing Task
     /// </summary>
@@ -68,13 +81,13 @@ public class TaskImplementation : ITask
     /// <exception cref="Exception"></exception>
     public void Update(Task item)
     {
-        foreach (Task? task in DataSource.Tasks)
-            if (task!.Id == item.Id)
-            {
-                DataSource.Tasks.Remove(task);
-                DataSource.Tasks.Add(item);
-                return;
-            }
+        Task? task = Read(item.Id);
+        if(task != null)
+        {
+            DataSource.Tasks.Remove(task);
+            DataSource.Tasks.Add(item);
+            return;
+        }
         throw new Exception($"Cannot update task with Id {item.Id} since it does not exist in the system");
     }
 }

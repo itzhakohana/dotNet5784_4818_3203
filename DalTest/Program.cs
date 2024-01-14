@@ -2,6 +2,7 @@
 using DalApi;
 using DalTest;
 using DO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
@@ -10,9 +11,11 @@ using System.Threading.Tasks;
 /// </summary>
 internal class Program
 {
-    private static IDependency? s_dalDependency = new DependencyImplementation(); //stage 1
-    private static IEngineer? s_dalEngineer = new EngineerImplementation(); //stage 1
-    private static ITask? s_dalTask = new TaskImplementation(); //stage 1
+    //private static IDependency? s_dal = new DependencyImplementation(); //stage 1
+    //private static IEngineer? s_dal = new EngineerImplementation(); //stage 1
+    //private static ITask? s_dal = new TaskImplementation(); //stage 1
+
+    static readonly IDal s_dal = new DalList(); //stage 2
 
     /// <summary>
     /// Used for interface options
@@ -26,7 +29,7 @@ internal class Program
     {
         try
         {
-            Initialization.DO(s_dalDependency!, s_dalEngineer!, s_dalTask!);
+            Initialization.Do(s_dal!);
             int choice = 1;
 
             while (choice != 0)
@@ -111,12 +114,12 @@ internal class Program
 
             case _CRUDoptions.Creat://adding a new Dependency
                 myDependency = creatNewDependency(0);
-                s_dalDependency.Create(myDependency);
+                s_dal.Dependency.Create(myDependency);
                 Console.WriteLine("Dependency added successfuly.");
                 break;
 
             case _CRUDoptions.Delete: //delete Dependency 
-                s_dalDependency!.Delete(readDependencyId());
+                s_dal!.Dependency.Delete(readDependencyId());
                 Console.WriteLine("Dependency deleted successfuly.");
                 break;
 
@@ -131,7 +134,7 @@ internal class Program
             case _CRUDoptions.Update: //update Dependency
                 Id = findAndPrintDependency();
                 myDependency = creatNewDependency(Id);
-                s_dalDependency.Update(myDependency);
+                s_dal.Dependency.Update(myDependency);
                 Console.WriteLine("Dependency updated successfuly.");
                 break;
         }
@@ -165,12 +168,12 @@ internal class Program
             case _CRUDoptions.Creat://adding a new Engineer
                 Id = readEngineerId();
                 myEngineer = creatNewEngineer(Id);
-                s_dalEngineer.Create(myEngineer);
+                s_dal.Engineer.Create(myEngineer);
                 Console.WriteLine("Engineer added successfuly.");
                 break;
 
             case _CRUDoptions.Delete: //delete engineer 
-                s_dalEngineer!.Delete(readEngineerId());
+                s_dal!.Engineer.Delete(readEngineerId());
                 Console.WriteLine("Engineer deleted successfuly.");
                 break;
 
@@ -185,16 +188,13 @@ internal class Program
             case _CRUDoptions.Update: //update engineer
                 Id = findAndPrintEngineer();
                 myEngineer = creatNewEngineer(Id);
-                s_dalEngineer!.Update(myEngineer);
+                s_dal!.Engineer.Update(myEngineer);
                 Console.WriteLine("Engineer updated successfuly.");
                 break;
 
         }
 
     }
-
-
-    //-------------------Task Interface methods-------------------
 
     /// <summary>
     /// Task options
@@ -221,13 +221,13 @@ internal class Program
 
             case _CRUDoptions.Creat://adding a new Task
                 myTask = creatNewTask(0);
-                s_dalTask.Create(myTask);
+                s_dal.Task.Create(myTask);
                 Console.WriteLine("Task added successfuly.");
                 break;
 
             case _CRUDoptions.Delete: //delete Task 
                 Id = readTaskId();
-                s_dalTask.Delete(Id);
+                s_dal.Task.Delete(Id);
                 Console.WriteLine("Task deleted successfuly.");
                 break;
 
@@ -242,19 +242,21 @@ internal class Program
             case _CRUDoptions.Update: //update Task
                 Id = findAndPrintTask();
                 myTask = creatNewTask(Id);
-                s_dalTask.Update(myTask);
+                s_dal.Task.Update(myTask);
                 Console.WriteLine("Task updated successfuly.");
                 break;
 
         }
     }
 
+    //-------------------Task Interface methods-------------------
+
     /// <summary>
     /// Prints all the Tasks
     /// </summary>
     private static void printAllTasks()
     {
-        List<DO.Task> myTasks = s_dalTask!.ReadAll();
+        List<DO.Task> myTasks = new List<DO.Task> (s_dal!.Task.ReadAll()!);
         foreach (var myTask in myTasks)
         {
             Console.WriteLine(myTask);
@@ -267,7 +269,7 @@ internal class Program
     private static int findAndPrintTask()
     {
         int myId = readTaskId();
-        DO.Task? myTask = s_dalTask.Read(myId);
+        DO.Task? myTask = s_dal.Task.Read(myId);
         if (myTask != null)
         {
             Console.WriteLine(myTask);
@@ -348,7 +350,7 @@ internal class Program
     /// </summary>
     private static void printAllEngineers() 
     { 
-        List<DO.Engineer> myEngineers = s_dalEngineer!.ReadAll();
+        List<DO.Engineer> myEngineers = new List<DO.Engineer>(s_dal!.Engineer.ReadAll()!);
         foreach(var myEngineer in myEngineers) 
         {
             Console.WriteLine(myEngineer);
@@ -361,7 +363,7 @@ internal class Program
     private static int findAndPrintEngineer()
     {
         int myId = readEngineerId();
-        Engineer? myEngineer = s_dalEngineer.Read(myId);
+        Engineer? myEngineer = s_dal.Engineer.Read(myId);
         if (myEngineer != null)
         {
             Console.WriteLine(myEngineer);
@@ -423,7 +425,7 @@ internal class Program
     /// </summary>
     private static void printAllDependencies()
     {
-        List<DO.Dependency> myDependencies = s_dalDependency!.ReadAll();
+        List<DO.Dependency> myDependencies = new List <DO.Dependency> (s_dal.Dependency.ReadAll()!);
         foreach (var myDependency in myDependencies)
         {
             Console.WriteLine(myDependency);
@@ -436,7 +438,7 @@ internal class Program
     private static int findAndPrintDependency()
     {
         int myId = readDependencyId();
-        Dependency? myDependency = s_dalDependency.Read(myId);
+        Dependency? myDependency = s_dal.Dependency.Read(myId);
         if (myDependency != null)
         {
             Console.WriteLine(myDependency);

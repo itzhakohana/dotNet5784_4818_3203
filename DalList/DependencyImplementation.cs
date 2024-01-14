@@ -1,12 +1,13 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Runtime.InteropServices;
 
 
 /// <summary>
 /// Interface implementation for Dependency entity
 /// </summary>
-public class DependencyImplementation : IDependency
+internal class DependencyImplementation : IDependency
 {
     /// <summary>
     /// Adds the given Dependency to the list
@@ -30,12 +31,12 @@ public class DependencyImplementation : IDependency
     /// <exception cref="Exception"></exception>
     public void Delete(int id)
     {
-        foreach (Dependency? dependency in DataSource.Dependencies)
-            if (dependency!.Id == id)
-            {
-                DataSource.Dependencies.Remove(dependency);
-                return;
-            }
+        Dependency? dependency = Read(id);
+        if (dependency != null)
+        {
+            DataSource.Dependencies.Remove(dependency);
+            return;
+        }
         throw new Exception($"Cannot delete Dependency with Id {id} since it does not exist in the system");
     }
 
@@ -46,10 +47,7 @@ public class DependencyImplementation : IDependency
     /// <returns></returns>
     public Dependency? Read(int id)
     {
-        foreach (Dependency? dependency in DataSource.Dependencies)
-            if (dependency!.Id == id)
-                return dependency;
-        return null;
+        return DataSource.Dependencies.FirstOrDefault(item => item!.Id == id); 
     }
 
     /// <summary>
@@ -68,12 +66,27 @@ public class DependencyImplementation : IDependency
     }
 
     /// <summary>
-    /// Returns a copy of the list
+    /// Reads a Dependency by a given filter
     /// </summary>
+    /// <param name="filter"></param>
     /// <returns></returns>
-    public List<Dependency> ReadAll()
+    public Dependency? Read(Func<Dependency, bool> filter)
     {
-        return new List<DO.Dependency> (DataSource.Dependencies);
+        return DataSource.Dependencies.FirstOrDefault(item => filter(item!));
+    }
+
+    /// <summary>
+    /// Returns all the Dependencies that satisfy a given condition.
+    /// if a condition is not provided, returns all Dependencies.
+    /// </summary>
+    /// <param name="filter">Optional filter condition.</param>
+    /// <returns></returns>
+    public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
+    {
+        if (filter != null)
+            return DataSource.Dependencies.Where(item => filter!(item!));
+
+        return DataSource.Dependencies;
     }
 
     /// <summary>
@@ -83,13 +96,13 @@ public class DependencyImplementation : IDependency
     /// <exception cref="Exception"></exception>
     public void Update(Dependency item)
     {
-        foreach (Dependency? dependency in DataSource.Dependencies)
-            if (dependency!.Id == item.Id)
-            {
-                DataSource.Dependencies.Remove(dependency);
-                DataSource.Dependencies.Add(item);
-                return;
-            }
+        Dependency? dependency = Read(item.Id);
+        if (dependency != null)
+        {
+            DataSource.Dependencies.Remove(dependency);
+            DataSource.Dependencies.Add(item);
+            return;
+        }
         throw new Exception($"Cannot update dependency with Id {item.Id} since it does not exist in the system");
     }
 }
