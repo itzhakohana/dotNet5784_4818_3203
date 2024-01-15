@@ -17,7 +17,7 @@ internal class EngineerImplementation : IEngineer
     {
         //if a student with the same Id already exists
         if (Read(item.Id) != null) 
-            throw new Exception($"A student with Id {item.Id} already exists in the system");
+            throw new DalAlreadyExistException($"A student with Id {item.Id} already exists in the system");
         DataSource.Engineers.Add(item);
         return item.Id;
     }
@@ -35,7 +35,7 @@ internal class EngineerImplementation : IEngineer
             DataSource.Engineers.Remove(engineer);
             return;
         }
-        throw new Exception($"Cannot delete Engineer with Id {id} since it does not exist in the system");
+        throw new DalDoesNotExistException($"Cannot delete Engineer with Id {id} since it does not exist in the system");
     }
 
     /// <summary>
@@ -86,6 +86,6 @@ internal class EngineerImplementation : IEngineer
             DataSource.Engineers.Add(item);
             return;
         }
-        throw new Exception($"Cannot update Engineer with Id {item.Id} since it does not exist in the system");
+        throw new DalDoesNotExistException($"Cannot update Engineer with Id {item.Id} since it does not exist in the system");
     }
 }

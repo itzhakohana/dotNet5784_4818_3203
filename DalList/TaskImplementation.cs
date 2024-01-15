@@ -18,7 +18,7 @@ internal class TaskImplementation : ITask
     public int Create(Task item)
     {
         if(item.Id != 0)
-            throw new Exception($"Cannot add task with Id {item.Id} since it already exists in the system");
+            throw new DalAlreadyExistException($"Cannot add task with Id {item.Id} since it already exists in the system");
         int newId = DataSource.Config.NextTaskId;
         DataSource.Tasks.Add(item with { Id = newId, StartDate = DataSource.Config.startDate });
         return newId; 
@@ -37,7 +37,7 @@ internal class TaskImplementation : ITask
             DataSource.Tasks.Remove(task);
             return;
         }
-        throw new Exception($"Cannot delete Task with Id {id} since it does not exist in the system");
+        throw new DalDoesNotExistException($"Cannot delete Task with Id {id} since it does not exist in the system");
     }
 
     /// <summary>
@@ -88,6 +88,6 @@ internal class TaskImplementation : ITask
             DataSource.Tasks.Add(item);
             return;
         }
-        throw new Exception($"Cannot update task with Id {item.Id} since it does not exist in the system");
+        throw new DalDoesNotExistException($"Cannot update task with Id {item.Id} since it does not exist in the system");
     }
 }

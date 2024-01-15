@@ -11,9 +11,6 @@ using System.Threading.Tasks;
 /// </summary>
 internal class Program
 {
-    //private static IDependency? s_dal = new DependencyImplementation(); //stage 1
-    //private static IEngineer? s_dal = new EngineerImplementation(); //stage 1
-    //private static ITask? s_dal = new TaskImplementation(); //stage 1
 
     static readonly IDal s_dal = new DalList(); //stage 2
 
@@ -61,14 +58,15 @@ internal class Program
     private static void mainInterfaceOptions(ref int choice)
     {
         Console.WriteLine("\nMain Menu:");
-        Console.WriteLine("Please select 0-3 to proceed.");
+        Console.WriteLine("Please select 0-4 to proceed.");
         Console.WriteLine("0 - Exit.");
         Console.WriteLine("1 - Engineer Options.");
         Console.WriteLine("2 - Dependency Options.");
         Console.WriteLine("3 - Task Options.");
+        Console.WriteLine("4 - Reset Data-Base.");
         //using tryParse
         if (!int.TryParse(Console.ReadLine(), out choice))
-            throw new Exception("Invalid Input."); ;
+            throw new DalInvalidInputException("Invalid Input."); ;
         switch (choice)
         {
             case 0:
@@ -81,6 +79,10 @@ internal class Program
                 break;
             case 3:
                 taskInterface();
+                break;
+            case 4:
+                s_dal.Reset();
+                Console.WriteLine("Reset Successful.");
                 break;
         }
 
@@ -105,7 +107,7 @@ internal class Program
 
         //reading choice
         if (!_CRUDoptions.TryParse(Console.ReadLine(), out choice))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input. Please select 0-5.");
 
         switch (choice)
         {
@@ -159,7 +161,7 @@ internal class Program
         int Id;
         Engineer? myEngineer;
         if (!_CRUDoptions.TryParse(Console.ReadLine(), out choice))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input. Please select 0-5.");
         switch (choice)
         {
             case _CRUDoptions.Back: //back to main menu
@@ -213,7 +215,7 @@ internal class Program
         int Id;
         DO.Task? myTask;
         if (!_CRUDoptions.TryParse(Console.ReadLine(), out choice))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input. Please select 0-5.");
         switch (choice)
         {
             case _CRUDoptions.Back: //back to main menu
@@ -276,7 +278,7 @@ internal class Program
             return myId;
         }
         else
-            throw new Exception($"Task with id {myId} does not exist in the system.");
+            throw new DalDoesNotExistException($"Task with Id {myId} does not exist in the system.");
     }
 
     /// <summary>
@@ -290,7 +292,7 @@ internal class Program
         int myId;
         //using tryParse
         if (!int.TryParse(Console.ReadLine(), out myId))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input.");
         return myId;
     }
 
@@ -310,7 +312,7 @@ internal class Program
         Console.WriteLine("1 - Beginner\n2 - Advanced Beginner\n3 - Intermediate\n4 - Advanced\n5 - Expert");
         int myLevel;
         if (!int.TryParse(Console.ReadLine(), out myLevel))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input.");
 
         //reads Task description 
         Console.WriteLine("Optional: Enter Task description in free words. leave blank to skip.");
@@ -320,7 +322,7 @@ internal class Program
         Console.WriteLine("Enter the time required to complete the Task in days. (format: d.hh:mm:ss)");
         TimeSpan myTimeSpan;
         if (!TimeSpan.TryParse(Console.ReadLine(), out myTimeSpan))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input.");
 
 
         //returns the newly created Task with user values
@@ -341,7 +343,7 @@ internal class Program
         int myId;
         //using tryParse
         if (!int.TryParse(Console.ReadLine(), out myId))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input.");
         return myId;
     }
 
@@ -370,7 +372,7 @@ internal class Program
             return myId;
         }
         else
-            throw new Exception($"Engineer with id {myId} does not exist in the system.");
+            throw new DalDoesNotExistException($"Engineer with id {myId} does not exist in the system.");
     }
 
     /// <summary>
@@ -391,13 +393,13 @@ internal class Program
         Console.WriteLine("1 - Beginner\n2 - Advanced Beginner\n3 - Intermediate\n4 - Advanced\n5 - Expert");
         int myLevel;
         if (!int.TryParse(Console.ReadLine(), out myLevel))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input.");
 
         //reads daily cost
         Console.WriteLine("Optional: enter the Engineer's daily cost. Enter zero to skip this step.");
         int myCost;
         if (!int.TryParse(Console.ReadLine(), out myCost))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input.");
 
         //returns the newly created Engineer with user values
         return new DO.Engineer(myId, (EngineerExperience)myLevel, myName!, myEmail!, myCost);        
@@ -416,7 +418,7 @@ internal class Program
         Console.WriteLine("Please enter Dependency ID numer.");
         int myId;
         if (!int.TryParse(Console.ReadLine(), out myId))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input.");
         return myId;
     }
 
@@ -445,7 +447,7 @@ internal class Program
             return myId;
         }
         else
-            throw new Exception($"Dependency with id {myId} does not exist in the system.");
+            throw new DalDoesNotExistException($"Dependency with id {myId} does not exist in the system.");
     }
 
     /// <summary>
@@ -457,12 +459,12 @@ internal class Program
         //reads Dependent task ID
         Console.WriteLine("Please enter the Dependent-Task ID.");
         if (!int.TryParse(Console.ReadLine(), out dependentId))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input.");
 
         //reads Dependent task ID
         Console.WriteLine($"Task with ID {dependentId} depends on Task: (Enter different task ID).");
         if (!int.TryParse(Console.ReadLine(), out dependentOnId))
-            throw new Exception("Invalid Input.");
+            throw new DalInvalidInputException("Invalid Input.");
 
         //returns the newly created Dependency with user values
         return new DO.Dependency(myId, dependentId, dependentOnId);

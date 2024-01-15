@@ -18,7 +18,7 @@ internal class DependencyImplementation : IDependency
     public int Create(Dependency item)
     {
         if (item.Id != 0)
-            throw new Exception($"Cannot add Dependency with Id {item.Id} since it already exists in the system");
+            throw new DalAlreadyExistException($"Cannot add Dependency with Id {item.Id} since it already exists in the system");
         int newId = DataSource.Config.NextDependancyId;
         DataSource.Dependencies.Add(item with { Id = newId });
         return newId;
@@ -37,7 +37,7 @@ internal class DependencyImplementation : IDependency
             DataSource.Dependencies.Remove(dependency);
             return;
         }
-        throw new Exception($"Cannot delete Dependency with Id {id} since it does not exist in the system");
+        throw new DalDoesNotExistException($"Cannot delete Dependency with Id {id} since it does not exist in the system");
     }
 
     /// <summary>
@@ -103,6 +103,6 @@ internal class DependencyImplementation : IDependency
             DataSource.Dependencies.Add(item);
             return;
         }
-        throw new Exception($"Cannot update dependency with Id {item.Id} since it does not exist in the system");
+        throw new DalDoesNotExistException($"Cannot update dependency with Id {item.Id} since it does not exist in the system");
     }
 }

@@ -13,4 +13,14 @@ sealed public class DalList : IDal
     public IEngineer Engineer => new EngineerImplementation();
 
     public ITask Task => new TaskImplementation();
+
+    /// <summary>
+    /// Empties the Data-Base
+    /// </summary>
+    public void Reset()
+    {
+        DataSource.Dependencies.Clear();
+        DataSource.Engineers.Clear();
+        DataSource.Tasks.Clear();
+    }
 }

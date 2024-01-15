@@ -7,5 +7,6 @@ public interface IDal
     IEngineer Engineer { get; }
     ITask Task { get; }
 
+    void Reset();
 }
 
