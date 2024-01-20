@@ -10,11 +10,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stage0", "Stage0\Stage0.csproj", "{70905557-3014-4406-973F-F194FEDD072F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalFacade", "DalFacade\DalFacade.csproj", "{3EEC8CAB-2623-4E19-9100-63319C274516}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalFacade", "DalFacade\DalFacade.csproj", "{3EEC8CAB-2623-4E19-9100-63319C274516}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalList", "DalList\DalList.csproj", "{7FA4D3B2-0BE5-49EE-A2CD-0BEB55B14285}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.csproj", "{7FA4D3B2-0BE5-49EE-A2CD-0BEB55B14285}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalTest", "DalTest\DalTest.csproj", "{D4A462ED-7217-4EBA-8E0B-97233C4960E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{D4A462ED-7217-4EBA-8E0B-97233C4960E9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{30C87D74-DE35-4573-B97D-D8FC1F6EB157}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{D63E4322-267D-4891-81B0-0EB0F3F8C4CC}"
+	ProjectSection(SolutionItems) = preProject
+		xml\data-config.xml = xml\data-config.xml
+		xml\dependencies.xml = xml\dependencies.xml
+		xml\engineers.xml = xml\engineers.xml
+		xml\tasks.xml = xml\tasks.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +48,10 @@ Global
 		{D4A462ED-7217-4EBA-8E0B-97233C4960E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4A462ED-7217-4EBA-8E0B-97233C4960E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4A462ED-7217-4EBA-8E0B-97233C4960E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30C87D74-DE35-4573-B97D-D8FC1F6EB157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30C87D74-DE35-4573-B97D-D8FC1F6EB157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30C87D74-DE35-4573-B97D-D8FC1F6EB157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30C87D74-DE35-4573-B97D-D8FC1F6EB157}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

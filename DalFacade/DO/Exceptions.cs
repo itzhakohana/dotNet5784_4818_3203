@@ -32,4 +32,12 @@ public class DalInvalidInputException : Exception
 }
 
 
+/// <summary>
+/// Xml file could not be opened/created
+/// </summary>
+[Serializable]
+public class DalXMLFileLoadCreateException : Exception
+{
+    public DalXMLFileLoadCreateException(string? message) : base(message) { }
+}
 
