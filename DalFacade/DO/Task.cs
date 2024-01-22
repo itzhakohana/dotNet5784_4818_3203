@@ -16,7 +16,7 @@ namespace DO;
 /// <param name="ScheduledDate"> Planned starting date </param>
 /// <param name="DeadlineDate"> Planned date of completion </param>
 /// <param name="CompleteDate"> Actual date of completion </param>
-/// <param name="Deliverables"></param>
+/// <param name="Deliverables">Actual products generated upon complition</param>
 /// <param name="Remarks"> Remarks from meetings </param>
 /// <param name="EngineerId"> ID of the assigned engineer  </param>
 public record Task
@@ -25,7 +25,7 @@ public record Task
     string Alias,
     string Description,
     DateTime CreatedAtDate,
-    TimeSpan? RequiredEffortTime = null,
+    TimeSpan RequiredEffortTime = new TimeSpan(),
     DO.EngineerExperience Complexity = 0,
     bool IsMilestone = false,
     DateTime? StartDate = null,
@@ -39,10 +39,11 @@ public record Task
 {
     public override string ToString()
     {
-        return ($"Task ID: {Id + ".",-6} Task Name: {Alias + ".", -30} Complexity: {Complexity, -18} " +
-            $"Creation Date: {CreatedAtDate, -23}" +  $"{ (RequiredEffortTime != null ? $"Required Time: {RequiredEffortTime ,-13} " : "")}"
+        return ($"Task ID: {Id ,-6} Task Name: {Alias + ".", -30} Complexity: {Complexity, -18} " +
+            $"Creation Date: {CreatedAtDate, -23}" +  $"{ $"Required Time: {RequiredEffortTime.Days} days, {RequiredEffortTime.Hours} hours",-15} "
              + $"{(Description != "" ? $"Task Description: {Description + "."} " : "")}");
     }
+
     public Task() : this(0, "", "", DateTime.Now) { } 
 
 }

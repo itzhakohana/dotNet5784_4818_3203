@@ -3,6 +3,7 @@ using DalApi;
 using DalTest;
 using DO;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 
@@ -12,7 +13,8 @@ using System.Threading.Tasks;
 internal class Program
 {
 
-    static readonly IDal s_dal = new DalList(); //stage 2
+    //static readonly IDal s_dal = new DalList(); //stage 2
+    static readonly IDal s_dal = new DalXml(); //stage 3
 
     /// <summary>
     /// Used for interface options
@@ -26,7 +28,6 @@ internal class Program
     {
         try
         {
-            Initialization.Do(s_dal!);
             int choice = 1;
 
             while (choice != 0)
@@ -58,15 +59,18 @@ internal class Program
     private static void mainInterfaceOptions(ref int choice)
     {
         Console.WriteLine("\nMain Menu:");
-        Console.WriteLine("Please select 0-4 to proceed.");
+        Console.WriteLine("Please select 0-5 to proceed.");
         Console.WriteLine("0 - Exit.");
         Console.WriteLine("1 - Engineer Options.");
         Console.WriteLine("2 - Dependency Options.");
         Console.WriteLine("3 - Task Options.");
-        Console.WriteLine("4 - Reset Data-Base.");
+        Console.WriteLine("4 - Initiate the Data-base with random values.");
+        Console.WriteLine("5 - Reset Data-Base.");
+
+        
         //using tryParse
         if (!int.TryParse(Console.ReadLine(), out choice))
-            throw new DalInvalidInputException("Invalid Input."); ;
+            throw new DalInvalidInputException("Invalid Input.");
         switch (choice)
         {
             case 0:
@@ -81,11 +85,47 @@ internal class Program
                 taskInterface();
                 break;
             case 4:
-                s_dal.Reset();
-                Console.WriteLine("Reset Successful.");
+                resetAndInitialize();
+                break;
+            case 5:
+                reset();
                 break;
         }
 
+    }
+
+    /// <summary>
+    /// Resets the data-base
+    /// </summary>
+    private static void reset()
+    {
+        int answer;
+        Console.Write("All current data will be deleted. Are you sure you want to proceed? (press 0 to go back, 1 to proceed)");
+        //using tryParse
+        if (!int.TryParse(Console.ReadLine(), out answer))
+            throw new DalInvalidInputException("Invalid Input.");
+        if (answer == 1)
+        {
+            s_dal.Reset();
+            Console.WriteLine("Reset Successful.");
+        }
+    }
+
+    /// <summary>
+    /// Resets the data-base and initialize with random values
+    /// </summary>
+    private static void resetAndInitialize()
+    {
+        int answer;
+        Console.Write("All current data will be deleted. Are you sure you want to proceed? (press 0 to go back, 1 to proceed)");
+        if (!int.TryParse(Console.ReadLine(), out answer))
+            throw new DalInvalidInputException("Invalid Input.");
+        if (answer == 1)
+        {
+            s_dal.Reset();
+            Initialization.Do(s_dal);
+            Console.WriteLine("Data-Base initiated successfuly!");
+        }
     }
 
     /// <summary>
@@ -209,7 +249,7 @@ internal class Program
         Console.WriteLine("1 - Creat a new Task.");
         Console.WriteLine("2 - Delete an existing Task.");
         Console.WriteLine("3 - Find and print Task.");
-        Console.WriteLine("4 - Print all Task in the system.");
+        Console.WriteLine("4 - Print all Tasks in the system.");
         Console.WriteLine("5 - Update an existing Task.");
         _CRUDoptions choice;
         int Id;
@@ -319,7 +359,7 @@ internal class Program
         string? myDescription = Console.ReadLine();
 
         //reads the required work time of the Task
-        Console.WriteLine("Enter the time required to complete the Task in days. (format: d.hh:mm:ss)");
+        Console.WriteLine("Enter the time required to complete the Task. (format: d.hh:mm:ss)");
         TimeSpan myTimeSpan;
         if (!TimeSpan.TryParse(Console.ReadLine(), out myTimeSpan))
             throw new DalInvalidInputException("Invalid Input.");

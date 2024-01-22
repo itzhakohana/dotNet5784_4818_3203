@@ -89,6 +89,11 @@ internal class DependencyImplementation : IDependency
         return DataSource.Dependencies;
     }
 
+    public void Reset()
+    {
+        DataSource.Dependencies.Clear();
+    }
+
     /// <summary>
     /// Updates an existing Dependency
     /// </summary>

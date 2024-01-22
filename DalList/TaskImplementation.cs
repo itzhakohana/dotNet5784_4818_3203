@@ -75,6 +75,14 @@ internal class TaskImplementation : ITask
     }
 
     /// <summary>
+    /// Deletes all tasks from the list
+    /// </summary>
+    public void Reset()
+    {
+        DataSource.Tasks.Clear();
+    }
+
+    /// <summary>
     /// Updates an existing Task
     /// </summary>
     /// <param name="item"></param>

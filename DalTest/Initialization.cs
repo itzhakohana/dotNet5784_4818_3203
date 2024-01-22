@@ -101,7 +101,7 @@ public static class Initialization
     /// </summary>
     private static void creatDependencies() 
     {
-        List<Task> listCopy = (List<Task>)s_dal!.Task.ReadAll();
+        List<Task?> listCopy = (List<Task?>)s_dal!.Task.ReadAll().ToList();
         for (int i = 0; i < s_dependenciesAmount; i++) //randomizing 40 Dependencies
         {
             //randomly picking a dependent-task from the task-list
@@ -197,7 +197,7 @@ public static class Initialization
             DateTime randDate = start.AddDays(s_rand.Next(300));
 
             //creating and adding a new task to the database
-            Task newTask = new Task(0, randAlias, "", randDate, null, randLevel);
+            Task newTask = new Task(0, randAlias, "", randDate, new TimeSpan(s_rand.Next(15), s_rand.Next(24),0, 0), randLevel);
             s_dal!.Task.Create(newTask);
         }
     }

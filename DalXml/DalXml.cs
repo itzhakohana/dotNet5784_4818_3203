@@ -1,27 +1,20 @@
 ﻿namespace Dal;
 using DalApi;
-
-
+using System.Xml.Linq;
 
 /// <summary>
-/// Implements all of our Data-Entities interfaces by calling the 
-/// implementation-classes for each individual Data-Entity
+/// Implements the interfaces for all of the data entities
 /// </summary>
-sealed public class DalList : IDal
+sealed public class DalXml : IDal
 {
     public IDependency Dependency => new DependencyImplementation();
-
     public IEngineer Engineer => new EngineerImplementation();
-
     public ITask Task => new TaskImplementation();
 
-    /// <summary>
-    /// Empties the Data-Base
-    /// </summary>
     public void Reset()
     {
-        Dependency.Reset();
-        Engineer.Reset();
         Task.Reset();
+        Engineer.Reset();
+        Dependency.Reset();
     }
 }

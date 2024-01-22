@@ -42,8 +42,10 @@ public interface ICrud<T> where T : class
     /// Deletes an object by its Id
     /// </summary>
     /// <param name="id"></param>
-    void Delete(int id); 
+    void Delete(int id);
 
-
-
+    /// <summary>
+    /// Reset the data-base
+    /// </summary>
+    void Reset();
 }
