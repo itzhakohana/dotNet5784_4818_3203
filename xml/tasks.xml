@@ -1,2 +1,363 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfTask />
+<ArrayOfTask>
+  <task>
+    <id>1484</id>
+    <alias>Algorithm Enhancement</alias>
+    <description></description>
+    <requiredEffortTime>P3DT14H</requiredEffortTime>
+    <complexity>Beginner</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-10-22T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1485</id>
+    <alias>System Logging Implementation</alias>
+    <description></description>
+    <requiredEffortTime>PT0S</requiredEffortTime>
+    <complexity>AdvancedBeginner</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-10-22T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1487</id>
+    <alias>Frontend Styling</alias>
+    <description></description>
+    <requiredEffortTime>P6DT22H</requiredEffortTime>
+    <complexity>Expert</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-01-07T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1488</id>
+    <alias>Continuous Integration Setup</alias>
+    <description></description>
+    <requiredEffortTime>P12DT2H</requiredEffortTime>
+    <complexity>AdvancedBeginner</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-02-10T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1489</id>
+    <alias>Responsive Design</alias>
+    <description></description>
+    <requiredEffortTime>P14DT4H</requiredEffortTime>
+    <complexity>Beginner</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-06-06T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1490</id>
+    <alias>System Diagnostics</alias>
+    <description></description>
+    <requiredEffortTime>P11DT6H</requiredEffortTime>
+    <complexity>Advanced</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-08-11T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1491</id>
+    <alias>Network Configuration</alias>
+    <description></description>
+    <requiredEffortTime>P3DT20H</requiredEffortTime>
+    <complexity>Expert</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-03-21T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1492</id>
+    <alias>Data Backup Implementation</alias>
+    <description></description>
+    <requiredEffortTime>P1DT15H</requiredEffortTime>
+    <complexity>Beginner</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-10-06T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1493</id>
+    <alias>Mobile App Integration</alias>
+    <description></description>
+    <requiredEffortTime>PT12H</requiredEffortTime>
+    <complexity>Expert</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-06-10T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1494</id>
+    <alias>Database Schema Design</alias>
+    <description></description>
+    <requiredEffortTime>P4DT4H</requiredEffortTime>
+    <complexity>Intermediate</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-07-26T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1495</id>
+    <alias>Database Optimization</alias>
+    <description></description>
+    <requiredEffortTime>P5DT7H</requiredEffortTime>
+    <complexity>Advanced</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-08-17T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1496</id>
+    <alias>Code Profiling</alias>
+    <description></description>
+    <requiredEffortTime>P8DT9H</requiredEffortTime>
+    <complexity>Expert</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-07-03T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1497</id>
+    <alias>Code Refactoring</alias>
+    <description></description>
+    <requiredEffortTime>P9DT14H</requiredEffortTime>
+    <complexity>Advanced</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-08-12T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1498</id>
+    <alias>Responsive Web Design</alias>
+    <description></description>
+    <requiredEffortTime>P6DT14H</requiredEffortTime>
+    <complexity>Intermediate</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-04-27T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1499</id>
+    <alias>Performance Tuning</alias>
+    <description></description>
+    <requiredEffortTime>P6DT20H</requiredEffortTime>
+    <complexity>AdvancedBeginner</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-06-11T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1501</id>
+    <alias>Automated Testing Setup</alias>
+    <description></description>
+    <requiredEffortTime>P2DT19H</requiredEffortTime>
+    <complexity>AdvancedBeginner</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-07-29T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1502</id>
+    <alias>Automated Deployment</alias>
+    <description></description>
+    <requiredEffortTime>P6DT4H</requiredEffortTime>
+    <complexity>AdvancedBeginner</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-01-26T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables />
+    <remarks />
+    <engineerId />
+  </task>
+  <task>
+    <id>1503</id>
+    <alias>Accessibility Testing</alias>
+    <description></description>
+    <requiredEffortTime>P8DT15H</requiredEffortTime>
+    <complexity>Intermediate</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-02-03T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables></deliverables>
+    <remarks></remarks>
+    <engineerId>3</engineerId>
+  </task>
+  <task>
+    <id>1486</id>
+    <alias>Code Review</alias>
+    <description></description>
+    <requiredEffortTime>PT7H</requiredEffortTime>
+    <complexity>Advanced</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-04-30T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables></deliverables>
+    <remarks></remarks>
+    <engineerId />
+  </task>
+  <task>
+    <id>1500</id>
+    <alias>API Documentation</alias>
+    <description></description>
+    <requiredEffortTime>PT18H</requiredEffortTime>
+    <complexity>Advanced</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-05-04T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate />
+      <deadlineDate />
+      <completeDate />
+    </dates>
+    <deliverables></deliverables>
+    <remarks></remarks>
+    <engineerId />
+  </task>
+</ArrayOfTask>

@@ -1,5 +1,6 @@
 ﻿namespace Dal;
 using DalApi;
+using System.Reflection.Metadata.Ecma335;
 
 
 
@@ -7,8 +8,12 @@ using DalApi;
 /// Implements all of our Data-Entities interfaces by calling the 
 /// implementation-classes for each individual Data-Entity
 /// </summary>
-sealed public class DalList : IDal
+sealed internal class DalList : IDal
 {
+    static public IDal Instance { get; } = new DalList();
+
+    private DalList() { }
+
     public IDependency Dependency => new DependencyImplementation();
 
     public IEngineer Engineer => new EngineerImplementation();

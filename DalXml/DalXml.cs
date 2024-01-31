@@ -1,12 +1,17 @@
 ﻿namespace Dal;
 using DalApi;
+using System.Diagnostics;
 using System.Xml.Linq;
 
 /// <summary>
 /// Implements the interfaces for all of the data entities
 /// </summary>
-sealed public class DalXml : IDal
+sealed internal class DalXml : IDal
 {
+    static public IDal Instance { get; } = new DalXml();
+
+    private DalXml() { }
+
     public IDependency Dependency => new DependencyImplementation();
     public IEngineer Engineer => new EngineerImplementation();
     public ITask Task => new TaskImplementation();

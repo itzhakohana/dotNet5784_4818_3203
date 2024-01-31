@@ -109,7 +109,7 @@ internal class EngineerImplementation : IEngineer
     /// <param name="filter">Predicate function. recieves Engineer type as parameter, returns bool</param>
     /// <returns>IEnumerable collection of all Engineer entities that match (fit) the filter, if given.
     /// if not given, returnes all Engineers</returns>
-    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)
+    public IEnumerable<Engineer?>? ReadAll(Func<Engineer, bool>? filter = null)
     {
         _engineer_root = XMLTools.LoadListFromXMLElement(s_engineers_xml);
         if (filter != null) 

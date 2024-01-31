@@ -14,7 +14,7 @@ internal class Program
 {
 
     //static readonly IDal s_dal = new DalList(); //stage 2
-    static readonly IDal s_dal = new DalXml(); //stage 3
+    static readonly IDal s_dal = Factory.Get; //stage 3
 
     /// <summary>
     /// Used for interface options
@@ -123,7 +123,7 @@ internal class Program
         if (answer == 1)
         {
             s_dal.Reset();
-            Initialization.Do(s_dal);
+            Initialization.Do();
             Console.WriteLine("Data-Base initiated successfuly!");
         }
     }
