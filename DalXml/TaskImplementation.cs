@@ -72,13 +72,13 @@ internal class TaskImplementation : ITask
     /// <returns>The Id of the newly-added task</returns>
     public int Create(Task item)
     {
-
-        if (item.Id != 0)
+        if (Read(item.Id) is not null)
             throw new DalAlreadyExistException($"A Task with Id {item.Id} already exists in the system");
-
-        int newId = Config.NextTaskId;
-        add(item with { Id = newId });        
-        return newId;
+        int newId = item.Id; 
+        if (item.Id == 0)
+            newId = Config.NextTaskId;
+        add(item with {Id = newId});
+        return item.Id;
     }
 
     /// <summary>

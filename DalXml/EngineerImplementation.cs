@@ -39,7 +39,7 @@ internal class EngineerImplementation : IEngineer
     public int Create(Engineer item)
     {
 
-        if (Read(item.Id) != null)
+        if (Read(item.Id) is not null)
             throw new DalAlreadyExistException($"An Engineer with Id {item.Id} already exists in the system");
         
         _engineer_root = XMLTools.LoadListFromXMLElement(s_engineers_xml);

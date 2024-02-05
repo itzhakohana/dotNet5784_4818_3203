@@ -19,7 +19,7 @@ internal class DependencyImplementation : IDependency
     /// <returns>The Id of the newly-added Dependency</returns>
 public int Create(Dependency item)
     {
-        if (item.Id != 0)
+        if (Read(item.Id) is not null)
             throw new DalAlreadyExistException($"Dependency with Id {item.Id} already exists in the system");
 
         List<Dependency> dependencies = XMLTools.LoadListFromXMLSerializer<Dependency>(s_dependencies_xml);

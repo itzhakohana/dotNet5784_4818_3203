@@ -3,9 +3,6 @@
 
 public class TaskInList
 {
-    /// <summary>
-    /// Task ID number
-    /// </summary>
     public int Id { get; set; }
     /// <summary>
     /// Description of the task
@@ -19,4 +16,9 @@ public class TaskInList
     /// Current task status
     /// </summary>
     public BO.Status Status { get; set; }
+
+    public override string ToString()
+    {
+        return ($"ID: {Id, -6} Name: {Alias, -23} Status: {Status, -12} Task Description: {Description}");
+    }
 }

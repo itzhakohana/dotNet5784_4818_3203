@@ -30,10 +30,10 @@ public class BlInvalidValuesException : Exception
 
 
 [Serializable]
-public class BlLogicDenialException : Exception
+public class BlLogicViolationException : Exception
 {
-    public BlLogicDenialException(string? message) : base(message) { }
-    public BlLogicDenialException(string message, Exception innerException)
+    public BlLogicViolationException(string? message) : base(message) { }
+    public BlLogicViolationException(string message, Exception innerException)
                 : base(message, innerException) { }
 }
 
@@ -41,6 +41,7 @@ public class BlLogicDenialException : Exception
 [Serializable]
 public class BlInvalidUserInputException : Exception
 {
+    public BlInvalidUserInputException() { }
     public BlInvalidUserInputException(string? message) : base(message) { }
     
 }
