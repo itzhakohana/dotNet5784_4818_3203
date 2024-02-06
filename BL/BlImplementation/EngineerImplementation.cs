@@ -117,7 +117,37 @@ internal class EngineerImplementation : IEngineer
     /// </summary>
     /// <param name="filter"></param>
     /// <returns>The found BO.Engineer type, null if not found</returns>
- 
+  
+    public BO.Engineer? Read(Func<BO.Engineer, bool> filter)
+    {
+        return (from eng in _dal.Engineer.ReadAll()
+                select convertEngineerFromDalToBl(eng)
+                into eng
+                where filter(eng)
+                select eng).FirstOrDefault();
+    }
+    /// <summary>
+    /// Gives all Engineers from data-base that fill the given condition. 
+    /// gives all if no condition is given
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns>Collection of BO.Engineer types that match the given filter.
+    /// if no filter is given, returns all engineers</returns>
+    public IEnumerable<BO.Engineer>? ReadAll(Func<BO.Engineer, bool>? filter = null)
+    {
+        var engineers = _dal.Engineer.ReadAll().Select(e => convertEngineerFromDalToBl(e!));
+        if (filter is null)
+            return engineers;
+        return (from e in engineers
+                where filter!(e) == true
+                select e);
+    }
+    /// <summary>
+    /// Updates Engineer in the data-base according to the values recieved as parmeter
+    /// </summary>
+    /// <param name="engineer"></param>
+    /// <exception cref="BO.BlInvalidValuesException"></exception>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void Update(BO.Engineer engineer)
     {
         try
