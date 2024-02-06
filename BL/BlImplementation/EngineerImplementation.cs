@@ -117,7 +117,6 @@ internal class EngineerImplementation : IEngineer
     /// </summary>
     /// <param name="filter"></param>
     /// <returns>The found BO.Engineer type, null if not found</returns>
-  
     public BO.Engineer? Read(Func<BO.Engineer, bool> filter)
     {
         return (from eng in _dal.Engineer.ReadAll()
