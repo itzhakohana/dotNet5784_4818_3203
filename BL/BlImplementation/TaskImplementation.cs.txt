@@ -412,11 +412,18 @@ internal class TaskImplementation : ITask
         DO.Task task;
         if (taskId is not null)
         {
-            task = _dal.Task.Read(taskId.Value) ?? throw new BO.BlDoesNotExistException($"Task with ID {taskId} does not exist");
+            task = _dal.Task.Read(taskId.Value) 
+                ?? throw new BO.BlDoesNotExistException($"Task with ID {taskId} does not exist");
+            if (task.IsMilestone)
+                throw new BO.BlLogicViolationException("Task cannot be a milestone");
+            if (s_bl.Milestone.Read(s_bl.Task.Read(taskId.Value).Milestone.Id).Status != BO.Status.Done)
+                throw new BO.BlLogicViolationException($"Task {$"({taskId} {task.Alias})"} cannot be worked on since its prior Milestone is not yet completed");
             if (_dal.Engineer.Read(engId) is null)
                 throw new BO.BlDoesNotExistException($"Engineer with ID {engId} does not exist");
             if (task.EngineerId is not null)
                 throw new BO.BlLogicViolationException($"A different engineer is already assigned to task {task.Id}");
+            if (task.Complexity > _dal.Engineer.Read(engId)!.Level)
+                throw new BO.BlLogicViolationException($"Task's comlexity is too advanced for the engineer. maximum comlexity allowed: {_dal.Engineer.Read(engId)!.Level}");
         }
         if (_dal.Task.ReadAll(t => t.EngineerId == engId && t.CompleteDate is null).Any())
             throw new BO.BlLogicViolationException($"Engineer with ID {engId} is already assigned to a task");       
@@ -561,5 +568,34 @@ internal class TaskImplementation : ITask
     {
         _dal.Task.Reset();
         _dal.Dependency.Reset();
+    }
+    /// <summary>
+    /// Updates the given dependencies list to the given task
+    /// </summary>
+    /// <param name="taskId"></param>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    /// <exception cref="BO.BlInvalidUserInputException"></exception>
+    public void UpdateTaskDependencies(int taskId, IEnumerable<BO.TaskInList>? dependencies)
+    {
+        BO.Task myTask = s_bl.Task.Read(taskId) ??
+            throw new BO.BlDoesNotExistException($"Task with Id {taskId} does not exist");
+        if (dependencies is null)
+            throw new BO.BlInvalidUserInputException("No dependencies given. no changes made");
+        myTask.Dependencies = dependencies.ToList();
+        s_bl.Task.Update(myTask);
+    }
+    /// <summary>
+    /// Accepts milestone alias string and gives a collection
+    /// of tasks which are dependent on (come after) said milestone
+    /// </summary>
+    /// <param name="alias"></param>
+    /// <returns>Collection of tasks dependent on the given milestone</returns>
+    public IEnumerable<BO.Task>? ReadTasksByMilestone(string alias)
+    {
+        if (s_bl.Milestone.Read(ms => ms.Alias == alias) is null)
+            throw new BO.BlDoesNotExistException($"Milestone with Alias {alias} not found");
+        return (from task in ReadAll(t => !t.IsMilestone)
+                where task.Milestone!.Alias == alias
+                select task);
     }
 }

@@ -200,10 +200,11 @@ internal class MilestoneImplementation : IMilestone
     {
         var temp = (from t in _dal.Task.ReadAll(t => t.IsMilestone)
                      where t.Alias[0] == 'M'
-                     orderby t.Alias[1] descending
+                     orderby int.Parse(t.Alias.Substring(1)) descending
                      select t);
+        string highestMs = temp.ElementAt(0).Alias.Substring(1);
         int j;
-        int i = j = temp.ElementAt(0).Alias[1] - '0';
+        int i = j = int.Parse(highestMs);
         BO.Task? ms = s_bl.Task.Read(t => _dal.Task.Read(it => t.Id == it.Id && it.IsMilestone && it.Alias == "end") != null)!;
         ms.DeadlineDate = projectEnd;
         s_bl.Task.Update(ms);
@@ -213,7 +214,8 @@ internal class MilestoneImplementation : IMilestone
             if (i == -1)
                 ms = s_bl.Task.Read(t => _dal.Task.Read(it => t.Id == it.Id && it.IsMilestone && it.Alias == "start") != null)!;
             else
-                ms = s_bl.Task.Read(t => _dal.Task.Read(it => t.Id == it.Id && it.IsMilestone && it.Alias == "M" + i) != null)!;
+                ms = s_bl.Task.Read(t => _dal.Task.Read(it => t.Id == it.Id && it.IsMilestone && it.Alias == "M" + i) != null)
+                    ?? throw new BO.BlDoesNotExistException($"Failed to load milestone M{i}") ;
             i--;
             ms.DeadlineDate = projectEnd;
             //all tasks that depend on the milestone (ms)
@@ -343,5 +345,39 @@ internal class MilestoneImplementation : IMilestone
         if (dependencies is null || !dependencies.Any())
             return BO.Status.Done;
         return (dependencies.All(d => d.Status == BO.Status.Done) ? BO.Status.Done : BO.Status.Scheduled);
+    }
+    /// <summary>
+    /// Starting the preject. will call the relevant functions for creating
+    /// milestone and scheduleing all the tasks.
+    /// will throw exeption if date given need is too short, or other error occured. 
+    /// one SUCCESSFUL call of this function is needed to start the project.
+    /// </summary>
+    /// <param name="myStartDate"></param>
+    /// <param name="myEndDate"></param>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    /// <exception cref="BO.BlLogicViolationException"></exception>
+    public void StartProject(DateTime myStartDate, DateTime myEndDate)
+    {
+        if (s_bl.Task.ReadAll() is null || !_dal.Dependency.ReadAll().Any())
+            throw new BO.BlDoesNotExistException("No tasks or dependencies detected in the data-base");
+        try
+        {
+            if (s_bl.Milestone.Read(ms => ms.Alias == "start") is null && !s_bl.Task.ProjectHasStarted())
+            {
+                s_bl.Milestone.CreatMilestones();
+            }
+            s_bl.Milestone.CreatProjectSchedule(myStartDate, myEndDate);
+        }   
+        catch (Exception ex)
+        {
+            var tasks = s_bl.Task.ReadAll() ?? throw new BO.BlDoesNotExistException("Couldn't load any tasks from the data-base");
+            foreach (var task in tasks)
+            {
+                task.ScheduledDate = null;
+                task.DeadlineDate = null;
+                s_bl.Task.Update(task);
+            }
+            throw new BO.BlLogicViolationException("Failed to set schedule for the Project || " + ex.Message);
+        }
     }
 }

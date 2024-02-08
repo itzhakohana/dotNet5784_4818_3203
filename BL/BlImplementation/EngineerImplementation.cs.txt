@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 internal class EngineerImplementation : IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     /// <summary>
     /// Adds the given Engineer to the data-base
     /// </summary>
@@ -162,7 +163,8 @@ internal class EngineerImplementation : IEngineer
         {
             DO.Task? task;
             //searches for the current engineer
-            BO.Engineer originalEng = Read(engineer.Id) ?? throw new BO.BlDoesNotExistException($"Engineer with ID {engineer.Id} not found");
+            BO.Engineer originalEng = Read(engineer.Id) 
+                ?? throw new BO.BlDoesNotExistException($"Engineer with ID {engineer.Id} not found");
             //configures the assigned task for the updated engineer. already checked that the task id is valid
             if (engineer.Task is not null)
             { 
@@ -230,7 +232,7 @@ internal class EngineerImplementation : IEngineer
     /// <returns>BO.TaskInEngineer type of the assigned task</returns>
     private BO.TaskInEngineer? findAssignedTask(int id)
     {
-        DO.Task? task = _dal.Task.Read(t => t.EngineerId == id);
+        DO.Task? task = _dal.Task.Read(t => t.EngineerId == id && t.CompleteDate is null);
         if (task == null)
             return null;
         return new BO.TaskInEngineer() { Id = task.Id, Alias = task.Alias };
@@ -279,5 +281,45 @@ internal class EngineerImplementation : IEngineer
     public void Reset()
     {
         _dal.Engineer.Reset();
+    }
+    /// <summary>
+    /// Updates the given engineer's assigned task progress.
+    /// if engineer has'nt yet started to work on his task, will set task status to "on track"(engineer starts to work).
+    /// if engineer already started working on his task, will set task as complete.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="currentTime"></param>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    /// <exception cref="BO.BlLogicViolationException"></exception>
+    public void UpdateEngineerProgress(int id, DateTime currentTime)
+    {
+
+        //cant be null. otherwise an exception was already thrown from 'printEngineerAssignedTask'
+        BO.Engineer eng = s_bl.Engineer.Read(id)
+            ??throw new BO.BlDoesNotExistException($"Engineer with Id {id} does not exist");
+        if (eng.Task is null)
+            throw new BO.BlLogicViolationException($"Engineer with Id {id} is not working on any task");
+        BO.Task task = s_bl.Task.Read(t => t.Id == eng.Task!.Id && t.Status != BO.Status.Done) 
+            ??throw new BO.BlDoesNotExistException($"Engineer with Id {id} is not currently working on a task");
+        if (task.StartDate is null)
+            task.StartDate = currentTime;
+        else
+        {
+            task.CompleteDate = currentTime;
+        }
+        s_bl.Task.Update(task);
+    }
+    /// <summary>
+    /// Returns the given engineer's assigned task.
+    /// will only return tasks which are not yet comleted (status != Done)
+    /// </summary>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    public BO.Task ReadEngineerAssignedTask(int id )
+    {
+        BO.Engineer engineer = Read(eng => eng.Id == id)
+            ?? throw new BO.BlDoesNotExistException($"Engineer with id {id} does not exist");
+        if (engineer.Task is null)
+            throw new BO.BlDoesNotExistException($"Engineer with id {id} does not have any assigned tasks");
+        return s_bl.Task.Read(engineer.Task.Id)!;
     }
 }
