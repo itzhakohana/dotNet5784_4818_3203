@@ -58,4 +58,15 @@ public interface IMilestone
     /// <param name="id"></param>
     /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void Delete(int id);
+    /// <summary>
+    /// Starting the preject. will call the relevant functions for creating
+    /// milestone and scheduleing all the tasks.
+    /// will throw exeption if date given need is too short, or other error occured. 
+    /// one SUCCESSFUL call of this function is needed to start the project.
+    /// </summary>
+    /// <param name="myStartDate"></param>
+    /// <param name="myEndDate"></param>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    /// <exception cref="BO.BlLogicViolationException"></exception>
+    public void StartProject(DateTime myStartDate, DateTime myEndDate);
 }

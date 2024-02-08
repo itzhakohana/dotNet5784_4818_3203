@@ -102,28 +102,58 @@ public static class Initialization
     private static void creatDependencies() 
     {
         List<Task?> listCopy = (List<Task?>)s_dal!.Task.ReadAll().ToList();
-        for (int i = 0; i < s_dependenciesAmount; i++) //randomizing 40 Dependencies
-        {
-            //randomly picking a dependent-task from the task-list
-            int randListIndex = s_rand.Next(listCopy.Count);
-            Task depTask = listCopy.ElementAt(randListIndex);
-            int depTaskId = depTask.Id;
-
+        int quarter = listCopy.Count / 4;
+        int half = listCopy.Count / 2;
+        for (int i = 0; i < (s_dependenciesAmount / 4); i++) //randomizing 40 Dependencies
+        { 
             //randomly picking a dependent-ON-task from the task-list
-            randListIndex = s_rand.Next(listCopy.Count);
-            Task depOnTask = listCopy.ElementAt(randListIndex);
+            int randListIndex = s_rand.Next(0, quarter);
+            Task depOnTask = listCopy.ElementAt(randListIndex)!;
             int depOnTaskId = depOnTask.Id;
 
-            //if the two chosen tasks are the same or the dependency between between them already exists
-            if (depTask == depOnTask || s_dal!.Dependency.Read(depTaskId, depOnTaskId) != null)
-            {
-                i--;
-                continue;
-            }
+            //randomly picking a dependent-task from the task-list
+            randListIndex = s_rand.Next(quarter, half);
+            Task depTask = listCopy.ElementAt(randListIndex)!;
+            int depTaskId = depTask.Id;
 
             //creating and adding a new Dependency to the database
             Dependency myDependency = new Dependency(0, depTaskId, depOnTaskId);
             s_dal!.Dependency.Create(myDependency);
+        }
+        for (int i = s_dependenciesAmount / 4; i < (2 * (s_dependenciesAmount / 4)); i++) 
+        {
+
+            //randomly picking a dependent-ON-task from the task-list
+            int randListIndex = s_rand.Next(quarter, half);
+            Task depOnTask = listCopy.ElementAt(randListIndex)!;
+            int depOnTaskId = depOnTask.Id;
+
+            //randomly picking a dependent-task from the task-list
+            randListIndex = s_rand.Next(half, 3 * quarter);
+            Task depTask = listCopy.ElementAt(randListIndex)!;
+            int depTaskId = depTask.Id;
+
+            //creating and adding a new Dependency to the database
+            Dependency myDependency = new Dependency(0, depTaskId, depOnTaskId);
+            s_dal!.Dependency.Create(myDependency);
+
+        }
+        for (int i = s_dependenciesAmount / 2; i < s_dependenciesAmount; i++)
+        {
+            //randomly picking a dependent-ON-task from the task-list
+            int randListIndex = s_rand.Next(half, half + quarter);
+            Task depOnTask = listCopy.ElementAt(randListIndex)!;
+            int depOnTaskId = depOnTask.Id;
+
+            //randomly picking a dependent-task from the task-list
+            randListIndex = s_rand.Next(half + quarter, listCopy.Count);
+            Task depTask = listCopy.ElementAt(randListIndex)!;
+            int depTaskId = depTask.Id;
+
+            //creating and adding a new Dependency to the database
+            Dependency myDependency = new Dependency(0, depTaskId, depOnTaskId);
+            s_dal!.Dependency.Create(myDependency);
+
         }
     }
 
@@ -197,7 +227,7 @@ public static class Initialization
             DateTime randDate = start.AddDays(s_rand.Next(300));
 
             //creating and adding a new task to the database
-            Task newTask = new Task(0, randAlias, "", randDate, new TimeSpan(s_rand.Next(15), s_rand.Next(24),0, 0), randLevel);
+            Task newTask = new Task(0, randAlias, "", randDate, new TimeSpan(s_rand.Next(1,15), s_rand.Next(24),0, 0), randLevel);
             s_dal!.Task.Create(newTask);
         }
     }

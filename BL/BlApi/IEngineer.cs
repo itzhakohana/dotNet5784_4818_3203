@@ -49,4 +49,20 @@ public interface IEngineer
     /// Deletes all existing Engineers
     /// </summary>
     public void Reset();
+    /// <summary>
+    /// Updates the given engineer's assigned task progress.
+    /// if engineer has'nt yet started to work on his task, will set task status to "on track"(engineer starts to work).
+    /// if engineer already started working on his task, will set task as complete.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="currentTime"></param>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    /// <exception cref="BO.BlLogicViolationException"></exception>
+    public void UpdateEngineerProgress(int id, DateTime currentTime);
+    /// <summary>
+    /// Returns the given engineer's assigned task.
+    /// will only return tasks which are not yet comleted (status != Done)
+    /// </summary>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    public BO.Task ReadEngineerAssignedTask(int id);
 }

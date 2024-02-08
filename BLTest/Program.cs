@@ -13,16 +13,18 @@ internal class Program
 
     private static void Main(string[] args)
     {
-        //s_bl.CurrentTime = DateTime.Now;
-        
         do
         {
             Console.WriteLine($"*****************{(s_projectStarted ? "Project has started" : "Project has NOT yet started")}****************");
+            Console.WriteLine("Current Time: {0}", CurrentTime);
             Console.WriteLine("Main Menu Options:");
-            Console.WriteLine("Please choose 0-2");
+            Console.WriteLine("Please choose 0-5");
             Console.WriteLine(" 0 - Exit");
             Console.WriteLine(" 1 - Enter as Admin");
             Console.WriteLine(" 2 - Enter as Engineer");
+            Console.WriteLine(" 3 - Reset the data-base (Delete all current data)");
+            Console.WriteLine(" 4 - Initiate the Data-base with random Data (Creat Engineers, Tasks, Dependencies with mostly random values)");
+            Console.WriteLine(" 5 - Increment current time");
             Console.WriteLine("********************************");
 
             try
@@ -39,6 +41,22 @@ internal class Program
                     case 2:
                         engineerOptionsMenu();
                         break;
+                    case 3:
+                        resetDataBase();
+                        break;
+                    case 4:
+                        resetDataBase();
+                        DalTest.Initialization.Do();
+                        Console.WriteLine("Data base initialized with random values");
+                        break;
+                    case 5:
+                        Console.WriteLine("Current Time: {0}", CurrentTime);
+                        Console.WriteLine("Enter the amount of Days you want to add");
+                        if (!int.TryParse(Console.ReadLine(), out int t))
+                            Console.WriteLine("Invalid input");
+                        else
+                            CurrentTime += new TimeSpan(t, 0, 0, 0);
+                        break;
                     default:
                         throw new BO.BlInvalidUserInputException("");
 
@@ -46,11 +64,47 @@ internal class Program
             }
             catch (BlInvalidUserInputException)
             {
-                Console.WriteLine("Wrong input. please enter 0 - 2");
+                Console.WriteLine("Wrong input. please enter 0 - 5");
+            }
+            catch (BlLogicViolationException ex)
+            {
+                Console.WriteLine (ex.Message);
             }
         } while (true);
     }
-   
+    /// <summary>
+    /// Resets the data base
+    /// </summary>
+    private static void resetDataBase()
+    {
+        do
+        {
+            try
+            {
+                Console.WriteLine("All current data will e deleted, are you sure you want to proceed? \n1 - yes\n2 - no");
+                if (!int.TryParse(Console.ReadLine(), out int choice))
+                    throw new BO.BlInvalidUserInputException("Invalid input. enter 1 - 2");
+                switch (choice)
+                {
+                    case 1:
+                        s_bl.Task.Reset();
+                        s_bl.Engineer.Reset();
+                        s_projectStarted = false;
+                        Console.WriteLine("Successfuly deleted all data");
+                        return;
+                    case 2:
+                        throw new BO.BlLogicViolationException("Reset operation canceled");                        
+                    default:
+                        throw new BO.BlInvalidUserInputException("Invalid input. enter 1 - 2");
+                }                
+            }
+            catch (BO.BlInvalidUserInputException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        } while (true);
+    }
+
     #region Menus
     /// <summary>
     /// Available opions for Engineer in the project
@@ -92,6 +146,7 @@ internal class Program
                             break;
                         case 4:
                             s_bl.Task.UpdateAssignedEngineerAndStartWork(readTaskId(), readEngineerId(), CurrentTime);
+                            Console.WriteLine("Successfuly assigned task to engineer");
                             break;
                         default:
                             throw new BO.BlInvalidUserInputException();
@@ -126,13 +181,12 @@ internal class Program
                 Console.WriteLine("****************Project has started****************");
                 Console.WriteLine("Current Time: {0}", CurrentTime);
                 Console.WriteLine("You are the project's manager");
-                Console.WriteLine("Please choose 0-5");
+                Console.WriteLine("Please choose 0-4");
                 Console.WriteLine(" 0 - Back to previous menu");
                 Console.WriteLine(" 1 - Engineer Options");
                 Console.WriteLine(" 2 - Task Options");
                 Console.WriteLine(" 3 - Milestone Options");
                 Console.WriteLine(" 4 - Reset the data-base");
-                Console.WriteLine(" 5 - Increment current time");
                 Console.WriteLine("********************************");
 
 
@@ -159,14 +213,6 @@ internal class Program
                             Console.WriteLine("Successfuly deleted all data");
                             s_projectStarted = false;
                             return;  
-                        case 5:
-                            Console.WriteLine("Current Time: {0}", CurrentTime);
-                            Console.WriteLine("Enter the amount of Days you want to add");
-                            if (!int.TryParse(Console.ReadLine(), out int t))
-                                Console.WriteLine("Invalid input");
-                            else
-                                CurrentTime += new TimeSpan(t,0,0,0);
-                            break;
                         default:
                             throw new BO.BlInvalidUserInputException();
 
@@ -195,8 +241,7 @@ internal class Program
                 Console.WriteLine(" 2 - Task Options");
                 Console.WriteLine(" 3 - Milestone Options (Only available after project starts)");
                 Console.WriteLine(" 4 - Start Project (Set the project's starting & ending dates. schedule will authomaticaly be built for the project)");
-                Console.WriteLine(" 5 - Reset the data-base (Delete all current data)");
-                Console.WriteLine(" 6 - Initiate the Data-base with random Data (Creat Engineers, Tasks, Dependencies with mostly random values)");
+                
                 Console.WriteLine("********************************");
                 try
                 {
@@ -213,22 +258,13 @@ internal class Program
                             taskOptions();
                             break;
                         case 3:
-                            Console.WriteLine("Milestone menu only available after project starts"); ;
+                            Console.WriteLine("Milestone menu only available after project starts!");
+                            Thread.Sleep(2000);
                             break;
                         case 4:
                             startProject();
                             //assignEngineerToTask(readTaskId(), readEngineerId());
                             return;
-                        case 5:
-                            s_bl.Task.Reset();
-                            s_bl.Engineer.Reset();
-                            Console.WriteLine("Successfuly deleted all data");
-                            s_projectStarted = false;
-                            return;
-                        case 6:
-                            DalTest.Initialization.Do();
-                            Console.WriteLine("Data base initialized with random values");
-                            break;
                         default:
                             throw new BO.BlInvalidUserInputException();
 
@@ -240,7 +276,7 @@ internal class Program
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine(ex.Message);
                 }
             } while (true);
     }
@@ -464,51 +500,30 @@ internal class Program
     {
         while (true)
         {
-            try
-            {
-                DateTime myStartDate, myEndDate;
-                Console.WriteLine("Please enter the project starting date (format: dd-mm-yyyy)");
-                do
-                {
-                    if (DateTime.TryParse(Console.ReadLine(), out myStartDate) is false)
-                        Console.WriteLine("wrong format");
-                    else break;
-                } while (true);
-                Console.WriteLine("Please enter the project ending date (format: dd-mm-yyyy)");
-                do
-                {
-                    if (DateTime.TryParse(Console.ReadLine(), out myEndDate) is false)
-                        Console.WriteLine("wrong format");
-                    else break;
-                } while (true);
-
-                if (s_bl.Milestone.Read(ms => ms.Alias == "start") is null && !s_bl.Task.ProjectHasStarted())
-                {
-                    Console.WriteLine("Creating Milestones...");
-                    s_bl.Milestone.CreatMilestones();
-                }
-                Console.WriteLine("Setting schedule for the project...");
-                s_bl.Milestone.CreatProjectSchedule(myStartDate, myEndDate);
-                Console.WriteLine("Schedule successfuly created! all tasks have been scheduled");
-                s_projectStarted = true;
-                CurrentTime = myStartDate;
-                return;
-            }
-            catch (Exception ex)
-            {
-                var tasks = s_bl.Task.ReadAll() ?? throw new BO.BlDoesNotExistException("Couldn't load any tasks from the data-base");
-                foreach (var task in tasks)
-                {
-                    task.ScheduledDate = null;
-                    task.DeadlineDate = null;
-                    s_bl.Task.Update(task);
-                }
+            DateTime myStartDate, myEndDate;
                 
-                Console.WriteLine("Failed to set schedule for the Project || " + ex.Message);
-            }
-            
-        }
+            Console.WriteLine("Please enter the project starting date (format: dd-mm-yyyy)");
+            do
+            {
+                if (DateTime.TryParse(Console.ReadLine(), out myStartDate) is false)
+                    Console.WriteLine("wrong format");
+                else break;
+            } while (true);
+            Console.WriteLine("Please enter the project ending date (format: dd-mm-yyyy)");
+            do
+            {
+                if (DateTime.TryParse(Console.ReadLine(), out myEndDate) is false)
+                    Console.WriteLine("wrong format");
+                else break;
+            } while (true);
 
+            Console.WriteLine("Attemting to initialize project...");
+            s_bl.Milestone.StartProject(myStartDate, myEndDate);
+            Console.WriteLine("Schedule successfuly created! all tasks have been scheduled");
+            s_projectStarted = true;
+            CurrentTime = myStartDate;
+            return;
+        }
     }
     #endregion
 
@@ -547,14 +562,7 @@ internal class Program
     {
         int id = readEngineerId();
         printEngineerAssignedTask(id);
-        //cant be null. otherwise an exception was already thrown from 'printEngineerAssignedTask'
-        BO.Engineer eng = s_bl.Engineer.Read(id)!;
-        BO.Task task = s_bl.Task.Read(eng.Task!.Id)!;
-        if (task.StartDate is null)
-            task.StartDate = CurrentTime;
-        else
-            task.CompleteDate = CurrentTime;
-        s_bl.Task.Update(task);
+        s_bl.Engineer.UpdateEngineerProgress(id, CurrentTime);
     }
     /// <summary>
     /// Allows an engineer to take on a task from the availale ones
@@ -611,11 +619,8 @@ internal class Program
     {
         if (id == null)
             id = readEngineerId();
-        BO.Engineer engineer = s_bl.Engineer.Read(eng => eng.Id == id)
-            ?? throw new BO.BlDoesNotExistException($"Engineer with id {id} does not exist");
-        if (engineer.Task is null)
-            throw new BO.BlDoesNotExistException($"Engineer with id {id} does not have any assigned tasks");
-        Console.WriteLine("Your assigned task: " + engineer.Task);
+        BO.Task task = s_bl.Engineer.ReadEngineerAssignedTask(id.Value);
+        Console.WriteLine("Your assigned task: " + task);
     }
     /// <summary>
     /// Deletes an engineer by ID
@@ -777,7 +782,7 @@ internal class Program
 
     }
     #endregion
-
+    
     #region Task functions
     /// <summary>
     /// Updates dependency list of a given task from user input
@@ -788,12 +793,8 @@ internal class Program
     private static void updateTaskDependencies(int taskId) 
     {
         //reads dependencies
-        BO.Task myTask = s_bl.Task.Read(taskId) ??
-            throw new BO.BlDoesNotExistException($"Task with Id {taskId} does not exist");
-        var dependencies = readDependencies(taskId) 
-            ?? throw new BO.BlInvalidUserInputException("No dependencies given. no changes made");            
-        myTask.Dependencies = dependencies.ToList();
-        s_bl.Task.Update(myTask);
+        var dependencies = readDependencies(taskId);
+        s_bl.Task.UpdateTaskDependencies(taskId, dependencies);
         Console.WriteLine("Successfuly updated dependencies");
     }
     /// <summary>
@@ -814,7 +815,7 @@ internal class Program
         int engId = readEngineerId();
         int taskId = readTaskId();
         if (s_projectStarted)
-            s_bl.Task.UpdateAssignedEngineerAndStartWork(taskId, engId);
+            s_bl.Task.UpdateAssignedEngineerAndStartWork(taskId, engId, CurrentTime);
         else
             s_bl.Task.UpdateAssignedEngineer(taskId, engId);
         Console.WriteLine($"Successfuly assigned engineer");
@@ -845,15 +846,15 @@ internal class Program
     private static void printTasks()
     {
         int choice;
-        Console.WriteLine("Do you want a detailed print or short print? \n1 - Short \n2 - Long");
+        Console.WriteLine("Choose printing format \n1 - Short \n2 - Long\n3 - print by milestone dependency");
         while (true)
         {
             try
             {
                 if (!int.TryParse(Console.ReadLine(), out choice))
                     throw new BO.BlInvalidUserInputException("Invalid Input. Please enter an Integer");
-                if (choice < 1 || choice > 2)
-                    throw new BO.BlInvalidUserInputException("Number must be 1 or 2");
+                if (choice < 1 || choice > 3)
+                    throw new BO.BlInvalidUserInputException("Number must be 1 - 3");
                 break;
             }
             catch (BlInvalidUserInputException ex)
@@ -869,7 +870,13 @@ internal class Program
                     Console.WriteLine(task);
                 break;
             case 2:
-                foreach (var task in s_bl.Task.ReadAll())
+                foreach (var task in s_bl.Task.ReadAll(t => !t.IsMilestone))
+                    Console.WriteLine(task);
+                break; 
+            case 3:
+                Console.WriteLine("Enter milestone name (alias):");
+                string ms = Console.ReadLine() ?? throw new BO.BlInvalidUserInputException("Invalid Input");
+                foreach (var task in s_bl.Task.ReadTasksByMilestone(ms))
                     Console.WriteLine(task);
                 break;
         }
@@ -1046,7 +1053,8 @@ internal class Program
     /// </summary>
     /// <param name="taskId"></param>
     /// <returns>Collection of dependencies in the form of BO.TaskInList.
-    /// the actual validity of the dependencies is yet unchecked at this point</returns>
+    /// the actual validity of the dependencies is yet unchecked at this point.
+    /// returns null if no dependencies given by user</returns>
     /// <exception cref="BO.BlInvalidUserInputException"></exception>
     private static IEnumerable<BO.TaskInList>? readDependencies(int taskId)
     {

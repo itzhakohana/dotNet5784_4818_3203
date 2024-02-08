@@ -130,4 +130,18 @@ public interface ITask
     /// Deletes all existing tasks and dependencies
     /// </summary>
     public void Reset();
+    /// <summary>
+    /// Updates the given dependencies list to the given task
+    /// </summary>
+    /// <param name="taskId"></param>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    /// <exception cref="BO.BlInvalidUserInputException"></exception>
+    public void UpdateTaskDependencies(int taskId, IEnumerable<BO.TaskInList>? dependencies);
+    /// <summary>
+    /// Accepts milestone alias string and gives a collection
+    /// of tasks which are dependent on (come after) said milestone
+    /// </summary>
+    /// <param name="alias"></param>
+    /// <returns>Collection of tasks dependent on the given milestone</returns>
+    public IEnumerable<BO.Task>? ReadTasksByMilestone(string alias);
 }
