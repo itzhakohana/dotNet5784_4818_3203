@@ -11,5 +11,15 @@ internal class Bl : IBl
 
     public IMilestone Milestone => new BlImplementation.MilestoneImplementation();
 
+    public void InitializeDataBase()
+    {
+        DalTest.Initialization.Do();
+    }
+
+    public void Reset()
+    {
+        DalApi.Factory.Get.Reset();
+    }
+
     //public DateTime? CurrentTime { get => this.CurrentTime; set => CurrentTime = value; }
 }

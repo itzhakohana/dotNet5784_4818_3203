@@ -69,4 +69,12 @@ public interface IMilestone
     /// <exception cref="BO.BlDoesNotExistException"></exception>
     /// <exception cref="BO.BlLogicViolationException"></exception>
     public void StartProject(DateTime myStartDate, DateTime myEndDate);
+    /// <summary>
+    /// Calculates the status of a milestone based on the given list of dependent tasks (prior tasks).
+    /// Milestone's status will be done only of all of the prior tasks are done, 
+    /// Injeopardy if at least one prior task is Injeopardy.
+    /// </summary>
+    /// <param name="dependencies"></param>
+    /// <returns>Calculated BO.Status based on the given prior tasks</returns>
+    public BO.Status CalculateMilestoneStatus(List<BO.TaskInList>? dependencies);
 }

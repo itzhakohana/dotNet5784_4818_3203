@@ -1,2 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfEngineer />
+<ArrayOfEngineer>
+  <engineer>
+    <id>362333260</id>
+    <level>Intermediate</level>
+    <name>Ethan Martinez</name>
+    <email>Martinez1007@gmail.com</email>
+    <cost>159</cost>
+  </engineer>
+  <engineer>
+    <id>256401168</id>
+    <level>Intermediate</level>
+    <name>Olivia Davis</name>
+    <email>Davis1010@gmail.com</email>
+    <cost>133</cost>
+  </engineer>
+  <engineer>
+    <id>272259241</id>
+    <level>Advanced</level>
+    <name>Lucas Williams</name>
+    <email>Williams1023@gmail.com</email>
+    <cost>108</cost>
+  </engineer>
+  <engineer>
+    <id>207952394</id>
+    <level>AdvancedBeginner</level>
+    <name>Mason Wilson</name>
+    <email>Wilson1031@gmail.com</email>
+    <cost>97</cost>
+  </engineer>
+  <engineer>
+    <id>333435815</id>
+    <level>Expert</level>
+    <name>Lucas Harris</name>
+    <email>Harris1044@gmail.com</email>
+    <cost>30</cost>
+  </engineer>
+  <engineer>
+    <id>208339544</id>
+    <level>Intermediate</level>
+    <name>Evelyn Stewart</name>
+    <email>Stewart1050@gmail.com</email>
+    <cost>46</cost>
+  </engineer>
+  <engineer>
+    <id>202595113</id>
+    <level>Beginner</level>
+    <name>Logan Martinez</name>
+    <email>Martinez1068@gmail.com</email>
+    <cost>105</cost>
+  </engineer>
+  <engineer>
+    <id>394281106</id>
+    <level>Advanced</level>
+    <name>Evelyn Nelson</name>
+    <email>Nelson1079@gmail.com</email>
+    <cost>84</cost>
+  </engineer>
+  <engineer>
+    <id>292656922</id>
+    <level>Expert</level>
+    <name>Amelia Carter</name>
+    <email>Carter1085@gmail.com</email>
+    <cost>89</cost>
+  </engineer>
+  <engineer>
+    <id>253051148</id>
+    <level>Expert</level>
+    <name>Benjamin Cooper</name>
+    <email>Cooper1092@gmail.com</email>
+    <cost>50</cost>
+  </engineer>
+</ArrayOfEngineer>

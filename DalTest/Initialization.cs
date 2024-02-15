@@ -71,6 +71,7 @@ public static class Initialization
             "Cooper",
             "Stewart",
         };   //array of surnames
+        int emailFiller = 1000;
 
         for (int i = 0; i < s_engineersAmount; i++) //randomizing 10 Engineers
         {
@@ -80,7 +81,7 @@ public static class Initialization
             string randName = (firstNames[firstNameIndex] + " " + surNames[surNameIndex]);
 
             //setting email address based on the randomized name
-            string randEmail = (surNames[surNameIndex] + "@gmail.com");
+            string randEmail = (surNames[surNameIndex] + (s_rand.Next(emailFiller, emailFiller += 10)) + "@gmail.com");
 
             //randomizing ID number (range: 200000000 to 400000000)
             int randId = s_rand.Next(MIN_ID, MAX_ID);
@@ -90,7 +91,7 @@ public static class Initialization
             DO.EngineerExperience randLevel = (DO.EngineerExperience)myComlexity;
 
             //creating and adding a new Engineer to the database
-            Engineer myEngineer = new Engineer(randId, randLevel, randName, randEmail);
+            Engineer myEngineer = new Engineer(randId, randLevel, randName, randEmail, s_rand.Next(10,200));
             s_dal!.Engineer.Create(myEngineer);
 
         }
@@ -243,6 +244,5 @@ public static class Initialization
         creatEngineers();
         creatDependencies();
     }
-
 
 }

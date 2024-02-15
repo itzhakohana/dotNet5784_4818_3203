@@ -1,0 +1,41 @@
+﻿<Window x:Class="PL.Engineer.EngineerListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Engineer"
+        mc:Ignorable="d"
+        Title="EngineerListWindow" Height="640" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    
+    <!--external grid-->
+    <Grid Background="#FF272728">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <!--Internal, Upper Grid-->
+        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Filter by Expertise-Level:" Grid.Column="0"                    
+                   HorizontalAlignment="Right" 
+                   Margin="40,0" 
+                   VerticalAlignment="Center"                   
+                   FontSize="20" Foreground="White"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource EngineerExperienceEnumCollection}}"                      
+                      SelectedValue="{Binding Path=Experience, Mode=TwoWay}"                      
+                      Background="Gray" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      VerticalContentAlignment="Center" SelectionChanged="engExperienceFilterChanged_SelectionChanged"/>
+        </Grid>
+        <!--Engineer list, Middle row of main grid-->
+        <ListView Grid.Row="1" Margin="5" ItemsSource="{Binding Path=EngineerList}" MouseDoubleClick="listItemSelected_MouseDoubleClick" SourceUpdated="ListView_SourceUpdated"/>
+        <!--Add engineer buttom-->
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Background="#FF4D4D4D" Foreground="White"
+                FontSize="25" VerticalContentAlignment="Center" Height="50" Width="200" Click="creatNewEngineer_btnClick"/>
+    </Grid>
+</Window>

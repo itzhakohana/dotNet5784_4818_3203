@@ -34,12 +34,11 @@ public class Engineer
 
     public override string ToString()
     {
-        return ($"------------------------------" +
-            $"\nId: {Id, -9} Name: {Name, -20} " +
-            $"\nEmail: {Email, -20} " +
-            $"\nLevel: {Level, -18} " +
-            $"\nCost: {Cost, -4} " +
-            $"\nAssigned Task: {(Task is not null ? Task : "Unassigned")} " +
-            $"\n------------------------------");
+        return ($"\nId: {Id, -9} " +
+                $"Name: {Name, -20} " +
+                $"\nEmail: {Email, -20} " +
+                $"\nLevel: {Level, -18} " +
+                $"\nCost: {Cost, -4} " +
+                $"\nAssigned Task: {(Task is not null ? Task : "Unassigned")} ");
     }
 }

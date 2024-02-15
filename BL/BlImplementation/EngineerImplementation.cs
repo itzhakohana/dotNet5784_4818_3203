@@ -25,7 +25,7 @@ internal class EngineerImplementation : IEngineer
         }
         catch (Exception ex)
         {
-            throw new BO.BlInvalidValuesException("Invalid Values: " + ex.Message, ex);
+            throw new BO.BlInvalidValuesException(ex.Message, ex);
         }
         try
         {
@@ -62,7 +62,9 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BlInvalidValuesException("Invalid Name. Engineer must have a name");
         if (engineer.Cost <= 0)
             throw new BO.BlInvalidValuesException("Invalid Engineer Cost. Engineer Cost must be a positive number");
-        if (_dal.Engineer.ReadAll(e => e.Email == engineer.Email).Count() > 0)
+        if (!engineer.Email.EndsWith("@gmail.com") && !engineer.Email.EndsWith("@gmail.co.il"))
+            throw new BO.BlInvalidValuesException("Invalid Email Address. Address must end with '@gmail.com'/'@gmail.co.il'");
+        if (_dal.Engineer.ReadAll(e => e.Id != engineer.Id && e.Email == engineer.Email).Count() > 0)
             throw new BO.BlAlreadyExistsException($"{engineer.Email} Already in use");
         try
         {
@@ -156,7 +158,7 @@ internal class EngineerImplementation : IEngineer
         }
         catch (Exception ex)
         {
-            throw new BO.BlInvalidValuesException("Error assigning task: " + ex.Message, ex);
+            throw new BO.BlInvalidValuesException(ex.Message, ex);
         }
 
         try
@@ -171,7 +173,8 @@ internal class EngineerImplementation : IEngineer
                 task = _dal.Task.Read(engineer.Task.Id)!;
                 engineer.Task = new BO.TaskInEngineer() { Id = task.Id, Alias = task.Alias };
             }
-            engineer.Task = originalEng.Task;
+            else 
+                engineer.Task = originalEng.Task;
             //finally perform the updates on the engineer
             _dal.Engineer.Update(convertEngineerFromBlToDal(engineer));
 
@@ -265,11 +268,16 @@ internal class EngineerImplementation : IEngineer
         {
             if (_dal.Task.Read(engineer.Task.Id) is not null)
             {
-                if (_dal.Task.Read(engineer.Task.Id)?.EngineerId is not null)
-                    throw new BO.BlInvalidValuesException($"A different engineer is already working on task- {engineer.Task}");
+                //Task is already being worked on by different engineer
+                if (_dal.Task.Read(engineer.Task.Id)!.EngineerId is not null)
+                    if (_dal.Task.Read(engineer.Task.Id)!.EngineerId != engineer.Id)
+                        throw new BO.BlInvalidValuesException($"A different engineer is already working on task- {engineer.Task}");
                 //the engineer is already assigned to a different task
-                if (_dal.Task.ReadAll(t => t.EngineerId == engineer.Id && t.CompleteDate is null).Any())
+                if (_dal.Task.ReadAll(t => t.EngineerId == engineer.Id && t.Id != engineer.Task.Id && t.CompleteDate is null).Any())
                     throw new BO.BlLogicViolationException($"Engineer with ID {engineer.Id} is already assigned to a different task");
+                //task is too complex
+                if(_dal.Task.Read(engineer.Task.Id)!.Complexity > (DO.EngineerExperience)engineer.Level)
+                    throw new BO.BlLogicViolationException($"Task {engineer.Task.Id} is too complex for this engineer" );
             }
             else
                 throw new BO.BlDoesNotExistException($"Task with ID {engineer.Task.Id} does not exist");

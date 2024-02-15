@@ -13,6 +13,6 @@ public class TaskInEngineer
 
     public override string ToString()
     {
-        return ($"Id: {Id,-5} Name: {Alias,-8}");
+        return ($"Id: {Id,-6} Name: {Alias,-15}");
     }
 }

@@ -29,7 +29,7 @@ internal class MilestoneImplementation : IMilestone
             ForecastDate = blTask.ForecastDate,
             DeadlineDate = blTask.DeadlineDate,
             CompleteDate = blTask.CompleteDate,
-            Status = calculateMilestoneStatus(blTask.Dependencies),
+            Status = CalculateMilestoneStatus(blTask.Dependencies),
             CompletionPercentage = calculateCompletionPercentage(blTask),
             Remarks = blTask.Remarks,
             Dependencies = blTask.Dependencies,
@@ -54,7 +54,7 @@ internal class MilestoneImplementation : IMilestone
                          ForecastDate = t.ForecastDate,
                          DeadlineDate = t.DeadlineDate,
                          CompleteDate = t.CompleteDate,
-                         Status = calculateMilestoneStatus(t.Dependencies),
+                         Status = CalculateMilestoneStatus(t.Dependencies),
                          CompletionPercentage = calculateCompletionPercentage(t),
                          Remarks = t.Remarks,
                          Dependencies = t.Dependencies,
@@ -80,7 +80,7 @@ internal class MilestoneImplementation : IMilestone
                         ForecastDate = t.ForecastDate,
                         DeadlineDate = t.DeadlineDate,
                         CompleteDate = t.CompleteDate,
-                        Status = calculateMilestoneStatus(t.Dependencies),
+                        Status = CalculateMilestoneStatus(t.Dependencies),
                         CompletionPercentage = calculateCompletionPercentage(t),
                         Remarks = t.Remarks,
                         Dependencies = t.Dependencies,
@@ -95,7 +95,7 @@ internal class MilestoneImplementation : IMilestone
                     ForecastDate = t.ForecastDate,
                     DeadlineDate = t.DeadlineDate,
                     CompleteDate = t.CompleteDate,
-                    Status = calculateMilestoneStatus(t.Dependencies),
+                    Status = CalculateMilestoneStatus(t.Dependencies),
                     CompletionPercentage = calculateCompletionPercentage(t),
                     Remarks = t.Remarks,
                     Dependencies = t.Dependencies,
@@ -336,15 +336,17 @@ internal class MilestoneImplementation : IMilestone
     }
     /// <summary>
     /// Calculates the status of a milestone based on the given list of dependent tasks (prior tasks).
-    /// Milestone's status will be done only of all of the prior tasks are done
+    /// Milestone's status will be done only of all of the prior tasks are done, 
+    /// Injeopardy if at least one prior task is Injeopardy.
     /// </summary>
     /// <param name="dependencies"></param>
     /// <returns>Calculated BO.Status based on the given prior tasks</returns>
-    private BO.Status calculateMilestoneStatus(List <BO.TaskInList>? dependencies)
+    public BO.Status CalculateMilestoneStatus(List <BO.TaskInList>? dependencies)
     {
         if (dependencies is null || !dependencies.Any())
             return BO.Status.Done;
-        return (dependencies.All(d => d.Status == BO.Status.Done) ? BO.Status.Done : BO.Status.Scheduled);
+        return (dependencies.All(d => d.Status == BO.Status.Done) ? BO.Status.Done :
+           (dependencies.Any(d => d.Status == BO.Status.InJeopardy) ? BO.Status.InJeopardy : BO.Status.Scheduled));
     }
     /// <summary>
     /// Starting the preject. will call the relevant functions for creating

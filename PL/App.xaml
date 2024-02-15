@@ -1,0 +1,31 @@
+﻿<Application x:Class="PL.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PL"             
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!--main window backround-->
+        <LinearGradientBrush x:Key="mainBackround">
+            <GradientStop Color="Black"/>
+            <GradientStop Color="#FFB1C3F9" Offset="2.5"/>
+        </LinearGradientBrush>
+        <!--style for main menu buttons-->
+        <Style x:Key="mainButtons" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Opacity" Value="1"/>
+            <Setter Property="Margin" Value="2,3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Trebuchet MS"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="BorderThickness" Value="2,2"/>
+            <Setter Property="BorderBrush" Value="#FF94A4EA"/>
+        </Style>
+        
+        <!--Binding engineerExperience Enum-->
+        <local:EngExperienceCollection x:Key="EngineerExperienceEnumCollection"/>
+        <!--Converters-->
+        <local:ConvertEngIdToContent x:Key="converIdToContent"/>
+        <local:ConvertTaskInEngToIsEnabled x:Key="convertTaskToIsEnabled"/>
+        <local:ConvertIdToIsEnabled x:Key="convertEngIdToIsEnabled"/>
+    </Application.Resources>
+</Application>
