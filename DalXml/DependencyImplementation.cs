@@ -17,7 +17,7 @@ internal class DependencyImplementation : IDependency
     /// </summary>
     /// <param name="item">instance of the Dependency entity to add</param>
     /// <returns>The Id of the newly-added Dependency</returns>
-public int Create(Dependency item)
+    public int Create(Dependency item)
     {
         if (Read(item.Id) is not null)
             throw new DalAlreadyExistException($"Dependency with Id {item.Id} already exists in the system");

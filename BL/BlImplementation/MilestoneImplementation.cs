@@ -369,6 +369,7 @@ internal class MilestoneImplementation : IMilestone
                 s_bl.Milestone.CreatMilestones();
             }
             s_bl.Milestone.CreatProjectSchedule(myStartDate, myEndDate);
+            s_bl.DateControl.SetProjectSchedule(myStartDate, myEndDate);
         }   
         catch (Exception ex)
         {

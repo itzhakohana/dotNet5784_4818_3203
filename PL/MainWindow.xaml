@@ -3,42 +3,67 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:PL.CustomControls"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="MainWindow" Height="720" Width="1280"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" ResizeMode="CanResize"           
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" MouseDown="Window_MouseDown">
+    <!--MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseMove="Window_MouseMove" MouseLeftButtonUp="Window_MouseLeftButtonUp"-->
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
+    </WindowChrome.WindowChrome>
+    
     <Window.Resources>
+        <ResourceDictionary Source="Themes/Dark.xaml"/>
     </Window.Resources>
 
-    <Grid Background="{StaticResource mainBackround}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="150"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <!--Grid for the headline-->
-        <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" Margin="50,10" HorizontalAlignment="Stretch">
-            <Rectangle Grid.RowSpan = "3" Fill="gray" Opacity="0.15" StrokeThickness="0" RadiusX="10" RadiusY="10"/>
-            <Label Content="Main Admin Window" Grid.Row="1" Grid.Column="1" FontSize="55" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                   Foreground="White" FontWeight="SemiBold" FontStyle="Italic" FontFamily="Global Sans Serif"/>
-        </Grid>
-        
-        <!--Grid which contains the buttons-->
-        <Grid Grid.Row="2" Grid.Column="0" Margin="10,15,10,50">
+    <Border CornerRadius="20" BorderThickness="0" BorderBrush="black" Background="{StaticResource defaultMainBackround}">
+        <Grid ButtonBase.Click="GridClick_btnClick" ShowGridLines="False" IsHitTestVisible="true" Background="Transparent">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <!--Left-side buttons-->
-            <Rectangle Grid.RowSpan = "3" Fill="gray" Opacity="0.15" StrokeThickness="0" RadiusX="10" RadiusY="10"/>
-            <Button Click="showEngineerList_btnClick" Content="Handle Engineers" Style="{DynamicResource mainButtons}" Grid.Row="0" Margin="5,12"/>
-            <Button Content="Initialize Data-Base" Style="{DynamicResource mainButtons}" Grid.Row="1" Margin="5,12" Click="initiateDataBase_btnClick"/>
-            <Button Content="Reset Data-Base" Style="{DynamicResource mainButtons}" Grid.Row="2" Margin="5,12" Click="resetDataBase_btnClick"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--loading spinner-->
+            <Grid Grid.RowSpan="3" Grid.ColumnSpan="2" Panel.ZIndex="10">
+                <controls:LoadingSpinner IsLoading="{Binding Path=Loading}"/>
+            </Grid>
+            <!--exit & minimize buttons-->
+            <Grid HorizontalAlignment="Stretch" Margin="0" Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <controls:IconButton Grid.Column="0" Style="{DynamicResource IconButton1}" Padding="0" HorizontalAlignment="Right" Width="10" Height="10" 
+                                            Click="Minimize_btnClick" Margin="-3" Icon="/Graphics/Icons/minimize.png" />
+                <controls:IconButton Grid.Column="1" Style="{DynamicResource IconButton1}" Padding="0" HorizontalAlignment="Center" Width="10" Height="10" 
+                           Click="Exit_btnClick" Margin="-6" Icon="/Graphics/Icons/exit2.png" />
+            </Grid>
+            <!--top line for clock & profile controls-->
+            <Border Grid.Column="1" Grid.Row="1" Margin="20,0,30,0" CornerRadius="10" Background="{StaticResource Backround1}">
+                
+            </Border>
+            <Border Grid.RowSpan="3" Grid.Column="0" CornerRadius="20,0,0,20" Background="{StaticResource Backround4}"/>
+            <!--stack panel which contains the left nav buttons-->           
+            <StackPanel Grid.Row="3" Grid.Column="0" Margin="0" >
+                <controls:NavigationButton  Title="Project" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/calendar.png" NextPage="/OtherPages/ProjectPage.xaml"/>
+                <controls:NavigationButton  Title="Engineers" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/users.png" NextPage="/EngineerPages/EngineersViewPage.xaml" />
+                <controls:NavigationButton  Title="Tasks" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/edit.png" NextPage="/TaskPages/TasksViewPage.xaml" />
+                <controls:NavigationButton  Title="Not Set" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/spinning.png"/>
+            </StackPanel>
+            <!--main program frame for page navigation-->
+            <Grid Grid.Row="3" Grid.Column="1">
+                <Frame x:Name="MainFrame" Margin="0,0,10,10" NavigationUIVisibility="Hidden" Source="/OtherPages/MainWelcomePage.xaml"/>
+            </Grid>
         </Grid>
-
-    </Grid>
+    </Border>
 </Window>

@@ -14,8 +14,125 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Graphics\Icons\3dots.png" />
+    <None Remove="Graphics\Icons\add1.png" />
+    <None Remove="Graphics\Icons\available1.png" />
+    <None Remove="Graphics\Icons\backArrow1.png" />
+    <None Remove="Graphics\Icons\calendar.png" />
+    <None Remove="Graphics\Icons\done1.png" />
+    <None Remove="Graphics\Icons\edit.png" />
+    <None Remove="Graphics\Icons\exit.png" />
+    <None Remove="Graphics\Icons\exit2.png" />
+    <None Remove="Graphics\Icons\expander arrow.png" />
+    <None Remove="Graphics\Icons\in jeopardy1.png" />
+    <None Remove="Graphics\Icons\in progress1.png" />
+    <None Remove="Graphics\Icons\level1.png" />
+    <None Remove="Graphics\Icons\minimize.png" />
+    <None Remove="Graphics\Icons\previousArrow1.png" />
+    <None Remove="Graphics\Icons\scheduled2.png" />
+    <None Remove="Graphics\Icons\spinning.png" />
+    <None Remove="Graphics\Icons\task1.png" />
+    <None Remove="Graphics\Icons\unscheduled1.png" />
+    <None Remove="Graphics\Icons\unscheduled2.png" />
+    <None Remove="Graphics\Icons\user1.png" />
+    <None Remove="Graphics\Icons\user2.png" />
+    <None Remove="Graphics\Icons\users.png" />
+    <None Remove="Graphics\Icons\users1.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Graphics\Icons\add1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Graphics\Icons\3dots.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\available1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\backArrow1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\calendar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\DalTest\DalTest.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Graphics\Images\" />
+    <Folder Include="ProfileView\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Graphics\Icons\done1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\edit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\exit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\exit2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\expander arrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\in jeopardy1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\in progress1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\level1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\minimize.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\previousArrow1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\scheduled2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\spinning.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\task1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\unscheduled1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\unscheduled2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\user1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\user2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\users.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\users1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

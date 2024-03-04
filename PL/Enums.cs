@@ -8,3 +8,13 @@ internal class EngExperienceCollection : IEnumerable
 
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
+
+
+
+internal class UserTypeCollection : IEnumerable
+{
+    static readonly IEnumerable<BO.UserType> s_enums =
+        (Enum.GetValues(typeof(BO.UserType)) as IEnumerable<BO.UserType>)!;
+
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}

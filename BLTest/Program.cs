@@ -27,6 +27,30 @@ internal class Program
             Console.WriteLine(" 5 - Increment current time");
             Console.WriteLine("********************************");
 
+            //BO.User user =  new BO.User();
+            //user.Id = 208562159;
+            ////user.Id = 2085621;
+            //user.UserName = "Test";
+            //user.Password = 1234;
+            //user.UserType = BO.UserType.Engineer;
+            //user.CompletedTasks = 0;
+            //user.PastTasks = null;
+            //user.CurrentTask = null;
+            //user.Level = BO.EngineerExperience.Expert;
+            ////s_bl.User.Add(user);
+            //try
+            //{
+            //    var u = s_bl.User.Read(208562159);
+            //    s_bl.User.LogIn(u.Id);
+            //    if (u.CurrentTask != null)                    
+            //        Console.WriteLine(u.CurrentTask);
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}            
+
+
             try
             {
                 if (!int.TryParse(Console.ReadLine(), out int choice))
@@ -87,8 +111,7 @@ internal class Program
                 switch (choice)
                 {
                     case 1:
-                        s_bl.Task.Reset();
-                        s_bl.Engineer.Reset();
+                        s_bl.Reset();
                         s_projectStarted = false;
                         Console.WriteLine("Successfuly deleted all data");
                         return;

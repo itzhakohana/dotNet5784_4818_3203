@@ -1,0 +1,242 @@
+﻿<Page x:Class="PL.TaskPages.TasksViewPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    
+      xmlns:controls="clr-namespace:PL.CustomControls"
+      xmlns:bl="clr-namespace:BO;assembly=BL"  
+      xmlns:local="clr-namespace:PL.TaskPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1050"
+      Title="TasksViewPage"
+      DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/Dark.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--data template for diplaying Task in list-->
+            <DataTemplate x:Key="TaskTemplate" DataType="bl:Task">
+                <Border                     
+                    Name="border"            
+                    HorizontalAlignment="Stretch"
+                    Background="{DynamicResource EngineerListBackround2}"            
+                    CornerRadius="8">
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions >
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.3*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.4*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--icon for task status-->
+                        <Image HorizontalAlignment="Center" Margin="10" Grid.Column="0">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Source" Value="/Graphics/Icons/level1.png" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="1">
+                                            <Setter Property="Source" Value="/Graphics/Icons/unscheduled1.png" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="2">
+                                            <Setter Property="Source" Value="/Graphics/Icons/scheduled2.png" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
+                                            <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
+                                            <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
+                                            <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <!--name & id-->
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Name="NameBlock" VerticalAlignment="Bottom" Grid.Row="0" Background="Transparent" FontFamily="Bahnschrift SemiBold" FontSize="20" Foreground="Black" Text="{Binding Path = Alias}"/>
+                            <Separator Background="Black" Grid.Row="0" Width="240" HorizontalAlignment="Left" VerticalAlignment="Bottom"  />
+                            <TextBlock Height="{Binding ElementName=NameBlock, Path=ActualHeight}" VerticalAlignment="Top" Grid.Row="1" Background="Transparent" FontSize="14" FontFamily="Bahnschrift" Foreground="Black" Text="{Binding Path = Id}"/>
+                        </Grid>
+                        <!--complexity-->
+                        <Grid Grid.Column="2" Width="200" Background="{DynamicResource EngineerListBackround3}">
+                            <TextBlock Margin="5,0,0,0"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Text="{Binding Path = Complexity}" FontFamily="Bahnschrift SemiBold Condensed"/>
+                        </Grid>
+                        <!--assigned engineer image indicator-->
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="3" Orientation="Horizontal">
+                            <Image Margin="15" >
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="/Graphics/Icons/level1.png" />
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Engineer, Converter={StaticResource ConvertNullToBool}}" Value="false">
+                                                <Setter Property="Source" Value="/Graphics/Icons/available1.png" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </StackPanel>
+                        <!--description expander-->
+                        <Grid Background="{DynamicResource EngineerListBackround3}" Grid.Column="4">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Orientation="Horizontal" >
+                                <Expander Header="Description" IsExpanded="False" FontSize="16" FontWeight="Bold">
+                                    <TextBlock Text="{Binding Description}" Width="200" Height="60"/>                                    
+                                </Expander>
+                                <!--<ToolTip Content="{Binding Description}"/>-->
+                            </StackPanel>
+                        </Grid>
+                        <!--Button for displaying popup menu-->
+                        <Grid Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <CheckBox Name="checkBoxExpander">
+                                <CheckBox.Template>
+                                    <ControlTemplate TargetType="CheckBox">
+                                        <Grid>
+                                            <Ellipse Name="ellipse" Height="45" Width="45" Fill="DarkGray"/>
+                                            <Image Margin="15" Source="/Graphics/Icons/3dots.png"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="true">
+                                                <Setter Property="Fill" TargetName="ellipse" Value="{DynamicResource Backround3}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </CheckBox.Template>
+                            </CheckBox>
+                            <ComboBox SelectionChanged="TaskOptions_ComboBoxItemSelected" Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" IsEnabled="{Binding ElementName=checkBoxExpander, Path=IsChecked}">
+                                <ComboBoxItem Content="Edit" Height="50" Width="100"/>
+                                <ComboBoxItem Content="Delete" Height="50" Width="100"/>
+                                <ComboBox.Template>
+                                    <ControlTemplate TargetType="ComboBox">
+                                        <Grid Background="Transparent">
+                                            <ContentPresenter 
+                                                        x:Name="ContentSite"                                                       
+                                                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                        Margin="3,0,0,0"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Center">
+                                                
+                                            </ContentPresenter>
+                                            <Popup 
+                                                x:Name="Popup"                                                
+                                                Placement="Bottom"
+                                                IsOpen="{Binding ElementName=checkBoxExpander, Path=IsChecked}"
+                                                StaysOpen="False"
+                                                AllowsTransparency="True"
+                                                Focusable="False"
+                                                PopupAnimation="Slide">
+                                                <Border Background="{DynamicResource Backround3}" BorderBrush="Black" CornerRadius="9" BorderThickness="0">
+                                                    <StackPanel>
+                                                        <ComboBoxItem FontSize="15" Foreground="{DynamicResource fontColor1}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Edit" Height="50" Width="100" PreviewMouseLeftButtonDown="TaskOptions_ComboBoxItemSelected" />
+                                                        <ComboBoxItem FontSize="15" Foreground="{DynamicResource fontColor1}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Delete" Height="50" Width="100" PreviewMouseLeftButtonDown="TaskOptions_ComboBoxItemSelected" />
+                                                    </StackPanel>
+                                                </Border>
+                                            </Popup>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ComboBox.Template>
+                            </ComboBox>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <DataTemplate.Triggers>
+                    <Trigger Property="IsFocused" Value="true" SourceName="border">
+                        <Setter Property="BorderThickness" Value="4" TargetName="border"/>
+                        <Setter Property="BorderBrush" Value="Black" TargetName="border"/>
+                    </Trigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid ShowGridLines="True" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="4.5*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <!--filtering combo box-->
+        <StackPanel Orientation="Horizontal"  Margin="0" Grid.Column="2" Grid.Row="0" >
+            <Label HorizontalAlignment="Center" Margin="0" Content="Filter By:" />
+            <ComboBox 
+                Margin="0,0,0,0"
+                Width="170"
+                VerticalAlignment="Center"
+                Style="{StaticResource DefaultComboBoxStyle}"
+                SelectedValue="{Binding Path =Experience, Mode=TwoWay}"
+                ItemsSource="{Binding Source={StaticResource EngineerExperienceEnumCollection}}" SelectionChanged="SelectionChanged_FilterBox"/>
+        </StackPanel>
+        <!--sorting combo box-->
+        <StackPanel Orientation="Horizontal" Margin="0" Grid.Column="1" Grid.Row="0" >
+            <Label HorizontalAlignment="Center" Margin="0" Content="Order By:" />
+            <ComboBox 
+        Margin="0"
+        Width="170"
+        VerticalAlignment="Center"
+        Style="{StaticResource DefaultComboBoxStyle}"
+        />
+        </StackPanel>
+        
+        <!--tasks list-->
+        <Border Name="ListBorder" Grid.Row="1" Grid.ColumnSpan="3" Margin="15" Background="{DynamicResource Backround1}" CornerRadius="15">
+            <ListView 
+                 ItemsSource="{Binding Path=TaskList, Mode=TwoWay}" 
+                 Margin="10"
+                 HorizontalContentAlignment="Stretch"
+                 Background="{Binding ElementName=ListBorder}"
+                 DataContext="{Binding RelativeSource={RelativeSource AncestorType=Page}}"
+                 ItemTemplate="{StaticResource TaskTemplate}" 
+                 MouseDoubleClick="ItemSelected_MouseDoubleClick">
+                <!--<ListView.Template>
+                    <ControlTemplate>
+                    <Border BorderThickness="0">
+                        <ListView 
+                            ItemsSource="{Binding Path=TaskList, Mode=TwoWay}" 
+                            Margin="10"
+                            HorizontalContentAlignment="Stretch"
+                            Background="{Binding ElementName=ListBorder}"
+                            DataContext="{Binding RelativeSource={RelativeSource AncestorType=Page}}"
+                            ItemTemplate="{StaticResource TaskTemplate}">
+                        
+                            </ListView>
+                        </Border>
+                    </ControlTemplate>
+                </ListView.Template>-->
+            </ListView>
+            <!--<DataGrid ItemsSource="{Binding Path=EngineerList,Mode=TwoWay}" Margin="10" Background="{Binding ElementName=ListBorder}"/>-->
+        </Border>
+        <controls:IconButton 
+            Grid.Column="2"
+            Grid.Row="2"
+            Style="{DynamicResource IconButton1}" 
+            Icon="/Graphics/Icons/add1.png"
+            Height="40"
+            Width="60"   
+            IconHeight="1"
+            IconWidth="1"
+            VerticalAlignment="Top"
+            Click="AddNewTask_BtnClick"/>
+
+    </Grid>
+</Page>

@@ -19,8 +19,9 @@ internal class TaskImplementation : ITask
     public void Add(BO.Task task)
     {
         //validating data
-        if (task.Id <= 0)
-            throw new BO.BlInvalidValuesException("Invalid ID number. ID must be a positive number");
+        if(task.Id != 0)
+            if (task.Id <= 0)
+                throw new BO.BlInvalidValuesException("Invalid ID number. ID must be a positive number");
         if (_dal.Task.Read(t => t.Id == task.Id) is not null)
             throw new BO.BlAlreadyExistsException($"Task with ID {task.Id} already exists");
         if (task.Alias == "")
@@ -558,8 +559,9 @@ internal class TaskImplementation : ITask
     /// <returns>True if project has started, false if not</returns>
     public bool ProjectHasStarted ()
     {
-        var tasks = _dal.Task.ReadAll().ToList();
-        return (tasks.Any() && tasks.All(t => t!.ScheduledDate is not null && t.DeadlineDate is not null));                        
+        return (s_bl.DateControl.GetStartDate() != null && s_bl.DateControl.GetEndDate() != null);
+        //var tasks = _dal.Task.ReadAll().ToList();
+        //return (tasks.Any() && tasks.All(t => t!.ScheduledDate is not null && t.DeadlineDate is not null));
     }
     /// <summary>
     /// Deletes all existing tasks and dependencies
@@ -597,5 +599,30 @@ internal class TaskImplementation : ITask
         return (from task in ReadAll(t => !t.IsMilestone)
                 where task.Milestone!.Alias == alias
                 select task);
+    }
+    /// <summary>
+    /// Reads all Tasks(only tasks!) from data-base that fill the given condition. read all if no condition is given
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns>Collection of tasks only! that match the filter. all tasks if filter is not given</returns>
+    public IEnumerable<Task>? ReadAllTasks(Func<Task, bool>? filter = null)
+    {
+        var tasks = _dal.Task.ReadAll(t => !t.IsMilestone).Select(t => convertTaskFromDalToBl(t!));
+        if (filter is null)
+            return tasks;
+        return (from t in tasks
+                where filter!(t) == true
+                select t);
+    }
+    /// <summary>
+    /// Checks if there is a dependency between the two given tasks.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>True if there is one task is dependant on the other, false if not</returns>
+    public bool CheckDependency(int id1, int id2)
+    {
+        if (_dal.Dependency.Read(d => (d.DependentTask == id1 && d.DependsOnTask == id2) || (d.DependentTask == id2 && d.DependsOnTask == id1)) is not null)
+            return true;
+        return false;
     }
 }

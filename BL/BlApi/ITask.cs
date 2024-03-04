@@ -37,11 +37,17 @@ public interface ITask
     /// <returns>BO.Task if found. null if not </returns>
     public BO.Task? Read(Func<BO.Task, bool> filter);
     /// <summary>
-    /// Reads all Tasks from data-base that fill the given condition. read all if no condition is given
+    /// Reads all Tasks and milestones from data-base that fill the given condition. read all if no condition is given
     /// </summary>
     /// <param name="filter"></param>
-    /// <returns>Collection of tasks that match the filter. all tasks if filter is not given</returns>
+    /// <returns>Collection of Tasks and milestones that match the filter. all tasks if filter is not given</returns>
     public IEnumerable<BO.Task>? ReadAll(Func<BO.Task, bool>? filter = null);
+    /// <summary>
+    /// Reads all Tasks(only tasks!) from data-base that fill the given condition. read all if no condition is given
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns>Collection of tasks only! that match the filter. all tasks if filter is not given</returns>
+    public IEnumerable<BO.Task>? ReadAllTasks(Func<BO.Task, bool>? filter = null);
     /// <summary>
     /// Updates Task in the data-base according to the values recieved as parmeter
     /// </summary>
@@ -144,4 +150,10 @@ public interface ITask
     /// <param name="alias"></param>
     /// <returns>Collection of tasks dependent on the given milestone</returns>
     public IEnumerable<BO.Task>? ReadTasksByMilestone(string alias);
+    /// <summary>
+    /// Checks if there is a dependency between the two given tasks.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>True if one task is dependant on the other, false if not</returns>
+    public bool CheckDependency(int id1, int id2);
 }

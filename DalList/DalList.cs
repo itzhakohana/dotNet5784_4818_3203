@@ -1,5 +1,6 @@
 ﻿namespace Dal;
 using DalApi;
+using System;
 using System.Reflection.Metadata.Ecma335;
 
 
@@ -20,6 +21,8 @@ sealed internal class DalList : IDal
 
     public ITask Task => new TaskImplementation();
 
+    public IUser User => new UserImplementation();
+
     /// <summary>
     /// Empties the Data-Base
     /// </summary>
@@ -28,5 +31,31 @@ sealed internal class DalList : IDal
         Dependency.Reset();
         Engineer.Reset();
         Task.Reset();
+        User.Reset();
+    }
+
+    public void SetProjectSchedule(DateTime? start, DateTime? end)
+    {
+        throw new NotImplementedException();
+    }
+
+    public DateTime? ReadStartDate()
+    {
+        throw new NotImplementedException();
+    }
+
+    public DateTime? ReadEndDate()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void SetCurrentTime(DateTime? current)
+    {
+        throw new NotImplementedException();
+    }
+
+    public DateTime? ReadCurrentTime()
+    {
+        throw new NotImplementedException();
     }
 }

@@ -19,3 +19,9 @@ public enum Status
     InJeopardy, 
     Done
 }
+
+public enum UserType
+{
+    Admin = 1,
+    Engineer
+}

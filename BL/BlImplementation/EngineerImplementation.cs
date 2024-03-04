@@ -172,9 +172,21 @@ internal class EngineerImplementation : IEngineer
             { 
                 task = _dal.Task.Read(engineer.Task.Id)!;
                 engineer.Task = new BO.TaskInEngineer() { Id = task.Id, Alias = task.Alias };
+                if(!s_bl.Task.ProjectHasStarted())
+                {
+                    if (originalEng.Task is not null)
+                    {
+                        var t = s_bl.Task.Read(originalEng.Task.Id);
+                        t.Engineer = null;
+                        s_bl.Task.Update(t);
+                    }
+                }
             }
+
             else 
-                engineer.Task = originalEng.Task;
+                //project has started, not allowed to change assigned task
+                if (s_bl.Task.ProjectHasStarted())
+                    engineer.Task = originalEng.Task;
             //finally perform the updates on the engineer
             _dal.Engineer.Update(convertEngineerFromBlToDal(engineer));
 
@@ -182,6 +194,10 @@ internal class EngineerImplementation : IEngineer
         catch (DO.DalDoesNotExistException ex)
         {
             throw new BO.BlDoesNotExistException($"Engineer with Id {engineer.Id} does not exist", ex);
+        }
+        catch (Exception ex)
+        {
+            throw new BO.BlDoesNotExistException($"Error updating engineer, {ex}");
         }
     }
     /// <summary>
@@ -213,7 +229,17 @@ internal class EngineerImplementation : IEngineer
         try
         {
             if (blEngineer.Task is not null)
-                updateEngineerInTask(blEngineer.Task.Id, blEngineer.Id);
+                updateEngineerInTask(blEngineer.Task.Id, blEngineer.Id);            
+            else
+            {
+                var eng = s_bl.Engineer.Read(blEngineer.Id);
+                if (eng != null && eng.Task != null)
+                {
+                    var t = s_bl.Task.Read(eng.Task.Id);
+                    t.Engineer = null;
+                    s_bl.Task.Update(t);
+                }
+            }
         }
         catch 
         {
@@ -272,9 +298,10 @@ internal class EngineerImplementation : IEngineer
                 if (_dal.Task.Read(engineer.Task.Id)!.EngineerId is not null)
                     if (_dal.Task.Read(engineer.Task.Id)!.EngineerId != engineer.Id)
                         throw new BO.BlInvalidValuesException($"A different engineer is already working on task- {engineer.Task}");
-                //the engineer is already assigned to a different task
-                if (_dal.Task.ReadAll(t => t.EngineerId == engineer.Id && t.Id != engineer.Task.Id && t.CompleteDate is null).Any())
-                    throw new BO.BlLogicViolationException($"Engineer with ID {engineer.Id} is already assigned to a different task");
+                if (s_bl.Task.ProjectHasStarted())
+                    //the engineer is already assigned to a different task
+                    if (_dal.Task.ReadAll(t => t.EngineerId == engineer.Id && t.Id != engineer.Task.Id && t.CompleteDate is null).Any())
+                        throw new BO.BlLogicViolationException($"Engineer with ID {engineer.Id} is already assigned to a different task");
                 //task is too complex
                 if(_dal.Task.Read(engineer.Task.Id)!.Complexity > (DO.EngineerExperience)engineer.Level)
                     throw new BO.BlLogicViolationException($"Task {engineer.Task.Id} is too complex for this engineer" );
@@ -329,5 +356,29 @@ internal class EngineerImplementation : IEngineer
         if (engineer.Task is null)
             throw new BO.BlDoesNotExistException($"Engineer with id {id} does not have any assigned tasks");
         return s_bl.Task.Read(engineer.Task.Id)!;
+    }
+    /// <summary>
+    /// Reads all the engineers that can be assigned to the given task (given by id).
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>Collection of BO.EngineerInTask of engineers available for assignment</returns>
+    public IEnumerable<EngineerInTask>? ReadEngineersInTask(int id)
+    {
+        var task = s_bl.Task.Read(id) ?? throw new BO.BlDoesNotExistException($"Task with Id {id} not exist");
+        return (from e in ReadAll()
+                where e.Task is null && (e.Level >= task.Complexity)
+                select new BO.EngineerInTask() { Id = e.Id, Name = e.Name });
+
+    }
+    /// <summary>
+    /// Reads all the Engineers that can be assigned to a task with the given comlexity.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>Collection of BO.EngineerInTask that match the given task comlexity</returns>
+    public IEnumerable<BO.EngineerInTask>? ReadEngineersInTask(BO.EngineerExperience level) 
+    {        
+        return (from e in ReadAll()
+                where e.Task is null && (e.Level >= level)
+                select new BO.EngineerInTask() { Id = e.Id, Name = e.Name });
     }
 }

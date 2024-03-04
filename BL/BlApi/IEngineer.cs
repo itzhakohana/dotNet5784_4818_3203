@@ -65,4 +65,16 @@ public interface IEngineer
     /// </summary>
     /// <exception cref="BO.BlDoesNotExistException"></exception>
     public BO.Task ReadEngineerAssignedTask(int id);
+    /// <summary>
+    /// Reads all the engineers that can be assigned to the given task (given by id).
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>Collection of BO.EngineerInTask of engineers available for assignment</returns>
+    public IEnumerable<BO.EngineerInTask>?  ReadEngineersInTask(int id);
+    /// <summary>
+    /// Reads all the Engineers that can be assigned to a task with the given comlexity.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>Collection of BO.EngineerInTask that match the given task comlexity</returns>
+    public IEnumerable<BO.EngineerInTask>? ReadEngineersInTask(BO.EngineerExperience level);
 }

@@ -12,3 +12,10 @@ public enum EngineerExperience
     Advanced, 
     Expert 
 }
+
+
+public enum UserType
+{
+    Admin = 1,
+    Engineer
+}

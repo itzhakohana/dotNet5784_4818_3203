@@ -1,31 +1,116 @@
 ﻿<Application x:Class="PL.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:PL.CustomControls"
              xmlns:local="clr-namespace:PL"             
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!--main window backround-->
-        <LinearGradientBrush x:Key="mainBackround">
-            <GradientStop Color="Black"/>
-            <GradientStop Color="#FFB1C3F9" Offset="2.5"/>
-        </LinearGradientBrush>
-        <!--style for main menu buttons-->
-        <Style x:Key="mainButtons" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Opacity" Value="1"/>
-            <Setter Property="Margin" Value="2,3"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontFamily" Value="Trebuchet MS"/>
-            <Setter Property="FontSize" Value="25"/>
-            <Setter Property="BorderThickness" Value="2,2"/>
-            <Setter Property="BorderBrush" Value="#FF94A4EA"/>
-        </Style>
-        
-        <!--Binding engineerExperience Enum-->
-        <local:EngExperienceCollection x:Key="EngineerExperienceEnumCollection"/>
-        <!--Converters-->
-        <local:ConvertEngIdToContent x:Key="converIdToContent"/>
-        <local:ConvertTaskInEngToIsEnabled x:Key="convertTaskToIsEnabled"/>
-        <local:ConvertIdToIsEnabled x:Key="convertEngIdToIsEnabled"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/Dark.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+
+            <!--default horizontal style for menu navigation button -->
+            <Style x:Key="MainNavButtonHorizontal" TargetType="{x:Type controls:NavigationButton}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{DynamicResource fontColor1}"/>
+                <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Margin" Value="4"/>
+                <Setter Property="Padding" Value="15"/>
+                <Setter Property="MinHeight" Value="40"/>
+                <Setter Property="MaxHeight" Value="120"/>
+                <Setter Property="MinWidth" Value="80"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type controls:NavigationButton}">
+                            <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="Black" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="35"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.ColumnSpan="2" Fill="Transparent" Stroke="Black" StrokeThickness="0"/>
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}" Grid.Column="1" Text="{TemplateBinding Title}"/>
+                                    <Image Grid.Column="0" Margin="5,2,-3,2" Source="{TemplateBinding Icon}"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" TargetName="border" Value="{DynamicResource IsMouseOverColor1}"/>
+                                    <!--<Setter Property="Opacity" TargetName="border" Value="0.7"/>-->
+                                    <Setter Property="BorderThickness" TargetName="border" Value="0"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <!--default vertical style for menu navigation button -->
+            <Style x:Key="MainNavButtonVertical" TargetType="{x:Type controls:NavigationButton}">
+                <Setter Property="Background" Value="{StaticResource Backround1}"/>
+                <Setter Property="Foreground" Value="{StaticResource fontColor1}"/>
+                <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Margin" Value=" 10"/>
+                <Setter Property="Padding" Value="15"/>
+                <Setter Property="MinHeight" Value="40"/>
+                <Setter Property="MaxHeight" Value="120"/>
+                <Setter Property="MinWidth" Value="80"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type controls:NavigationButton}">
+                            <Border x:Name="border" 
+                        Background="#363636" 
+                        BorderBrush="Black" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="8">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="35"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Grid.RowSpan="2" Fill="Transparent" Stroke="Black" StrokeThickness="0"/>
+                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}" Grid.Row="1" Text="{TemplateBinding Title}"/>
+                                    <Image Grid.Row="0" MaxHeight="60" Margin="0,8,0,0" Source="{TemplateBinding Icon}"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" TargetName="border" Value="#616161"/>
+                                    <!--<Setter Property="Opacity" TargetName="border" Value="0.7"/>-->
+                                    <Setter Property="BorderThickness" TargetName="border" Value="0"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+
+            <!--Binding Enums-->
+            <local:EngExperienceCollection x:Key="EngineerExperienceEnumCollection"/>
+            <local:UserTypeCollection x:Key="UserTypeEnumCollection"/>
+            <!--Converters-->
+            <local:ConvertEngIdToContent x:Key="converIdToContent"/>
+            <local:ConvertTaskInEngToIsEnabled x:Key="convertTaskToIsEnabled"/>
+            <local:ConvertIdToIsEnabled x:Key="convertEngIdToIsEnabled"/>
+            <local:ConvertBoolToVisibility x:Key="ConvertBoolToVisibility"/>
+            <local:ConvertEngineerTaskToVisiblity x:Key="ConvertEngineerTaskToVisiblity"/>
+            <local:ConvertUserTypeToIsEnabled x:Key="ConvertUserTypeToIsEnabled"/>
+            <local:ConvertUserTypeToVisiblity x:Key="ConvertUserTypeToVisiblity"/>
+            <local:ConvertNullToBool x:Key="ConvertNullToBool"/>
+            <local:ConvertStatusToNumber x:Key="ConvertStatusToNumber"/>
+            <local:ConvertNullEngineerInTaskToBool x:Key="ConvertNullEngineerInTaskToBool"/>
+            <local:ConvertNullTaskInEngineerToBool x:Key="ConvertNullTaskInEngineerToBool"/>
+            <local:ConvertUserTypeToVisibility x:Key="ConvertUserTypeToVisibility"/>
+            
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

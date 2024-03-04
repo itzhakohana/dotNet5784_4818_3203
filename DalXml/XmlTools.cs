@@ -34,6 +34,23 @@ static class XMLTools
         XMLTools.SaveListToXMLElement(root, data_config_xml);
         return nextId;
     }
+
+    public static DateTime? GetDate(string data_config_xml, string elemName)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(data_config_xml);
+        DateTime? myDate = root.ToDateTimeNullable(elemName);
+        XMLTools.SaveListToXMLElement(root, data_config_xml);
+        return myDate;
+    }
+
+    public static void SetDate(string data_config_xml, string elemName, DateTime? newDate)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(data_config_xml);
+        //root.Element(elemName)?.SetValue(newDate.ToString());       
+        root.Element(elemName)!.Remove();
+        root.Add(new XElement(elemName, newDate));
+        XMLTools.SaveListToXMLElement(root, data_config_xml);
+    }
     #endregion
 
 

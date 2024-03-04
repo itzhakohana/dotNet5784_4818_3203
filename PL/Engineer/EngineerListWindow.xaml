@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:PL.CustomControls"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         Title="EngineerListWindow" Height="640" Width="800"
@@ -28,7 +29,7 @@
                    VerticalAlignment="Center"                   
                    FontSize="20" Foreground="White"/>
             <ComboBox ItemsSource="{Binding Source={StaticResource EngineerExperienceEnumCollection}}"                      
-                      SelectedValue="{Binding Path=Experience, Mode=TwoWay}"                      
+                      SelectedValue="{Binding Path=Experience, Mode=TwoWay}"
                       Background="Gray" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       VerticalContentAlignment="Center" SelectionChanged="engExperienceFilterChanged_SelectionChanged"/>
         </Grid>
