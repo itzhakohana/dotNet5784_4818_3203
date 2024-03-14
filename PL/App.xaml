@@ -3,13 +3,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="clr-namespace:PL.CustomControls"
              xmlns:local="clr-namespace:PL"             
-             StartupUri="MainWindow.xaml">
+             StartupUri="LogInWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Themes/Dark.xaml"/>
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
 
+            <!--template for textBox-->
+            <ControlTemplate x:Key="TextBoxControlTemplate" TargetType="{x:Type TextBox}">
+
+                <Border VerticalAlignment="Center" Name="border" Background="{DynamicResource TextBoxColor1}" MinHeight="35" MaxHeight="40" CornerRadius="4" BorderThickness="1" BorderBrush="Black">
+
+                    <TextBox 
+                        Name="myTextBox" 
+                        IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                        Background="Transparent"     
+                        BorderThickness="0"
+                        FontSize="17"  
+                        MaxLength="{TemplateBinding MaxLength}"
+                        Height="{TemplateBinding Height}"
+                        MinWidth="70"
+                        VerticalAlignment="Center"                                             
+                        HorizontalAlignment="Center"    
+                        HorizontalContentAlignment="Center" 
+                        FontFamily="Global Sans Serif"
+                        Text ="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+
+                    </TextBox>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxBorderColorOnFocus1}"/>
+                        <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                    </Trigger>
+                    <Trigger Property="IsFocused" Value="True" SourceName="myTextBox">
+                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxBorderColorOnFocus1}"/>
+                        <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                    </Trigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsFocused" Value="False" SourceName="myTextBox"/>
+                            <Condition Property="Text" Value="{x:Null}" SourceName="myTextBox"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="Text" TargetName="myTextBox" Value="Name"/>
+                    </MultiTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
 
             <!--default horizontal style for menu navigation button -->
             <Style x:Key="MainNavButtonHorizontal" TargetType="{x:Type controls:NavigationButton}">
@@ -46,11 +90,17 @@
                                     <!--<Setter Property="Opacity" TargetName="border" Value="0.7"/>-->
                                     <Setter Property="BorderThickness" TargetName="border" Value="0"/>
                                 </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" TargetName="border" Value="{DynamicResource IsMouseOverColor1}"/>
+                                    <!--<Setter Property="Opacity" TargetName="border" Value="0.7"/>-->
+                                    <Setter Property="BorderThickness" TargetName="border" Value="0"/>
+                                </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
+            
             <!--default vertical style for menu navigation button -->
             <Style x:Key="MainNavButtonVertical" TargetType="{x:Type controls:NavigationButton}">
                 <Setter Property="Background" Value="{StaticResource Backround1}"/>
@@ -92,6 +142,7 @@
                 </Setter>
             </Style>
 
+           
 
 
             <!--Binding Enums-->
@@ -110,6 +161,11 @@
             <local:ConvertNullEngineerInTaskToBool x:Key="ConvertNullEngineerInTaskToBool"/>
             <local:ConvertNullTaskInEngineerToBool x:Key="ConvertNullTaskInEngineerToBool"/>
             <local:ConvertUserTypeToVisibility x:Key="ConvertUserTypeToVisibility"/>
+            <local:ConvertUserNameToChar x:Key="ConvertUserNameToChar"/>
+            <local:ConvertUTaskProgressToStringMessage x:Key="ConvertUTaskProgressToMessage"/>
+            <local:ConvertTaskToStatusMessage x:Key="ConvertTaskToStatusMessage"/>
+            <local:ConvertDependenciesListToListCount x:Key="GetTaskInListCollectionCount"/>
+            <local:ConvertLevelToNumber x:Key="ConvertLevelToNumber"/>
             
         </ResourceDictionary>
     </Application.Resources>

@@ -1,0 +1,177 @@
+﻿<Page x:Class="PL.MilestonePages.MilestonesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"    
+      xmlns:controls="clr-namespace:PL.CustomControls"
+      xmlns:bl="clr-namespace:BO;assembly=BL"  
+      xmlns:local="clr-namespace:PL.TaskPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1050"
+      Title="MilestonesView"
+      DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <!--default template for task in list-->
+        <DataTemplate x:Key="DefaultTaskInListTemplate" DataType="bl:TaskInList" >
+            <Border CornerRadius="10" Background="#FF848484" Height="40" HorizontalAlignment="Stretch">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <!--icon for task status-->
+                    <Image HorizontalAlignment="Center" Margin="10" Grid.Column="0">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Setter Property="Source" Value="/Graphics/Icons/task1.png" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="1">
+                                        <Setter Property="Source" Value="/Graphics/Icons/unscheduled1.png" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="2">
+                                        <Setter Property="Source" Value="/Graphics/Icons/scheduled2.png" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
+                                        <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
+                                        <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
+                                        <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <Grid Grid.Column="1" Background="#FF929292">
+                        <TextBlock  Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                    </Grid>
+                    <TextBlock Grid.Column="2" Text="{Binding Alias}"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                    <controls:IconButton Grid.Column="3" Margin="7,5" Style="{StaticResource IconButton1}" 
+                                         Background="Transparent" Icon="/Graphics/Icons/info1.png" Click="DependentTaskSelectedForView_btn_Click"/>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <!--data template for diplaying Milestone in list-->
+        <DataTemplate x:Key="MilestoneTemplate" DataType="bl:Milestone">
+            <Border                     
+                Name="border"            
+                HorizontalAlignment="Stretch"
+                Background="{DynamicResource EngineerListBackround2}"            
+                CornerRadius="8">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="280"/>
+                        <ColumnDefinition Width="270"/>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.4*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--icon for task status-->
+                    <Image HorizontalAlignment="Center" Margin="10" Grid.Column="0">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Setter Property="Source" Value="/Graphics/Icons/level1.png" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="1">
+                                        <Setter Property="Source" Value="/Graphics/Icons/unscheduled1.png" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="2">
+                                        <Setter Property="Source" Value="/Graphics/Icons/scheduled2.png" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
+                                        <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
+                                        <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
+                                        <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <!--name & id-->
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Name="NameBlock" VerticalAlignment="Bottom" Grid.Row="0" Background="Transparent" FontFamily="Bahnschrift SemiBold" FontSize="20" Foreground="Black" Text="{Binding Path = Alias}"/>
+                        <Separator Background="Black" Grid.Row="0" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom"  />
+                        <TextBlock Height="{Binding ElementName=NameBlock, Path=ActualHeight}" VerticalAlignment="Top" Grid.Row="1" Background="Transparent" FontSize="14" FontFamily="Bahnschrift" Foreground="Black" Text="{Binding Path = Id}"/>
+                    </Grid>
+                    <!--amount of tasks dependent-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="2" Width="300" Background="{DynamicResource EngineerListBackround3}">
+                        <Image HorizontalAlignment="Center" Margin="10,17,0,12" Grid.Column="0" Source="/Graphics/Icons/TaskList1.png"/>
+                        <TextBlock Margin="5,0,0,0"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Text="{Binding Dependencies, Converter={StaticResource GetTaskInListCollectionCount}, StringFormat={}{0} Dependencies Attached}" FontFamily="Bahnschrift SemiCondensed" FontWeight="Bold"/>
+                    </StackPanel>
+                    <!--progress prescentage display-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="3" Width="300">
+                        <Image HorizontalAlignment="Center" Margin="4,15" Grid.Column="0" Source="/Graphics/Icons/progress1.png"/>
+                        <TextBlock Margin="5,0,0,0"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Text="{Binding CompletionPercentage, StringFormat={}{0:P0} Completed}" FontFamily="Bahnschrift SemiCondensed" FontWeight="Bold"/>
+                    </StackPanel>
+                    <!--description expander-->
+                    <Grid  Background="{DynamicResource EngineerListBackround3}" Grid.Column="4">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Orientation="Horizontal" >
+                            <Expander Header="Description" IsExpanded="False" FontSize="16" FontWeight="Bold">
+                                <TextBlock Text="{Binding Description}" Width="200" Height="60"/>
+                            </Expander>
+                            <!--<ToolTip Content="{Binding Description}"/>-->
+                        </StackPanel>
+                    </Grid>
+                    <!--Button for displaying dependencies menu-->
+                    <Grid Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <controls:IconToggleButton Style="{StaticResource ToggleIconButton1}" Background="Transparent" 
+                                                   x:Name="ToggleButtonExpander" Height="30" Width="30" 
+                                                   Icon="/Graphics/Icons/expander1.png" >
+
+                        </controls:IconToggleButton>
+                    </Grid>
+                    <Separator HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.Row="1" FontWeight="ExtraBold" Grid.ColumnSpan="6" Foreground="Black"/>
+                    <!--dependencies list display on second row-->
+                    <ListView Background="Transparent" HorizontalContentAlignment="Stretch"  Margin="20,5" 
+                                  Grid.Row="1" Grid.ColumnSpan="6" 
+                                  ItemsSource="{Binding Dependencies}"
+                                  ItemTemplate="{StaticResource DefaultTaskInListTemplate}">
+                        <ListView.Style>
+                            <Style TargetType="ListView">
+                                <Setter Property="Height" Value="0"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=ToggleButtonExpander, Path=IsChecked}" Value="True">
+                                        <Setter Property="Height" Value="Auto"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListView.Style>
+                    </ListView>
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <Trigger Property="IsFocused" Value="true" SourceName="border">
+                    <Setter Property="BorderThickness" Value="4" TargetName="border"/>
+                    <Setter Property="BorderBrush" Value="Black" TargetName="border"/>
+                </Trigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </Page.Resources>
+    
+    
+    <Border>
+        <Grid>
+            <ListView HorizontalContentAlignment="Stretch" Margin="20,30" ItemsSource="{Binding MilestonesList, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" 
+                      ItemTemplate="{StaticResource MilestoneTemplate}" Background="Transparent"/>
+        </Grid>
+    </Border>
+</Page>

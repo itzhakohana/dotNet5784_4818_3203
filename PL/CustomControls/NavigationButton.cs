@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 
 namespace PL.CustomControls
 {
-    public class NavigationButton : ButtonBase
+    public class NavigationButton : ListBoxItem
     {
 
         public Uri NextPage

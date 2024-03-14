@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
@@ -13,31 +13,55 @@
 	<UseCommonOutputDirectory>true</UseCommonOutputDirectory>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Graphics\Icons\3dots.png" />
     <None Remove="Graphics\Icons\add1.png" />
+    <None Remove="Graphics\Icons\advanced.png" />
+    <None Remove="Graphics\Icons\advancedBeginner.png" />
     <None Remove="Graphics\Icons\available1.png" />
     <None Remove="Graphics\Icons\backArrow1.png" />
+    <None Remove="Graphics\Icons\beginner.png" />
+    <None Remove="Graphics\Icons\bin1.png" />
     <None Remove="Graphics\Icons\calendar.png" />
+    <None Remove="Graphics\Icons\clock1.png" />
+    <None Remove="Graphics\Icons\clock2.png" />
+    <None Remove="Graphics\Icons\clock3.png" />
     <None Remove="Graphics\Icons\done1.png" />
     <None Remove="Graphics\Icons\edit.png" />
     <None Remove="Graphics\Icons\exit.png" />
     <None Remove="Graphics\Icons\exit2.png" />
     <None Remove="Graphics\Icons\expander arrow.png" />
+    <None Remove="Graphics\Icons\expander1.png" />
+    <None Remove="Graphics\Icons\expert.png" />
     <None Remove="Graphics\Icons\in jeopardy1.png" />
     <None Remove="Graphics\Icons\in progress1.png" />
+    <None Remove="Graphics\Icons\info1.png" />
+    <None Remove="Graphics\Icons\intermediate.png" />
+    <None Remove="Graphics\Icons\laptop1.png" />
     <None Remove="Graphics\Icons\level1.png" />
     <None Remove="Graphics\Icons\minimize.png" />
+    <None Remove="Graphics\Icons\minimize2.png" />
     <None Remove="Graphics\Icons\previousArrow1.png" />
+    <None Remove="Graphics\Icons\progress1.png" />
     <None Remove="Graphics\Icons\scheduled2.png" />
     <None Remove="Graphics\Icons\spinning.png" />
     <None Remove="Graphics\Icons\task1.png" />
+    <None Remove="Graphics\Icons\taskList1.png" />
     <None Remove="Graphics\Icons\unscheduled1.png" />
     <None Remove="Graphics\Icons\unscheduled2.png" />
     <None Remove="Graphics\Icons\user1.png" />
     <None Remove="Graphics\Icons\user2.png" />
     <None Remove="Graphics\Icons\users.png" />
     <None Remove="Graphics\Icons\users1.png" />
+    <None Remove="Graphics\Icons\wrench1.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,10 +74,22 @@
     <Resource Include="Graphics\Icons\3dots.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\advanced.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\advancedBeginner.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\available1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\backArrow1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\beginner.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\bin1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\calendar.png">
@@ -63,6 +99,9 @@
 
   <ItemGroup>
     <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.0.0">
+      <GeneratePathProperty>False</GeneratePathProperty>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -72,10 +111,18 @@
 
   <ItemGroup>
     <Folder Include="Graphics\Images\" />
-    <Folder Include="ProfileView\" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Graphics\Icons\clock1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\clock2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\clock3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\done1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -91,10 +138,25 @@
     <Resource Include="Graphics\Icons\expander arrow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\expander1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\expert.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\in jeopardy1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\in progress1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\info1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\intermediate.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\laptop1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\level1.png">
@@ -103,7 +165,13 @@
     <Resource Include="Graphics\Icons\minimize.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\minimize2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\previousArrow1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\progress1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\scheduled2.png">
@@ -113,6 +181,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\task1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\taskList1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\unscheduled1.png">
@@ -131,6 +202,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\users1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\wrench1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

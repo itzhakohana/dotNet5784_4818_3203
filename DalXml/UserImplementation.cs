@@ -63,7 +63,7 @@ internal class UserImplementation : IUser
     public void Reset()
     {
         List<User> users = XMLTools.LoadListFromXMLSerializer<User>(s_users_xml);
-        users.Clear();
+        users.RemoveAll(u => u.UserType == DO.UserType.Engineer);
         XMLTools.SaveListToXMLSerializer(users, s_users_xml);
     }
 

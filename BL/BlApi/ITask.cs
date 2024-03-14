@@ -156,4 +156,20 @@ public interface ITask
     /// <param name="id"></param>
     /// <returns>True if one task is dependant on the other, false if not</returns>
     public bool CheckDependency(int id1, int id2);
+    /// <summary>
+    /// Returns the time left for the completion of the task. assumes the project has started, and an engineer is assigned to the task
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>the time left for the completion of the task</returns>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    /// <exception cref="BO.BlLogicViolationException"></exception>
+    public TimeSpan TimeLeftForTask(int id);
+    /// <summary>
+    /// Checkes whether its possible to start work on a task. in terms of dependencies
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>True if all previous tasks are completed and work can be started, false otherwise</returns>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    /// <exception cref="BO.BlLogicViolationException"></exception>
+    public bool CanStartWork(int id);
 }

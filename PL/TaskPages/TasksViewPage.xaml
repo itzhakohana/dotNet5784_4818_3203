@@ -9,7 +9,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1050"
       Title="TasksViewPage"
-      DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+      DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+      Loaded="Page_Loaded">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -50,10 +51,10 @@
                                         <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
                                             <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
                                             <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
                                             <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -204,39 +205,48 @@
                  ItemsSource="{Binding Path=TaskList, Mode=TwoWay}" 
                  Margin="10"
                  HorizontalContentAlignment="Stretch"
-                 Background="{Binding ElementName=ListBorder}"
+                 Background="{Binding ElementName=ListBorder,Path=Background}"
                  DataContext="{Binding RelativeSource={RelativeSource AncestorType=Page}}"
                  ItemTemplate="{StaticResource TaskTemplate}" 
                  MouseDoubleClick="ItemSelected_MouseDoubleClick">
-                <!--<ListView.Template>
-                    <ControlTemplate>
-                    <Border BorderThickness="0">
-                        <ListView 
-                            ItemsSource="{Binding Path=TaskList, Mode=TwoWay}" 
-                            Margin="10"
-                            HorizontalContentAlignment="Stretch"
-                            Background="{Binding ElementName=ListBorder}"
-                            DataContext="{Binding RelativeSource={RelativeSource AncestorType=Page}}"
-                            ItemTemplate="{StaticResource TaskTemplate}">
-                        
-                            </ListView>
-                        </Border>
-                    </ControlTemplate>
-                </ListView.Template>-->
             </ListView>
-            <!--<DataGrid ItemsSource="{Binding Path=EngineerList,Mode=TwoWay}" Margin="10" Background="{Binding ElementName=ListBorder}"/>-->
         </Border>
-        <controls:IconButton 
-            Grid.Column="2"
-            Grid.Row="2"
-            Style="{DynamicResource IconButton1}" 
-            Icon="/Graphics/Icons/add1.png"
-            Height="40"
-            Width="60"   
-            IconHeight="1"
-            IconWidth="1"
-            VerticalAlignment="Top"
-            Click="AddNewTask_BtnClick"/>
+        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center">
+            <controls:IconButton 
+                Grid.Column="2"
+                Grid.Row="2"
+                Visibility="{Binding CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}"
+                Style="{DynamicResource IconButton1}" 
+                Icon="/Graphics/Icons/bin1.png"
+                Margin="0,0,20,0"
+                Height="40"
+                Width="60"   
+                Padding="7"
+                IconHeight="1"
+                IconWidth="1"
+                VerticalAlignment="Top"
+                Click="DeletesAllTasks_BtnClick">
+                <ButtonBase.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                </ButtonBase.Effect>
+            </controls:IconButton>
+            <controls:IconButton 
+                Grid.Column="2"
+                Grid.Row="2"
+                Style="{DynamicResource IconButton1}" 
+                Visibility="{Binding CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}"
+                Icon="/Graphics/Icons/add1.png"
+                Height="40"
+                Width="60"   
+                IconHeight="1"
+                IconWidth="1"
+                VerticalAlignment="Top"
+                Click="AddNewTask_BtnClick">
+                <ButtonBase.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                </ButtonBase.Effect>
+            </controls:IconButton>
+        </StackPanel>
 
     </Grid>
 </Page>

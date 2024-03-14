@@ -7,7 +7,9 @@ using System.Security.Cryptography.X509Certificates;
 internal class MilestoneImplementation : IMilestone
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    private readonly BlApi.IBl s_bl;
+    internal MilestoneImplementation(IBl bl) => s_bl = bl;
+
 
     /// <summary>
     /// Reads milesonte by ID number
@@ -292,7 +294,7 @@ internal class MilestoneImplementation : IMilestone
         _dal.Task.Create(new DO.Task
         {
             Alias = name,
-            CreatedAtDate = DateTime.Now,
+            CreatedAtDate = s_bl.Clock,
             IsMilestone = true,
             RequiredEffortTime = TimeSpan.Zero,
         });

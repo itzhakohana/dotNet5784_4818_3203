@@ -1,6 +1,7 @@
 ﻿using BO;
 using DO;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 internal class Program
@@ -49,8 +50,7 @@ internal class Program
             //{
             //    Console.WriteLine(ex.Message);
             //}            
-
-
+           
             try
             {
                 if (!int.TryParse(Console.ReadLine(), out int choice))

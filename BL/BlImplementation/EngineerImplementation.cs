@@ -1,6 +1,7 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
+using System.Drawing;
 using System.Net.Http.Headers;
 
 
@@ -10,7 +11,9 @@ using System.Net.Http.Headers;
 internal class EngineerImplementation : IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    private readonly BlApi.IBl s_bl;
+
+    internal EngineerImplementation(IBl bl) => s_bl = bl;
     /// <summary>
     /// Adds the given Engineer to the data-base
     /// </summary>

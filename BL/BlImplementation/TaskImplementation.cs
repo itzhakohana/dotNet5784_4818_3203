@@ -7,7 +7,8 @@ using System.Data;
 internal class TaskImplementation : ITask
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    private readonly BlApi.IBl s_bl;
+    internal TaskImplementation(IBl bl) => s_bl = bl;
 
     /// <summary>
     /// Adds new engineer to the data base. calculates dependencies and status
@@ -219,7 +220,7 @@ internal class TaskImplementation : ITask
     {
         if (startDate is null)
             //startDate = s_bl.CurrentTime;
-            startDate = DateTime.Now;
+            startDate = s_bl.Clock;
         DO.Task task = _dal.Task.Read(taskId) ?? throw new BO.BlDoesNotExistException($"Task with ID {taskId} does not exist");
         if (engId is null)
         {   
@@ -352,13 +353,13 @@ internal class TaskImplementation : ITask
             return BO.Status.Done;
         else if (StartDate is not null)
         { 
-            if (StartDate > ScheduledDate /*|| s_bl.CurrentTime > DeadlineDate*/)
+            if (StartDate > ScheduledDate || s_bl.Clock > DeadlineDate)
                 return BO.Status.InJeopardy;
             return BO.Status.OnTrack; 
         }
         else if (ScheduledDate is null)
             return BO.Status.Unscheduled;
-        else if ((DeadlineDate is not null && DeadlineDate < ForecastDate)  /*||currentDate > ScheduledDate*/)
+        else if ((DeadlineDate is not null && DeadlineDate < ForecastDate) || s_bl.Clock > ScheduledDate)
             return BO.Status.InJeopardy;
         return BO.Status.Scheduled;
 
@@ -417,8 +418,9 @@ internal class TaskImplementation : ITask
                 ?? throw new BO.BlDoesNotExistException($"Task with ID {taskId} does not exist");
             if (task.IsMilestone)
                 throw new BO.BlLogicViolationException("Task cannot be a milestone");
-            if (s_bl.Milestone.Read(s_bl.Task.Read(taskId.Value).Milestone.Id).Status != BO.Status.Done)
-                throw new BO.BlLogicViolationException($"Task {$"({taskId} {task.Alias})"} cannot be worked on since its prior Milestone is not yet completed");
+            if (ProjectHasStarted())
+                if (s_bl.Milestone.Read(s_bl.Task.Read(taskId.Value).Milestone.Id).Status != BO.Status.Done)
+                    throw new BO.BlLogicViolationException($"Task {$"({taskId} {task.Alias})"} cannot be worked on since its prior Milestone is not yet completed");
             if (_dal.Engineer.Read(engId) is null)
                 throw new BO.BlDoesNotExistException($"Engineer with ID {engId} does not exist");
             if (task.EngineerId is not null)
@@ -624,5 +626,37 @@ internal class TaskImplementation : ITask
         if (_dal.Dependency.Read(d => (d.DependentTask == id1 && d.DependsOnTask == id2) || (d.DependentTask == id2 && d.DependsOnTask == id1)) is not null)
             return true;
         return false;
+    }
+    /// <summary>
+    /// Returns the time left for the completion of the task. assumes the project has started, and an engineer is assigned to the task
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>the time left for the completion of the task</returns>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    /// <exception cref="BO.BlLogicViolationException"></exception>
+    public TimeSpan TimeLeftForTask(int id)
+    {
+        BO.Task task = Read(id) ?? throw new BO.BlDoesNotExistException($"Task {id} not found");
+        if (task.Engineer is null) throw new BO.BlLogicViolationException($"Task {id} is not assigned to an engineer");
+        if (task.CompleteDate is not null) throw new BO.BlLogicViolationException($"Task {id} is already completed");
+        if (!ProjectHasStarted()) throw new BO.BlLogicViolationException("Project not yet started");
+        var startingDate = task.StartDate != null && task.ScheduledDate < task.StartDate ? task.StartDate : task.ScheduledDate;
+        return (task.DeadlineDate - s_bl.Clock)!.Value;
+    }
+    /// <summary>
+    /// Checkes whether its possible to start work on a task. in terms of dependencies
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>True if all previous tasks are completed and work can be started, false otherwise</returns>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
+    /// <exception cref="BO.BlLogicViolationException"></exception>
+    public bool CanStartWork(int id)
+    {
+        BO.Task? task = Read(id);
+        if (task is null)
+            return false;
+        if (!ProjectHasStarted() || task.Milestone is null) return false;
+        if (s_bl.Milestone.Read(task.Milestone.Id) is null) return false;
+        return s_bl.Milestone.Read(task.Milestone.Id)!.Status == BO.Status.Done;
     }
 }

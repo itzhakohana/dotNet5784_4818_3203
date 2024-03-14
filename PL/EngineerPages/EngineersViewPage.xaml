@@ -9,7 +9,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1050"
       Title="EngineersViewPage"
-      DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+      DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+      Loaded="Page_Loaded">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -53,13 +54,43 @@
                         </Grid>
                         <!--level-->
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="3" Orientation="Horizontal">
-                            <Image Margin="15" Grid.Column="0" Source="/Graphics/Icons/level1.png"/>
-                            <TextBlock VerticalAlignment="Center" Background="Transparent" FontSize="20" Foreground="Black" Text="{Binding Path = Level}" FontFamily="Bahnschrift"/>
+                            <!--icon for Engineer level-->
+                            <Image HorizontalAlignment="Center" Margin="10,15" Grid.Column="0">
+                                <Image.Effect>
+                                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                                </Image.Effect>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="/Graphics/Icons/level1.png" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path= Level, Converter={StaticResource ConvertLevelToNumber}}" Value="1">
+                                                <Setter Property="Source" Value="/Graphics/Icons/beginner.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path= Level, Converter={StaticResource ConvertLevelToNumber}}" Value="2">
+                                                <Setter Property="Source" Value="/Graphics/Icons/advancedBeginner.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path= Level, Converter={StaticResource ConvertLevelToNumber}}" Value="3">
+                                                <Setter Property="Source" Value="/Graphics/Icons/intermediate.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path= Level, Converter={StaticResource ConvertLevelToNumber}}" Value="4">
+                                                <Setter Property="Source" Value="/Graphics/Icons/advanced.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Path= Level, Converter={StaticResource ConvertLevelToNumber}}" Value="5">
+                                                <Setter Property="Source" Value="/Graphics/Icons/expert.png" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <TextBlock VerticalAlignment="Center" Background="Transparent" FontSize="20" Foreground="Black" Text="{Binding Path = Level}" FontFamily="Bahnschrift SemiBold Condensed"/>
 
                         </StackPanel>
                         <!--task-->
                         <Grid Background="{DynamicResource EngineerListBackround3}" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="4">
                             <Image Margin="15" Grid.Column="0">
+                                <Image.Effect>
+                                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                                </Image.Effect>
                                 <Image.Style>
                                     <Style TargetType="Image">
                                         <Setter Property="Source" Value="/Graphics/Icons/available1.png" />
@@ -114,7 +145,9 @@
                                                 <Border Background="{DynamicResource Backround3}" BorderBrush="Black" CornerRadius="9" BorderThickness="0">
                                                     <StackPanel>
                                                         <ComboBoxItem FontSize="15" Foreground="{DynamicResource fontColor1}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Edit" Height="50" Width="100" PreviewMouseLeftButtonDown="EngineerOptions_ComboBoxItemSelected" />
+                                                        <ComboBoxItem FontSize="15" Foreground="{DynamicResource fontColor1}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Add User" Height="50" Width="100" PreviewMouseLeftButtonDown="EngineerOptions_ComboBoxItemSelected" />
                                                         <ComboBoxItem FontSize="15" Foreground="{DynamicResource fontColor1}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Delete" Height="50" Width="100" PreviewMouseLeftButtonDown="EngineerOptions_ComboBoxItemSelected" />
+                                                        <!--Visibility="{Binding  CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}" Height="50" Width="100" PreviewMouseLeftButtonDown="EngineerOptions_ComboBoxItemSelected"-->
                                                     </StackPanel>
                                                 </Border>
                                             </Popup>
@@ -146,6 +179,26 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <!--Adding a user popup. admin action-->
+        <Border Background="{DynamicResource Backround4}" x:Name="AddUserBorder" Visibility="Collapsed"
+                Grid.ColumnSpan="3" Grid.RowSpan="3" Height="285" Width="200" CornerRadius="10"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Panel.ZIndex="10">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="7" BlurRadius="5" Opacity="0.5" Color="Black"/>
+            </Border.Effect>
+            <StackPanel Margin="5,0">
+                <Label Margin="0,15,0,0" Content="Creat New User" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"/>
+                <Separator Background="White"/>
+                <Label Margin="0,15,0,0" Content="Pick User Name:" HorizontalAlignment="Left" Foreground="White"/>
+                <TextBox Template="{StaticResource TextBoxControlTemplate}" Text="{Binding NewUser.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Content="Pick Password:" HorizontalAlignment="Left" Foreground="White"/>
+                <TextBox Template="{DynamicResource TextBoxControlTemplate}" MaxLength="8" Text="{Binding NewUser.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="PasswordUpdated_TextBoxChanged"/>
+                <StackPanel Orientation="Horizontal" Margin="0,15,0,0" HorizontalAlignment="Center">
+                    <Button Style="{StaticResource ButtonStyle1}" Content="Close" Width="70" Height="40" FontSize="15" Click="CloseAddUserPopup_btnClick"/>
+                    <Button Style="{StaticResource ButtonStyle1}" Content="Add" Width="70" Height="40" FontSize="15" Click="CreatUser_btnClick"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
         <!--filtering combo box-->
         <StackPanel Orientation="Horizontal"  Margin="0" Grid.Column="2" Grid.Row="0" >
             <Label HorizontalAlignment="Center" Margin="0" Content="Filter By:" />
@@ -196,22 +249,26 @@
             <controls:IconButton 
                 Grid.Column="2"
                 Grid.Row="2"
+                Visibility="{Binding CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}"
                 Style="{DynamicResource IconButton1}" 
+                Icon="/Graphics/Icons/bin1.png"
                 Margin="0,0,20,0"
                 Height="40"
                 Width="60"   
+                Padding="7"
                 IconHeight="1"
                 IconWidth="1"
                 VerticalAlignment="Top"
                 Click="DeletesAllEngineers_BtnClick">
-                <DropShadowEffect ShadowDepth="10" Color="White">
-
-                </DropShadowEffect>
+                <ButtonBase.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                </ButtonBase.Effect>
             </controls:IconButton>
             <controls:IconButton 
                 Grid.Column="2"
                 Grid.Row="2"
                 Style="{DynamicResource IconButton1}" 
+                Visibility="{Binding CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}"
                 Icon="/Graphics/Icons/add1.png"
                 Height="40"
                 Width="60"   
@@ -219,8 +276,9 @@
                 IconWidth="1"
                 VerticalAlignment="Top"
                 Click="AddNewEngineer_BtnClick">
-                <DropShadowEffect ShadowDepth="10" Color="White">
-                </DropShadowEffect>
+                <ButtonBase.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                </ButtonBase.Effect>
             </controls:IconButton>
             
         </StackPanel>

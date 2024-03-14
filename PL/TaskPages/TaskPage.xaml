@@ -15,7 +15,7 @@
         <ResourceDictionary Source="/Themes/Dark.xaml"/>
     </Page.Resources>
 
-    <Grid Background="Transparent">
+    <Grid Background="Transparent" ShowGridLines="True">
         <Grid.Resources>
             <DataTemplate x:Key="TaskInListTemplate" DataType="bl:TaskInList" >
                 <Border CornerRadius="3" Background="LightGray" HorizontalAlignment="Stretch">
@@ -82,7 +82,6 @@
                 </ControlTemplate.Triggers>
             </ControlTemplate>
         </Grid.Resources>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="5*"/>
@@ -93,6 +92,94 @@
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
+
+        <!--handle dependencies popup window-->
+        <Border  Panel.ZIndex="10" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="3">
+            <StackPanel  Orientation="Horizontal" >
+                <!--add Dependencies popup window-->
+                <Border x:Name="AddDependenciesBorder" Background="{DynamicResource Backround6}" CornerRadius="10" BorderBrush="Black" BorderThickness="2" Visibility="Collapsed" Width="400" Height="400">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="10" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                    </Border.Effect>
+                    <!--add dependencies popup-->
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Content="Add Dependent Tasks" Foreground="White" Margin="5"/>
+                        <!--go back button-->
+                        <controls:IconButton 
+                            Grid.Row="0" Height="15" Width="10" IconHeight="70" Margin="10" Background="White"
+                            Style="{DynamicResource IconButton1}" VerticalAlignment="Top" HorizontalAlignment="Left"
+                            Content="Back" Icon="/Graphics/Icons/backArrow1.png" Click="CloseDependenciesWindow_BtnClick">
+                        </controls:IconButton>
+                        <!--list view for adding dependencies-->
+                        <ListView  Margin="5,35,5,5" Grid.RowSpan="2" Grid.ColumnSpan="2" 
+                            ItemsSource="{Binding AvailableDependencies, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                            ItemTemplate="{StaticResource TaskInListTemplate}"
+                            SelectionMode="Extended" HorizontalContentAlignment="Stretch">
+
+                        </ListView>
+                    </Grid >
+                </Border>
+                <!--view dependencies popup window-->
+                <Border x:Name="CurrentDependenciesBorder"  Background="{DynamicResource Backround6}" CornerRadius="10" BorderBrush="Black" BorderThickness="2" Visibility="Collapsed" Width="400" Height="400">
+                    <Border.Resources>
+                        <DataTemplate x:Key="TaskInListViewTemplate" DataType="bl:TaskInList" >
+                            <Border CornerRadius="3" Background="LightGray" HorizontalAlignment="Stretch">
+                                <Grid  HorizontalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Id}" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Alias}" VerticalAlignment="Center" Width="auto" HorizontalAlignment="Stretch"/>
+                                    <Button Background="Gray" Height="20" Width="50" Content="Remove" FontSize="11" VerticalContentAlignment="Center" Grid.Column="2" Click="RemoveDependency_BtnClick">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Opacity" Value="0.4"/>
+                                                        <Setter Property="Background" Value="DarkGray"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </Border.Resources>
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="10" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                    </Border.Effect>
+                    <!--actual dependencies popup-->
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Content="Current Dependent Tasks" Foreground="White" Margin="5"/>
+                        <ListView  Margin="5,35,5,5" Grid.RowSpan="2" Grid.ColumnSpan="2" 
+                            ItemsSource="{Binding CurrentTaskDependencies, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                            ItemTemplate="{StaticResource TaskInListViewTemplate}"
+                            SelectionMode="Extended" HorizontalContentAlignment="Stretch">
+                        </ListView>
+                    </Grid>
+                </Border>
+            </StackPanel>
+        </Border>
+
         <Border Grid.RowSpan="3" Grid.Column="1" Background="{DynamicResource Backround4}" CornerRadius="15" BorderBrush="Black">
             <Grid>
                 <Grid.RowDefinitions>
@@ -282,7 +369,7 @@
                             HorizontalAlignment="Left"
                               Width="130"
                               Template="{StaticResource TextBoxControlTemplate}"                            
-                              Text="{Binding Task.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="EnteredKey_RequiredDaysFieldChanged">
+                              Text="{Binding Task.RequiredEffortTime, Mode=TwoWay,  ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="EnteredKey_RequiredDaysFieldChanged">
                         </DatePickerTextBox>
                     </StackPanel>
                 </StackPanel>
@@ -305,144 +392,82 @@
                 </StackPanel>
 
                 <!--assign engineer-->
-                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15,0" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="1">
+                <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <CheckBox Name="AssignEngineerCheckBox" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0" 
                             IsChecked="{Binding Task.Engineer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullEngineerInTaskToBool}}"/>
                         <Label VerticalContentAlignment="Bottom" Content="Assign Engineer:"/>
                     </StackPanel>
-                    <TextBox 
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox 
                          Name="textBox" Width="200"
                          Template="{DynamicResource TextBoxControlTemplate}"
                          Text="{Binding Task.Engineer.Name, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                          IsEnabled="{Binding ElementName= AssignEngineerCheckBox, Path=IsChecked}">
-                    </TextBox>
-                    <ComboBox 
-                        Width="200"
-                         Name="tasksComboBox"
-                         Margin="0,0,0,0"
-                         Background="{DynamicResource TextBoxColor1}" 
-                         Foreground="Black"
-                         VerticalAlignment="Center"
-                         SelectedValue="{Binding Task.Engineer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         ItemsSource="{Binding AvailableEngineers}">
-                        <ComboBox.Style >
-                            <Style TargetType="ComboBox" BasedOn="{StaticResource DefaultComboBoxStyle}">
+                        </TextBox>
+                        <controls:IconToggleButton x:Name="TaskPopupOpener" Style="{StaticResource ToggleIconButton1}" Icon="/Graphics/Icons/add1.png" Height="30" Width="30" Background="Gray">
+                            <Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleIconButton1}">
                                 <Style.Triggers>
                                     <MultiDataTrigger >
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding IsEnabled, ElementName=textBox}" Value="True"/>
-                                            <!--<Condition Binding="{Binding IsFocused, ElementName=textBox}" Value="True"/>-->
+                                            <Condition Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="True"/>
                                         </MultiDataTrigger.Conditions>
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </MultiDataTrigger>
-                                    <DataTrigger Binding="{Binding IsEnabled, ElementName=textBox}" Value="False">
+                                    <DataTrigger Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="False">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </ComboBox.Style>
-                    </ComboBox>
+                        </controls:IconToggleButton>
+                    </StackPanel>
+                    <Popup AllowsTransparency="True" StaysOpen="False" Placement="Top" PopupAnimation="Slide" IsOpen="{Binding ElementName=TaskPopupOpener, Path=IsChecked}">
+                        <Border CornerRadius="10" Height="300" Width="450" Background="Gray">
+                            <Border.Resources>
+                                <!--default template for engineer in task-->
+                                <DataTemplate x:Key="DefaultEngineerInTaskTemplate" DataType="bl:EngineerInTask" >
+                                    <Border CornerRadius="10" Background="#FF848484" Height="40" HorizontalAlignment="Stretch">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <!--icon for engineer status-->
+                                            <Image HorizontalAlignment="Center" Grid.Column="0" Height="30" Width="30" Source="/Graphics/Icons/user2.png">
+                                            </Image>
+                                            <Grid Grid.Column="1" Background="#FF929292">
+                                                <TextBlock  Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                                            </Grid>
+                                            <TextBlock Grid.Column="2" Text="{Binding Name}"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </Border.Resources>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="15" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                            </Border.Effect>
+                            <ListView x:Name="AvailableTasksDisplay" HorizontalContentAlignment="Stretch"
+                                      ItemTemplate="{StaticResource DefaultEngineerInTaskTemplate}"
+                                      SelectedValue="{Binding Task.Engineer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                      ItemsSource="{Binding AvailableEngineers}"
+                                      SelectionChanged="EngineerSelected_ListView">
+                                <!--SelectedValue="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"-->
+                            </ListView>
+                        </Border>
+                    </Popup>
                 </StackPanel>
 
-                <!--add Dependencies popup window-->
-                <Border x:Name="AddDependenciesBorder" Margin="100,0" Panel.ZIndex="10" Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="2" Background="{DynamicResource Backround4}" CornerRadius="10" BorderBrush="Black" BorderThickness="2" Visibility="Collapsed">
-                    <Border.Effect>
-                        <DropShadowEffect ShadowDepth="10" BlurRadius="5" Opacity="0.5" Color="Black"/>
-                    </Border.Effect>
-                    <!--add dependencies popup-->
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Content="Add Dependent Tasks" Foreground="White" Margin="5"/>
-                        <!--go back button-->
-                        <controls:IconButton 
-                                Grid.Row="0" Height="15" Width="10" IconHeight="70" Margin="10" Background="White"
-                                Style="{DynamicResource IconButton1}" VerticalAlignment="Top" HorizontalAlignment="Left"
-                                Content="Back" Icon="/Graphics/Icons/backArrow1.png" Click="CloseDependenciesWindow_BtnClick">
-                        </controls:IconButton>
-                        <!--list view for adding dependencies-->
-                        <ListView  Margin="5,35,5,5" Grid.RowSpan="2" Grid.ColumnSpan="2" 
-                                   ItemsSource="{Binding AvailableDependencies, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                                   ItemTemplate="{StaticResource TaskInListTemplate}"
-                                   SelectionMode="Extended" HorizontalContentAlignment="Stretch">
-
-                        </ListView>
-                    </Grid >
-                </Border>
-                <!--view dependencies popup window-->
-                <Border x:Name="CurrentDependenciesBorder" Margin="100,0" Panel.ZIndex="10" Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" Grid.ColumnSpan="2" Background="{DynamicResource Backround4}" CornerRadius="10" BorderBrush="Black" BorderThickness="2" Visibility="Collapsed">
-                    <Border.Resources>
-                        <DataTemplate x:Key="TaskInListViewTemplate" DataType="bl:TaskInList" >
-                            <Border CornerRadius="3" Background="LightGray" HorizontalAlignment="Stretch">
-                                <Grid  HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="70"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding Id}" VerticalAlignment="Center"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding Alias}" VerticalAlignment="Center" Width="auto" HorizontalAlignment="Stretch"/>
-                                    <Button Background="Gray" Height="20" Width="50" Content="Remove" FontSize="11" VerticalContentAlignment="Center" Grid.Column="2" Click="RemoveDependency_BtnClick">
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Opacity" Value="0.4"/>
-                                                        <Setter Property="Background" Value="DarkGray"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
-                                    </Button>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </Border.Resources>
-                    <Border.Effect>
-                        <DropShadowEffect ShadowDepth="10" BlurRadius="5" Opacity="0.5" Color="Black"/>
-                    </Border.Effect>
-                    <!--actual dependencies popup-->
-                    <Grid >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Content="Current Dependent Tasks" Foreground="White" Margin="5"/>
-                        <!--go back button-->
-                        <controls:IconButton 
-                                Grid.Row="0" Height="15" Width="10" IconHeight="70" Margin="10" Background="White"
-                                Style="{DynamicResource IconButton1}" VerticalAlignment="Top" HorizontalAlignment="Left"
-                                Content="Back" Icon="/Graphics/Icons/backArrow1.png" Click="CloseDependenciesWindow_BtnClick">
-                        </controls:IconButton>
-                        <ListView  Margin="5,35,5,5" Grid.RowSpan="2" Grid.ColumnSpan="2" 
-                                ItemsSource="{Binding CurrentTaskDependencies, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
-                                ItemTemplate="{StaticResource TaskInListViewTemplate}"
-                                SelectionMode="Extended" HorizontalContentAlignment="Stretch">
-
-                        </ListView>
-                    </Grid>
-                </Border>
+                
                 <!--buttons for handling dependencies-->
                 <StackPanel Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5">
-                    <Label VerticalContentAlignment="Bottom" HorizontalAlignment="Center" Content="Dependencies:" Foreground="White" Height="25"/>
-                    <Border CornerRadius="6" Background="{StaticResource Backround1}" Height="50" Width="200" >
+                    <Border CornerRadius="6" Background="Transparent" Height="50" Width="200" >
                         <Border.Effect>
                             <DropShadowEffect ShadowDepth="4" BlurRadius="5" Opacity="0.5" Color="Black"/>
                         </Border.Effect>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                            <Button Style="{StaticResource ButtonStyle1}" Background="White" Content="View" Foreground="Black" FontSize="15" FontWeight="Bold" Width="70" Height="30" Click="ShowViewDependenciesWindow_BtnClick"/>
-                            <Button Style="{StaticResource ButtonStyle1}" Background="White" Content="Add" Foreground="Black" FontSize="15" FontWeight="Bold" Width="70" Height="30" Click="ShowAddDependenciesWindow_BtnClick"/>
+                            <Button Style="{StaticResource ButtonStyle1}" Background="White" Content="View Dependencies" Foreground="Black" FontSize="15" FontWeight="Bold" Width="170" Height="30" Click="ShowViewDependenciesWindow_BtnClick"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -499,8 +524,7 @@
                      Icon="/Graphics/Icons/backArrow1.png"/>
                 <!--Button for adding\updating-->
                 <Button 
-                     Style="{DynamicResource ButtonStyle1}"
-                     DataContext="{Binding Engineer}"
+                     Style="{DynamicResource ButtonStyle1}"                     
                      Content="Save" FontSize="15" Background="#FF414243" Foreground="White" VerticalContentAlignment="Center"
                      Grid.Column="3" Grid.Row="0" Padding="8" Width="75" Height="40"  Click="AddOrUpdateTask_btnClick">
                 </Button>

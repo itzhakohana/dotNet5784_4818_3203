@@ -24,7 +24,7 @@ namespace PL.EngineerPages
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         private readonly bool _inAddMode;
         private readonly int _engineerId;
-        public ObservableCollection<BO.TaskInEngineer> AvailableTasks { get; set; }
+        public ObservableCollection<BO.TaskInList>? AvailableTasks { get; set; }
 
         public BO.Engineer Engineer
         {
@@ -38,24 +38,26 @@ namespace PL.EngineerPages
 
 
 
-        public EngineerPage(int id = 0)
+        public EngineerPage(BO.User CurrentUser, int id = 0)
         {
             InitializeComponent();
             _engineerId = id;
             if (id == 0)
             { 
                 Engineer = new BO.Engineer() {Level = (BO.EngineerExperience)1 };
-                AvailableTasks = new ObservableCollection<BO.TaskInEngineer>();
+                AvailableTasks = new ObservableCollection<BO.TaskInList>(from t in s_bl.Task.ReadAll(s => s.Complexity <= Engineer.Level && !s.IsMilestone && s.Engineer is null)
+                                                                         select new BO.TaskInList() { Id = t.Id, Alias = t.Alias, Description = t.Description, Status = t.Status });
+                AvailableTasksDisplay.ItemsSource = AvailableTasks;
                 _inAddMode = true;
-                tasksComboBox.ItemsSource = AvailableTasks;
+                //tasksComboBox.ItemsSource = AvailableTasks;
             }
             else
             {
                 Engineer = s_bl.Engineer.Read(id)!;
-                AvailableTasks = new ObservableCollection<BO.TaskInEngineer> (from t in s_bl.Task.ReadAllAvailableTasks(id)
-                                  select new BO.TaskInEngineer() { Id = t.Id, Alias = t.Alias });
+                AvailableTasks = new ObservableCollection<BO.TaskInList>(from t in s_bl.Task.ReadAll(s => s.Complexity <= Engineer.Level && !s.IsMilestone && s.Engineer is null && s.Status != BO.Status.Done)
+                                                                         select new BO.TaskInList() { Id = t.Id, Alias = t.Alias, Description = t.Description, Status = t.Status });
+                AvailableTasksDisplay.ItemsSource = AvailableTasks;
                 _inAddMode = false;
-                tasksComboBox.ItemsSource = AvailableTasks;
             }
         }
 
@@ -101,6 +103,34 @@ namespace PL.EngineerPages
             if (!int.TryParse(e.Text, out _))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void LevelChanged_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            AvailableTasks = new ObservableCollection<BO.TaskInList>(from t in s_bl.Task.ReadAll(s => s.Complexity <= Engineer.Level && !s.IsMilestone && s.Engineer is null && s.Status != BO.Status.Done)
+                                                                     select new BO.TaskInList() { Id = t.Id, Alias = t.Alias, Description = t.Description, Status = t.Status });
+            AvailableTasksDisplay.ItemsSource = AvailableTasks;
+            if (Engineer.Task != null && Engineer.Level < s_bl.Task.Read(Engineer.Task.Id).Complexity)
+                Engineer.Task = null;
+        }
+
+        private void TaskSelected_ListView(object sender, SelectionChangedEventArgs e)
+        {
+            var list = sender as ListView;
+            var item = list.SelectedItem;
+            if (item is BO.TaskInList)
+            {
+                BO.TaskInList task = item as BO.TaskInList;                
+                Engineer = new BO.Engineer()
+                {
+                    Id = Engineer.Id,
+                    Name = Engineer.Name,
+                    Cost = Engineer.Cost,
+                    Email = Engineer.Email,
+                    Level = Engineer.Level,
+                    Task = new BO.TaskInEngineer() { Alias = task!.Alias, Id = task.Id }
+                };
             }
         }
     }

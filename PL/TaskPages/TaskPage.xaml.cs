@@ -73,7 +73,7 @@ namespace PL.TaskPages
 
 
 
-        public TaskPage(int id = 0)
+        public TaskPage(BO.User CurrentUser, int id = 0)
         {
             InitializeComponent();            
             if (id == 0)
@@ -165,6 +165,7 @@ namespace PL.TaskPages
         private void ShowViewDependenciesWindow_BtnClick(object sender, RoutedEventArgs e)
         {
             CurrentDependenciesBorder.Visibility = Visibility.Visible;
+            AddDependenciesBorder.Visibility = Visibility.Visible;
             if (CurrentTaskDependencies != null) 
                 CurrentTaskDependencies = (from t in CurrentTaskDependencies
                                            select t).ToList();
@@ -189,6 +190,8 @@ namespace PL.TaskPages
                         //tmp.Add(task);
                         //CurrentTaskDependencies = tmp;
                         CurrentTaskDependencies.Add(task);
+                        CurrentTaskDependencies = (from t in CurrentTaskDependencies
+                                                   select t).ToList();
                     }
                     //AvailableDependencies = s_bl.Task.ReadAllTasksInList(t => t.Id != Task.Id && !s_bl.Task.CheckDependency(t.Id, Task.Id) && t.Id != task.Id)?.ToList();
                     AvailableDependencies = (from t in AvailableDependencies
@@ -205,12 +208,22 @@ namespace PL.TaskPages
                 if (task != null)
                 {
                     if (CurrentTaskDependencies.Contains(task))
+                    {
                         CurrentTaskDependencies = (from t in CurrentTaskDependencies
                                                    where t != task
                                                    select t).ToList();
-                    AvailableDependencies = s_bl.Task.ReadAllTasksInList(t => t.Id != Task.Id && !s_bl.Task.CheckDependency(t.Id, Task.Id))?.ToList();
+                        AvailableDependencies?.Add(task);
+                        AvailableDependencies = (from t in AvailableDependencies
+                                                 select t).ToList();
+                    }
+                    //AvailableDependencies = s_bl.Task.ReadAllTasksInList(t => t.Id != Task.Id && !s_bl.Task.CheckDependency(t.Id, Task.Id))?.ToList();
                 }
             }
-        }               
+        }
+
+        private void EngineerSelected_ListView(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

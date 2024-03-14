@@ -35,11 +35,22 @@ namespace PL.TaskPages
         public static readonly DependencyProperty TaskListProperty =
             DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.Task>), typeof(TasksViewPage), new PropertyMetadata(null));
 
+        public BO.User CurrentUser
+        {
+            get { return (BO.User)GetValue(CurrentUserProperty); }
+            set { SetValue(CurrentUserProperty, value); }
+        }
 
-        public TasksViewPage()
+        // Using a DependencyProperty as the backing store for CurrentUser.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentUserProperty =
+            DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(TasksViewPage), new PropertyMetadata(null));
+
+
+        public TasksViewPage(BO.User CurrentUser)
         {
             InitializeComponent();
             TaskList = s_bl.Task.ReadAllTasks();
+            this.CurrentUser = CurrentUser;
         }
 
         private void TaskOptions_ComboBoxItemSelected(object sender, RoutedEventArgs e)
@@ -52,7 +63,7 @@ namespace PL.TaskPages
 
                 if((string)comboBoxItem.Content == "Edit")
                 {
-                    NavigationService.Navigate(new TaskPage(task!.Id));
+                    NavigationService.Navigate(new TaskPage(CurrentUser,task!.Id));
                 }
 
                 if ((string)comboBoxItem.Content == "Delete")
@@ -71,7 +82,7 @@ namespace PL.TaskPages
         {
             BO.Task task = (sender as ListView)?.SelectedItem as BO.Task;
             if (task != null)
-                NavigationService.Navigate(new TaskPage(task.Id));
+                NavigationService.Navigate(new TaskPage(CurrentUser, task.Id));
         }
 
         private void SelectionChanged_FilterBox(object sender, SelectionChangedEventArgs e)
@@ -81,7 +92,29 @@ namespace PL.TaskPages
 
         private void AddNewTask_BtnClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new TaskPage(0));
+            NavigationService.Navigate(new TaskPage(CurrentUser, 0));
+        }
+
+        private void DeletesAllTasks_BtnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var result = MessageBox.Show("All Tasks & their Dependencies will be deleted, Are you sure you want to proceed?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    s_bl.Task.Reset();
+                    MessageBox.Show("All Tasks Successfuly Deleted", "Success", MessageBoxButton.OK, MessageBoxImage.None);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            TaskList = s_bl.Task.ReadAllTasks();
         }
     }
 }

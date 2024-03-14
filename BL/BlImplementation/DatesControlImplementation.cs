@@ -15,6 +15,7 @@ internal class DatesControlImplementation : IDatesControl
     private DalApi.IDal _dal = DalApi.Factory.Get;
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+   
     public DateTime? GetStartDate()
     {
         return _dal.ReadStartDate();
@@ -25,9 +26,9 @@ internal class DatesControlImplementation : IDatesControl
         return _dal.ReadEndDate();
     }
 
-    public DateTime? GetCurrentDate()
+    public DateTime GetCurrentDate()
     {
-        return _dal.ReadCurrentTime();
+        return _dal.ReadCurrentTime() ?? DateTime.Now;
     }
 
     public void SetStartDate(DateTime? start)

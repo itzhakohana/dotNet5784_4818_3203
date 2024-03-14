@@ -9,7 +9,8 @@ using System.Collections.Generic;
 internal class UserImplementation : BlApi.IUser
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    private readonly BlApi.IBl s_bl;
+    internal UserImplementation(IBl bl) => s_bl = bl;
 
     /// <summary>
     /// Private helper function for converting Dal user to Bl user
@@ -38,6 +39,7 @@ internal class UserImplementation : BlApi.IUser
             CompletedTasks = completedTasks != null ? completedTasks.Count() : 0,
             Level = eng != null ? eng.Level : BO.EngineerExperience.None,
             CurrentTask = (eng != null && eng.Task != null) ? s_bl.Task.Read(eng.Task.Id) : null,
+            Engineer = eng
         };
     }
     /// <summary>
@@ -53,15 +55,15 @@ internal class UserImplementation : BlApi.IUser
         if (user.UserType == BO.UserType.Engineer && _dal.Engineer.Read(user.Id) is null)
             throw new BO.BlDoesNotExistException($"Engineer with Id {user.Id} does not exist");
         if (_dal.User.Read(u => u.Password == user.Password) is not null)
-            throw new BO.BlAlreadyExistsException($"Password {user.Id} already in use");
+            throw new BO.BlAlreadyExistsException($"Password {user.Password} already in use");
         
         _dal.User.Create(new DO.User()
         {
             Id = user.Id,
             UserName = user.UserName,
             Password = user.Password,
-            CreationDate = s_bl.Task.ProjectHasStarted() ? s_bl.DateControl.GetCurrentDate()!.Value : DateTime.Now,
-            LastLoginDate = s_bl.Task.ProjectHasStarted() ? s_bl.DateControl.GetCurrentDate()!.Value : DateTime.Now,
+            CreationDate = s_bl.Clock,
+            LastLoginDate = s_bl.Clock,
             UserType = (DO.UserType)(user.UserType),            
         });
     }
@@ -155,18 +157,17 @@ internal class UserImplementation : BlApi.IUser
         return true;
     }
     /// <summary>
-    /// Perfoms login action. will update the lastLogInDate field of the given user.
+    /// Perfoms login action by password and user-name. will update the lastLogInDate field of the given user.
     /// </summary>
     /// <param name="id"></param>
-    /// <returns>Instance of the user given by Id(the user that logged on)</returns>
+    /// <returns>Instance of the user given by the password and user-name</returns>
     /// <exception cref="BO.BlDoesNotExistException"></exception>
-    public BO.User LogIn(int id)
+    public BO.User LogIn(int password, string userName)
     {
-        var user = Read(id);
+        var user = Read(u => u.Password == password && u.UserName == userName);
         if (user is null)
-            throw new BO.BlDoesNotExistException($"User with Id {id} does not exist");
-        
-        user.LastLoginDate = s_bl.Task.ProjectHasStarted() ? s_bl.DateControl.GetCurrentDate()!.Value : DateTime.Now;
+            throw new BO.BlDoesNotExistException($"User {userName} not found");        
+        user.LastLoginDate = s_bl.Clock;
         Update(user);
         return user;
     }

@@ -43,5 +43,9 @@ public class User
     /// The task the user is currently working on. if user not currently assigned, will contain null
     /// </summary>
     public BO.Task? CurrentTask { get; set; }
+    /// <summary>
+    /// The Engineer assigned to this profile. if user not an Engineer, will contain null
+    /// </summary>
+    public BO.Engineer? Engineer { get; set; }
 
 }

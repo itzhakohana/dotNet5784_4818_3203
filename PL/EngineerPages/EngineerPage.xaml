@@ -12,49 +12,11 @@
 
     <Page.Resources>
         <ResourceDictionary Source="/Themes/Dark.xaml"/>
+        
     </Page.Resources>
     
     <Grid Background="Transparent">
         <Grid.Resources>
-            <ControlTemplate x:Key="TextBoxControlTemplate" TargetType="{x:Type TextBox}">
-
-                <Border VerticalAlignment="Center" Name="border" Background="{DynamicResource TextBoxColor1}" MinHeight="35" MaxHeight="40" CornerRadius="4" BorderThickness="1" BorderBrush="Black">
-
-                    <TextBox 
-                        Name="myTextBox" 
-                        IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                        Background="Transparent"     
-                        BorderThickness="0"
-                        FontSize="17"  
-                        MaxLength="{TemplateBinding MaxLength}"
-                        Height="{TemplateBinding Height}"
-                        MinWidth="70"
-                        VerticalAlignment="Center"                                             
-                        HorizontalAlignment="Center"    
-                        HorizontalContentAlignment="Center" 
-                        FontFamily="Global Sans Serif"
-                        Text ="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
-                        
-                    </TextBox>
-                </Border>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsFocused" Value="True">
-                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxBorderColorOnFocus1}"/>
-                        <Setter Property="BorderThickness" TargetName="border" Value="2"/>
-                    </Trigger>
-                    <Trigger Property="IsFocused" Value="True" SourceName="myTextBox">
-                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxBorderColorOnFocus1}"/>
-                        <Setter Property="BorderThickness" TargetName="border" Value="2"/>
-                    </Trigger>
-                    <MultiTrigger>
-                        <MultiTrigger.Conditions>
-                            <Condition Property="IsFocused" Value="False" SourceName="myTextBox"/>
-                            <Condition Property="Text" Value="{x:Null}" SourceName="myTextBox"/>
-                        </MultiTrigger.Conditions>
-                        <Setter Property="Text" TargetName="myTextBox" Value="Name"/>
-                    </MultiTrigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
         </Grid.Resources>
         
         <Grid.RowDefinitions>
@@ -138,46 +100,98 @@
                         Foreground="Black"
                         VerticalAlignment="Center"
                         Style="{StaticResource DefaultComboBoxStyle}"
+                        SelectionChanged="LevelChanged_SelectionChanged"
                         SelectedValue="{Binding Engineer.Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                         ItemsSource="{Binding Source={StaticResource EngineerExperienceEnumCollection}}" >
                     </ComboBox>
                 </StackPanel>
                 <!--Task-->
-                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="5">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5">
                     <Label VerticalContentAlignment="Bottom" Content="Assign Task:"/>
-                    <CheckBox Name="AssignTaskCheckBox" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0" 
-                         IsChecked="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullTaskInEngineerToBool}}"/>
-                    <TextBox 
+                    <!--<CheckBox Name="AssignTaskCheckBox" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0" 
+                         IsChecked="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullTaskInEngineerToBool}}"/>-->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox 
+                            Width="280"
                             Name="textBox"
+                            IsReadOnly="True"
                             Template="{DynamicResource TextBoxControlTemplate}"                            
-                            Text="{Binding Engineer.Task.Alias, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                            IsEnabled="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}">
-                    </TextBox>
-                    <ComboBox 
-                            Name="tasksComboBox"
-                            Margin="0,0,0,0"
-                            Background="{DynamicResource TextBoxColor1}" 
-                            Foreground="Black"
-                            VerticalAlignment="Center"
-                            SelectedValue="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                            ItemsSource="{Binding AvailableTasks}">
-                        <ComboBox.Style >
-                            <Style TargetType="ComboBox" BasedOn="{StaticResource DefaultComboBoxStyle}">
+                            Text="{Binding Engineer.Task.Alias, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                            IsEnabled="True">
+                            <!--IsEnabled="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}"-->
+                        </TextBox>
+                        <controls:IconToggleButton x:Name="TaskPopupOpener" Style="{StaticResource ToggleIconButton1}" Icon="/Graphics/Icons/add1.png" Height="30" Width="30" Background="Gray">
+                            <Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleIconButton1}">
                                 <Style.Triggers>
                                     <MultiDataTrigger >
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding IsEnabled, ElementName=textBox}" Value="True"/>
-                                            <!--<Condition Binding="{Binding IsFocused, ElementName=textBox}" Value="True"/>-->
+                                            <Condition Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="True"/>
                                         </MultiDataTrigger.Conditions>
                                         <Setter Property="Visibility" Value="Visible"/>
                                     </MultiDataTrigger>
-                                    <DataTrigger Binding="{Binding IsEnabled, ElementName=textBox}" Value="False">
+                                    <DataTrigger Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="False">
                                         <Setter Property="Visibility" Value="Collapsed"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </ComboBox.Style>
-                    </ComboBox>
+                        </controls:IconToggleButton>
+                        <Popup AllowsTransparency="True" StaysOpen="False" Placement="Top" PopupAnimation="Slide" IsOpen="{Binding ElementName=TaskPopupOpener, Path=IsChecked}">
+                            <Border CornerRadius="10" Height="300" Width="440" Background="Gray">
+                                <Border.Resources>
+                                    <!--default template for task in list-->
+                                    <DataTemplate x:Key="DefaultTaskInListTemplate" DataType="bl:TaskInList" >
+                                        <Border CornerRadius="10" Background="#FF848484" Height="40" HorizontalAlignment="Stretch">
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="50"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <!--icon for task status-->
+                                                <Image HorizontalAlignment="Center" Margin="10" Grid.Column="0">
+                                                    <Image.Style>
+                                                        <Style TargetType="Image">
+                                                            <Setter Property="Source" Value="/Graphics/Icons/task1.png" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="1">
+                                                                    <Setter Property="Source" Value="/Graphics/Icons/unscheduled1.png" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="2">
+                                                                    <Setter Property="Source" Value="/Graphics/Icons/scheduled2.png" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
+                                                                    <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
+                                                                    <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
+                                                                    <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Image.Style>
+                                                </Image>
+                                                <Grid Grid.Column="1" Background="#FF929292">
+                                                    <TextBlock  Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                                                </Grid>
+                                                <TextBlock Grid.Column="2" Text="{Binding Alias}"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </Border.Resources>
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="15" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                                </Border.Effect>
+                                <ListView x:Name="AvailableTasksDisplay" HorizontalContentAlignment="Stretch" ItemsSource="{Binding AvailableTasks}"
+                                          ItemTemplate="{StaticResource DefaultTaskInListTemplate}"
+                                          SelectionChanged="TaskSelected_ListView">
+                                    <!--SelectedValue="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"-->
+                                </ListView>
+                            </Border>
+                        </Popup>
+                    </StackPanel>
                 </StackPanel>
                 <!--Back button-->
                 <controls:IconButton 

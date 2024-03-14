@@ -1,2 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <User>
+    <Id>201151236</Id>
+    <Password>12</Password>
+    <UserName>mas</UserName>
+    <LastLoginDate>2024-03-14T22:34:14.7866414+02:00</LastLoginDate>
+    <CreationDate>2024-04-13T22:32:51.2857785+03:00</CreationDate>
+    <UserType>Engineer</UserType>
+  </User>
+  <User>
+    <Id>394576877</Id>
+    <Password>23</Password>
+    <UserName>amy</UserName>
+    <LastLoginDate>2024-03-14T22:36:22.2813881+02:00</LastLoginDate>
+    <CreationDate>2024-03-14T22:34:14.7866414+02:00</CreationDate>
+    <UserType>Engineer</UserType>
+  </User>
+  <User>
+    <Id>394144107</Id>
+    <Password>1</Password>
+    <UserName>b</UserName>
+    <LastLoginDate>2024-03-14T22:36:22.2813881+02:00</LastLoginDate>
+    <CreationDate>2024-03-14T22:36:22.2813881+02:00</CreationDate>
+    <UserType>Engineer</UserType>
+  </User>
+  <User>
+    <Id>234412184</Id>
+    <Password>1234</Password>
+    <UserName>Manager</UserName>
+    <LastLoginDate>2024-03-17T22:36:22.2813881+02:00</LastLoginDate>
+    <CreationDate>2024-03-07T00:29:53.5250076+02:00</CreationDate>
+    <UserType>Admin</UserType>
+  </User>
+</ArrayOfUser>

@@ -64,9 +64,7 @@ namespace PL.ProjectPages
         public StartProjectPage()
         {
             InitializeComponent();
-            Loading = false;
-            if(s_bl.DateControl.GetCurrentDate() is null)
-                s_bl.DateControl.SetCurrentDate(DateTime.Now);
+            Loading = false;            
         }
 
         private void GoBack_BtnClick(object sender, RoutedEventArgs e)

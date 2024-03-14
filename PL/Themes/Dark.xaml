@@ -160,8 +160,51 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
+
+    <!--style for toggle Button icon button -->
+    <Style x:Key="ToggleIconButton1" TargetType="{x:Type controls:IconToggleButton}">
+        <Setter Property="Background" Value="{StaticResource Backround1}"/>
+        <Setter Property="Foreground" Value="{StaticResource fontColor1}"/>
+        <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="MinHeight" Value="20"/>
+        <Setter Property="MaxHeight" Value="200"/>
+        <Setter Property="MinWidth" Value="20"/>
+        <Setter Property="MaxWidth" Value="200"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:IconToggleButton}">
+                    <!--<Border x:Name="border" 
+                    Background="Transparent" 
+                    BorderBrush="Black" 
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    CornerRadius="8">
+                    <Grid>
+                        <Image Margin="3" Source="{TemplateBinding Icon}"/>
+                    </Grid>
+                </Border>-->
+
+                    <Border x:Name="border" CornerRadius="3" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                        <Image Source="{TemplateBinding Icon}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="white"/>
+                            <Setter Property="Opacity" TargetName="border" Value="0.7"/>
+                            <!--<Setter Property="BorderThickness" TargetName="border" Value="0"/>-->
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="white"/>
+                            <Setter Property="Opacity" TargetName="border" Value="0.7"/>
+                            <!--<Setter Property="BorderThickness" TargetName="border" Value="0"/>-->
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <!--style for combo box-->
     <Style x:Key="DefaultComboBoxStyle" TargetType="{x:Type ComboBox}">
