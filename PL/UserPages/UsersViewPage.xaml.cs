@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.TaskPages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,9 +46,34 @@ namespace PL.UserPages
 
 
 
-        public UsersViewPage(BO.User currentUser)
+        public UsersViewPage(BO.User user)
         {
             InitializeComponent();
+            CurrentUser = user;
+            UsersList = s_bl.User.ReadAll()?.ToList();
+        }
+
+        private void AddNewUser_BtnClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new UserPages.UserPage(CurrentUser, ""));
+        }
+
+        private void UserSelected_listViewItemSelected(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                BO.User user = (sender as ListView)?.SelectedItem as BO.User;
+                if (user != null)
+                    NavigationService.Navigate(new UserPages.UserPage(CurrentUser, user.Password));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load user! " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);                
+            }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
             UsersList = s_bl.User.ReadAll()?.ToList();
         }
     }

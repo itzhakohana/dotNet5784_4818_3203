@@ -46,19 +46,19 @@
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
                 </Grid.ColumnDefinitions>
-                <controls:IconButton Grid.Column="0" Style="{DynamicResource IconButton1}" Background="Transparent" Padding="1" HorizontalAlignment="Right" Width="10" Height="10" 
+                <controls:IconButton Grid.Column="0" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="1" HorizontalAlignment="Right" Width="10" Height="10" 
                                             Click="Minimize_btnClick" Icon="/Graphics/Icons/minimize2.png" >
                     <ButtonBase.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                     </ButtonBase.Effect>
                 </controls:IconButton>
-                <controls:IconButton Grid.Column="1" Style="{DynamicResource IconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Right" Width="10" Height="10" 
-                            Click="Maximize_btnClick" Icon="/Graphics/Icons/full-screen1.png" >
+                <controls:IconButton Grid.Column="1" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Right" Width="13" Height="13" 
+                            Click="Maximize_btnClick" Icon="/Graphics/Icons/full-screen3.png" >
                     <ButtonBase.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                     </ButtonBase.Effect>
                 </controls:IconButton>
-                <controls:IconButton Grid.Column="2" Style="{DynamicResource IconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Right" Width="10" Height="10" 
+                <controls:IconButton Grid.Column="2" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Right" Width="10" Height="10" 
                            Click="Exit_btnClick" Icon="/Graphics/Icons/exit2.png" >
                     <ButtonBase.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
@@ -252,7 +252,7 @@
                     </Popup>
                 </Grid>
                 <!--time display and configuration-->
-                <Border  Grid.Column="0" Margin="0,0,70,0" Width="290" MaxHeight="50" VerticalAlignment="Center" HorizontalAlignment="Right" CornerRadius="10" Background="#FF454A81">
+                <Border  Grid.Column="0" Margin="0,0,70,0" Width="290" MaxHeight="50" VerticalAlignment="Center" HorizontalAlignment="Right" CornerRadius="10" Background="{StaticResource Backround7}">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                     </Border.Effect>
@@ -312,7 +312,7 @@
                 <controls:NavigationButton  Title="Project" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/project.png" Selected="GridClick_btnClick"/>
                 <controls:NavigationButton  Title="Engineers" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/engineers1.png" Selected="GridClick_btnClick"/>
                 <controls:NavigationButton  Title="Tasks" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/tasks1.png" Selected="GridClick_btnClick"/>
-                <controls:NavigationButton  Title="Users" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/users1.png" Selected="GridClick_btnClick"/>
+                <controls:NavigationButton  Title="Users" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/users1.png" Selected="GridClick_btnClick" Visibility="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToVisibility}}"/>
                 <controls:NavigationButton  Title="Milestones" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/milestones1.png" Selected="GridClick_btnClick"/>
             </ListBox> 
             <!--main program frame for page navigation-->

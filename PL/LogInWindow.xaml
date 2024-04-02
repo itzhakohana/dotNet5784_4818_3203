@@ -79,9 +79,9 @@
                         </Grid>
                         <!--<Separator HorizontalAlignment="Stretch" Background="black"/>-->
                         <Label Margin="0,15,0,0" Content="User Name:" HorizontalAlignment="Left" FontWeight="Bold" Foreground="White" FontFamily="Arial Black"/>
-                        <controls:CustomTextBox Background="Transparent" Foreground="White" Style="{StaticResource PasswordTextBoxStyle1}" Text="{Binding CurrentUser.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <controls:CustomTextBox MaxLength="20" HorizontalContentAlignment="Center" Background="Transparent" Foreground="White" Style="{StaticResource PasswordTextBoxStyle1}" Text="{Binding CurrentUser.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Label Content="Password:" HorizontalAlignment="Left" FontWeight="Bold" Foreground="White" FontFamily="Arial Black"/>
-                        <controls:CustomTextBox  Background="Transparent" Foreground="White" Style="{StaticResource PasswordTextBoxStyle1}" MaxLength="8" Text="{Binding CurrentUser.Password, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="PasswordUpdated_TextBoxChanged"/>
+                        <controls:CustomTextBox HorizontalContentAlignment="Center" Background="Transparent" Foreground="White" Style="{StaticResource PasswordTextBoxStyle1}" MaxLength="8" Text="{Binding CurrentUser.Password, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="PasswordUpdated_TextBoxChanged"/>
                     </StackPanel>
                 </Border>
                 <StackPanel Orientation="Horizontal" Margin="0,7,0,0" HorizontalAlignment="Center">

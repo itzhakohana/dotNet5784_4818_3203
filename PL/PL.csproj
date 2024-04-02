@@ -53,6 +53,8 @@
     <None Remove="Graphics\Icons\expert.png" />
     <None Remove="Graphics\Icons\feedback.png" />
     <None Remove="Graphics\Icons\full-screen1.png" />
+    <None Remove="Graphics\Icons\full-screen2.png" />
+    <None Remove="Graphics\Icons\full-screen3.png" />
     <None Remove="Graphics\Icons\guide.png" />
     <None Remove="Graphics\Icons\in jeopardy1.png" />
     <None Remove="Graphics\Icons\in progress1.png" />
@@ -81,12 +83,14 @@
     <None Remove="Graphics\Icons\timeSpan1.png" />
     <None Remove="Graphics\Icons\unscheduled1.png" />
     <None Remove="Graphics\Icons\unscheduled2.png" />
+    <None Remove="Graphics\Icons\upload1.png" />
     <None Remove="Graphics\Icons\user1.png" />
     <None Remove="Graphics\Icons\user2.png" />
     <None Remove="Graphics\Icons\users.png" />
     <None Remove="Graphics\Icons\users1.png" />
     <None Remove="Graphics\Icons\users2.png" />
     <None Remove="Graphics\Icons\workers.png" />
+    <None Remove="Graphics\Icons\workers2.png" />
     <None Remove="Graphics\Icons\wrench1.png" />
   </ItemGroup>
 
@@ -98,6 +102,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\feedback.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\full-screen2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\full-screen3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\guide.png">
@@ -272,6 +282,9 @@
     <Resource Include="Graphics\Icons\unscheduled2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\upload1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\user1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -288,6 +301,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\workers.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\workers2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\wrench1.png">

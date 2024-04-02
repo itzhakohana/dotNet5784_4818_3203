@@ -19,14 +19,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="3" Background="Transparent" Margin="30">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="1000">
+            <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="1000">
                 <!--logo-->
-                <StackPanel Orientation="Horizontal" Margin="20,0" HorizontalAlignment="Center">
-                    <!--<Image  Source="/Graphics/Icons/rocket.png" Height="150" Width="150">
-                        <Image.Effect>
-                            <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.3" Color="Black"/>
-                        </Image.Effect>
-                    </Image>-->
+                <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Margin="20,0" HorizontalAlignment="Center">
                     <StackPanel Margin="0,0,0,0">
                         <TextBlock  Text="NoPro" FontSize="80" FontFamily="Segoe UI Black" FontWeight="ExtraBold" FontStyle="Oblique" FontStretch="Expanded" Foreground="white">
                             <TextBlock.Effect>
@@ -51,13 +46,13 @@
         <!--squares at the bottom-->
         <Grid Grid.Row="1" Grid.ColumnSpan="3" Margin="10,0,15,15">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Border Margin="30,0,0,0" CornerRadius="10" Height="160" Width="200" Background="#FFFFE28F">
+                <Border Margin="30,0,0,0" CornerRadius="10" Height="160" Width="200" Background="#FFA4FFC2">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="5" BlurRadius="5" Opacity="0.3" Color="Black"/>
                     </Border.Effect>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock FontSize="18" Text="About the makers" FontFamily="Arial Black" Foreground="#FF505050"/>
-                        <Image  Source="/Graphics/Icons/workers.png" Height="100" Width="100">
+                        <Image  Source="/Graphics/Icons/workers2.png" Height="100" Width="100">
                             <Image.Effect>
                                 <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.3" Color="Black"/>
                             </Image.Effect>
@@ -73,7 +68,7 @@
                         </Style>
                     </Border.Style>
                 </Border>
-                <Border Margin="30,0,0,0" CornerRadius="10" Height="160" Width="200" Background="#FFA4FFC2">
+                <Border Margin="30,0,0,0" CornerRadius="10" Height="160" Width="200" Background="#FFFFE28F">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="5" BlurRadius="5" Opacity="0.3" Color="Black"/>
                     </Border.Effect>

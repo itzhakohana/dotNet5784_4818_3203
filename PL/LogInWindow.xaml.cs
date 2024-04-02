@@ -88,13 +88,13 @@ namespace PL
             if (!int.TryParse(e.Text, out _))
             {
                 e.Handled = true;
-            }
+                return;
+            }           
         }
 
         private void Exit_btnClick(object sender, RoutedEventArgs e)
         {
-            s_bl.SaveClock();
-            Application.Current.Shutdown();
+            this.Close();
         }
 
         private void Minimize_btnClick(object sender, RoutedEventArgs e)
@@ -103,6 +103,8 @@ namespace PL
         }
         private void WindowClosed(object sender, EventArgs e)
         {
+            s_bl.SaveClock();
+            Application.Current.Shutdown();
             Thread.Sleep(1100);
         }
 

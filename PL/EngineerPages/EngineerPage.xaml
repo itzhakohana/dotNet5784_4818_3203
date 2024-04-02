@@ -54,7 +54,7 @@
                             <ImageBrush ImageSource="{Binding MyImage, NotifyOnSourceUpdated=True}"/>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <controls:IconButton VerticalAlignment="Bottom" Style="{DynamicResource  IconButton1}" Icon="/Graphics/Icons/wrench1.png" Height="22" Width="22" Padding="3" Click="UpdateProfilePicture_btnClick"/>
+                    <controls:IconButton VerticalAlignment="Bottom" Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/upload1.png" Height="30" Width="30" Padding="0" Click="UpdateProfilePicture_btnClick"/>
                 </StackPanel>
                 <!--Name-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="2">

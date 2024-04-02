@@ -169,7 +169,7 @@ namespace PL.EngineerPages
             var item = list.SelectedItem;
             if (item is BO.TaskInList)
             {
-                BO.TaskInList task = item as BO.TaskInList;                
+                BO.TaskInList task = item as BO.TaskInList;
                 Engineer = new BO.Engineer()
                 {
                     Id = Engineer.Id,
@@ -177,6 +177,7 @@ namespace PL.EngineerPages
                     Cost = Engineer.Cost,
                     Email = Engineer.Email,
                     Level = Engineer.Level,
+                    Picture = Engineer.Picture,
                     Task = new BO.TaskInEngineer() { Alias = task!.Alias, Id = task.Id }
                 };
             }

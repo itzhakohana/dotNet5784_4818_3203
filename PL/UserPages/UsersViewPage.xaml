@@ -10,16 +10,18 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1050"
       DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-      Title="UsersViewPage">
+      Title="UsersViewPage"
+      Loaded="Page_Loaded">
 
     <Grid>
-        <ListView Background="White" Margin="25,50"
-                  ItemsSource="{Binding UsersList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+        <ListView Background="LightGray" Margin="25,20,25,90"
+                  ItemsSource="{Binding UsersList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="UserSelected_listViewItemSelected">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="130" DisplayMemberBinding="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
                     <GridViewColumn Header="Permission" Width="130" DisplayMemberBinding="{Binding Path=UserType, UpdateSourceTrigger=PropertyChanged ,Mode=OneWay}"/>
                     <GridViewColumn Header="Password" Width="130" DisplayMemberBinding="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged ,Mode=OneWay}"/>
+                    <GridViewColumn Header="Last Log-In" Width="180" DisplayMemberBinding="{Binding Path=LastLoginDate, UpdateSourceTrigger=PropertyChanged ,Mode=OneWay}"/>
                     <!--<GridViewColumn Header="Password" Width="200" >
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -30,5 +32,13 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <controls:IconButton 
+                Background="{DynamicResource Backround6}" Style="{DynamicResource IconButton1}" Icon="/Graphics/Icons/add1.png"
+                Height="40" Width="60" IconHeight="1" IconWidth="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="25" Click="AddNewUser_BtnClick"
+                Visibility="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToVisibility}}">
+            <ButtonBase.Effect>
+                <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+            </ButtonBase.Effect>
+        </controls:IconButton>
     </Grid>
 </Page>

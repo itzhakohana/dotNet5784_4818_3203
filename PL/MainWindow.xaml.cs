@@ -276,6 +276,16 @@ namespace PL
 
         private void ViewCurrentUser_BtnClick(object sender, RoutedEventArgs e)
         {
+
+            try
+            {
+                MainFrame.Navigate(new UserPages.UserPage(CurrentUser, CurrentUser.Password));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             //try
             //{
             //    //Set up SMTP client

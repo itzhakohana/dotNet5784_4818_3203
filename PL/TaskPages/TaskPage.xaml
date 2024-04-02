@@ -467,6 +467,7 @@
                 <StackPanel Name="DescriptionPanel" VerticalAlignment="Center" Margin="15,0"  Grid.Column="2" Grid.Row="4">
                     <Label VerticalContentAlignment="Bottom" Content="Description:"/>
                     <TextBox 
+                          TextWrapping="Wrap"
                           Name="DesTextBox"                          
                           Template="{StaticResource TextBoxControlTemplate}"
                           Text="{Binding Task.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"

@@ -50,13 +50,25 @@ internal class UserImplementation : BlApi.IUser
     /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void Add(BO.User user)
     {
-        if (user.UserType == BO.UserType.Engineer && _dal.User.Read(user.Id) is not null)
-            throw new BO.BlAlreadyExistsException($"User with Id {user.Id} already exists");
-        if (user.UserType == BO.UserType.Engineer && _dal.Engineer.Read(user.Id) is null)
-            throw new BO.BlDoesNotExistException($"Engineer with Id {user.Id} does not exist");
-        if (_dal.User.Read(u => u.Password == user.Password) is not null)
-            throw new BO.BlAlreadyExistsException($"Password {user.Password} already in use");
+        if (user.Engineer is not null)
+        {
+            if (_dal.User.Read(user.Engineer!.Id) is not null)
+                throw new BO.BlAlreadyExistsException($"User with Id {user.Id} already exists");
+            if (user.UserType == BO.UserType.Engineer && _dal.Engineer.Read(user.Engineer.Id) is null)
+                throw new BO.BlDoesNotExistException($"Engineer with Id {user.Engineer.Id} does not exist");
+            if (_dal.User.Read(u => u.Password == user.Password) is not null)
+                throw new BO.BlAlreadyExistsException($"Password {user.Password} already in use");
+            user.Id = user.Engineer.Id;
+        }
+        else
+        {
+            if (user.UserType == BO.UserType.Engineer)
+                throw new BO.BlAlreadyExistsException($"No Engineer is assigned to this User");
+            var rand = new Random();
+            user.Id = rand.Next(200000000, 400000000);
+        }
         
+
         _dal.User.Create(new DO.User()
         {
             Id = user.Id,
@@ -117,13 +129,16 @@ internal class UserImplementation : BlApi.IUser
     }
     /// <summary>
     /// Deletes all users from the data base
+    /// (currently, is set to not Delete Admins)
     /// </summary>
     public void Reset()
     {
-        if (ReadAll() is null) return;
-        foreach(var user in ReadAll()!)
+        var users = ReadAll(u => u.UserType == BO.UserType.Engineer);
+        if (users is null) 
+            return;
+        foreach(var user in users)
         {
-            Delete(user.Id);
+           Delete(user.Id);
         }
     }
     /// <summary>
