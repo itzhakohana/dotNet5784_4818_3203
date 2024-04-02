@@ -19,6 +19,10 @@ public class Engineer
     /// </summary>
     public string Email { get; set; }
     /// <summary>
+    /// Engineers display-Picture 
+    /// </summary>
+    public string Picture { get; set; }
+    /// <summary>
     /// Engineer's level of expertise
     /// </summary>
     public BO.EngineerExperience Level { get; set; }

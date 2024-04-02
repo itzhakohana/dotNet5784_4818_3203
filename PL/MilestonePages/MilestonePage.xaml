@@ -1,0 +1,293 @@
+﻿<Page x:Class="PL.MilestonePages.MilestonePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:bl="clr-namespace:BO;assembly=BL"  
+      xmlns:controls="clr-namespace:PL.CustomControls"
+      xmlns:local="clr-namespace:PL.MilestonePages"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1050"
+      Title="MilestonePage"      
+      DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
+    <Page.Resources>
+        <Style x:Key="DateDisplayStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid Background="Transparent" MinHeight="25" Margin="{TemplateBinding Margin}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Grid.Row="0" Margin="4" Source="/Graphics/Icons/calendar1.png">
+                                <Image.Effect>
+                                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                                </Image.Effect>
+                            </Image>
+                            <Separator Grid.ColumnSpan="2" Background="Black" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                            <TextBlock Margin="4,0,0,0" Focusable="True" Grid.Column="1" Text="{TemplateBinding Text}" Foreground="White" FontSize="16" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="Transparent" ShowGridLines="False">
+        <Grid.Resources>
+            <!--default template for task in list-->
+            <DataTemplate x:Key="DefaultTaskInListTemplate" DataType="bl:TaskInList" >
+                <Border CornerRadius="10" Background="#FF848484" Height="40" HorizontalAlignment="Stretch">
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        <!--icon for task status-->
+                        <Image HorizontalAlignment="Center" Margin="10" Grid.Column="0">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Source" Value="/Graphics/Icons/task1.png" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="1">
+                                            <Setter Property="Source" Value="/Graphics/Icons/unscheduled1.png" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="2">
+                                            <Setter Property="Source" Value="/Graphics/Icons/scheduled2.png" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
+                                            <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
+                                            <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
+                                            <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <Grid Grid.Column="1" Background="#FF929292">
+                            <TextBlock  Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                        </Grid>
+                        <TextBlock Grid.Column="2" Text="{Binding Alias}"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                        <controls:IconButton Grid.Column="3" Margin="7,5" Style="{StaticResource TransparentIconButton1}" 
+                                 Background="Transparent" Icon="/Graphics/Icons/info1.png" Click="DependentTaskSelectedForView_btn_Click"/>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+            <ControlTemplate x:Key="TextBoxControlTemplate" TargetType="{x:Type TextBox}">
+
+                <Border VerticalAlignment="Center" Name="border" Background="{DynamicResource TextBoxColor1}" MinHeight="35" MaxHeight="40" CornerRadius="4" BorderThickness="1" BorderBrush="Black">
+
+                    <TextBox 
+                            Name="myTextBox" 
+                            IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                            Background="Transparent"     
+                            BorderThickness="0"
+                            FontSize="17"  
+                            MaxLength="{TemplateBinding MaxLength}"
+                            Height="{TemplateBinding Height}"
+                            MinWidth="70"
+                            VerticalAlignment="Center"                                             
+                            HorizontalAlignment="Center"    
+                            HorizontalContentAlignment="Center" 
+                            FontFamily="Global Sans Serif"
+                            Text ="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+
+                    </TextBox>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxBorderColorOnFocus1}"/>
+                        <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                    </Trigger>
+                    <Trigger Property="IsFocused" Value="True" SourceName="myTextBox">
+                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxBorderColorOnFocus1}"/>
+                        <Setter Property="BorderThickness" TargetName="border" Value="2"/>
+                    </Trigger>
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="IsFocused" Value="False" SourceName="myTextBox"/>
+                            <Condition Property="Text" Value="{x:Null}" SourceName="myTextBox"/>
+                        </MultiTrigger.Conditions>
+                        <Setter Property="Text" TargetName="myTextBox" Value="Name"/>
+                    </MultiTrigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <!--dates display on the left-->
+        <Grid Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="1" ShowGridLines="True">
+            <Border CornerRadius="14,0,0,14" Grid.Column="0" Grid.ColumnSpan="2" Background="{DynamicResource Backround5}">
+                <Grid ShowGridLines="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="135"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Ellipse Grid.Column="0" Grid.Row="0" Margin="10" Height="110" Width="110" Fill="DarkCyan">
+                        <Ellipse.Effect>
+                            <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+                    <Image Grid.Column="0" Grid.Row="0" Margin="35" Source="/Graphics/Icons/milestone1.png">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                        </Image.Effect>
+                    </Image>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding Milestone.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, StringFormat={}Milestone: #{0}}" FontSize="18" Margin="0" VerticalAlignment="Center"  Foreground="White"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Image HorizontalAlignment="Center" Margin="10" Height="30" Width="30" Grid.Column="0">
+                                <Image.Effect>
+                                    <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                                </Image.Effect>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="/Graphics/Icons/level1.png" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Milestone.Status, Converter={StaticResource ConvertStatusToNumber}}" Value="1">
+                                                <Setter Property="Source" Value="/Graphics/Icons/unscheduled1.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Milestone.Status, Converter={StaticResource ConvertStatusToNumber}}" Value="2">
+                                                <Setter Property="Source" Value="/Graphics/Icons/scheduled2.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Milestone.Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
+                                                <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Milestone.Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
+                                                <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Milestone.Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
+                                                <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Label Content="{Binding Milestone.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FontSize="20" FontWeight="Bold"/>
+                        </StackPanel>
+                        <Separator Grid.ColumnSpan="2" Background="White" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Image HorizontalAlignment="Center" Margin="5" Height="20" Width="20" Source="/Graphics/Icons/progress1.png"/>
+                            <TextBlock Text="{Binding Milestone.CompletionPercentage, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, StringFormat={}Progress: {0:P0}}" FontSize="15" Margin="0" VerticalAlignment="Center" Foreground="White"/>
+                        </StackPanel>
+                        <Separator Grid.ColumnSpan="2" Background="White" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                        <Label Content="Creation Date:" FontSize="11"/>
+                        <TextBox Grid.Row="1" Style="{StaticResource DateDisplayStyle}" Text="{Binding Milestone.CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullDateTimeToString}, StringFormat={}{0:dd/MM/yy  HH:mm:ss}}"/>
+                        <Label Content="Expected to complete:" FontSize="11"/>
+                        <TextBox Grid.Row="1" Style="{StaticResource DateDisplayStyle}" Text="{Binding Milestone.ForecastDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullDateTimeToString},StringFormat={}{0:dd/MM/yy  HH:mm:ss}}"/>
+                        <Label Content="Deadline:" FontSize="11"/>
+                        <TextBox Grid.Row="1" Style="{StaticResource DateDisplayStyle}" Text="{Binding Milestone.DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullDateTimeToString},StringFormat={}{0:dd/MM/yy  HH:mm:ss}}"/>
+                        <Label Content="Completion Date:" FontSize="11"/>
+                        <TextBox Grid.Row="1" Style="{StaticResource DateDisplayStyle}" Text="{Binding Milestone.CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullDateTimeToString},StringFormat={}{0:dd/MM/yy  HH:mm:ss}}"/>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!--main display-->
+        <Border Grid.RowSpan="3" Grid.Column="2" Background="{DynamicResource Backround4}" CornerRadius="0,15,15,0" BorderBrush="Black">
+            <Grid ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="65"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--alias-->
+                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.ColumnSpan="2" Width="300" Grid.Row="1">
+                    <Label VerticalContentAlignment="Bottom" Content="Name/Alias:"/>
+                    <TextBox 
+                     Template="{StaticResource TextBoxControlTemplate}"
+                     Text="{Binding Milestone.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                     IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
+                    </TextBox>
+                </StackPanel>
+
+                <!--Remarks-->
+                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="2">
+                    <Label VerticalContentAlignment="Bottom" Content="Remarks:"/>
+                    <TextBox        
+                      Template="{StaticResource TextBoxControlTemplate}"
+                      IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
+                      Text="{Binding Milestone.Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
+                    </TextBox>
+                </StackPanel>
+
+                <!--description-->
+                <StackPanel Name="DescriptionPanel" VerticalAlignment="Center" Margin="15,0"  Grid.Column="1" Grid.Row="2">
+                    <Label VerticalContentAlignment="Bottom" Content="Description:"/>
+                    <TextBox 
+                          Name="DesTextBox"                          
+                          Template="{StaticResource TextBoxControlTemplate}"
+                          Text="{Binding Milestone.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                          IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
+                    </TextBox>
+                </StackPanel>
+
+                <!--Display milestone's tasks-->
+                <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="2">
+                    <Label Content="Tasks:" HorizontalAlignment="Center" FontSize="18"/>
+                    <Separator Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="2" Background="White" VerticalAlignment="Bottom" VerticalContentAlignment="Top" HorizontalAlignment="Stretch"/>
+                    <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding Milestone.Dependencies}" ItemTemplate="{StaticResource DefaultTaskInListTemplate}" 
+                          Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Grid.RowSpan="2" Margin="10" Background="Transparent" BorderThickness="0">
+                    </ListView>
+                </StackPanel>
+
+                <!--Go Back button-->
+                <controls:IconButton 
+                     Grid.Row="0" Background="White" Margin="30" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="3" Grid.RowSpan="3"
+                     Height="30" Width="30" IconHeight="70" Style="{DynamicResource IconButton1}" Content="Back" Click="GoBack_BtnClick" 
+                     Icon="/Graphics/Icons/backArrow1.png"/>
+                <!--Button for updating-->
+                <Button 
+                     Style="{DynamicResource ButtonStyle1}" Margin="25" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.ColumnSpan="2" Grid.RowSpan="3"         
+                     IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}" 
+                     Content="Save" FontSize="15" Background="#FF414243" Foreground="White" VerticalContentAlignment="Center"
+                     Grid.Column="2" Grid.Row="0" Padding="8" Width="75" Height="40"  Click="UpdateMilestone_btnClick">
+                </Button>
+                <!--Button for reseting changes-->
+                <Button 
+                     Style="{DynamicResource ButtonStyle1}"
+                     Content="Reset Changes" Background="#FF414243" Foreground="White" FontSize="14" Margin="0"
+                     VerticalContentAlignment="Center" Width="150" Height="40" HorizontalContentAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7"
+                     Click="ResetChanges_btnClick"/>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Page>

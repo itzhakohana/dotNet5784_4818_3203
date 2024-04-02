@@ -12,10 +12,30 @@
       DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Page.Resources>
-        <ResourceDictionary Source="/Themes/Dark.xaml"/>
+        <Style x:Key="DateDisplayStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid Background="Transparent" MinHeight="25" Margin="{TemplateBinding Margin}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Grid.Row="0" Margin="4" Source="/Graphics/Icons/calendar1.png">
+                                <Image.Effect>
+                                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                                </Image.Effect>
+                            </Image>
+                            <Separator Grid.ColumnSpan="2" Background="Black" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                            <TextBlock Margin="4,0,0,0" Focusable="True" Grid.Column="1" Text="{TemplateBinding Text}" Foreground="White" FontSize="16" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Page.Resources>
 
-    <Grid Background="Transparent" ShowGridLines="True">
+    <Grid Background="Transparent" ShowGridLines="False">
         <Grid.Resources>
             <DataTemplate x:Key="TaskInListTemplate" DataType="bl:TaskInList" >
                 <Border CornerRadius="3" Background="LightGray" HorizontalAlignment="Stretch">
@@ -89,6 +109,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="4*"/>
             <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
@@ -180,359 +201,296 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.RowSpan="3" Grid.Column="1" Background="{DynamicResource Backround4}" CornerRadius="15" BorderBrush="Black">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1.7*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="1.3*"/>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.6*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="0.6*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0">
+        <!--dates display on the left-->
+        <Grid Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="1" ShowGridLines="False">
+            <Border CornerRadius="14,0,0,14" Grid.Column="0" Grid.ColumnSpan="2" Background="{DynamicResource Backround5}">
+                <Grid ShowGridLines="False">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="135"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="70"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Image Grid.Column="0" Grid.RowSpan="2" Margin="20" Source="/Graphics/Icons/task1.png"/>
-                    <Border CornerRadius="10" Margin="0,20,45,20" Grid.RowSpan="2" Grid.Column="1" Background="Transparent">
-                        <!--top page dates information-->
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.8*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.Resources>
-                                <Style TargetType="Label">
-                                    <Setter Property="VerticalAlignment" Value="Bottom"/>
-                                    <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="FontSize" Value="12"/>
-                                    <Setter Property="FontWeight" Value="Bold"/>
-                                </Style>
-                            </Grid.Resources>
-                            <StackPanel HorizontalAlignment="Left" >
-                                
-                                <!--status-->
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Status:"/>
-                                    <Label Content="{Binding Task.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                                </StackPanel>
-                                <Separator Foreground="Black" Width="250"/>
-                                <!--start date-->
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Start Date:"/>
-                                    <Label >
-                                        <Label.Style>
-                                            <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="Label">
-                                                <Setter Property="Content" Value="{Binding Task.StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Task.StartDate, Converter={StaticResource ConvertNullToBool}}" Value="false">
-                                                        <Setter Property="Content"  Value="N/A"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Label.Style>
-                                    </Label>
-                                </StackPanel>
-                                <Separator Foreground="Black" Width="250"/>
-                                <!--end date-->
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Completion Date:"/>
-                                    <Label >
-                                        <Label.Style>
-                                            <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="Label">
-                                                <Setter Property="Content" Value="{Binding Task.CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Task.CompleteDate, Converter={StaticResource ConvertNullToBool}}" Value="false">
-                                                        <Setter Property="Content"  Value="N/A"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Label.Style>
-                                    </Label>
-                                </StackPanel>
-                                <Separator Foreground="Black" Width="250"/>
+                    <Ellipse Grid.Column="0" Grid.Row="0" Margin="10" Height="110" Width="110" Fill="DarkCyan">
+                        <Ellipse.Effect>
+                            <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                        </Ellipse.Effect>
+                    </Ellipse>
+                    <Image Grid.Column="0" Grid.Row="0" Margin="35" Source="/Graphics/Icons/laptop1.png">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                        </Image.Effect>
+                    </Image>
+                    <StackPanel Orientation="Vertical" Grid.Row="1" Margin="10">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding Task.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, StringFormat={}Task: #{0}}" FontSize="18" Margin="0" VerticalAlignment="Center"  Foreground="White"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Image HorizontalAlignment="Center" Margin="10" Height="30" Width="30" Grid.Column="0">
+                                <Image.Effect>
+                                    <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                                </Image.Effect>
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="/Graphics/Icons/level1.png" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Task.Status, Converter={StaticResource ConvertStatusToNumber}}" Value="1">
+                                                <Setter Property="Source" Value="/Graphics/Icons/unscheduled1.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Task.Status, Converter={StaticResource ConvertStatusToNumber}}" Value="2">
+                                                <Setter Property="Source" Value="/Graphics/Icons/scheduled2.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Task.Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
+                                                <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Task.Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
+                                                <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Task.Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
+                                                <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                            <Label Content="{Binding Task.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" FontSize="20" FontWeight="Bold"/>
+                        </StackPanel>
+                        <Separator Grid.ColumnSpan="2" Background="White" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding Task.Milestone, Converter={StaticResource ConvertNullToVisibility}}">
+                            <Image HorizontalAlignment="Center" Margin="5" Height="20" Width="20" Source="/Graphics/Icons/milestone1.png"/>
+                            <TextBlock Text="{Binding Task.Milestone.Alias, Mode=TwoWay, NotifyOnValidationError=true, StringFormat={}Milestone: {0}}" FontSize="18" Margin="0" VerticalAlignment="Center"  Foreground="White"/>
+                            <controls:IconButton Grid.Column="3" Margin="15,2,10,0" Height="20" Width="20" Style="{StaticResource TransparentIconButton1}" IsEnabled="{Binding Task.Milestone, NotifyOnSourceUpdated=True, Converter={StaticResource ConvertNullToBool}}"
+                                    Background="Transparent" Icon="/Graphics/Icons/info1.png" Click="ViewMilestone_btnClick"/>
+                        </StackPanel>
+                        <Separator Visibility="{Binding Task.Milestone, Converter={StaticResource ConvertNullToVisibility}}"
+                                   Grid.ColumnSpan="2" Background="White" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <StackPanel VerticalAlignment="Top">
+                                <Label Content="Creation Date:" FontSize="11"/>
+                                <TextBox Grid.Row="1" Style="{StaticResource DateDisplayStyle}" Text="{Binding Task.CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullDateTimeToString}, StringFormat={}{0:dd/MM/yy  HH:mm:ss}}"/>
+                                <Label Content="Start Date:" FontSize="11"/>
+                                <TextBox Grid.Row="1" Style="{StaticResource DateDisplayStyle}" Text="{Binding Task.StartDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullDateTimeToString},StringFormat={}{0:dd/MM/yy  HH:mm:ss}}"/>
+                                <Label Content="Scheduled:" FontSize="11"/>
+                                <TextBox Grid.Row="1" Style="{StaticResource DateDisplayStyle}" Text="{Binding Task.ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullDateTimeToString},StringFormat={}{0:dd/MM/yy  HH:mm:ss}}"/>
+                                <Label Content="Expected to complete:" FontSize="11"/>
+                                <TextBox Grid.Row="1" Style="{StaticResource DateDisplayStyle}" Text="{Binding Task.ForecastDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullDateTimeToString},StringFormat={}{0:dd/MM/yy  HH:mm:ss}}"/>
+                                <Label Content="Deadline:" FontSize="11"/>
+                                <TextBox Grid.Row="1" Style="{StaticResource DateDisplayStyle}" Text="{Binding Task.DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullDateTimeToString},StringFormat={}{0:dd/MM/yy  HH:mm:ss}}"/>
+                                <Label Content="Completion Date:" FontSize="11"/>
+                                <TextBox Grid.Row="1" Style="{StaticResource DateDisplayStyle}" Text="{Binding Task.CompleteDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullDateTimeToString},StringFormat={}{0:dd/MM/yy  HH:mm:ss}}"/>
                             </StackPanel>
-                            <StackPanel HorizontalAlignment="Left" Grid.Column="1">
-                                <!--scheduled date-->
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Scheduled Date:"/>
-                                    <Label Name="StartDateLabel">
-                                        <Label.Style>
-                                            <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="Label">
-                                                <Setter Property="Content" Value="{Binding Task.ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Task.ScheduledDate, Converter={StaticResource ConvertNullToBool}}" Value="false">
-                                                        <Setter Property="Content"  Value="N/A"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Label.Style>
-                                    </Label>
-                                </StackPanel>
-                                <Separator Foreground="Black" Width="250"/>
-                                <!--deadline date-->
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Deadline Date:"/>
-                                    <Label >
-                                        <Label.Style>
-                                            <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="Label">
-                                                <Setter Property="Content" Value="{Binding Task.DeadlineDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Task.DeadlineDate, Converter={StaticResource ConvertNullToBool}}" Value="false">
-                                                        <Setter Property="Content"  Value="N/A"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Label.Style>
-                                    </Label>
-                                </StackPanel>
-                                <Separator Foreground="Black" Width="250"/>
-                                <!--forcast date-->
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Planned Completion Date:"/>
-                                    <Label>
-                                        <Label.Style>
-                                            <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="Label">
-                                                <Setter Property="Content" Value="{Binding Task.ForecastDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Task.ForecastDate, Converter={StaticResource ConvertNullToBool}}" Value="false">
-                                                        <Setter Property="Content"  Value="N/A"/>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Label.Style>
-                                    </Label>
-                                </StackPanel>
-                                <Separator Foreground="Black" Width="250"/>
+                        </ScrollViewer>
+
+                    </StackPanel>
+                    <!--buttons for handling dependencies-->
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="2">
+                        <Border CornerRadius="6" Background="Transparent" Height="50" Width="200" >
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="4" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                            </Border.Effect>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                <Button Style="{StaticResource ButtonStyle1}" Background="White" Content="View Dependencies" Foreground="Black" FontSize="15" FontWeight="Bold" Width="170" Height="30" Click="ShowViewDependenciesWindow_BtnClick"/>
                             </StackPanel>
-                        </Grid>
-                    </Border>
+                        </Border>
+                    </StackPanel>
                 </Grid>
-                
+            </Border>            
+        </Grid>
+        
+        <!--main display-->
+        <Border Grid.RowSpan="3" Grid.Column="2" Background="{DynamicResource Backround4}" CornerRadius="0,15,15,0" BorderBrush="Black">
+            <Grid ShowGridLines="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="65"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+   
                 <!--alias-->
-                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="1">
+                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.ColumnSpan="2" Width="300" Grid.Row="1">
                     <Label VerticalContentAlignment="Bottom" Content="Name/Alias:"/>
                     <TextBox 
                          Template="{StaticResource TextBoxControlTemplate}"
-                         Text="{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
+                         Text="{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                         IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
                     </TextBox>
                 </StackPanel>
-
-                <!--description-->
-                <StackPanel Name="DescriptionPanel" VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="1">
-                    <Label VerticalContentAlignment="Bottom" Content="Description:"/>
-                    <TextBox 
-                          Name="DesTextBox"                          
-                          Template="{StaticResource TextBoxControlTemplate}"
-                          Text="{Binding Task.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
-                    </TextBox>
+                
+                <!--required effort time-->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="1"  Grid.Row="2">
+                    <!--required days-->
+                    <StackPanel VerticalAlignment="Center" Margin="15,0" >
+                        <Label VerticalContentAlignment="Bottom" Content="Days Required:"/>
+                        <TextBox
+                                HorizontalAlignment="Left"
+                                Width="130"
+                                Template="{StaticResource TextBoxControlTemplate}"                                                            
+                                Text="{Binding Task.RequiredEffortTime, Mode=TwoWay,  ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ConvertTimeSpanToDaysOnlyString}}" PreviewTextInput="EnteredKey_RequiredDaysFieldChanged">
+                            <TextBox.IsEnabled>
+                                <MultiBinding Converter="{StaticResource ConvertUserAndProjectStateToBool}">
+                                    <Binding Path="CurrentUser.UserType"/>
+                                    <Binding Path="ProjectHasStarted"/>
+                                </MultiBinding>
+                            </TextBox.IsEnabled>
+                        </TextBox>
+                    </StackPanel>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="2">
 
-                <!--Deliverables-->
-                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="2">
-                    <Label VerticalContentAlignment="Bottom" Content="Deliverables:"/>
-                    <TextBox                         
-                          Template="{StaticResource TextBoxControlTemplate}"
-                          Text="{Binding Task.Deliverables, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
-                    </TextBox>
+                    <!--assign engineer-->
+                    <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <CheckBox Name="AssignEngineerCheckBox" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0" 
+                                      IsChecked="{Binding Task.Engineer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullEngineerInTaskToBool}}"
+                                      IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"/>
+                            <Label VerticalContentAlignment="Bottom" Content="Assign Engineer:"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox 
+                                Name="textBox" Width="200" IsReadOnly="True"
+                                Template="{DynamicResource TextBoxControlTemplate}"                                
+                                Text="{Binding Task.Engineer.Name, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                IsEnabled="{Binding ElementName= AssignEngineerCheckBox, Path=IsChecked}">
+                            </TextBox>
+                            <controls:IconToggleButton x:Name="TaskPopupOpener" Style="{StaticResource ToggleIconButton1}" 
+                                                       Icon="/Graphics/Icons/add1.png" Height="30" Width="30" Background="Gray"
+                                                       IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
+                                <Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleIconButton1}">
+                                    <Style.Triggers>
+                                        <MultiDataTrigger >
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </MultiDataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </controls:IconToggleButton>
+                        </StackPanel>
+                        <Popup AllowsTransparency="True" StaysOpen="False" Placement="Top" PopupAnimation="Slide" IsOpen="{Binding ElementName=TaskPopupOpener, Path=IsChecked}">
+                            <Border CornerRadius="10" Height="300" Width="450" Background="Gray">
+                                <Border.Resources>
+                                    <!--default template for engineer in task-->
+                                    <DataTemplate x:Key="DefaultEngineerInTaskTemplate" DataType="bl:EngineerInTask" >
+                                        <Border CornerRadius="10" Background="#FF848484" Height="40" HorizontalAlignment="Stretch">
+                                            <Grid HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="150"/>
+                                                    <ColumnDefinition Width="200"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <!--icon for engineer status-->
+                                                <Image HorizontalAlignment="Center" Grid.Column="0" Height="30" Width="30" Source="/Graphics/Icons/user2.png">
+                                                </Image>
+                                                <Grid Grid.Column="1" Background="#FF929292">
+                                                    <TextBlock  Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                                                </Grid>
+                                                <TextBlock Grid.Column="2" Text="{Binding Name}"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </Border.Resources>
+                                <Border.Effect>
+                                    <DropShadowEffect ShadowDepth="15" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                                </Border.Effect>
+                                <ListView x:Name="AvailableTasksDisplay" HorizontalContentAlignment="Stretch"
+                                    ItemTemplate="{StaticResource DefaultEngineerInTaskTemplate}"
+                                    SelectedValue="{Binding Task.Engineer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                    ItemsSource="{Binding AvailableEngineers}"
+                                    SelectionChanged="EngineerSelected_ListView">
+                                    <!--SelectedValue="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"-->
+                                </ListView>
+                            </Border>
+                        </Popup>
+                    </StackPanel>
                 </StackPanel>
 
                 <!--Remarks-->
-                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="2">
+                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="3">
                     <Label VerticalContentAlignment="Bottom" Content="Remarks:"/>
-                    <TextBox                         
+                    <TextBox        
                           Template="{StaticResource TextBoxControlTemplate}"
+                          IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
                           Text="{Binding Task.Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
                     </TextBox>
                 </StackPanel>
 
-                <!--required effort time-->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="1"  Grid.Row="3">
-                    <!--required days-->
-                    <StackPanel VerticalAlignment="Center" Margin="15,0" >
-                        <Label VerticalContentAlignment="Bottom" Content="Days Required:"/>
-                        <DatePickerTextBox
-                            HorizontalAlignment="Left"
-                              Width="130"
-                              Template="{StaticResource TextBoxControlTemplate}"                            
-                              Text="{Binding Task.RequiredEffortTime, Mode=TwoWay,  ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="EnteredKey_RequiredDaysFieldChanged">
-                        </DatePickerTextBox>
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="3">
                 <!--task complexity-->
-                    <StackPanel VerticalAlignment="Center" Margin="15,0">
-                        <Label VerticalContentAlignment="Bottom" Content="Level:"/>
-                        <ComboBox 
-                            Width="210"
+                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Row="3" Grid.Column="1">
+                    <Label VerticalContentAlignment="Bottom" Content="Level:"/>
+                    <ComboBox 
+                            Width="250"
                             Margin="0,0,0,0"
                             Background="{DynamicResource TextBoxColor1}"
                             Foreground="Black"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Center" HorizontalAlignment="Left"
                             Style="{StaticResource DefaultComboBoxStyle}"
                             SelectedValue="{Binding Task.Complexity, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                             ItemsSource="{Binding Source={StaticResource EngineerExperienceEnumCollection}}" 
                             SelectionChanged="ComplexitySelectionCHanged_ComboBoxSelectionChanged">
-                        </ComboBox>
-                    </StackPanel>
+                        <ComboBox.IsEnabled>
+                            <MultiBinding Converter="{StaticResource ConvertUserAndProjectStateToBool}">
+                                <Binding Path="CurrentUser.UserType"/>
+                                <Binding Path="ProjectHasStarted"/>
+                            </MultiBinding>
+                        </ComboBox.IsEnabled>
+                    </ComboBox>
+                  
                 </StackPanel>
 
-                <!--assign engineer-->
-                <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <CheckBox Name="AssignEngineerCheckBox" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0" 
-                            IsChecked="{Binding Task.Engineer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullEngineerInTaskToBool}}"/>
-                        <Label VerticalContentAlignment="Bottom" Content="Assign Engineer:"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBox 
-                         Name="textBox" Width="200"
-                         Template="{DynamicResource TextBoxControlTemplate}"
-                         Text="{Binding Task.Engineer.Name, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                         IsEnabled="{Binding ElementName= AssignEngineerCheckBox, Path=IsChecked}">
-                        </TextBox>
-                        <controls:IconToggleButton x:Name="TaskPopupOpener" Style="{StaticResource ToggleIconButton1}" Icon="/Graphics/Icons/add1.png" Height="30" Width="30" Background="Gray">
-                            <Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleIconButton1}">
-                                <Style.Triggers>
-                                    <MultiDataTrigger >
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="True"/>
-                                        </MultiDataTrigger.Conditions>
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                    </MultiDataTrigger>
-                                    <DataTrigger Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="False">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </controls:IconToggleButton>
-                    </StackPanel>
-                    <Popup AllowsTransparency="True" StaysOpen="False" Placement="Top" PopupAnimation="Slide" IsOpen="{Binding ElementName=TaskPopupOpener, Path=IsChecked}">
-                        <Border CornerRadius="10" Height="300" Width="450" Background="Gray">
-                            <Border.Resources>
-                                <!--default template for engineer in task-->
-                                <DataTemplate x:Key="DefaultEngineerInTaskTemplate" DataType="bl:EngineerInTask" >
-                                    <Border CornerRadius="10" Background="#FF848484" Height="40" HorizontalAlignment="Stretch">
-                                        <Grid HorizontalAlignment="Stretch">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="60"/>
-                                                <ColumnDefinition Width="150"/>
-                                                <ColumnDefinition Width="200"/>
-                                                <ColumnDefinition Width="auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <!--icon for engineer status-->
-                                            <Image HorizontalAlignment="Center" Grid.Column="0" Height="30" Width="30" Source="/Graphics/Icons/user2.png">
-                                            </Image>
-                                            <Grid Grid.Column="1" Background="#FF929292">
-                                                <TextBlock  Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                                            </Grid>
-                                            <TextBlock Grid.Column="2" Text="{Binding Name}"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </Border.Resources>
-                            <Border.Effect>
-                                <DropShadowEffect ShadowDepth="15" BlurRadius="5" Opacity="0.5" Color="Black"/>
-                            </Border.Effect>
-                            <ListView x:Name="AvailableTasksDisplay" HorizontalContentAlignment="Stretch"
-                                      ItemTemplate="{StaticResource DefaultEngineerInTaskTemplate}"
-                                      SelectedValue="{Binding Task.Engineer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                                      ItemsSource="{Binding AvailableEngineers}"
-                                      SelectionChanged="EngineerSelected_ListView">
-                                <!--SelectedValue="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"-->
-                            </ListView>
-                        </Border>
-                    </Popup>
+                <!--Deliverables-->
+                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="4">
+                    <Label VerticalContentAlignment="Bottom" Content="Deliverables:"/>
+                    <TextBox                         
+                          Template="{StaticResource TextBoxControlTemplate}"
+                          Text="{Binding Task.Deliverables, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                          IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
+                    </TextBox>
                 </StackPanel>
 
-                
-                <!--buttons for handling dependencies-->
-                <StackPanel Orientation="Vertical" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5">
-                    <Border CornerRadius="6" Background="Transparent" Height="50" Width="200" >
-                        <Border.Effect>
-                            <DropShadowEffect ShadowDepth="4" BlurRadius="5" Opacity="0.5" Color="Black"/>
-                        </Border.Effect>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                            <Button Style="{StaticResource ButtonStyle1}" Background="White" Content="View Dependencies" Foreground="Black" FontSize="15" FontWeight="Bold" Width="170" Height="30" Click="ShowViewDependenciesWindow_BtnClick"/>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-        
-
-                <!--dates-->
-                <StackPanel Visibility="Collapsed" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Height="70" Margin="15,0" Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2">
-                    <!--creation date-->
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                        <Label  VerticalContentAlignment="Bottom" FontSize="10" Content="Creation Date:"/>
-                        <DatePicker
-                            IsEnabled="False"
-                            BorderThickness="0"
-                            Height="35"
-                            SelectedDate="{Binding Task.CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
-                            <!--<DatePicker.Template>
-                                <ControlTemplate TargetType="DatePicker">
-                                    <TextBox Template="{DynamicResource TextBoxControlTemplate }"
-                                             Text="{TemplateBinding SelectedDate}"/>
-                                </ControlTemplate>
-                            </DatePicker.Template>-->
-                        </DatePicker>
-                    </StackPanel>
-                    <!--planned start date-->
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0">
-                        <Label HorizontalAlignment="Left"  VerticalContentAlignment="Bottom" FontSize="10" Content="Estimated Start Date:"/>
-                        <DatePicker
-                            IsEnabled="False"
-                            BorderThickness="0"
-                            Height="35"
-                            SelectedDate="{Binding Task.ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
-                        </DatePicker>
-                    </StackPanel>
-                    <!--planned end date-->
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0">
-                        <Label  VerticalContentAlignment="Bottom" FontSize="10" Content="Estimated End Date:"/>
-                        <DatePicker
-                            IsEnabled="False"
-                            BorderThickness="0"
-                            Height="35"
-                            SelectedDate="{Binding Task.ForecastDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
-                        </DatePicker>
-                    </StackPanel>
+                <!--description-->
+                <StackPanel Name="DescriptionPanel" VerticalAlignment="Center" Margin="15,0"  Grid.Column="2" Grid.Row="4">
+                    <Label VerticalContentAlignment="Bottom" Content="Description:"/>
+                    <TextBox 
+                          Name="DesTextBox"                          
+                          Template="{StaticResource TextBoxControlTemplate}"
+                          Text="{Binding Task.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                          IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
+                    </TextBox>
                 </StackPanel>
 
                 <!--Go Back button-->                
                  <controls:IconButton 
-                     Grid.Row="0" Background="White" 
-                     Height="30"
-                     Width="30"
-                     IconHeight="70"
-                     Style="{DynamicResource IconButton1}"  
-                     Content="Back" Click="GoBack_BtnClick" 
+                     Grid.Row="0" Background="White" Margin="30" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.ColumnSpan="3" Grid.RowSpan="3"
+                     Height="30" Width="30" IconHeight="70" Style="{DynamicResource IconButton1}" Content="Back" Click="GoBack_BtnClick" 
                      Icon="/Graphics/Icons/backArrow1.png"/>
                 <!--Button for adding\updating-->
                 <Button 
-                     Style="{DynamicResource ButtonStyle1}"                     
+                     Style="{DynamicResource ButtonStyle1}" Margin="25" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.ColumnSpan="2" Grid.RowSpan="3"         
+                     IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}" 
                      Content="Save" FontSize="15" Background="#FF414243" Foreground="White" VerticalContentAlignment="Center"
-                     Grid.Column="3" Grid.Row="0" Padding="8" Width="75" Height="40"  Click="AddOrUpdateTask_btnClick">
+                     Grid.Column="2" Grid.Row="0" Padding="8" Width="75" Height="40"  Click="AddOrUpdateTask_btnClick">
                 </Button>
                 <!--Button for reseting changes-->
                 <Button 
                      Style="{DynamicResource ButtonStyle1}"
-                     Content="Reset Changes" Background="#FF414243" Foreground="White" FontSize="12" Margin="0"
-                     VerticalContentAlignment="Center" Width="95" Height="30" HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="7"
+                     Content="Reset Changes" Background="#FF414243" Foreground="White" FontSize="14" Margin="0"
+                     VerticalContentAlignment="Center" Width="150" Height="40" HorizontalContentAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7"
                      Click="ResetChanges_btnClick"/>
             </Grid>
         </Border>

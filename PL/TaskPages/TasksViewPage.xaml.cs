@@ -25,6 +25,7 @@ namespace PL.TaskPages
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.None;
 
+        public bool ProjectHasStarted { get; set; }
         public IEnumerable<BO.Task>? TaskList
         {
             get { return (IEnumerable<BO.Task>?)GetValue(TaskListProperty); }
@@ -50,6 +51,7 @@ namespace PL.TaskPages
         {
             InitializeComponent();
             TaskList = s_bl.Task.ReadAllTasks();
+            ProjectHasStarted = s_bl.Task.ProjectHasStarted();
             this.CurrentUser = CurrentUser;
         }
 
@@ -68,7 +70,26 @@ namespace PL.TaskPages
 
                 if ((string)comboBoxItem.Content == "Delete")
                 {
-
+                    string msg = "";
+                    if (CurrentUser.UserType != BO.UserType.Admin)
+                        msg = "You dont have permission to delete";
+                    else if (s_bl.Task.ProjectHasStarted())
+                        msg = "Project has stared. cannot delete";
+                    else
+                    {
+                        try
+                        {
+                            s_bl.Task.Delete(task.Id);
+                            MessageBox.Show("Deletion Successful", "Success", MessageBoxButton.OK, MessageBoxImage.None);
+                            return;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                    MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 if (task != null)
@@ -87,7 +108,8 @@ namespace PL.TaskPages
 
         private void SelectionChanged_FilterBox(object sender, SelectionChangedEventArgs e)
         {
-
+            TaskList = (Experience == BO.EngineerExperience.None) ?
+                 s_bl.Task.ReadAllTasks() : s_bl.Task.ReadAllTasks(t => t.Complexity == Experience);
         }
 
         private void AddNewTask_BtnClick(object sender, RoutedEventArgs e)
@@ -112,9 +134,51 @@ namespace PL.TaskPages
             }
         }
 
+        
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             TaskList = s_bl.Task.ReadAllTasks();
+        }
+
+        private void SelectionChanged_OrederByComboBox(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox myCombo)
+            {
+                var item = myCombo.SelectedItem as ComboBoxItem;
+                if (item is null) return;
+                try
+                {
+                    switch (item.Content)
+                    {
+                        case "Name":
+                            TaskList = TaskList.OrderBy(e => e.Alias);
+                            break;
+                        case "Complexity":
+                            TaskList = TaskList.OrderBy(e => e.Complexity);
+                            break;
+                        case "Status":
+                            TaskList = TaskList.OrderBy(e => e.Status);
+                            break;
+                        case "Creation Date":
+                            TaskList = TaskList.OrderBy(e => e.CreatedAtDate);
+                            break;                            
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
+        }
+        private void TextChanged_SearchTextBox(object sender, TextChangedEventArgs e)
+        {
+            if (sender is CustomControls.CustomTextBox textBox)
+            {
+                TaskList = (from task in TaskList
+                            where task.Alias.StartsWith(textBox.Text, StringComparison.OrdinalIgnoreCase)
+                                select task);
+            }
         }
     }
 }

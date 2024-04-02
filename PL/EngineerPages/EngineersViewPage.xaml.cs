@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PL;
 using PL.TaskPages;
+using System.IO;
 
 namespace PL.EngineerPages
 {
@@ -25,6 +26,17 @@ namespace PL.EngineerPages
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.None;
+
+        public BitmapImage MyImage
+        {
+            get { return (BitmapImage)GetValue(MyImageProperty); }
+            set { SetValue(MyImageProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyImage.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty MyImageProperty =
+            DependencyProperty.Register("MyImage", typeof(BitmapImage), typeof(EngineersViewPage), new PropertyMetadata(null));
+
         public IEnumerable<BO.Engineer>? EngineerList
         {
             get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
@@ -65,6 +77,7 @@ namespace PL.EngineerPages
             NewUser = new BO.User();
             this.CurrentUser = CurrentUser;
             EngineerList = s_bl.Engineer.ReadAll();
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -112,8 +125,34 @@ namespace PL.EngineerPages
                             NavigationService.Navigate(new EngineerPage(CurrentUser, engineer!.Id));
                             break;
                         case "Delete":
+                            string msg = "";
+                            if (CurrentUser.UserType != BO.UserType.Admin)
+                                msg = "You dont have permission to delete";
+                            else if (s_bl.Task.ProjectHasStarted())
+                                msg = "Project has stared. cannot delete";
+                            else
+                            {
+                                try
+                                {
+                                    s_bl.Engineer.Delete(engineer.Id);
+                                    EngineerList = s_bl.Engineer.ReadAll();
+                                    MessageBox.Show("Deletion Successful", "Success", MessageBoxButton.OK, MessageBoxImage.None);
+                                    return;
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    return;
+                                }
+                            }
+                            MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                             break;
-                        case "Add User":                            
+                        case "Add User":
+                            if (CurrentUser.UserType != BO.UserType.Admin)
+                            {
+                                MessageBox.Show("You dont have permission to creat users", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                return;
+                            }
                             NewUser.Id = engineer.Id;
                             NewUser.UserType = BO.UserType.Engineer;
                             NewUser.Engineer = engineer;
@@ -172,6 +211,58 @@ namespace PL.EngineerPages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             EngineerList = s_bl.Engineer.ReadAll();
+        }
+
+        private void SelectionChanged_OrederByComboBox(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is ComboBox myCombo)
+            {
+                var item = myCombo.SelectedItem as ComboBoxItem;
+                if (item is null) return;
+                try
+                {
+                    switch (item.Content)
+                    {
+                        case "Name":
+                            EngineerList = EngineerList.OrderBy(e => e.Name);
+                            break;
+                        case "Level":
+                            EngineerList = EngineerList.OrderBy(e => e.Level);
+                            break;
+                        case "Cost":
+                            EngineerList = EngineerList.OrderBy(e => e.Cost);
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
+        }
+
+        static BitmapImage BytesToImage(byte[] bytes)
+        {
+            using (MemoryStream memoryStream = new MemoryStream(bytes))
+            {
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memoryStream;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                return bitmapImage;
+            }
+        }
+
+        private void TextChanged_SearchTextBox(object sender, TextChangedEventArgs e)
+        {
+            if (sender is CustomControls.CustomTextBox textBox)
+            {
+                EngineerList = (from eng in EngineerList
+                                where eng.Name.StartsWith(textBox.Text, StringComparison.OrdinalIgnoreCase)
+                                select eng);
+            }
         }
     }
 }

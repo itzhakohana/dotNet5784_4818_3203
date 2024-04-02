@@ -52,7 +52,7 @@
                         <TextBlock  Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                     </Grid>
                     <TextBlock Grid.Column="2" Text="{Binding Alias}"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                    <controls:IconButton Grid.Column="3" Margin="7,5" Style="{StaticResource IconButton1}" 
+                    <controls:IconButton Grid.Column="3" Margin="7,5" Style="{StaticResource TransparentIconButton1}" 
                                          Background="Transparent" Icon="/Graphics/Icons/info1.png" Click="DependentTaskSelectedForView_btn_Click"/>
                 </Grid>
             </Border>
@@ -170,8 +170,12 @@
     
     <Border>
         <Grid>
-            <ListView HorizontalContentAlignment="Stretch" Margin="20,30" ItemsSource="{Binding MilestonesList, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" 
-                      ItemTemplate="{StaticResource MilestoneTemplate}" Background="Transparent"/>
+            <!--loading spinner-->
+            <Grid Panel.ZIndex="10">
+                <controls:LoadingSpinner IsLoading="{Binding Path=Loading}"/>
+            </Grid>
+            <ListView BorderThickness="0" HorizontalContentAlignment="Stretch" Margin="15,35,15,20" ItemsSource="{Binding MilestonesList, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" 
+                      ItemTemplate="{StaticResource MilestoneTemplate}" Background="Transparent" MouseDoubleClick="ItemSelected_MouseDoubleClick"/>
         </Grid>
     </Border>
 </Page>

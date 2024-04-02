@@ -13,7 +13,7 @@ public class User
     /// <summary>
     /// Entrance Password. must be uniqe
     /// </summary>
-    public int Password { get; set; }
+    public string Password { get; set; }
     /// <summary>
     /// Last date the user logged in
     /// </summary>

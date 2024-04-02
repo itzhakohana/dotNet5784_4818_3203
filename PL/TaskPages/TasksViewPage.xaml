@@ -164,14 +164,14 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid ShowGridLines="True" Background="Transparent">
+    <Grid ShowGridLines="False" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="4.5*"/>
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -182,7 +182,7 @@
             <Label HorizontalAlignment="Center" Margin="0" Content="Filter By:" />
             <ComboBox 
                 Margin="0,0,0,0"
-                Width="170"
+                Width="190"
                 VerticalAlignment="Center"
                 Style="{StaticResource DefaultComboBoxStyle}"
                 SelectedValue="{Binding Path =Experience, Mode=TwoWay}"
@@ -192,18 +192,28 @@
         <StackPanel Orientation="Horizontal" Margin="0" Grid.Column="1" Grid.Row="0" >
             <Label HorizontalAlignment="Center" Margin="0" Content="Order By:" />
             <ComboBox 
-        Margin="0"
-        Width="170"
-        VerticalAlignment="Center"
-        Style="{StaticResource DefaultComboBoxStyle}"
-        />
+                Margin="0"
+                Width="190"
+                VerticalAlignment="Center"
+                Style="{StaticResource DefaultComboBoxStyle}" SelectionChanged="SelectionChanged_OrederByComboBox">
+                <ComboBoxItem Content="Name"/>
+                <ComboBoxItem Content="Complexity"/>
+                <ComboBoxItem Content="Status"/>
+                <ComboBoxItem Content="Creation Date"/>
+            </ComboBox>
         </StackPanel>
-        
-        <!--tasks list-->
+
+        <!--search by name text box-->
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Column="0" Grid.Row="0">
+            <controls:CustomTextBox TextChanged="TextChanged_SearchTextBox" HeaderText="Search.." BorderBrush="Black" HorizontalAlignment="Center" Style="{StaticResource TextBoxStyle2}" Width="350" MaxLength="50" Height="32">
+            </controls:CustomTextBox>
+        </StackPanel>
+            <!--tasks list-->
         <Border Name="ListBorder" Grid.Row="1" Grid.ColumnSpan="3" Margin="15" Background="{DynamicResource Backround1}" CornerRadius="15">
             <ListView 
                  ItemsSource="{Binding Path=TaskList, Mode=TwoWay}" 
                  Margin="10"
+                 BorderThickness="0"
                  HorizontalContentAlignment="Stretch"
                  Background="{Binding ElementName=ListBorder,Path=Background}"
                  DataContext="{Binding RelativeSource={RelativeSource AncestorType=Page}}"
@@ -213,35 +223,42 @@
         </Border>
         <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center">
             <controls:IconButton 
-                Grid.Column="2"
-                Grid.Row="2"
-                Visibility="{Binding CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}"
-                Style="{DynamicResource IconButton1}" 
-                Icon="/Graphics/Icons/bin1.png"
-                Margin="0,0,20,0"
-                Height="40"
-                Width="60"   
-                Padding="7"
-                IconHeight="1"
-                IconWidth="1"
-                VerticalAlignment="Top"
-                Click="DeletesAllTasks_BtnClick">
+                    Grid.Column="2"
+                    Grid.Row="2"
+                    Background="{DynamicResource Backround6}"
+                    Visibility="{Binding CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}"
+                    Style="{DynamicResource IconButton1}" 
+                    Icon="/Graphics/Icons/bin1.png"
+                    Margin="0,0,20,0"
+                    Height="40"
+                    Width="60"   
+                    Padding="7"
+                    IconHeight="1"
+                    IconWidth="1"
+                    VerticalAlignment="Top"
+                    Click="DeletesAllTasks_BtnClick">
                 <ButtonBase.Effect>
                     <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                 </ButtonBase.Effect>
             </controls:IconButton>
             <controls:IconButton 
-                Grid.Column="2"
-                Grid.Row="2"
-                Style="{DynamicResource IconButton1}" 
-                Visibility="{Binding CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}"
-                Icon="/Graphics/Icons/add1.png"
-                Height="40"
-                Width="60"   
-                IconHeight="1"
-                IconWidth="1"
-                VerticalAlignment="Top"
-                Click="AddNewTask_BtnClick">
+                    Grid.Column="2"
+                    Grid.Row="2"
+                    Background="{DynamicResource Backround6}"
+                    Style="{DynamicResource IconButton1}"                     
+                    Icon="/Graphics/Icons/add1.png"
+                    Height="40"
+                    Width="60"   
+                    IconHeight="1"
+                    IconWidth="1"
+                    VerticalAlignment="Top"
+                    Click="AddNewTask_BtnClick">
+                <controls:IconButton.IsEnabled>
+                    <MultiBinding Converter="{StaticResource ConvertUserAndProjectStateToBool}">
+                        <Binding Path="CurrentUser.UserType"/>
+                        <Binding Path="ProjectHasStarted"/>
+                    </MultiBinding>
+                </controls:IconButton.IsEnabled>
                 <ButtonBase.Effect>
                     <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                 </ButtonBase.Effect>

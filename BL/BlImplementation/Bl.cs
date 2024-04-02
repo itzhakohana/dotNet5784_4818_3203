@@ -7,7 +7,8 @@ internal class Bl : IBl
 {
     public Bl()
     {
-        Clock = DateControl.GetCurrentDate();
+        if(s_Clock == DateTime.MinValue)
+            s_Clock = DateControl.GetCurrentDate();
         //new Thread(()=> { while (true) runClock(); }).Start();
     }
     public ITask Task => new BlImplementation.TaskImplementation(this);
@@ -21,12 +22,12 @@ internal class Bl : IBl
     public IDatesControl DateControl => new BlImplementation.DatesControlImplementation();
 
 
-    private static DateTime s_Clock = DateTime.Now.Date;
-    public DateTime Clock { get { return s_Clock; } set { s_Clock = value; } }
+    private static DateTime s_Clock = DateTime.MinValue;
+    public DateTime Clock { get { return s_Clock; } }
 
-    public void ClockAddHour() => Clock += new TimeSpan(1, 0, 0);
-    public void ClockAddDay() => Clock += new TimeSpan(1, 0, 0, 0);
-    public void ClockAddMonth() => Clock += new TimeSpan(30, 0, 0, 0);
+    public void ClockAddHour() => s_Clock += new TimeSpan(1, 0, 0);
+    public void ClockAddDay() => s_Clock += new TimeSpan(1, 0, 0, 0);
+    public void ClockAddMonth() => s_Clock += new TimeSpan(30, 0, 0, 0);
     public void SaveClock()=> DateControl.SetCurrentDate(s_Clock);
     private TimeSpan? _toBeAdded = null;
     private void runClock()
@@ -34,12 +35,16 @@ internal class Bl : IBl
         
         if (_toBeAdded != null)
         {
-            Clock += _toBeAdded.Value;
+            s_Clock += _toBeAdded.Value;
             _toBeAdded = null;
         }
-        Clock = Clock.AddMinutes(1);
+        s_Clock = Clock.AddMinutes(1);
         Thread.Sleep(1000);
         
+    }
+    public void stopClock()
+    {
+
     }
     public void InitializeDataBase()
     {
@@ -49,5 +54,7 @@ internal class Bl : IBl
     public void Reset()
     {
         DalApi.Factory.Get.Reset();
+        s_Clock = DateTime.Now;
     }
+
 }

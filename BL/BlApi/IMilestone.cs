@@ -33,7 +33,7 @@ public interface IMilestone
     /// <param name="remarks"></param>
     /// <returns>The newly updated Milestone</returns>
     /// <exception cref="BO.BlDoesNotExistException"></exception>
-    public BO.Milestone Update(int id, string alias, string description, string remarks);
+    public BO.Milestone Update(int id, string alias, string description, string? remarks);
     /// <summary>
     /// Called once for setting the project on its way.
     /// will calculate and creat milestones from the dependency list

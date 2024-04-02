@@ -1,0 +1,145 @@
+﻿<Page x:Class="PL.ProjectPages.GanttSchedulePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:bl="clr-namespace:BO;assembly=BL"  
+      xmlns:pl="clr-namespace:PL.PO"  
+      xmlns:controls="clr-namespace:PL.CustomControls"
+      xmlns:local="clr-namespace:PL.ProjectPages"
+      mc:Ignorable="d"      
+      DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+      d:DesignHeight="600" d:DesignWidth="1050"
+      Title="GanttSchedulePage">
+
+    <Grid>
+        <!-- Top ItemsControl for dates -->
+        <ScrollViewer BorderThickness="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <ItemsControl Margin="0,0,0,0" ItemsSource="{Binding Dates}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!--Customize how dates are displayed here-->
+                            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Width="175">
+                                <Separator Width="2" Height="100" FontWeight="Bold" FontSize="20" Background="Black" VerticalAlignment="Stretch"  RenderTransformOrigin="0.5,0.5">
+                                    <Separator.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="90"/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Separator.RenderTransform>
+                                </Separator>
+                                <TextBlock Foreground="White" FontSize="13" FontWeight="SemiBold" Text="{Binding}" Background="{StaticResource Backround6}" Width="175" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+                                <Separator HorizontalAlignment="Stretch" Foreground="White"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!--actual tasks view-->
+                <ListView BorderThickness="0" Margin="0,30,0,0" Background="Transparent" ItemsSource="{Binding AllTasks}" PreviewMouseDown="ListView_PreviewMouseDown">
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="bl:Task">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Grid.ColumnSpan="2">
+                                    <StackPanel Orientation="Vertical">
+                                        <!--<TextBlock Grid.Column="0" Text="{Binding Id}" Background="Transparent" Foreground="White" FontWeight="Bold" FontSize="14"/>-->
+                                        <Separator Height="20" Foreground="White" HorizontalAlignment="Stretch"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Border Grid.Column="1">
+                                    <Rectangle
+                                            RadiusX="10" RadiusY="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Stretch" Height="20"
+                                            Width="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecWidth}}"  
+                                            Margin="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecMargin}}"
+                                            Fill="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecBackground}}"
+                                            MouseDown="GanttTaskRectangle_MouseDown">
+                                        <!--tool tip for each task-->
+                                        <Rectangle.ToolTip>
+                                            <ToolTip Background="Gray">
+                                                <ToolTip.Template>
+                                                    <ControlTemplate TargetType="ToolTip">
+                                                        <Border BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="180" Width="300">
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="*"/>
+                                                                </Grid.RowDefinitions>
+                                                                <StackPanel>
+                                                                    <!--task alias-->
+                                                                    <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding Alias}"/>
+                                                                    <!--task status with icon-->
+                                                                    <StackPanel Margin="7,7,0,0" Orientation="Horizontal">
+                                                                        <Image Height="20" Width="20">
+                                                                            <Image.Style>
+                                                                                <Style TargetType="Image">
+                                                                                    <Setter Property="Source" Value="/Graphics/Icons/level1.png" />
+                                                                                    <Style.Triggers>
+                                                                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="1">
+                                                                                            <Setter Property="Source" Value="/Graphics/Icons/unscheduled1.png" />
+                                                                                        </DataTrigger>
+                                                                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="2">
+                                                                                            <Setter Property="Source" Value="/Graphics/Icons/scheduled2.png" />
+                                                                                        </DataTrigger>
+                                                                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
+                                                                                            <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
+                                                                                        </DataTrigger>
+                                                                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
+                                                                                            <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
+                                                                                        </DataTrigger>
+                                                                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
+                                                                                            <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
+                                                                                        </DataTrigger>
+                                                                                    </Style.Triggers>
+                                                                                </Style>
+                                                                            </Image.Style>
+                                                                        </Image>
+                                                                        <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding Status}"/>
+                                                                    </StackPanel>
+                                                                    <Separator HorizontalAlignment="Stretch" Foreground="White"/>
+                                                                    <StackPanel Orientation="Horizontal" Margin="7,0,0,0">
+                                                                        <Image Height="20" Width="20" Source="/Graphics/Icons/timeSpan1.png"/>
+                                                                        <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding RequiredEffortTime, StringFormat={}Required Time: {0:dd} Days}"/>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Horizontal" Margin="7,0,0,0">
+                                                                        <Image Height="15" Width="15" Source="/Graphics/Icons/calendar1.png"/>
+                                                                        <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding ScheduledDate, StringFormat={}Scheduled Date: {0:dd/MM/yy} Days}"/>
+                                                                    </StackPanel>
+                                                                    <Separator HorizontalAlignment="Stretch" Foreground="White"/>
+                                                                </StackPanel>
+                                                                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="3" Foreground="White" FontSize="14" FontStyle="Italic" Text="double click to navigate to task-page"/>
+                                                            </Grid>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </ToolTip.Template>
+                                            </ToolTip>
+                                        </Rectangle.ToolTip>
+                                        <Rectangle.Style>
+                                            <Style TargetType="Rectangle">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Opacity" Value="0.5"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Rectangle.Style>
+                                    </Rectangle>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

@@ -8,146 +8,18 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Themes/Dark.xaml"/>
+                <ResourceDictionary Source="/Themes/Styles.xaml"/>
+                <ResourceDictionary Source="/Themes/Templates.xaml"/>
                 <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
 
-            <!--template for textBox-->
-            <ControlTemplate x:Key="TextBoxControlTemplate" TargetType="{x:Type TextBox}">
-
-                <Border VerticalAlignment="Center" Name="border" Background="{DynamicResource TextBoxColor1}" MinHeight="35" MaxHeight="40" CornerRadius="4" BorderThickness="1" BorderBrush="Black">
-
-                    <TextBox 
-                        Name="myTextBox" 
-                        IsEnabled="{Binding IsEnabled, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
-                        Background="Transparent"     
-                        BorderThickness="0"
-                        FontSize="17"  
-                        MaxLength="{TemplateBinding MaxLength}"
-                        Height="{TemplateBinding Height}"
-                        MinWidth="70"
-                        VerticalAlignment="Center"                                             
-                        HorizontalAlignment="Center"    
-                        HorizontalContentAlignment="Center" 
-                        FontFamily="Global Sans Serif"
-                        Text ="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
-
-                    </TextBox>
-                </Border>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsFocused" Value="True">
-                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxBorderColorOnFocus1}"/>
-                        <Setter Property="BorderThickness" TargetName="border" Value="2"/>
-                    </Trigger>
-                    <Trigger Property="IsFocused" Value="True" SourceName="myTextBox">
-                        <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource TextBoxBorderColorOnFocus1}"/>
-                        <Setter Property="BorderThickness" TargetName="border" Value="2"/>
-                    </Trigger>
-                    <MultiTrigger>
-                        <MultiTrigger.Conditions>
-                            <Condition Property="IsFocused" Value="False" SourceName="myTextBox"/>
-                            <Condition Property="Text" Value="{x:Null}" SourceName="myTextBox"/>
-                        </MultiTrigger.Conditions>
-                        <Setter Property="Text" TargetName="myTextBox" Value="Name"/>
-                    </MultiTrigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-
-            <!--default horizontal style for menu navigation button -->
-            <Style x:Key="MainNavButtonHorizontal" TargetType="{x:Type controls:NavigationButton}">
-                <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Foreground" Value="{DynamicResource fontColor1}"/>
-                <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
-                <Setter Property="FontSize" Value="14"/>
-                <Setter Property="Margin" Value="4"/>
-                <Setter Property="Padding" Value="15"/>
-                <Setter Property="MinHeight" Value="40"/>
-                <Setter Property="MaxHeight" Value="120"/>
-                <Setter Property="MinWidth" Value="80"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type controls:NavigationButton}">
-                            <Border x:Name="border" 
-                                Background="{TemplateBinding Background}" 
-                                BorderBrush="Black" 
-                                BorderThickness="{TemplateBinding BorderThickness}" 
-                                CornerRadius="5">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="35"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Rectangle Grid.ColumnSpan="2" Fill="Transparent" Stroke="Black" StrokeThickness="0"/>
-                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}" Grid.Column="1" Text="{TemplateBinding Title}"/>
-                                    <Image Grid.Column="0" Margin="5,2,-3,2" Source="{TemplateBinding Icon}"/>
-                                </Grid>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" TargetName="border" Value="{DynamicResource IsMouseOverColor1}"/>
-                                    <!--<Setter Property="Opacity" TargetName="border" Value="0.7"/>-->
-                                    <Setter Property="BorderThickness" TargetName="border" Value="0"/>
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" TargetName="border" Value="{DynamicResource IsMouseOverColor1}"/>
-                                    <!--<Setter Property="Opacity" TargetName="border" Value="0.7"/>-->
-                                    <Setter Property="BorderThickness" TargetName="border" Value="0"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            
-            <!--default vertical style for menu navigation button -->
-            <Style x:Key="MainNavButtonVertical" TargetType="{x:Type controls:NavigationButton}">
-                <Setter Property="Background" Value="{StaticResource Backround1}"/>
-                <Setter Property="Foreground" Value="{StaticResource fontColor1}"/>
-                <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
-                <Setter Property="FontSize" Value="20"/>
-                <Setter Property="Margin" Value=" 10"/>
-                <Setter Property="Padding" Value="15"/>
-                <Setter Property="MinHeight" Value="40"/>
-                <Setter Property="MaxHeight" Value="120"/>
-                <Setter Property="MinWidth" Value="80"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type controls:NavigationButton}">
-                            <Border x:Name="border" 
-                        Background="#363636" 
-                        BorderBrush="Black" 
-                        BorderThickness="{TemplateBinding BorderThickness}" 
-                        CornerRadius="8">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="35"/>
-                                    </Grid.RowDefinitions>
-                                    <Rectangle Grid.RowSpan="2" Fill="Transparent" Stroke="Black" StrokeThickness="0"/>
-                                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{TemplateBinding Foreground}" Grid.Row="1" Text="{TemplateBinding Title}"/>
-                                    <Image Grid.Row="0" MaxHeight="60" Margin="0,8,0,0" Source="{TemplateBinding Icon}"/>
-                                </Grid>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" TargetName="border" Value="#616161"/>
-                                    <!--<Setter Property="Opacity" TargetName="border" Value="0.7"/>-->
-                                    <Setter Property="BorderThickness" TargetName="border" Value="0"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-
-           
-
-
             <!--Binding Enums-->
             <local:EngExperienceCollection x:Key="EngineerExperienceEnumCollection"/>
             <local:UserTypeCollection x:Key="UserTypeEnumCollection"/>
+            
             <!--Converters-->
             <local:ConvertEngIdToContent x:Key="converIdToContent"/>
             <local:ConvertTaskInEngToIsEnabled x:Key="convertTaskToIsEnabled"/>
@@ -166,6 +38,15 @@
             <local:ConvertTaskToStatusMessage x:Key="ConvertTaskToStatusMessage"/>
             <local:ConvertDependenciesListToListCount x:Key="GetTaskInListCollectionCount"/>
             <local:ConvertLevelToNumber x:Key="ConvertLevelToNumber"/>
+            <local:ConvertTaskStatusToBackgroundColor x:Key="ConvertTaskStatusToBackgroundColor"/>
+            <local:ConvertNullDateTimeToString x:Key="ConvertNullDateTimeToString"/>
+            <local:ConvertTimeSpanToDaysOnlyString x:Key="ConvertTimeSpanToDaysOnlyString"/>
+            <local:ConvertUserAndProjectStateToBool x:Key="ConvertUserAndProjectStateToBool"/>
+            <local:ConvertNullToVisibility x:Key="ConvertNullToVisibility"/>
+            <local:ConvertBytesToImage x:Key="ConvertBytesToImage"/>
+            <local:ConvertTaskToGanttTaskRecWidth x:Key="ConvertTaskToGanttTaskRecWidth"/>
+            <local:ConvertTaskToGanttTaskRecMargin x:Key="ConvertTaskToGanttTaskRecMargin"/>
+            <local:ConvertTaskToGanttTaskRecBackground x:Key="ConvertTaskToGanttTaskRecBackground"/>
             
         </ResourceDictionary>
     </Application.Resources>

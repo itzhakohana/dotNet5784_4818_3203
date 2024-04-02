@@ -32,7 +32,7 @@
         <Border Grid.RowSpan="3" Grid.Column="1" Background="{DynamicResource Backround4}" CornerRadius="15" BorderBrush="Black">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="0.8*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -48,13 +48,21 @@
                 </Grid.ColumnDefinitions>
                 
                 <!--Profile picture-->
-                <Image Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="10" Source="/Graphics/Icons/user1.png"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0" >
+                    <Ellipse Height="130" Width="130">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{Binding MyImage, NotifyOnSourceUpdated=True}"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <controls:IconButton VerticalAlignment="Bottom" Style="{DynamicResource  IconButton1}" Icon="/Graphics/Icons/wrench1.png" Height="22" Width="22" Padding="3" Click="UpdateProfilePicture_btnClick"/>
+                </StackPanel>
                 <!--Name-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="2">
                     <Label VerticalContentAlignment="Bottom" Content="Name:"/>
                     <TextBox 
                         Template="{StaticResource TextBoxControlTemplate}"
-                        Text="{Binding Engineer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
+                        Text="{Binding Engineer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                        IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
                     </TextBox>
                 </StackPanel>
                 <!--Id-->
@@ -72,6 +80,7 @@
                     <Label VerticalContentAlignment="Bottom" Content="Email:"/>
                     <TextBox 
                         Template="{StaticResource TextBoxControlTemplate}"
+                        IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
                         Text="{Binding Engineer.Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
                     </TextBox>
                 </StackPanel>
@@ -79,6 +88,7 @@
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="3">
                     <Label VerticalContentAlignment="Bottom" Content="Phone number:"/>
                     <TextBox 
+                        IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
                         Template="{StaticResource TextBoxControlTemplate}"
                         Text="TO DO">
                     </TextBox>
@@ -87,6 +97,7 @@
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="4">
                     <Label VerticalContentAlignment="Bottom" Content="Cost Per Hour:"/>
                     <TextBox 
+                        IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
                         Template="{DynamicResource TextBoxControlTemplate}"
                         Text="{Binding Engineer.Cost, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
                     </TextBox>
@@ -102,7 +113,8 @@
                         Style="{StaticResource DefaultComboBoxStyle}"
                         SelectionChanged="LevelChanged_SelectionChanged"
                         SelectedValue="{Binding Engineer.Level, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                        ItemsSource="{Binding Source={StaticResource EngineerExperienceEnumCollection}}" >
+                        ItemsSource="{Binding Source={StaticResource EngineerExperienceEnumCollection}}" 
+                        IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
                     </ComboBox>
                 </StackPanel>
                 <!--Task-->
@@ -111,6 +123,7 @@
                     <!--<CheckBox Name="AssignTaskCheckBox" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0" 
                          IsChecked="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullTaskInEngineerToBool}}"/>-->
                     <StackPanel Orientation="Horizontal">
+                        <controls:IconButton Style="{StaticResource IconButton1}" Icon="/Graphics/Icons/reset1.png" Height="30" Width="30" Background="Gray" Padding=" 5" Click="ResetAssignedTask_btnClick"/>
                         <TextBox 
                             Width="280"
                             Name="textBox"
@@ -120,7 +133,9 @@
                             IsEnabled="True">
                             <!--IsEnabled="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}"-->
                         </TextBox>
-                        <controls:IconToggleButton x:Name="TaskPopupOpener" Style="{StaticResource ToggleIconButton1}" Icon="/Graphics/Icons/add1.png" Height="30" Width="30" Background="Gray">
+                        <controls:IconToggleButton x:Name="TaskPopupOpener" Style="{StaticResource ToggleIconButton1}" 
+                                                   Icon="/Graphics/Icons/add1.png" Height="30" Width="30" Background="Gray"
+                                                   IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
                             <Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleIconButton1}">
                                 <Style.Triggers>
                                     <MultiDataTrigger >
@@ -205,15 +220,15 @@
                 <!--Button for adding\updating-->
                 <Button 
                     Style="{DynamicResource ButtonStyle1}"
-                    DataContext="{Binding Engineer}"
-                    Content="{Binding Id, Mode = OneTime, Converter={StaticResource converIdToContent}}" 
+                    Content="Save"
+                    IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
                     Background="#FF414243" Foreground="White" FontSize="14" VerticalContentAlignment="Center"
                     Grid.Column="3" Grid.Row="0" Padding="8" Width="75" Height="40"  Click="AddOrUpdateEngineer_btnClick"/>
                 <!--Button for reseting changes-->
                 <Button 
                     Style="{DynamicResource ButtonStyle1}"
-                    Content="Reset Changes" Background="#FF414243" Foreground="White" FontSize="12"
-                    VerticalContentAlignment="Center" Width="80" Height="50" HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="7"
+                    Content="Reset Changes" Background="#FF414243" Foreground="White" FontSize="14"
+                    VerticalContentAlignment="Center" Width="180" Height="40" HorizontalContentAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="7"
                     Click="ResetChanges_btnClick"/>
             </Grid>
         </Border>

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,6 +24,30 @@ namespace PL.TaskPages
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         private int _id;
+
+
+
+        public BO.User CurrentUser
+        {
+            get { return (BO.User)GetValue(CurrentUserProperty); }
+            set { SetValue(CurrentUserProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CurrentUser.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentUserProperty =
+            DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(TaskPage), new PropertyMetadata(null));
+
+
+
+        public bool ProjectHasStarted
+        {
+            get { return (bool)GetValue(ProjectHasStartedProperty); }
+            set { SetValue(ProjectHasStartedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ProjctHasStarted.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ProjectHasStartedProperty =
+            DependencyProperty.Register("ProjectHasStarted", typeof(bool), typeof(TaskPage), new PropertyMetadata(null));
 
 
 
@@ -73,7 +98,7 @@ namespace PL.TaskPages
 
 
 
-        public TaskPage(BO.User CurrentUser, int id = 0)
+        public TaskPage(BO.User user, int id = 0)
         {
             InitializeComponent();            
             if (id == 0)
@@ -91,6 +116,8 @@ namespace PL.TaskPages
                 CurrentTaskDependencies = Task.Dependencies;
                 _id = id;
             }
+            CurrentUser = user;
+            ProjectHasStarted = s_bl.Task.ProjectHasStarted();
         }
 
         private void ResetChanges_btnClick(object sender, RoutedEventArgs e)
@@ -225,5 +252,14 @@ namespace PL.TaskPages
         {
 
         }
+
+        private void ViewMilestone_btnClick(object sender, RoutedEventArgs e)
+        {
+            if(Task.Milestone is not null)
+            {
+                NavigationService.Navigate(new MilestonePages.MilestonePage(CurrentUser,Task.Milestone.Id));
+            }
+        }
+       
     }
 }

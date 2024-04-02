@@ -115,7 +115,7 @@ internal class MilestoneImplementation : IMilestone
     /// <param name="remarks"></param>
     /// <returns>The newly updated Milestone</returns>
     /// <exception cref="BO.BlDoesNotExistException"></exception>
-    public BO.Milestone Update(int id, string alias, string description, string remarks)
+    public BO.Milestone Update(int id, string alias, string description, string? remarks)
     {
         BO.Task task = s_bl.Task.Read(t => t.Id == id && t.IsMilestone)
             ?? throw new BO.BlDoesNotExistException($"A milestone with ID {id} does not exist");
@@ -238,7 +238,7 @@ internal class MilestoneImplementation : IMilestone
         ms = s_bl.Task.Read(t => _dal.Task.Read(it => t.Id == it.Id && it.IsMilestone && it.Alias == "start") != null)!;
         if (projectEnd < projectStart)
         {
-            throw new BO.BlLogicViolationException("Please extend the project's given time-scope");
+            throw new BO.BlLogicViolationException("Please extend the Project's Schedule");
         }
         //updating the first milestone with dates
         ms.DeadlineDate = projectEnd;
@@ -277,7 +277,7 @@ internal class MilestoneImplementation : IMilestone
         ms = s_bl.Task.Read(t => _dal.Task.Read(it => t.Id == it.Id && it.IsMilestone && it.Alias == "end") != null)!;
         if (ms.DeadlineDate < projectStart)
         {
-            throw new BO.BlLogicViolationException("Please extend the project's given time-scope");
+            throw new BO.BlLogicViolationException("Please extend the Project's Schedule");
         }
         //updating the last milestone with the start date
         ms.ScheduledDate = projectStart;

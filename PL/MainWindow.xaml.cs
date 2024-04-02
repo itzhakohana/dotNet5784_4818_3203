@@ -1,4 +1,7 @@
 ﻿using PL.CustomControls;
+using System.ComponentModel;
+using System.Net.Mail;
+using System.Net;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,20 +21,9 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        private bool _closingApp = false;
-        
-        async private void reloadClock() 
-        {
-            await Task.Run(() => 
-            {
-                while (!_closingApp)
-                {
-                    Dispatcher.Invoke(() => CurrentTime = s_bl.Clock);
-                };   
-                s_bl.SaveClock();
-            });            
-        }
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();        
+        BackgroundWorker clockWorker;
+        BackgroundWorker userUpdaterWorker;
 
         public DateTime CurrentTime
         {
@@ -91,17 +83,65 @@ namespace PL
         public static readonly DependencyProperty LoadingProperty =
             DependencyProperty.Register("Loading", typeof(bool), typeof(MainWindow), new PropertyMetadata(null));
 
+        private void WorkerReloadClock_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (clockWorker.CancellationPending == false)
+            {
+                Thread.Sleep(1000);
+                clockWorker.ReportProgress(0);
+            }
+        }
+        private void WorkerReloadClock_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            CurrentTime = s_bl.Clock;
+        }
+
+        private void WorkerReloadUser_DoWork(object sender, DoWorkEventArgs e)
+        {
+            while (userUpdaterWorker.CancellationPending == false)
+            {
+                Thread.Sleep(3000);
+                userUpdaterWorker.ReportProgress(0);
+            }
+        }
+        private void WorkerReloadUser_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            CurrentUser = s_bl.User.Read(CurrentUser.Id) ?? new BO.User();
+            CurrentTask = CurrentUser.CurrentTask;
+            if (CurrentTask != null) CanUpdateTaskProgress = s_bl.Task.CanStartWork(CurrentTask.Id) || CurrentTask.Status == BO.Status.OnTrack;
+            else CanUpdateTaskProgress = false;            
+        }
 
 
         public MainWindow(BO.User user)
         {
             InitializeComponent();
             Loading = false;
-            CurrentUser = user;
-            CurrentTask = CurrentUser.CurrentTask;
-            if (CurrentTask != null) CanUpdateTaskProgress = s_bl.Task.CanStartWork(CurrentTask.Id) || CurrentTask.Status == BO.Status.OnTrack;
-            else CanUpdateTaskProgress = false;
-            reloadClock();            
+            CurrentUser = user;     
+            
+            //initiating clock background worker
+            clockWorker = new BackgroundWorker();
+            clockWorker.DoWork += WorkerReloadClock_DoWork;
+            clockWorker.ProgressChanged += WorkerReloadClock_ProgressChanged;            
+            clockWorker.WorkerReportsProgress = true;
+            clockWorker.WorkerSupportsCancellation = true;
+            if (clockWorker.IsBusy != true)
+                clockWorker.RunWorkerAsync();
+
+            //initiating user-reloader background worker
+            userUpdaterWorker = new BackgroundWorker();
+            userUpdaterWorker.DoWork += WorkerReloadUser_DoWork;
+            userUpdaterWorker.ProgressChanged += WorkerReloadUser_ProgressChanged;
+            userUpdaterWorker.WorkerReportsProgress = true;
+            userUpdaterWorker.WorkerSupportsCancellation = true;
+            if (userUpdaterWorker.IsBusy != true)
+                userUpdaterWorker.RunWorkerAsync();            
+            Application.Current.Exit += Current_Exit;
+
+        }
+
+        private void Current_Exit(object sender, ExitEventArgs e)
+        {           
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -121,6 +161,9 @@ namespace PL
                 //MainFrame.NavigationService.Navigate(myClickedButton.NextPage);
                 switch(myClickedButton.Title)
                 {
+                    //case "Schedule":
+                    //    MainFrame.NavigationService.Navigate(new ProjectPages.GanttSchedulePage(CurrentUser));
+                    //    break;
                     case "Project":
                         MainFrame.NavigationService.Navigate(new ProjectPages.ProjectPage(CurrentUser));
                         break;
@@ -144,16 +187,34 @@ namespace PL
 
         }
 
+        
+
         private void Exit_btnClick(object sender, RoutedEventArgs e)
         {
-            _closingApp = true;
-            Thread.Sleep(200);
-            App.Current.Shutdown();
+            this.Close();
+        }
+
+
+        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {                        
+            clockWorker.CancelAsync();         
+            userUpdaterWorker.CancelAsync();
+            
+            //wait Task.Run(() => Task.WaitAll(taskList.ToArray()));
+            //App.Current.Shutdown();
         }
 
         private void Minimize_btnClick(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
+        }
+
+        private void Maximize_btnClick(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState != WindowState.Maximized)
+                this.WindowState = WindowState.Maximized;
+            else
+                this.WindowState = WindowState.Normal;
         }
 
         private void ManageClock_BtnClick(object sender, RoutedEventArgs e)
@@ -211,6 +272,46 @@ namespace PL
                 if (CurrentTask is not null)
                     MainFrame.NavigationService.Navigate(new TaskPages.TaskPage(CurrentUser, CurrentTask.Id));
             }
+        }
+
+        private void ViewCurrentUser_BtnClick(object sender, RoutedEventArgs e)
+        {
+            //try
+            //{
+            //    //Set up SMTP client
+            //    SmtpClient client = new SmtpClient("smtp.elasticemail.com", 2525);
+            //    client.EnableSsl = true; // Enable SSL/TLS
+            //    client.UseDefaultCredentials = false;
+            //    client.Credentials = new NetworkCredential("pinip5000@gmail.com", "ADB92DAF8EAEEE6B60845B17192FBF2AF2CD");
+
+            //    // Set up email message
+            //    MailMessage message = new MailMessage();
+            //    message.From = new MailAddress("pinip5000@gmail.com");
+            //    message.Sender = new MailAddress("pinip5000@gmail.com");
+            //    message.To.Add("pinig50@gmail.com");
+            //    message.Subject = "Account Verification";
+            //    message.Body = "Please verify your account by clicking the link below.";                
+
+            //    // Send email
+            //    client.Send(message);
+
+            //    MessageBox.Show("Verification email sent successfully.");
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Error: " + ex.Message);
+            //}
+            //MainFrame.NavigationService.Navigate(new UserPages.UserPage(CurrentUser, CurrentUser.Id));
+        }
+
+        private void WindowClosed(object sender, EventArgs e)
+        {
+            //Thread.Sleep(1000);
+        }
+
+        private void GoToWelcomPage_LogoClicked(object sender, MouseButtonEventArgs e)
+        {
+            MainFrame.NavigationService.Navigate(new OtherPages.MainWelcomePage());
         }
     }
 }

@@ -13,9 +13,22 @@
       Title="UsersViewPage">
 
     <Grid>
-        <DataGrid Background="{DynamicResource Backround2}" Margin="25,50" 
+        <ListView Background="White" Margin="25,50"
                   ItemsSource="{Binding UsersList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-
-        </DataGrid>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="130" DisplayMemberBinding="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
+                    <GridViewColumn Header="Permission" Width="130" DisplayMemberBinding="{Binding Path=UserType, UpdateSourceTrigger=PropertyChanged ,Mode=OneWay}"/>
+                    <GridViewColumn Header="Password" Width="130" DisplayMemberBinding="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged ,Mode=OneWay}"/>
+                    <!--<GridViewColumn Header="Password" Width="200" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Background="Gray" HorizontalAlignment="Center" TextAlignment="Center" Foreground="White" VerticalAlignment="Center" Text="kookie"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>-->
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

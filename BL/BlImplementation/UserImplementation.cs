@@ -150,7 +150,7 @@ internal class UserImplementation : BlApi.IUser
     /// </summary>
     /// <param name="password"></param>
     /// <returns>True if the password is free to use, false if the password already in use by a different user</returns>
-    public bool ValidatePassword(int password)
+    public bool ValidatePassword(string password)
     {
         if (_dal.User.Read(u => u.Password == password) is not null)
             return false;
@@ -162,7 +162,7 @@ internal class UserImplementation : BlApi.IUser
     /// <param name="id"></param>
     /// <returns>Instance of the user given by the password and user-name</returns>
     /// <exception cref="BO.BlDoesNotExistException"></exception>
-    public BO.User LogIn(int password, string userName)
+    public BO.User LogIn(string password, string userName)
     {
         var user = Read(u => u.Password == password && u.UserName == userName);
         if (user is null)

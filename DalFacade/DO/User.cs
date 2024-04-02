@@ -12,12 +12,12 @@
 public record User
 (
     int Id,
-    int Password,
+    string Password,
     string UserName,    
     DateTime LastLoginDate,
     DateTime CreationDate,
     DO.UserType UserType
 )
 {
-    public User() : this(0, 0, "", DateTime.Now, DateTime.Now, DO.UserType.Engineer) { }
+    public User() : this(0, "", "", DateTime.Now, DateTime.Now, DO.UserType.Engineer) { }
 }

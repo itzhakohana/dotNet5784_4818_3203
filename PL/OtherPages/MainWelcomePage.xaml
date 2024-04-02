@@ -8,7 +8,116 @@
       d:DesignHeight="600" d:DesignWidth="1050"
       Title="MainWelcomePage">
 
-    <Grid Background="DarkViolet">
-        <TextBlock Text="Welcome!" FontSize="40"/>
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="3" Background="Transparent" Margin="30">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="1000">
+                <!--logo-->
+                <StackPanel Orientation="Horizontal" Margin="20,0" HorizontalAlignment="Center">
+                    <!--<Image  Source="/Graphics/Icons/rocket.png" Height="150" Width="150">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                        </Image.Effect>
+                    </Image>-->
+                    <StackPanel Margin="0,0,0,0">
+                        <TextBlock  Text="NoPro" FontSize="80" FontFamily="Segoe UI Black" FontWeight="ExtraBold" FontStyle="Oblique" FontStretch="Expanded" Foreground="white">
+                            <TextBlock.Effect>
+                                <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                        <TextBlock Text="Elevate your projects" Margin="5,0" FontSize="24" FontFamily="Bahnschrift SemiBold SemiCondensed" FontStyle="Italic" Foreground="white">
+                            <TextBlock.Effect>
+                                <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </StackPanel>
+                    <Image  Source="/Graphics/Icons/workers.png" Margin="100,0,0,0" Height="150" Width="150">
+                        <Image.Effect>
+                            <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                        </Image.Effect>
+                    </Image>
+                </StackPanel>
+                <!--<Separator Background="#FFEEA84A" HorizontalAlignment="Left" Width="550" />-->                
+            </StackPanel>
+        </Grid>
+        <!--squares at the bottom-->
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" Margin="10,0,15,15">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Border Margin="30,0,0,0" CornerRadius="10" Height="160" Width="200" Background="#FFFFE28F">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="5" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                    </Border.Effect>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock FontSize="18" Text="About the makers" FontFamily="Arial Black" Foreground="#FF505050"/>
+                        <Image  Source="/Graphics/Icons/workers.png" Height="100" Width="100">
+                            <Image.Effect>
+                                <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                            </Image.Effect>
+                        </Image>
+                    </StackPanel>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.7"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+                <Border Margin="30,0,0,0" CornerRadius="10" Height="160" Width="200" Background="#FFA4FFC2">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="5" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                    </Border.Effect>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock FontSize="18" Text="How to use" FontFamily="Arial Black" Foreground="#FF505050"/>
+                        <Image  Source="/Graphics/Icons/guide.png" Height="100" Width="100">
+                            <Image.Effect>
+                                <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                            </Image.Effect>
+                        </Image>
+                    </StackPanel>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.7"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+                <Border Margin="30,0,0,0" CornerRadius="10" Height="160" Width="200" Background="#FFA3B5E9">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="5" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                    </Border.Effect>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock FontSize="18" Text="feedback" FontFamily="Arial Black" Foreground="#FF222222"/>
+                        <Image  Source="/Graphics/Icons/feedback.png" Height="100" Width="100">
+                            <Image.Effect>
+                                <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                            </Image.Effect>
+                        </Image>
+                    </StackPanel>
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.7"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

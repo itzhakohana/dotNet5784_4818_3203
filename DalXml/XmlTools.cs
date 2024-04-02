@@ -89,30 +89,36 @@ static class XMLTools
     #region SaveLoadWithXMLSerializer
     public static void SaveListToXMLSerializer<T>(List<T> list, string entity) where T : class
     {
-        string filePath = $"{s_xml_dir + entity}.xml";
-        try
+        lock (entity)
         {
-            using FileStream file = new(filePath, FileMode.Create, FileAccess.Write, FileShare.None);
-            new XmlSerializer(typeof(List<T>)).Serialize(file, list);
-        }
-        catch (Exception ex)
-        {
-            throw new DalXMLFileLoadCreateException($"failed to create xml file: {s_xml_dir + filePath}, {ex.Message}");
+            string filePath = $"{s_xml_dir + entity}.xml";
+            try
+            {
+                using FileStream file = new(filePath, FileMode.Create, FileAccess.Write, FileShare.None);
+                new XmlSerializer(typeof(List<T>)).Serialize(file, list);
+            }
+            catch (Exception ex)
+            {
+                throw new DalXMLFileLoadCreateException($"failed to create xml file: {s_xml_dir + filePath}, {ex.Message}");
+            } 
         }
     }
     public static List<T> LoadListFromXMLSerializer<T>(string entity) where T : class
-    {
-        string filePath = $"{s_xml_dir + entity}.xml";
-        try
+    {    
+        lock (entity)
         {
-            if (!File.Exists(filePath)) return new();
-            using FileStream file = new(filePath, FileMode.Open);
-            XmlSerializer x = new(typeof(List<T>));
-            return x.Deserialize(file) as List<T> ?? new();
-        }
-        catch (Exception ex)
-        {
-            throw new DalXMLFileLoadCreateException($"failed to load xml file: {filePath}, {ex.Message}");
+            string filePath = $"{s_xml_dir + entity}.xml";
+            try
+            {
+                if (!File.Exists(filePath)) return new();
+                using FileStream file = new(filePath, FileMode.Open);
+                XmlSerializer x = new(typeof(List<T>));
+                return x.Deserialize(file) as List<T> ?? new();
+            }
+            catch (Exception ex)
+            {
+                throw new DalXMLFileLoadCreateException($"failed to load xml file: {filePath}, {ex.Message}");
+            } 
         }
     }
     #endregion

@@ -27,6 +27,7 @@ internal class EngineerImplementation : IEngineer
             Level = element.ToEnumNullable<EngineerExperience>("level") ?? 0,
             Name = (string)element.Element("name")!,
             Email = (string)element.Element("email")!,
+            Picture = (string)element.Element("picture")!,
             Cost = element.ToDoubleNullable("cost") ?? 0,
         };
     }
@@ -48,6 +49,7 @@ internal class EngineerImplementation : IEngineer
                                     new XElement("level", item.Level),
                                     new XElement("name", item.Name),
                                     new XElement("email", item.Email),
+                                    new XElement("picture", item.Picture),
                                     new XElement("cost", item.Cost)
                                     )
                 );

@@ -9,7 +9,7 @@ public interface IBl
     public IMilestone Milestone { get; }
     public IDatesControl DateControl { get; }
     public IUser User { get; }
-    public DateTime Clock { get; set; }
+    public DateTime Clock { get; }
     public void ClockAddHour();
     public void ClockAddDay();
     public void ClockAddMonth();

@@ -1,4 +1,5 @@
-﻿using PL.ProjectPages;
+﻿using BlApi;
+using PL.ProjectPages;
 using PL.TaskPages;
 using System;
 using System.Collections.Generic;
@@ -28,13 +29,31 @@ namespace PL.ProjectPages
         {
             try
             {
-                 Loading = true;
+                Loading = true;
+
+                //***********************
+                
+                var ganttTasks = await Task.Run(() => (from t in s_bl.Task.ReadAllTasks()?.ToList().OrderBy(t => t.ScheduledDate).ThenBy(t => t.RequiredEffortTime) select t).ToList());
+                AllTasks = ganttTasks;
+                Dates = new List<string>();
+                if (s_bl.DateControl.GetStartDate() != null)
+                {
+                    DateTime tempDate = s_bl.DateControl.GetStartDate()!.Value;
+                    foreach (BO.Task t in AllTasks)
+                    {
+                        Dates.Add(tempDate.ToShortDateString() + " - " + (tempDate + new TimeSpan(7, 0, 0, 0)).ToShortDateString());
+                        tempDate += new TimeSpan(7, 0, 0, 0);
+                    }
+                }
+                //***********************
+
+
                 _projectStarted = s_bl.Task.ProjectHasStarted();
 
                 var engs = await Task.Run(() => s_bl.Engineer.ReadAll());
                 _engineersAmount = engs != null ? engs.Count() : 0;
 
-                var tasks = await Task.Run(() => s_bl.Task.ReadAll());
+                var tasks = await Task.Run(() => s_bl.Task.ReadAllTasks());
                 _tasksAmount = tasks != null ? tasks.Count() : 0;
 
                 var users = await Task.Run(() => s_bl.User.ReadAll());
@@ -46,18 +65,18 @@ namespace PL.ProjectPages
                 {
                     int tmpUserId = CurrentUser.Id;
                     AvailableTasks = await Task.Run(() => s_bl.Task.ReadAllAvailableTasks(tmpUserId)?.ToList());
-                }               
+                }                       
             }
             catch (Exception ex)
             {
                 Dispatcher.Invoke(() =>
                 {
+                    Loading = false;
                     MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 });
             }
             finally { Loading = false; }          
         }
-
 
 
         public bool Loading
@@ -69,6 +88,18 @@ namespace PL.ProjectPages
         // Using a DependencyProperty as the backing store for Loading.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LoadingProperty =
             DependencyProperty.Register("Loading", typeof(bool), typeof(ProjectPage), new PropertyMetadata(null));
+
+
+
+        public List<BO.Task>? AllTasks
+        {
+            get { return (List<BO.Task>?)GetValue(AllTasksProperty); }
+            set { SetValue(AllTasksProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AllTasks.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AllTasksProperty =
+            DependencyProperty.Register("AllTasks", typeof(List<BO.Task>), typeof(ProjectPage), new PropertyMetadata(null));
 
 
 
@@ -155,16 +186,28 @@ namespace PL.ProjectPages
 
 
 
+        public List<string> Dates
+        {
+            get { return (List<string>)GetValue(DatesProperty); }
+            set { SetValue(DatesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Dates.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DatesProperty =
+            DependencyProperty.Register("Dates", typeof(List<string>), typeof(ProjectPage), new PropertyMetadata(null));
+
+
+
         public ProjectPage(BO.User currentUser)
         {
             InitializeComponent();
             CurrentUser = currentUser;
-            refreshData();     
+            refreshData();            
         }
 
         private void StartProject_btnClick(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new StartProjectPage());
+            NavigationService.Navigate(new StartProjectPage());            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -181,12 +224,14 @@ namespace PL.ProjectPages
                     s_bl.Reset();
                     Loading = true;
                     await Task.Run(() => s_bl.Reset());
+                    Loading = false;
                     MessageBox.Show("Reset Successfull", default, MessageBoxButton.OK, MessageBoxImage.None);
                     refreshData();
                 }
             }
             catch (Exception ex)
             {
+                Loading = false;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally { Loading = false; }
@@ -201,12 +246,14 @@ namespace PL.ProjectPages
                 {
                     Loading = true;
                     await Task.Run(() => s_bl.InitializeDataBase());
+                    Loading = false;
                     MessageBox.Show("Randomazation Successfull", default, MessageBoxButton.OK, MessageBoxImage.None);
                     refreshData();
                 }                
             }
             catch (Exception ex)
             {
+                Loading = false;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally { Loading = false; }
@@ -238,6 +285,24 @@ namespace PL.ProjectPages
                     }
                 }
             }
+        }
+      
+        private void GanttTaskRectangle_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (!e.Handled) { }
+        }
+        
+
+        private void GanttTaskSelected_ListViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            BO.Task task = (sender as ListView)?.SelectedItem as BO.Task;
+            if (task != null)
+                NavigationService.Navigate(new TaskPage(CurrentUser, task.Id));
+        }
+
+        private void PageLoaded_Loaded(object sender, RoutedEventArgs e)
+        {
+            refreshData();
         }
     }
 }

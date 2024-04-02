@@ -217,6 +217,7 @@ internal class EngineerImplementation : IEngineer
             Email = dalEngineer.Email,
             Level = (BO.EngineerExperience)((int)dalEngineer.Level),
             Cost = dalEngineer.Cost,
+            Picture = dalEngineer.Picture,
             Task = findAssignedTask(dalEngineer.Id)
         };
     }
@@ -254,6 +255,7 @@ internal class EngineerImplementation : IEngineer
             Name = blEngineer.Name,
             Email = blEngineer.Email,
             Cost = blEngineer.Cost,
+            Picture = blEngineer.Picture,
             Level = (DO.EngineerExperience)((int)blEngineer.Level)
         };
     }

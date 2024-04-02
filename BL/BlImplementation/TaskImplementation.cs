@@ -40,6 +40,7 @@ internal class TaskImplementation : ITask
 
         try
         {
+            task.CreatedAtDate = s_bl.Clock;
             _dal.Task.Create(convertTaskFromBlToDal(task));
         }
         catch (DO.DalAlreadyExistException ex) 
@@ -351,18 +352,15 @@ internal class TaskImplementation : ITask
     {
         if (CompleteDate is not null)
             return BO.Status.Done;
+        else if ((DeadlineDate is not null && ((DeadlineDate < ForecastDate) || s_bl.Clock > DeadlineDate)))
+            return BO.Status.InJeopardy;
         else if (StartDate is not null)
-        { 
-            if (StartDate > ScheduledDate || s_bl.Clock > DeadlineDate)
-                return BO.Status.InJeopardy;
+        {             
             return BO.Status.OnTrack; 
         }
         else if (ScheduledDate is null)
-            return BO.Status.Unscheduled;
-        else if ((DeadlineDate is not null && DeadlineDate < ForecastDate) || s_bl.Clock > ScheduledDate)
-            return BO.Status.InJeopardy;
+            return BO.Status.Unscheduled;        
         return BO.Status.Scheduled;
-
     }
     /// <summary>
     /// Calculates status from given dalTask (also works on milestones)

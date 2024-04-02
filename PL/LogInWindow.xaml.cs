@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.TextFormatting;
 using System.Windows.Shapes;
 
 namespace PL
@@ -31,22 +32,52 @@ namespace PL
             DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(LogInWindow), new PropertyMetadata(null));
 
 
+
+        public string Password
+        {
+            get { return (string)GetValue(PasswordProperty); }
+            set { SetValue(PasswordProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty PasswordProperty =
+            DependencyProperty.Register("MyProperty", typeof(string), typeof(LogInWindow), new PropertyMetadata(null));
+
+
+
+        public bool Loading
+        {
+            get { return (bool)GetValue(LoadingProperty); }
+            set { SetValue(LoadingProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Loading.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LoadingProperty =
+            DependencyProperty.Register("Loading", typeof(bool), typeof(LogInWindow), new PropertyMetadata(null));
+
         public LogInWindow()
         {
             InitializeComponent();
+            Loading = false;
             CurrentUser = new BO.User();
         }
 
-        private void AttemptLogIn_btnClick(object sender, RoutedEventArgs e)
+        async private void AttemptLogIn_btnClick(object sender, RoutedEventArgs e)
         {
             try
             {
-                CurrentUser = s_bl.User.LogIn(CurrentUser.Password, CurrentUser.UserName);
-                MessageBox.Show("Log-In Successful", "Success", MessageBoxButton.OK, MessageBoxImage.None);
+                Loading = true;
+                string tmpPassword = CurrentUser.Password, tmpName = CurrentUser.UserName;
+                var tmp = await Task.Run(() => s_bl.User.LogIn(tmpPassword, tmpName));
+                CurrentUser = tmp;                
                 new MainWindow(CurrentUser).Show();
+                this.WindowState = WindowState.Minimized;
+                Loading = false;
+                CurrentUser = new BO.User();
             }
             catch (Exception ex)
             {
+                Loading = false;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
                         
@@ -57,6 +88,29 @@ namespace PL
             if (!int.TryParse(e.Text, out _))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void Exit_btnClick(object sender, RoutedEventArgs e)
+        {
+            s_bl.SaveClock();
+            Application.Current.Shutdown();
+        }
+
+        private void Minimize_btnClick(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+        private void WindowClosed(object sender, EventArgs e)
+        {
+            Thread.Sleep(1100);
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
             }
         }
     }

@@ -51,12 +51,12 @@ public interface IUser
     /// </summary>
     /// <param name="password"></param>
     /// <returns>True if the password is free to use, false if the password already in use by a different user</returns>
-    public bool ValidatePassword(int password);
+    public bool ValidatePassword(string password);
     /// <summary>
     /// Perfoms login action by password and user-name. will update the lastLogInDate field of the given user.
     /// </summary>
     /// <param name="id"></param>
     /// <returns>Instance of the user given by the password and user-name</returns>
     /// <exception cref="BO.BlDoesNotExistException"></exception>
-    public BO.User LogIn(int password, string userName);
+    public BO.User LogIn(string password, string userName);
 }
