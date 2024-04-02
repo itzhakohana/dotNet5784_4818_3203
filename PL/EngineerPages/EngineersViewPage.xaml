@@ -37,7 +37,11 @@
                             <ColumnDefinition Width="0.4*"/>
                         </Grid.ColumnDefinitions>
                         <!--image-->
-                        <Image Margin="5" Grid.Column="0" Source="/Graphics/Icons/user1.png"/>
+                        <Ellipse Margin="5" Grid.Column="0" Height="50" Width="50">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="{Binding Picture, NotifyOnSourceUpdated=True, Converter={StaticResource ConvertBytesToImage}}"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
                         <!--name&id-->
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
@@ -55,7 +59,7 @@
                         <!--level-->
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="3" Orientation="Horizontal">
                             <!--icon for Engineer level-->
-                            <Image HorizontalAlignment="Center" Margin="10,15" Grid.Column="0">
+                            <!--<Image HorizontalAlignment="Center" Margin="10,15" Grid.Column="0">
                                 <Image.Effect>
                                     <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                                 </Image.Effect>
@@ -81,8 +85,8 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Image.Style>
-                            </Image>
-                            <TextBlock VerticalAlignment="Center" Background="Transparent" FontSize="20" Foreground="Black" Text="{Binding Path = Level}" FontFamily="Bahnschrift SemiBold Condensed"/>
+                            </Image>-->
+                            <TextBlock VerticalAlignment="Center" Background="Transparent" FontSize="20" Foreground="Black" Text="{Binding Path = Level}" FontFamily="Bahnschrift SemiBold Condensed" Margin="6,0,0,0"/>
 
                         </StackPanel>
                         <!--task-->
@@ -175,7 +179,7 @@
             <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.5*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
@@ -204,7 +208,7 @@
             <Label HorizontalAlignment="Center" Margin="0" Content="Filter By:" />
             <ComboBox 
                 Margin="0,0,0,0"
-                Width="170"
+                Width="190"
                 VerticalAlignment="Center"
                 Style="{StaticResource DefaultComboBoxStyle}"
                 SelectedValue="{Binding Path =Experience, Mode=TwoWay}"
@@ -214,34 +218,26 @@
         <StackPanel Orientation="Horizontal" Margin="0" Grid.Column="1" Grid.Row="0" >
             <Label HorizontalAlignment="Center" Margin="0" Content="Order By:" />
             <ComboBox 
-                Margin="0"
-                Width="170"
-                VerticalAlignment="Center"
-                Style="{StaticResource DefaultComboBoxStyle}"
-                />
+                Margin="0" Width="190" VerticalAlignment="Center"
+                Style="{StaticResource DefaultComboBoxStyle}" SelectionChanged="SelectionChanged_OrederByComboBox">
+                <ComboBoxItem Content="Name"/>
+                <ComboBoxItem Content="Level"/>
+                <ComboBoxItem Content="Cost"/>
+            </ComboBox>
+        </StackPanel>
+        <!--search by name text box-->
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Column="0" Grid.Row="0">
+            <controls:CustomTextBox TextChanged="TextChanged_SearchTextBox" HeaderText="Search.." BorderBrush="Black" HorizontalAlignment="Center" Style="{StaticResource TextBoxStyle2}" Width="350" MaxLength="50" Height="32">
+            </controls:CustomTextBox>
         </StackPanel>
         <!--engineer list-->
         <Border Name="ListBorder" Grid.Row="1" Grid.ColumnSpan="3" Margin="15" Background="{DynamicResource Backround1}" CornerRadius="15">
             <ListView 
                 ItemsSource="{Binding Path=EngineerList, Mode=TwoWay}" 
-                Margin="10" 
-                Background="{Binding ElementName=ListBorder}"                
+                Margin="10" BorderThickness="0"
+                Background="{Binding ElementName=ListBorder, Path=Background}"                
                 ItemTemplate="{StaticResource EngineerTemplate}"
                 HorizontalContentAlignment="Stretch" MouseDoubleClick="ItemSelected_MouseDoubleClick">
-                <!--<ListView.Template>
-                    <ControlTemplate>
-                        <Border BorderThickness="0">
-                            <ListView 
-                                ItemsSource="{Binding Path=EngineerList, Mode=TwoWay}" 
-                                Margin="10" 
-                                Background="{Binding ElementName=ListBorder}"
-                                DataContext="{Binding RelativeSource={RelativeSource AncestorType=Page}}"
-                                ItemTemplate="{StaticResource EngineerTemplate}">
-                                
-                            </ListView>
-                        </Border>
-                    </ControlTemplate>
-                </ListView.Template>-->
             </ListView>
             <!--<DataGrid ItemsSource="{Binding Path=EngineerList,Mode=TwoWay}" Margin="10" Background="{Binding ElementName=ListBorder}"/>-->
         </Border>
@@ -249,6 +245,7 @@
             <controls:IconButton 
                 Grid.Column="2"
                 Grid.Row="2"
+                Background="{DynamicResource Backround6}"
                 Visibility="{Binding CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}"
                 Style="{DynamicResource IconButton1}" 
                 Icon="/Graphics/Icons/bin1.png"
@@ -268,6 +265,7 @@
                 Grid.Column="2"
                 Grid.Row="2"
                 Style="{DynamicResource IconButton1}" 
+                Background="{DynamicResource Backround6}"
                 Visibility="{Binding CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}"
                 Icon="/Graphics/Icons/add1.png"
                 Height="40"
