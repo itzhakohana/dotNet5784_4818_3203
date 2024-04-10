@@ -1,15 +1,49 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using System;
+using System.ComponentModel;
 using System.Reflection.Metadata.Ecma335;
 
 internal class Bl : IBl
 {
+    private static TimeSpan _toBeAdded = TimeSpan.Zero;
+    private static BackgroundWorker? clockWorker = null;
+    private void WorkerReloadClock_DoWork(object sender, DoWorkEventArgs e)
+    {
+        while (clockWorker!.CancellationPending == false)
+        {
+            Thread.Sleep(1000);
+            clockWorker.ReportProgress(0);
+        }
+    }
+    private void WorkerReloadClock_ProgressChanged(object sender, ProgressChangedEventArgs e)
+    {
+        if (_toBeAdded != TimeSpan.Zero)
+        {
+            s_Clock += _toBeAdded;
+            _toBeAdded = TimeSpan.Zero;
+        }
+        s_Clock += new TimeSpan(0, 0, 60);        
+    }
+
     public Bl()
     {
-        if(s_Clock == DateTime.MinValue)
+        //initiating clock background worker
+        if (clockWorker is null)
+        {
+            clockWorker = new BackgroundWorker();
+            clockWorker.DoWork += WorkerReloadClock_DoWork;
+            clockWorker.ProgressChanged += WorkerReloadClock_ProgressChanged;
+            clockWorker.WorkerReportsProgress = true;
+            clockWorker.WorkerSupportsCancellation = true;
+            clockWorker.RunWorkerAsync();
+        }
+
+        _toBeAdded = TimeSpan.Zero;
+        if (s_Clock == DateTime.MinValue)
             s_Clock = DateControl.GetCurrentDate();
-        //new Thread(()=> { while (true) runClock(); }).Start();
+
+        //new Thread(() => { runClock(); }).Start();
     }
     public ITask Task => new BlImplementation.TaskImplementation(this);
 
@@ -25,26 +59,16 @@ internal class Bl : IBl
     private static DateTime s_Clock = DateTime.MinValue;
     public DateTime Clock { get { return s_Clock; } }
 
-    public void ClockAddHour() => s_Clock += new TimeSpan(1, 0, 0);
-    public void ClockAddDay() => s_Clock += new TimeSpan(1, 0, 0, 0);
-    public void ClockAddMonth() => s_Clock += new TimeSpan(30, 0, 0, 0);
-    public void SaveClock()=> DateControl.SetCurrentDate(s_Clock);
-    private TimeSpan? _toBeAdded = null;
-    private void runClock()
-    {
-        
-        if (_toBeAdded != null)
-        {
-            s_Clock += _toBeAdded.Value;
-            _toBeAdded = null;
-        }
-        s_Clock = Clock.AddMinutes(1);
-        Thread.Sleep(1000);
-        
-    }
-    public void stopClock()
-    {
+    public void ClockAddHour() => _toBeAdded += new TimeSpan(1, 0, 0);
+    public void ClockAddDay() => _toBeAdded += new TimeSpan(1, 0, 0, 0);
+    public void ClockAddMonth() => _toBeAdded += new TimeSpan(30, 0, 0, 0);
 
+    public void SaveClock()=> DateControl.SetCurrentDate(s_Clock);
+    
+    public void stopClock(object sender, EventArgs e)
+    {
+        clockWorker.CancelAsync();    
+        SaveClock();
     }
     public void InitializeDataBase()
     {

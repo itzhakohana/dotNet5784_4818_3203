@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:bl="clr-namespace:BO;assembly=BL"  
-      xmlns:pl="clr-namespace:PL.PO"  
       xmlns:controls="clr-namespace:PL.CustomControls"
       xmlns:local="clr-namespace:PL.ProjectPages"
       mc:Ignorable="d"      

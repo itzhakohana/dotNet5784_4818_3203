@@ -11,7 +11,7 @@
       Title="StartProjectPage">
 
     <Border CornerRadius="25" Margin="20" Background="{DynamicResource Backround4}">
-        <Grid ShowGridLines="True">
+        <Grid ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>

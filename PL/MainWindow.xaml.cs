@@ -22,8 +22,8 @@ namespace PL
     public partial class MainWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();        
-        BackgroundWorker clockWorker;
-        BackgroundWorker userUpdaterWorker;
+        private BackgroundWorker clockWorker;
+        private BackgroundWorker userUpdaterWorker;
 
         public DateTime CurrentTime
         {
@@ -152,7 +152,6 @@ namespace PL
             }
         }
 
-
         private void GridClick_btnClick(object sender, RoutedEventArgs e)
         {
             var myClickedButton = e.OriginalSource as NavigationButton;
@@ -187,21 +186,15 @@ namespace PL
 
         }
 
-        
-
         private void Exit_btnClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {                        
             clockWorker.CancelAsync();         
-            userUpdaterWorker.CancelAsync();
-            
-            //wait Task.Run(() => Task.WaitAll(taskList.ToArray()));
-            //App.Current.Shutdown();
+            userUpdaterWorker.CancelAsync();            
         }
 
         private void Minimize_btnClick(object sender, RoutedEventArgs e)
@@ -276,10 +269,21 @@ namespace PL
 
         private void ViewCurrentUser_BtnClick(object sender, RoutedEventArgs e)
         {
-
             try
             {
-                MainFrame.Navigate(new UserPages.UserPage(CurrentUser, CurrentUser.Password));
+                if (sender is Button btn)
+                {
+                    switch (btn.Content){
+                        case "View":
+                            MainFrame.Navigate(new UserPages.UserPage(CurrentUser, CurrentUser.Password));
+                            break;
+                        case "View Engineer Profile":
+                            if(CurrentUser.Engineer is not null)
+                                MainFrame.Navigate(new EngineerPages.EngineerPage(CurrentUser, CurrentUser.Engineer.Id));
+                            break;
+                    }
+                }
+                
             }
             catch (Exception ex)
             {
@@ -316,7 +320,6 @@ namespace PL
 
         private void WindowClosed(object sender, EventArgs e)
         {
-            //Thread.Sleep(1000);
         }
 
         private void GoToWelcomPage_LogoClicked(object sender, MouseButtonEventArgs e)

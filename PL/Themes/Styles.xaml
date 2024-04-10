@@ -177,7 +177,6 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-
                             <Setter Property="Opacity" Value="0.5" TargetName="border"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -228,6 +227,8 @@
         <Setter Property="FontSize" Value="20"/>
         <Setter Property="Margin" Value="0"/>
         <Setter Property="Padding" Value="0"/>
+        <Setter Property="Height" Value="{Binding Height}"/>
+        <Setter Property="Width" Value="{Binding Width}"/>
         <Setter Property="MinHeight" Value="20"/>
         <Setter Property="MaxHeight" Value="200"/>
         <Setter Property="MinWidth" Value="20"/>
@@ -235,8 +236,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:IconButton}">
-                    <Border x:Name="border" CornerRadius="3" Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
-                        <Image Height="{TemplateBinding IconHeight}" Width="{TemplateBinding IconWidth}" Source="{TemplateBinding Icon}"/>
+                    <Border x:Name="border" CornerRadius="3" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                        <Image Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" Source="{TemplateBinding Icon}"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

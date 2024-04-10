@@ -224,12 +224,15 @@ internal class MilestoneImplementation : IMilestone
             foreach (var dep in _dal.Dependency.ReadAll(d => d.DependsOnTask == ms.Id))
             {
                 BO.Task t = s_bl.Task.Read(dep!.DependentTask)!;
-                t.DeadlineDate = projectEnd;
-                if (ms.DeadlineDate > (t.DeadlineDate - t.RequiredEffortTime))
+                if (t != null)
                 {
-                    ms.DeadlineDate = t.DeadlineDate - t.RequiredEffortTime;
+                    t.DeadlineDate = projectEnd;
+                    if (ms.DeadlineDate > (t.DeadlineDate - t.RequiredEffortTime))
+                    {
+                        ms.DeadlineDate = t.DeadlineDate - t.RequiredEffortTime;
+                    }
+                    s_bl.Task.Update(t); 
                 }
-                s_bl.Task.Update(t);
             }
             projectEnd = ms.DeadlineDate.Value;
             s_bl.Task.Update(ms);
@@ -258,12 +261,15 @@ internal class MilestoneImplementation : IMilestone
             foreach (var dep in _dal.Dependency.ReadAll(d => d.DependsOnTask == ms.Id))
             {
                 BO.Task t = s_bl.Task.Read(dep!.DependentTask)!;
-                t.ScheduledDate = projectStart;
-                if (projectStartTemp < (t.ScheduledDate + t.RequiredEffortTime))
+                if (t != null)
                 {
-                    projectStartTemp = t.ScheduledDate + t.RequiredEffortTime;
+                    t.ScheduledDate = projectStart;
+                    if (projectStartTemp < (t.ScheduledDate + t.RequiredEffortTime))
+                    {
+                        projectStartTemp = t.ScheduledDate + t.RequiredEffortTime;
+                    }
+                    s_bl.Task.Update(t); 
                 }
-                s_bl.Task.Update(t);
             }
             projectStart = projectStartTemp.Value;
             if ( i == j + 1)
@@ -378,9 +384,16 @@ internal class MilestoneImplementation : IMilestone
             var tasks = s_bl.Task.ReadAll() ?? throw new BO.BlDoesNotExistException("Couldn't load any tasks from the data-base");
             foreach (var task in tasks)
             {
-                task.ScheduledDate = null;
-                task.DeadlineDate = null;
-                s_bl.Task.Update(task);
+                try
+                {
+                    task.ScheduledDate = null;
+                    task.DeadlineDate = null;
+                    s_bl.Task.Update(task);
+                }
+                catch (Exception innerEx)
+                {
+                    throw innerEx;
+                }
             }
             throw new BO.BlLogicViolationException("Failed to set schedule for the Project || " + ex.Message);
         }

@@ -13,7 +13,7 @@
         WindowStyle="None" ResizeMode="CanResize"
         Height="650" Width="1100"          
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Icon="/Graphics/Icons/rocket.png"
+        Icon="/Graphics/Icons/laptop1.png"
         Closed="WindowClosed" MouseDown="Window_MouseDown"
         Title="LogInWindow">
 
@@ -30,7 +30,7 @@
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.3*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
             </Grid.ColumnDefinitions>
@@ -45,13 +45,13 @@
                     <ColumnDefinition Width="40"/>
                     <ColumnDefinition Width="40"/>
                 </Grid.ColumnDefinitions>
-                <controls:IconButton Grid.Column="1" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="1" HorizontalAlignment="Right" Width="30" Height="30" 
+                <controls:IconButton Grid.Column="1" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Center" Width="25" Height="25" 
                                 Click="Minimize_btnClick" Icon="/Graphics/Icons/minimize3.png" >
                     <ButtonBase.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                     </ButtonBase.Effect>
                 </controls:IconButton>
-                <controls:IconButton Grid.Column="2" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Right" Width="30" Height="30" 
+                <controls:IconButton Grid.Column="2" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Center" Width="25" Height="25" 
                                 Click="Exit_btnClick" Icon="/Graphics/Icons/shutdown2.png">
                     <ButtonBase.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>

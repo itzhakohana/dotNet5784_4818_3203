@@ -1,0 +1,17 @@
+שימוש ב TryParse ב- DalTest, BlTest (1 נק)
+שמירה ושחזור שעות מערכת (1 נק)
+שעון מערכת ברקע (3 נק)
+אלגוריתם לבניית לו"ז אוטומטי ושימוש בישויות Milestone (6 נק)
+*הגדרת תאריך יעד לפרוייקט ותאריכי Deadline למשימות (2 נק)
+סינון רשימה בזמן אמת (1 נק)
+Icon (1 נק)
+Triggers כל ה 3 (3 נק)
+   Event - ב Loading Spinner
+   Property - בכל הסטיילים והטמפלטים
+   Data - בעמוד TasksViewPage -> שימוש בDataTrigger  ב DataTemplate של ישות משימה בשביל לשנות אייקון סטטוס
+ControlTemplates (1 נק)
+Transformation (1 נק)
+IMultiValueConverter (1 נק)
+Themes (1 נק)
+Users - הרשאות גישה בהתאם לסוג משתמש (מהנדס / מנהל) + כניסה של מספר משתמשים בו-זמנית (4 נק)
+

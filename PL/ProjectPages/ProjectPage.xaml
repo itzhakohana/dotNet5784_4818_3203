@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:bl="clr-namespace:BO;assembly=BL"  
-      xmlns:pl="clr-namespace:PL.PO"  
       xmlns:controls="clr-namespace:PL.CustomControls"
       xmlns:local="clr-namespace:PL.ProjectPages"
       mc:Ignorable="d"      
@@ -16,334 +15,338 @@
     <Page.Resources>
         
     </Page.Resources>
-    
-    <TabControl Background="Transparent" Margin="10" BorderThickness="0">
-        <TabItem Header="Tasks" Width="110" Style="{StaticResource CustomTabItemStyle}">
-            <Grid ShowGridLines="False">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0*"/>
-                    <RowDefinition Height="90"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="70"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <!--loading spinner-->
-                <Grid Grid.RowSpan="4" Grid.ColumnSpan="4" Panel.ZIndex="99">
-                    <controls:LoadingSpinner IsLoading="{Binding Loading}"/>
-                </Grid>
-                <!--border for info in the middle-->
-                <TextBlock  Grid.Row="1" Grid.Column="0" Text="Project Overview:" Foreground="White" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-                <Border Grid.Row="1" Grid.ColumnSpan="4" Margin="20,20,20,0" CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="{DynamicResource Backround7}">
-                    <Border.Effect>
-                        <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
-                    </Border.Effect>
-                    <Grid Margin="0" >
-                        <Grid.Resources>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground"  Value="White"/>
-                                <Setter Property="FontSize"  Value="20"/>
-                                <Setter Property="HorizontalAlignment"  Value="Center"/>
-                                <Setter Property="VerticalAlignment"  Value="Center"/>
-                                <Setter Property="TextAlignment"  Value="Center"/>
-                                <Setter Property="Margin"  Value="10"/>
-                                <Setter Property="FontFamily"  Value="Franklin Gothic Medium"/>
-                            </Style>
-                            <Style TargetType="Border">
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Opacity" Value="0.5"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Grid.Resources>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Border Grid.Column="1" Background="{DynamicResource Backround7}">
-                            <TextBlock Text="{Binding _engineersAmount, StringFormat={}{0} Engineers}" />
-                        </Border>
-                        <Border Grid.Column="2"  Background="{DynamicResource Backround7}">
-                            <TextBlock MinWidth="200" Text="{Binding _tasksAmount, Mode=OneWay, StringFormat={}{0} Tasks}" />
-                        </Border>
-                        <Border Grid.Column="3"  Background="{DynamicResource Backround7}">
-                            <TextBlock MinWidth="200" Text="{Binding _usersAmount, Mode=OneWay, StringFormat={}{0} Users}" />
-                        </Border>
-                    </Grid>
-                </Border>
-                <!--border for available tasks-->
-                <TextBlock  Grid.Row="2" Grid.Column="2" Text="Available Tasks:" Foreground="White" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-                <Border Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="20,20,20,0" CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="{DynamicResource Backround7}">
-                    <Border.Effect>
-                        <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
-                    </Border.Effect>
-                    <Grid Margin="0" >
-                        <Grid.Resources>
-                            <DataTemplate x:Key="DefaultTaskInListTemplate" DataType="bl:TaskInList" >
-                                <Border CornerRadius="3" Background="White" HorizontalAlignment="Stretch">
-                                    <Grid ShowGridLines="True" HorizontalAlignment="Stretch">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="70"/>
-                                            <ColumnDefinition Width="350"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding Alias}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                        <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="View" FontSize="11" VerticalContentAlignment="Center" Grid.Column="2" Click="AvalableTasks_ButtonOptionSelected">
-                                            <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Opacity" Value="0.4"/>
-                                                            <Setter Property="Background" Value="DarkGray"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                        </Button>
-                                        <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="Take" FontSize="11" VerticalContentAlignment="Center" Grid.Column="3" Click="AvalableTasks_ButtonOptionSelected">
-                                            <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Opacity" Value="0.4"/>
-                                                            <Setter Property="Background" Value="DarkGray"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                        </Button>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </Grid.Resources>
-                        <ListView  Background="Transparent" Margin="5" ItemTemplate="{StaticResource DefaultTaskInListTemplate}" ItemsSource="{Binding AvailableTasks, UpdateSourceTrigger=PropertyChanged}">
-                        </ListView>
-                    </Grid>
-                </Border>
-                <!--border for on-going tasks-->
-                <TextBlock  Grid.Row="2" Grid.Column="0" Text="Tasks In Progress:" Foreground="White" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-                <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="20,20,20,0" CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="{DynamicResource Backround7}">
-                    <Border.Effect>
-                        <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
-                    </Border.Effect>
 
-                    <Grid Margin="0" >
-                        <Grid.Resources>
-                            <DataTemplate x:Key="DefaultTaskInListTemplate" DataType="bl:TaskInList" >
-                                <Border CornerRadius="3" Background="White" HorizontalAlignment="Stretch">
-                                    <Grid ShowGridLines="True" HorizontalAlignment="Stretch">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="70"/>
-                                            <ColumnDefinition Width="360"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding Alias}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                        <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="View" FontSize="11" VerticalContentAlignment="Center" Grid.Column="2" Click="AvalableTasks_ButtonOptionSelected">
-                                            <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <Style.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Opacity" Value="0.4"/>
-                                                            <Setter Property="Background" Value="DarkGray"/>
-                                                        </Trigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                        </Button>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </Grid.Resources>
-                        <ListView  Background="Transparent" Margin="5" ItemTemplate="{StaticResource DefaultTaskInListTemplate}" ItemsSource="{Binding TasksInProgress, UpdateSourceTrigger=PropertyChanged}"/>
+    <Grid Margin="10">
+        <controls:IconButton Panel.ZIndex="10" Height="30" Width="30" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{DynamicResource Backround2}" Margin="20,15" Click="ReloadPage_BtnClick" 
+                             Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/reset1.png"/>
+        <TabControl Background="Transparent"  BorderThickness="0">
+            <TabItem Header="Tasks" Width="110" Style="{StaticResource CustomTabItemStyle}">
+                <Grid ShowGridLines="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0*"/>
+                        <RowDefinition Height="90"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--loading spinner-->
+                    <Grid Grid.RowSpan="4" Grid.ColumnSpan="4" Panel.ZIndex="99">
+                        <controls:LoadingSpinner IsLoading="{Binding Loading}"/>
                     </Grid>
-                </Border>
-                <!--border for the buttons on the buttom-->
-                <Border Grid.ColumnSpan="5" Grid.Row="3" Margin="20,0" CornerRadius="10" Background="Transparent">
-                    <Grid Visibility="{Binding CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}">
-                        <Grid.Resources>
-                            <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle1}">
-                                <Setter Property="Margin" Value="0,10"/>
-                                <Setter Property="FontSize" Value="16"/>
-                                <Setter Property="Height" Value="35"/>
-                                <Setter Property="Background" Value="{DynamicResource Backround7}"/>
-                            </Style>
-                        </Grid.Resources>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="135"/>
-                            <ColumnDefinition Width="135"/>
-                            <ColumnDefinition Width="135"/>
-                            <ColumnDefinition Width="135"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Background="{DynamicResource Backround7}" Margin="0,10" Height="35" FontSize="15" FontWeight="Normal"  Grid.Column="4" Width="110" Content="Start Project" Click="StartProject_btnClick">
-                            <Button.Style>
-                                <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle1}">
+                    <!--border for info in the middle-->
+                    <TextBlock  Grid.Row="1" Grid.Column="0" Text="Project Overview:" Foreground="White" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <Border Grid.Row="1" Grid.ColumnSpan="4" Margin="20,20,20,0" CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="{DynamicResource Backround7}">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                        </Border.Effect>
+                        <Grid Margin="0" >
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground"  Value="White"/>
+                                    <Setter Property="FontSize"  Value="20"/>
+                                    <Setter Property="HorizontalAlignment"  Value="Center"/>
+                                    <Setter Property="VerticalAlignment"  Value="Center"/>
+                                    <Setter Property="TextAlignment"  Value="Center"/>
+                                    <Setter Property="Margin"  Value="10"/>
+                                    <Setter Property="FontFamily"  Value="Franklin Gothic Medium"/>
+                                </Style>
+                                <Style TargetType="Border">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding _projectStarted, Mode=OneWay}" Value="false">
-                                            <Setter Property="IsEnabled" Value="True"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding _projectStarted, Mode=OneWay}" Value="true">
-                                            <Setter Property="IsEnabled" Value="False"/>
-                                        </DataTrigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Opacity" Value="0.5"/>
+                                        </Trigger>
                                     </Style.Triggers>
                                 </Style>
-                            </Button.Style>
-                        </Button>
-                        <!--<Button Grid.Column="3" Width="120" Content="Terminate" IsEnabled="{Binding _projectStarted,Mode=OneWay}"/>-->
-                        <Button Grid.Column="3" Width="120" FontSize="15" FontWeight="Normal" Content="Reset Project" Click="ResetAllData_BtnClick"/>
-                        <Button Grid.Column="2" Width="120" FontSize="15" FontWeight="Normal" Content="Randomize" Click="RandomizeAllData_BtnClick"/>
-                    </Grid>
-                </Border>
-
-            </Grid>
-        </TabItem>
-        <TabItem Header="Schedule" Width="110" Style="{StaticResource CustomTabItemStyle}">
-            <Grid Margin="5,5,10,10">
-                <!-- Top ItemsControl for dates -->
-                <ScrollViewer  BorderThickness="0" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <Grid>
-                        <ItemsControl Panel.ZIndex="0" Margin="0,0,0,0" ItemsSource="{Binding Dates}">
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <!--Customize how dates are displayed here-->
-                                    <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Width="175">
-                                        <Separator Width="2" Height="100" FontWeight="Bold" FontSize="20" Background="Black" VerticalAlignment="Stretch"  RenderTransformOrigin="0.5,0.5">
-                                            <Separator.RenderTransform>
-                                                <TransformGroup>
-                                                    <ScaleTransform/>
-                                                    <SkewTransform/>
-                                                    <RotateTransform Angle="90"/>
-                                                    <TranslateTransform/>
-                                                </TransformGroup>
-                                            </Separator.RenderTransform>
-                                        </Separator>
-                                        <TextBlock Foreground="White" FontSize="13" FontWeight="SemiBold" Text="{Binding}" Background="{StaticResource Backround6}" Width="175" Margin="0,0,0,0" HorizontalAlignment="Center"/>
-                                        <Separator HorizontalAlignment="Stretch" Foreground="White"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-
-                        <!--actual tasks view-->
-                        <Border  Margin="0,30,0,0" CornerRadius="5" Background="Transparent">
-                            <ListView BorderThickness="0" Background="Transparent" ItemsSource="{Binding AllTasks}" SelectionChanged="GanttTaskSelected_ListViewSelectionChanged">
-                                <ListView.ItemTemplate>
-                                    <DataTemplate DataType="bl:Task">
-                                        <Grid>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="1" Background="{DynamicResource Backround7}">
+                                <TextBlock Text="{Binding _engineersAmount, StringFormat={}{0} Engineers}" />
+                            </Border>
+                            <Border Grid.Column="2"  Background="{DynamicResource Backround7}">
+                                <TextBlock MinWidth="200" Text="{Binding _tasksAmount, Mode=OneWay, StringFormat={}{0} Tasks}" />
+                            </Border>
+                            <Border Grid.Column="3"  Background="{DynamicResource Backround7}">
+                                <TextBlock MinWidth="200" Text="{Binding _usersAmount, Mode=OneWay, StringFormat={}{0} Users}" />
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <!--border for available tasks-->
+                    <TextBlock  Grid.Row="2" Grid.Column="2" Text="Available Tasks:" Foreground="White" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <Border Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Margin="20,20,20,0" CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="{DynamicResource Backround7}">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                        </Border.Effect>
+                        <Grid Margin="0" >
+                            <Grid.Resources>
+                                <DataTemplate x:Key="DefaultTaskInListTemplate" DataType="bl:TaskInList" >
+                                    <Border CornerRadius="3" Background="White" HorizontalAlignment="Stretch">
+                                        <Grid ShowGridLines="False" HorizontalAlignment="Stretch">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="0"/>
-                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="350"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
-                                            <Grid Grid.Column="0" Grid.ColumnSpan="2">
-                                                <StackPanel Orientation="Vertical">
-                                                    <!--<TextBlock Grid.Column="0" Text="{Binding Id}" Background="Transparent" Foreground="White" FontWeight="Bold" FontSize="14"/>-->
-                                                    <Separator Height="20" Foreground="White" HorizontalAlignment="Stretch"/>
-                                                </StackPanel>
-                                            </Grid>
-                                            <Border Grid.Column="1">
-                                                <Rectangle
+                                            <TextBlock Grid.Column="0" Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Alias}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="View" FontSize="11" VerticalContentAlignment="Center" Grid.Column="2" Click="AvalableTasks_ButtonOptionSelected">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Opacity" Value="0.4"/>
+                                                                <Setter Property="Background" Value="DarkGray"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                            <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="Take" FontSize="11" VerticalContentAlignment="Center" Grid.Column="3" Click="AvalableTasks_ButtonOptionSelected">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Opacity" Value="0.4"/>
+                                                                <Setter Property="Background" Value="DarkGray"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </Grid.Resources>
+                            <ListView  Background="Transparent" Margin="5" ItemTemplate="{StaticResource DefaultTaskInListTemplate}" ItemsSource="{Binding AvailableTasks, UpdateSourceTrigger=PropertyChanged}">
+                            </ListView>
+                        </Grid>
+                    </Border>
+                    <!--border for on-going tasks-->
+                    <TextBlock  Grid.Row="2" Grid.Column="0" Text="Tasks In Progress:" Foreground="White" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="20,20,20,0" CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="{DynamicResource Backround7}">
+                        <Border.Effect>
+                            <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                        </Border.Effect>
+
+                        <Grid Margin="0" >
+                            <Grid.Resources>
+                                <DataTemplate x:Key="DefaultTaskInListTemplate" DataType="bl:TaskInList" >
+                                    <Border CornerRadius="3" Background="White" HorizontalAlignment="Stretch">
+                                        <Grid ShowGridLines="False" HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="70"/>
+                                                <ColumnDefinition Width="360"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Alias}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                            <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="View" FontSize="11" VerticalContentAlignment="Center" Grid.Column="2" Click="AvalableTasks_ButtonOptionSelected">
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Opacity" Value="0.4"/>
+                                                                <Setter Property="Background" Value="DarkGray"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </Grid.Resources>
+                            <ListView  Background="Transparent" Margin="5" ItemTemplate="{StaticResource DefaultTaskInListTemplate}" ItemsSource="{Binding TasksInProgress, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+                    </Border>
+                    <!--border for the buttons on the buttom-->
+                    <Border Grid.ColumnSpan="5" Grid.Row="3" Margin="20,0" CornerRadius="10" Background="Transparent">
+                        <Grid Visibility="{Binding CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}">
+                            <Grid.Resources>
+                                <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle1}">
+                                    <Setter Property="Margin" Value="0,10"/>
+                                    <Setter Property="FontSize" Value="16"/>
+                                    <Setter Property="Height" Value="35"/>
+                                    <Setter Property="Background" Value="{DynamicResource Backround7}"/>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="135"/>
+                                <ColumnDefinition Width="135"/>
+                                <ColumnDefinition Width="135"/>
+                                <ColumnDefinition Width="135"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Background="{DynamicResource Backround7}" Margin="0,10" Height="35" FontSize="15" FontWeight="Normal"  Grid.Column="4" Width="110" Content="Start Project" Click="StartProject_btnClick">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle1}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding _projectStarted, Mode=OneWay}" Value="false">
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding _projectStarted, Mode=OneWay}" Value="true">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <!--<Button Grid.Column="3" Width="120" Content="Terminate" IsEnabled="{Binding _projectStarted,Mode=OneWay}"/>-->
+                            <Button Grid.Column="3" Width="120" FontSize="15" FontWeight="Normal" Content="Reset Project" Click="ResetAllData_BtnClick"/>
+                            <Button Grid.Column="2" Width="120" FontSize="15" FontWeight="Normal" Content="Randomize" Click="RandomizeAllData_BtnClick"/>
+                            <Button Grid.Column="1" Width="120" FontSize="15" FontWeight="Normal" Content="Reload Page" Click="ReloadPage_BtnClick"/>
+                        </Grid>
+                    </Border>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Schedule" Width="110" Style="{StaticResource CustomTabItemStyle}">
+                <Grid Margin="5,5,10,10">
+                    <!-- Top ItemsControl for dates -->
+                    <ScrollViewer  BorderThickness="0" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <Grid>
+                            <ItemsControl Panel.ZIndex="0" Margin="0,0,0,0" ItemsSource="{Binding Dates}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <!--Customize how dates are displayed here-->
+                                        <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Width="175">
+                                            <Separator Width="2" Height="100" FontWeight="Bold" FontSize="20" Background="Black" VerticalAlignment="Stretch"  RenderTransformOrigin="0.5,0.5">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform Angle="90"/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <TextBlock Foreground="White" FontSize="13" FontWeight="SemiBold" Text="{Binding}" Background="{StaticResource Backround6}" Width="175" Margin="0,0,0,0" HorizontalAlignment="Center"/>
+                                            <Separator HorizontalAlignment="Stretch" Foreground="White"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <!--actual tasks view-->
+                            <Border  Margin="0,30,0,0" CornerRadius="5" Background="Transparent">
+                                <ListView BorderThickness="0" Background="Transparent" ItemsSource="{Binding AllTasks}" SelectionChanged="GanttTaskSelected_ListViewSelectionChanged">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate DataType="bl:Task">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="0"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" Grid.ColumnSpan="2">
+                                                    <StackPanel Orientation="Vertical">
+                                                        <!--<TextBlock Grid.Column="0" Text="{Binding Id}" Background="Transparent" Foreground="White" FontWeight="Bold" FontSize="14"/>-->
+                                                        <Separator Height="20" Foreground="White" HorizontalAlignment="Stretch"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                                <Border Grid.Column="1">
+                                                    <Rectangle
                                                    RadiusX="10" RadiusY="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Stretch" Height="20"
                                                    Width="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecWidth}}"  
                                                    Margin="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecMargin}}"
                                                    Fill="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecBackground}}">
-                                                    <!--tool tip for each task-->
-                                                    <Rectangle.ToolTip>
-                                                        <ToolTip Background="Gray" StaysOpen="True">
-                                                            <ToolTip.Template>
-                                                                <ControlTemplate TargetType="ToolTip">
-                                                                    <Border MouseDown="GanttTaskRectangle_MouseDoubleClick" IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="180" Width="350">
-                                                                        <Grid>
-                                                                            <Grid.RowDefinitions>
-                                                                                <RowDefinition Height="*"/>
-                                                                            </Grid.RowDefinitions>
-                                                                            <StackPanel>
-                                                                                <!--task alias-->
-                                                                                <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="20" FontWeight="Bold" Text="{Binding Alias}"/>
-                                                                                <!--task status with icon-->
-                                                                                <StackPanel Margin="7,7,0,0" Orientation="Horizontal">
-                                                                                    <Image Height="20" Width="20">
-                                                                                        <Image.Style>
-                                                                                            <Style TargetType="Image">
-                                                                                                <Setter Property="Source" Value="/Graphics/Icons/level1.png" />
-                                                                                                <Style.Triggers>
-                                                                                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="1">
-                                                                                                        <Setter Property="Source" Value="/Graphics/Icons/unscheduled1.png" />
-                                                                                                    </DataTrigger>
-                                                                                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="2">
-                                                                                                        <Setter Property="Source" Value="/Graphics/Icons/scheduled2.png" />
-                                                                                                    </DataTrigger>
-                                                                                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
-                                                                                                        <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
-                                                                                                    </DataTrigger>
-                                                                                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
-                                                                                                        <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
-                                                                                                    </DataTrigger>
-                                                                                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
-                                                                                                        <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
-                                                                                                    </DataTrigger>
-                                                                                                </Style.Triggers>
-                                                                                            </Style>
-                                                                                        </Image.Style>
-                                                                                    </Image>
-                                                                                    <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding Status}"/>
+                                                        <!--tool tip for each task-->
+                                                        <Rectangle.ToolTip>
+                                                            <ToolTip Background="Gray" StaysOpen="True">
+                                                                <ToolTip.Template>
+                                                                    <ControlTemplate TargetType="ToolTip">
+                                                                        <Border MouseDown="GanttTaskRectangle_MouseDoubleClick" IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="180" Width="350">
+                                                                            <Grid>
+                                                                                <Grid.RowDefinitions>
+                                                                                    <RowDefinition Height="*"/>
+                                                                                </Grid.RowDefinitions>
+                                                                                <StackPanel>
+                                                                                    <!--task alias-->
+                                                                                    <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="20" FontWeight="Bold" Text="{Binding Alias}"/>
+                                                                                    <!--task status with icon-->
+                                                                                    <StackPanel Margin="7,7,0,0" Orientation="Horizontal">
+                                                                                        <Image Height="20" Width="20">
+                                                                                            <Image.Style>
+                                                                                                <Style TargetType="Image">
+                                                                                                    <Setter Property="Source" Value="/Graphics/Icons/level1.png" />
+                                                                                                    <Style.Triggers>
+                                                                                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="1">
+                                                                                                            <Setter Property="Source" Value="/Graphics/Icons/unscheduled1.png" />
+                                                                                                        </DataTrigger>
+                                                                                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="2">
+                                                                                                            <Setter Property="Source" Value="/Graphics/Icons/scheduled2.png" />
+                                                                                                        </DataTrigger>
+                                                                                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
+                                                                                                            <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
+                                                                                                        </DataTrigger>
+                                                                                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
+                                                                                                            <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
+                                                                                                        </DataTrigger>
+                                                                                                        <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
+                                                                                                            <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
+                                                                                                        </DataTrigger>
+                                                                                                    </Style.Triggers>
+                                                                                                </Style>
+                                                                                            </Image.Style>
+                                                                                        </Image>
+                                                                                        <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding Status}"/>
+                                                                                    </StackPanel>
+                                                                                    <Separator HorizontalAlignment="Stretch" Foreground="White"/>
+                                                                                    <StackPanel Orientation="Horizontal" Margin="7,0,0,0">
+                                                                                        <Image Margin="7,7,0,0" Height="15" Width="15" Source="/Graphics/Icons/timeSpan1.png"/>
+                                                                                        <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding RequiredEffortTime, StringFormat={}Required Time: {0:dd} Days}"/>
+                                                                                    </StackPanel>
+                                                                                    <StackPanel Orientation="Horizontal" Margin="7,0,0,0">
+                                                                                        <Image Margin="7,7,0,0" Height="15" Width="15" Source="/Graphics/Icons/calendar1.png"/>
+                                                                                        <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding ScheduledDate, StringFormat={}Scheduled Date: {0:dd/MM/yy} Days}"/>
+                                                                                    </StackPanel>
+                                                                                    <Separator HorizontalAlignment="Stretch" Foreground="White"/>
                                                                                 </StackPanel>
-                                                                                <Separator HorizontalAlignment="Stretch" Foreground="White"/>
-                                                                                <StackPanel Orientation="Horizontal" Margin="7,0,0,0">
-                                                                                    <Image Margin="7,7,0,0" Height="15" Width="15" Source="/Graphics/Icons/timeSpan1.png"/>
-                                                                                    <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding RequiredEffortTime, StringFormat={}Required Time: {0:dd} Days}"/>
-                                                                                </StackPanel>
-                                                                                <StackPanel Orientation="Horizontal" Margin="7,0,0,0">
-                                                                                    <Image Margin="7,7,0,0" Height="15" Width="15" Source="/Graphics/Icons/calendar1.png"/>
-                                                                                    <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding ScheduledDate, StringFormat={}Scheduled Date: {0:dd/MM/yy} Days}"/>
-                                                                                </StackPanel>
-                                                                                <Separator HorizontalAlignment="Stretch" Foreground="White"/>
-                                                                            </StackPanel>
-                                                                            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="3" Foreground="White" FontSize="15" FontStyle="Italic" Text="Click to navigate to task page"/>
-                                                                            <!--<Button VerticalAlignment="Bottom" Style="{StaticResource ButtonStyle1}" Margin="4" FontSize="15" Height="30" Width="160" Content="Go to task page" MouseDoubleClick="GanttTaskRectangle_MouseDoubleClick" Focusable="True"/>-->
-                                                                        </Grid>
-                                                                    </Border>
-                                                                </ControlTemplate>
-                                                            </ToolTip.Template>
-                                                        </ToolTip>
-                                                    </Rectangle.ToolTip>
-                                                    <Rectangle.Style>
-                                                        <Style TargetType="Rectangle">
-                                                            <Style.Triggers>
-                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                    <Setter Property="Opacity" Value="0.5"/>
-                                                                </Trigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </Rectangle.Style>
-                                                </Rectangle>
-                                            </Border>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </Border>
-                    </Grid>
-                </ScrollViewer>
-                <!-- Main ItemsControl for tasks -->
-                
-                <!--<ItemsControl ItemsSource="{Binding AllTasks}">
+                                                                                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="3" Foreground="White" FontSize="15" FontStyle="Italic" Text="Click to navigate to task page"/>
+                                                                                <!--<Button VerticalAlignment="Bottom" Style="{StaticResource ButtonStyle1}" Margin="4" FontSize="15" Height="30" Width="160" Content="Go to task page" MouseDoubleClick="GanttTaskRectangle_MouseDoubleClick" Focusable="True"/>-->
+                                                                            </Grid>
+                                                                        </Border>
+                                                                    </ControlTemplate>
+                                                                </ToolTip.Template>
+                                                            </ToolTip>
+                                                        </Rectangle.ToolTip>
+                                                        <Rectangle.Style>
+                                                            <Style TargetType="Rectangle">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter Property="Opacity" Value="0.5"/>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Rectangle.Style>
+                                                    </Rectangle>
+                                                </Border>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </Border>
+                        </Grid>
+                    </ScrollViewer>
+                    <!-- Main ItemsControl for tasks -->
+
+                    <!--<ItemsControl ItemsSource="{Binding AllTasks}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Rectangle
@@ -365,7 +368,8 @@
                         </Style>
                     </ItemsControl.ItemContainerStyle>
                 </ItemsControl>-->
-            </Grid>
-        </TabItem>
-    </TabControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Page>

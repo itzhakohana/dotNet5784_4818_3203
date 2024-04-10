@@ -304,5 +304,10 @@ namespace PL.ProjectPages
         {
             refreshData();
         }
+
+        private void ReloadPage_BtnClick(object sender, RoutedEventArgs e)
+        {
+            refreshData();
+        }
     }
 }

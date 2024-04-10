@@ -52,7 +52,7 @@
                         <TextBlock  Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                     </Grid>
                     <TextBlock Grid.Column="2" Text="{Binding Alias}"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                    <controls:IconButton Grid.Column="3" Margin="7,5" Style="{StaticResource TransparentIconButton1}" 
+                    <controls:IconButton Grid.Column="3" Margin="7,5" Style="{StaticResource IconButton1}" Height="27" Width="27"
                                          Background="Transparent" Icon="/Graphics/Icons/info1.png" Click="DependentTaskSelectedForView_btn_Click"/>
                 </Grid>
             </Border>
