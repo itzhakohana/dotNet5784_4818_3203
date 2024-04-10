@@ -57,30 +57,37 @@ static class XMLTools
     #region SaveLoadWithXElement
     public static void SaveListToXMLElement(XElement rootElem, string entity)
     {
-        string filePath = $"{s_xml_dir + entity}.xml";
-        try
+        lock (entity)
         {
-            rootElem.Save(filePath);
-        }
-        catch (Exception ex)
-        {
-            throw new DalXMLFileLoadCreateException($"failed to create xml file: {s_xml_dir + filePath}, {ex.Message}");
+            string filePath = $"{s_xml_dir + entity}.xml";
+            try
+            {
+                rootElem.Save(filePath);
+            }
+            catch (Exception ex)
+            {
+                throw new DalXMLFileLoadCreateException($"failed to create xml file: {s_xml_dir + filePath}, {ex.Message}");
+            } 
         }
     }
     public static XElement LoadListFromXMLElement(string entity)
     {
-        string filePath = $"{s_xml_dir + entity}.xml";
-        try
+        lock (entity)
         {
-            if (File.Exists(filePath))
-                return XElement.Load(filePath);
-            XElement rootElem = new(entity);
-            rootElem.Save(filePath);
-            return rootElem;
-        }
-        catch (Exception ex)
-        {
-            throw new DalXMLFileLoadCreateException($"failed to load xml file: {s_xml_dir + filePath}, {ex.Message}");
+
+            string filePath = $"{s_xml_dir + entity}.xml";
+            try
+            {
+                if (File.Exists(filePath))
+                    return XElement.Load(filePath);
+                XElement rootElem = new(entity);
+                rootElem.Save(filePath);
+                return rootElem;
+            }
+            catch (Exception ex)
+            {
+                throw new DalXMLFileLoadCreateException($"failed to load xml file: {s_xml_dir + filePath}, {ex.Message}");
+            } 
         }
     }
     #endregion

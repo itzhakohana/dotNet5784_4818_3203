@@ -21,6 +21,8 @@ namespace PL
     public partial class LogInWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public EventHandler OnShutDown;
+
         public BO.User CurrentUser
         {
             get { return (BO.User)GetValue(CurrentUserProperty); }
@@ -60,6 +62,7 @@ namespace PL
             InitializeComponent();
             Loading = false;
             CurrentUser = new BO.User();
+            OnShutDown += s_bl.stopClock;
         }
 
         async private void AttemptLogIn_btnClick(object sender, RoutedEventArgs e)
@@ -101,11 +104,11 @@ namespace PL
         {
             this.WindowState = WindowState.Minimized;
         }
-        private void WindowClosed(object sender, EventArgs e)
+        private async void WindowClosed(object sender, EventArgs e)
         {
             s_bl.SaveClock();
-            Application.Current.Shutdown();
-            Thread.Sleep(1100);
+            OnShutDown.Invoke(this, EventArgs.Empty);
+            Application.Current.Shutdown();            
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

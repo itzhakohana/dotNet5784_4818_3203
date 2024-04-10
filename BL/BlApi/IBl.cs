@@ -14,6 +14,7 @@ public interface IBl
     public void ClockAddDay();
     public void ClockAddMonth();
     public void SaveClock();
+    public void stopClock(object sender, EventArgs e);
     public void InitializeDataBase();
     /// <summary>
     /// Resets all data in the system (tasks, engineers, dependencies, dates)

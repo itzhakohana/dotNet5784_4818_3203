@@ -10,7 +10,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None" ResizeMode="CanResize" Icon="/Graphics/Icons/rocket.png"
+        WindowStyle="None" ResizeMode="CanResize" Icon="/Graphics/Icons/laptop1.png"
         Closing="WindowClosing"
         Closed="WindowClosed"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" MouseDown="Window_MouseDown">
@@ -46,19 +46,19 @@
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
                 </Grid.ColumnDefinitions>
-                <controls:IconButton Grid.Column="0" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="1" HorizontalAlignment="Right" Width="10" Height="10" 
+                <controls:IconButton Grid.Column="0" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Center" Width="19" Height="19" 
                                             Click="Minimize_btnClick" Icon="/Graphics/Icons/minimize2.png" >
                     <ButtonBase.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                     </ButtonBase.Effect>
                 </controls:IconButton>
-                <controls:IconButton Grid.Column="1" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Right" Width="13" Height="13" 
+                <controls:IconButton Grid.Column="1" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Center" Width="22" Height="22" 
                             Click="Maximize_btnClick" Icon="/Graphics/Icons/full-screen3.png" >
                     <ButtonBase.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                     </ButtonBase.Effect>
                 </controls:IconButton>
-                <controls:IconButton Grid.Column="2" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Right" Width="10" Height="10" 
+                <controls:IconButton Grid.Column="2" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Center" Width="22" Height="22" 
                            Click="Exit_btnClick" Icon="/Graphics/Icons/exit2.png" >
                     <ButtonBase.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
@@ -67,7 +67,7 @@
             </Grid>
             <!--<Separator Foreground="White" Width="auto" Panel.ZIndex="50" Grid.Column="1" Height="10" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>-->
             <!--top window information display-->
-            <Grid Grid.Column="1" Grid.Row="1" Background="#FF4D516E" Margin="0,0,0,2">
+            <Grid Grid.Column="1" Grid.Row="1" Background="Transparent" Margin="0,0,0,2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="100"/>
@@ -108,9 +108,8 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="130"/>
-                                    <RowDefinition Height="115"/>
-                                    <RowDefinition Height="115"/>
-                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="90"/>
+                                    <RowDefinition Height="110"/>
                                 </Grid.RowDefinitions>
                                 <Grid.Resources>
                                     <Style x:Key="DefaultLableStyle" TargetType="Label">
@@ -121,11 +120,31 @@
                                 </Grid.Resources>
                                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                                     <!--user image-->
-                                    <Image Source="/Graphics/Icons/user1.png" Margin="20">
-                                        <Image.Effect>
+                                    <Ellipse Margin="20" Height="85" Width="85">
+                                        <Ellipse.Effect>
                                             <DropShadowEffect ShadowDepth="4" BlurRadius="5" Opacity="0.5" Color="Black" />
-                                        </Image.Effect>
-                                    </Image>
+                                        </Ellipse.Effect>
+                                        <Ellipse.Style>
+                                            <Style TargetType="Ellipse">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding CurrentUser.Engineer, Converter={StaticResource ConvertNullToBool}}" Value="true">
+                                                        <Setter Property="Fill" >
+                                                            <Setter.Value >
+                                                                <ImageBrush ImageSource="{Binding CurrentUser.Engineer.Picture, Converter={StaticResource ConvertBytesToImage}}"/>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding CurrentUser.Engineer, Converter={StaticResource ConvertNullToBool}}" Value="false">
+                                                        <Setter Property="Fill" >
+                                                            <Setter.Value >
+                                                                <ImageBrush ImageSource="/Graphics/Icons/user1.png"/>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Ellipse.Style>
+                                    </Ellipse>
                                     <!--user name display-->
                                     <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                                         <Label Style="{StaticResource DefaultLableStyle}" HorizontalAlignment="Center" Margin="0,20,0,0" Content="{Binding CurrentUser.UserName, UpdateSourceTrigger=PropertyChanged}"/>
@@ -138,19 +157,23 @@
                                     </StackPanel>
                                 </StackPanel>
                                 <Separator VerticalAlignment="Bottom" Grid.Row="0" FontWeight="Bold" Background="White" Foreground="AliceBlue" Width="200"/>
-                                <StackPanel  HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Orientation="Vertical">
-                                    <Label VerticalContentAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="Current Task:" FontSize="16"/>
-                                    <Border BorderBrush="Black" BorderThickness="2" CornerRadius="5" Margin="-40,0">
+                                <StackPanel  HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Orientation="Vertical" Visibility="{Binding CurrentUser.CurrentTask, Converter={StaticResource ConvertNullToVisibility}}">
+                                    <Label VerticalContentAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="Task:" Foreground="Yellow" FontSize="16"/>
+                                    <Border BorderBrush="Black" BorderThickness="0" CornerRadius="5" Margin="-20,0">
                                         <Label VerticalContentAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="{Binding CurrentTask.Alias, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" FontSize="16"/>
                                     </Border>
                                 </StackPanel>
                                 <Separator VerticalAlignment="Bottom" Grid.Row="1" FontWeight="Bold" Background="White" Foreground="AliceBlue" Width="200"/>
-                                <StackPanel  HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" Orientation="Vertical">
-                                    <Label VerticalContentAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="Engineer:" FontSize="16"/>
-                                    <Border BorderBrush="Black" BorderThickness="2" CornerRadius="5" Margin="-60,0">
+                                <StackPanel  HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" Orientation="Vertical" Visibility="{Binding CurrentUser.Engineer, Converter={StaticResource ConvertNullToVisibility}}">
+                                    <Label VerticalContentAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="Engineer:" Foreground="Yellow" FontSize="16"/>
+                                    <Border BorderBrush="Black" BorderThickness="0" CornerRadius="5" Width="200" HorizontalAlignment="Stretch">
                                         <StackPanel>
-                                            <Label VerticalContentAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="{Binding CurrentTask.Engineer.Id, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" FontSize="16"/>
-                                            <Label VerticalContentAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="{Binding CurrentTask.Engineer.Name, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" FontSize="16"/>
+                                            <Label VerticalContentAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="{Binding CurrentUser.Engineer.Name, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" FontSize="16"/>
+                                            <Button Style="{DynamicResource ButtonStyle1}" Content="View Engineer Profile" FontSize="14" Height="26" Click="ViewCurrentUser_BtnClick">
+                                                <Button.Effect>
+                                                    <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5" Color="Black" />
+                                                </Button.Effect>
+                                            </Button>
                                         </StackPanel>
                                     </Border>
                                 </StackPanel>
@@ -314,7 +337,14 @@
                 <controls:NavigationButton  Title="Tasks" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/tasks1.png" Selected="GridClick_btnClick"/>
                 <controls:NavigationButton  Title="Users" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/users1.png" Selected="GridClick_btnClick" Visibility="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToVisibility}}"/>
                 <controls:NavigationButton  Title="Milestones" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/milestones1.png" Selected="GridClick_btnClick"/>
-            </ListBox> 
+            </ListBox>
+            <!--log off button-->
+            <controls:IconButton Grid.Column="0" Grid.Row="2" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" 
+                                 HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,45" Width="40" Height="40" Click="Exit_btnClick" Icon="/Graphics/Icons/logOff3.png" >
+                <ButtonBase.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                </ButtonBase.Effect>
+            </controls:IconButton>
             <!--main program frame for page navigation-->
             <Grid Grid.Row="3" Grid.Column="1">
                 <Frame x:Name="MainFrame" Margin="0,0,10,10" NavigationUIVisibility="Hidden" Source="/OtherPages/MainWelcomePage.xaml"/>

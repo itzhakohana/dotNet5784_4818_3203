@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:bl="clr-namespace:BO;assembly=BL"  
-      xmlns:pl="clr-namespace:PL.PO"  
       xmlns:controls="clr-namespace:PL.CustomControls"
       xmlns:local="clr-namespace:PL.ProjectPages"
       mc:Ignorable="d"      
@@ -89,7 +88,7 @@
                         <Grid.Resources>
                             <DataTemplate x:Key="DefaultTaskInListTemplate" DataType="bl:TaskInList" >
                                 <Border CornerRadius="3" Background="White" HorizontalAlignment="Stretch">
-                                    <Grid ShowGridLines="True" HorizontalAlignment="Stretch">
+                                    <Grid ShowGridLines="False" HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="70"/>
                                             <ColumnDefinition Width="350"/>
@@ -141,7 +140,7 @@
                         <Grid.Resources>
                             <DataTemplate x:Key="DefaultTaskInListTemplate" DataType="bl:TaskInList" >
                                 <Border CornerRadius="3" Background="White" HorizontalAlignment="Stretch">
-                                    <Grid ShowGridLines="True" HorizontalAlignment="Stretch">
+                                    <Grid ShowGridLines="False" HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="70"/>
                                             <ColumnDefinition Width="360"/>
