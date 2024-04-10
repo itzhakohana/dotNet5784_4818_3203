@@ -1,8 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
+<<<<<<< HEAD
   <NextDependencyId>20114</NextDependencyId>
   <NextTaskId>4955</NextTaskId>
   <startDate>2024-04-10T00:00:00</startDate>
   <endDate>2024-11-09T00:00:00</endDate>
   <currentDate>2024-05-14T01:20:05.523309+03:00</currentDate>
+=======
+  <NextDependencyId>19888</NextDependencyId>
+  <NextTaskId>4922</NextTaskId>
+  <startDate>2024-04-08T00:00:00</startDate>
+  <endDate>2024-09-27T00:00:00</endDate>
+  <currentDate>2024-04-18T05:56:38.7976891+03:00</currentDate>
+>>>>>>> cdba250f9f15a388e87e862a9faf2469b6c5405c
 </config>
