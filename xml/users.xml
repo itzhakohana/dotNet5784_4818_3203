@@ -2,65 +2,10 @@
 <ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <User>
     <Id>399466454</Id>
-    <Password>43</Password>
-    <UserName>B</UserName>
-    <LastLoginDate>2024-09-28T15:51:53.6753949+03:00</LastLoginDate>
-    <CreationDate>2024-09-28T15:51:53.6753949+03:00</CreationDate>
-    <UserType>Admin</UserType>
-  </User>
-  <User>
-    <Id>330148644</Id>
-    <Password>55</Password>
-    <UserName>34</UserName>
-    <LastLoginDate>2024-09-28T15:51:53.6753949+03:00</LastLoginDate>
-    <CreationDate>2024-09-28T15:51:53.6753949+03:00</CreationDate>
-    <UserType>Admin</UserType>
-  </User>
-  <User>
-    <Id>364321320</Id>
-    <Password>334</Password>
-    <UserName>33</UserName>
-    <LastLoginDate>2024-04-04T12:15:13.8484543+03:00</LastLoginDate>
-    <CreationDate>2024-04-04T12:15:13.8484543+03:00</CreationDate>
-    <UserType>Admin</UserType>
-  </User>
-  <User>
-    <Id>251823834</Id>
-    <Password>54</Password>
-    <UserName>K</UserName>
-    <LastLoginDate>2024-09-28T15:51:53.6753949+03:00</LastLoginDate>
-    <CreationDate>2024-09-28T15:51:53.6753949+03:00</CreationDate>
-    <UserType>Admin</UserType>
-  </User>
-  <User>
-<<<<<<< HEAD
-    <Id>234412184</Id>
     <Password>12</Password>
     <UserName>test</UserName>
-    <LastLoginDate>2024-05-14T01:27:05.523309+03:00</LastLoginDate>
-=======
-    <Id>396649350</Id>
-    <Password>23</Password>
-    <UserName>Hi</UserName>
-    <LastLoginDate>2024-04-18T03:11:38.7976891+03:00</LastLoginDate>
-    <CreationDate>2024-04-17T23:59:38.7976891+03:00</CreationDate>
-    <UserType>Engineer</UserType>
-  </User>
-  <User>
-    <Id>234412184</Id>
-    <Password>12</Password>
-    <UserName>test</UserName>
-    <LastLoginDate>2024-04-18T04:11:38.7976891+03:00</LastLoginDate>
->>>>>>> cdba250f9f15a388e87e862a9faf2469b6c5405c
-    <CreationDate>2024-03-07T00:29:53.5250076+02:00</CreationDate>
+    <LastLoginDate>2024-05-14T01:41:05.523309+03:00</LastLoginDate>
+    <CreationDate>2024-09-28T15:51:53.6753949+03:00</CreationDate>
     <UserType>Admin</UserType>
-  </User>
-  <User>
-    <Id>358996492</Id>
-    <Password>23</Password>
-    <UserName>Hi</UserName>
-    <LastLoginDate>2024-05-14T10:35:05.523309+03:00</LastLoginDate>
-    <CreationDate>2024-05-14T03:21:05.523309+03:00</CreationDate>
-    <UserType>Engineer</UserType>
   </User>
 </ArrayOfUser>
