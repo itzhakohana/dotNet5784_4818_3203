@@ -381,7 +381,7 @@ internal class MilestoneImplementation : IMilestone
         }   
         catch (Exception ex)
         {
-            var tasks = s_bl.Task.ReadAll() ?? throw new BO.BlDoesNotExistException("Couldn't load any tasks from the data-base");
+            var tasks = s_bl.Task.ReadAll() ?? throw new BO.BlDoesNotExistException("Failed to load any tasks from the data-base");
             foreach (var task in tasks)
             {
                 try
@@ -395,7 +395,7 @@ internal class MilestoneImplementation : IMilestone
                     throw innerEx;
                 }
             }
-            throw new BO.BlLogicViolationException("Failed to set schedule for the Project || " + ex.Message);
+            throw new BO.BlLogicViolationException("Failed to set schedule for the Project! " + ex.Message);
         }
     }
 }

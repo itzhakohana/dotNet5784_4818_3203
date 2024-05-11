@@ -90,8 +90,11 @@ public static class Initialization
             int myComlexity = s_rand.Next(1, 6);
             DO.EngineerExperience randLevel = (DO.EngineerExperience)myComlexity;
 
+            //randomizing phone number
+            string randPhone = ("050" + s_rand.Next(1000000, 9999999).ToString());
+
             //creating and adding a new Engineer to the database
-            Engineer myEngineer = new Engineer(randId, randLevel, randName, randEmail, s_rand.Next(10,200));
+            Engineer myEngineer = new Engineer(randId, randLevel, randName, randEmail, randPhone, s_rand.Next(10,200));
             s_dal!.Engineer.Create(myEngineer);
 
         }

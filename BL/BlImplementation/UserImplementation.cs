@@ -21,9 +21,9 @@ internal class UserImplementation : BlApi.IUser
     {       
         BO.Engineer? eng = null;
         IEnumerable<BO.TaskInList>? completedTasks = null;
-        if ((BO.UserType)user.UserType == BO.UserType.Engineer)
+        if (user.Id != null)
         {
-            eng = s_bl.Engineer.Read(user.Id)!;
+            eng = s_bl.Engineer.Read(user.Id);
             completedTasks = (from task in s_bl.Task.ReadAll(t => t.Status == Status.Done && t.Engineer != null && t.Engineer.Id == user.Id)
                               select new BO.TaskInList() { Id = task.Id, Alias = task.Alias, Description = task.Description, Status = task.Status });
         }
@@ -86,8 +86,16 @@ internal class UserImplementation : BlApi.IUser
     /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void Delete(int Id)
     {
-        if (Read(Id) is null)
+        var user = Read(Id);
+        if (user is null)
             throw new BO.BlDoesNotExistException($"User with Id {Id} does not exist");
+
+        if (user.Engineer != null)
+        {
+            var eng = s_bl.Engineer.Read(user.Engineer.Id);
+            if(eng != null && eng.Task != null)
+                throw new BO.BlLogicViolationException($"User with Id {Id} Is currently working on a task");
+        }
         _dal.User.Delete(Id);
     }
     /// <summary>
@@ -181,7 +189,7 @@ internal class UserImplementation : BlApi.IUser
     {
         var user = Read(u => u.Password == password && u.UserName == userName);
         if (user is null)
-            throw new BO.BlDoesNotExistException($"User {userName} not found");        
+            throw new BO.BlDoesNotExistException($"User '{userName}' not found");        
         user.LastLoginDate = s_bl.Clock;
         Update(user);
         return user;

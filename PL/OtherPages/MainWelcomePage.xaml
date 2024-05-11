@@ -95,7 +95,7 @@
                         <DropShadowEffect ShadowDepth="5" BlurRadius="5" Opacity="0.3" Color="Black"/>
                     </Border.Effect>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock FontSize="18" Text="feedback" FontFamily="Arial Black" Foreground="#FF222222"/>
+                        <TextBlock FontSize="18" Text="Feedback" FontFamily="Arial Black" Foreground="#FF505050"/>
                         <Image  Source="/Graphics/Icons/feedback.png" Height="100" Width="100">
                             <Image.Effect>
                                 <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.3" Color="Black"/>

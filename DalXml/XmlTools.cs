@@ -51,6 +51,21 @@ static class XMLTools
         root.Add(new XElement(elemName, newDate));
         XMLTools.SaveListToXMLElement(root, data_config_xml);
     }
+
+    public static bool GetBool(string data_config_xml, string elemName)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(data_config_xml);
+        bool myBoolVar = (bool)root.Element(elemName)!;
+        return myBoolVar;
+    }
+
+    public static void SetBool(string data_config_xml, string elemName, bool myBoolVar)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(data_config_xml);     
+        root.Element(elemName)!.Remove();
+        root.Add(new XElement(elemName, myBoolVar));
+        XMLTools.SaveListToXMLElement(root, data_config_xml);
+    }
     #endregion
 
 

@@ -23,6 +23,12 @@ sealed internal class DalList : IDal
 
     public IUser User => new UserImplementation();
 
+    public bool IsRealTimeClock 
+    { 
+        get => throw new NotImplementedException(); 
+        set => throw new NotImplementedException(); 
+    }
+
     /// <summary>
     /// Empties the Data-Base
     /// </summary>

@@ -442,7 +442,7 @@ internal class Program
             throw new DalInvalidInputException("Invalid Input.");
 
         //returns the newly created Engineer with user values
-        return new DO.Engineer(myId, (EngineerExperience)myLevel, myName!, myEmail!, myCost);        
+        return new DO.Engineer(myId, (EngineerExperience)myLevel, myName!, myEmail!, null ,myCost);
     }
 
 

@@ -14,7 +14,6 @@
         Closing="WindowClosing"
         Closed="WindowClosed"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}" MouseDown="Window_MouseDown">
-    <!--MouseLeftButtonDown="Window_MouseLeftButtonDown" MouseMove="Window_MouseMove" MouseLeftButtonUp="Window_MouseLeftButtonUp"-->
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
@@ -35,10 +34,6 @@
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!--loading spinner-->
-            <!--<Grid Grid.RowSpan="3" Grid.ColumnSpan="2" Panel.ZIndex="10">
-                <controls:LoadingSpinner IsLoading="{Binding Path=Loading}"/>
-            </Grid>-->
             <!--exit & minimize buttons-->
             <Grid HorizontalAlignment="Right" Margin="15,0" Grid.Row="0" Grid.Column="1">
                 <Grid.ColumnDefinitions>
@@ -46,26 +41,25 @@
                     <ColumnDefinition Width="25"/>
                     <ColumnDefinition Width="25"/>
                 </Grid.ColumnDefinitions>
-                <controls:IconButton Grid.Column="0" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Center" Width="19" Height="19" 
+                <controls:IconButton Grid.Column="0" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Center" Width="18" Height="18" 
                                             Click="Minimize_btnClick" Icon="/Graphics/Icons/minimize2.png" >
                     <ButtonBase.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                     </ButtonBase.Effect>
                 </controls:IconButton>
-                <controls:IconButton Grid.Column="1" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Center" Width="22" Height="22" 
+                <controls:IconButton Grid.Column="1" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Center" Width="21" Height="21" 
                             Click="Maximize_btnClick" Icon="/Graphics/Icons/full-screen3.png" >
                     <ButtonBase.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                     </ButtonBase.Effect>
                 </controls:IconButton>
-                <controls:IconButton Grid.Column="2" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Center" Width="22" Height="22" 
+                <controls:IconButton Grid.Column="2" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Center" Width="21" Height="21" 
                            Click="Exit_btnClick" Icon="/Graphics/Icons/exit2.png" >
                     <ButtonBase.Effect>
                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                     </ButtonBase.Effect>
                 </controls:IconButton>
             </Grid>
-            <!--<Separator Foreground="White" Width="auto" Panel.ZIndex="50" Grid.Column="1" Height="10" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"/>-->
             <!--top window information display-->
             <Grid Grid.Column="1" Grid.Row="1" Background="Transparent" Margin="0,0,0,2">
                 <Grid.ColumnDefinitions>
@@ -235,7 +229,6 @@
                                     </Style>
                                 </Grid.Resources>
                                 <!--task image-->
-                                <!--<Ellipse Grid.Row="0" Opacity="0.6" Fill="WhiteSmoke" HorizontalAlignment="Center" Height="110" Width="110"/>-->
                                 <Image Source="/Graphics/Icons/laptop1.png" Margin="20">
                                     <Image.Effect>
                                         <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.5" Color="Black" />
@@ -244,7 +237,7 @@
                                 <Separator Grid.Row="0" VerticalAlignment="Bottom" FontWeight="Bold" Background="White" Foreground="AliceBlue" Width="200"/>
                                 <!--task name display-->
                                 <StackPanel Grid.Row="1" HorizontalAlignment="Center" Orientation="Vertical">
-                                    <Label Style="{StaticResource DefaultLableStyle}" HorizontalAlignment="Center" Content="Your Task: "/>
+                                    <Label Style="{StaticResource DefaultLableStyle}" HorizontalAlignment="Center" Content="Your Task: " Foreground="Yellow"/>
                                     <Label Style="{StaticResource DefaultLableStyle}" HorizontalAlignment="Center" Content="{Binding CurrentTask.Alias, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Style="{DynamicResource ButtonStyle1}" Content="View" FontSize="14" Height="26" Click="ViewTaskCurrentTask_BtnClick">
                                         <Button.Effect>
@@ -305,11 +298,6 @@
             <Border PreviewMouseDown="GoToWelcomPage_LogoClicked" CornerRadius="5" Grid.Row="1" Margin="5" BorderBrush="Black" VerticalAlignment="Center">
                 <!--logo-->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <!--<Image  Source="/Graphics/Icons/rocket.png" Height="40" Width="40">
-                        <Image.Effect>
-                            <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.3" Color="Black"/>
-                        </Image.Effect>
-                    </Image>-->
                     <StackPanel Margin="0,0,0,0">
                         <TextBlock  Text="NoPro" FontSize="28" FontFamily="Segoe UI Black" FontWeight="ExtraBold" FontStyle="Oblique" FontStretch="Expanded" Foreground="White">
                             <TextBlock.Effect>
@@ -335,7 +323,7 @@
                 <controls:NavigationButton  Title="Project" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/project.png" Selected="GridClick_btnClick"/>
                 <controls:NavigationButton  Title="Engineers" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/engineers1.png" Selected="GridClick_btnClick"/>
                 <controls:NavigationButton  Title="Tasks" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/tasks1.png" Selected="GridClick_btnClick"/>
-                <controls:NavigationButton  Title="Users" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/users1.png" Selected="GridClick_btnClick" Visibility="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToVisibility}}"/>
+                <controls:NavigationButton  Title="Users" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/users1.png" Selected="GridClick_btnClick" />
                 <controls:NavigationButton  Title="Milestones" Style="{StaticResource MainNavButtonHorizontal}" Icon="/Graphics/Icons/milestones1.png" Selected="GridClick_btnClick"/>
             </ListBox>
             <!--log off button-->

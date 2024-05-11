@@ -56,4 +56,14 @@ internal class DatesControlImplementation : IDatesControl
         _dal.SetProjectSchedule(null, null);
         _dal.SetCurrentTime(null);
     }
+
+    public bool GetIsRealTimeClock()
+    {
+        return _dal.IsRealTimeClock;
+    }
+
+    public void setIsRealTimeClock(bool value)
+    {
+        _dal.IsRealTimeClock = value;
+    }
 }

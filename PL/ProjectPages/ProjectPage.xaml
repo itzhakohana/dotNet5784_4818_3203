@@ -17,6 +17,7 @@
     </Page.Resources>
 
     <Grid Margin="10">
+        <!--refresh page button-->
         <controls:IconButton Panel.ZIndex="10" Height="30" Width="30" VerticalAlignment="Top" HorizontalAlignment="Right" Background="{DynamicResource Backround2}" Margin="20,15" Click="ReloadPage_BtnClick" 
                              Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/reset1.png"/>
         <TabControl Background="Transparent"  BorderThickness="0">
@@ -94,13 +95,13 @@
                                         <Grid ShowGridLines="False" HorizontalAlignment="Stretch">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="70"/>
-                                                <ColumnDefinition Width="350"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="39"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Grid.Column="0" Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="1" Text="{Binding Alias}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                            <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="View" FontSize="11" VerticalContentAlignment="Center" Grid.Column="2" Click="AvalableTasks_ButtonOptionSelected">
+                                            <TextBlock Grid.Column="1" Text="{Binding Alias}" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                                            <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="View" FontSize="11" HorizontalAlignment="Right" VerticalContentAlignment="Center" Grid.Column="2" Click="AvalableTasks_ButtonOptionSelected">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Style.Triggers>
@@ -112,7 +113,7 @@
                                                     </Style>
                                                 </Button.Style>
                                             </Button>
-                                            <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="Take" FontSize="11" VerticalContentAlignment="Center" Grid.Column="3" Click="AvalableTasks_ButtonOptionSelected">
+                                            <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="Take" FontSize="11" HorizontalAlignment="Right" VerticalContentAlignment="Center" Grid.Column="3" Click="AvalableTasks_ButtonOptionSelected">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Style.Triggers>
@@ -127,8 +128,8 @@
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
-                            </Grid.Resources>
-                            <ListView  Background="Transparent" Margin="5" ItemTemplate="{StaticResource DefaultTaskInListTemplate}" ItemsSource="{Binding AvailableTasks, UpdateSourceTrigger=PropertyChanged}">
+                            </Grid.Resources> 
+                            <ListView BorderThickness="0" Background="Transparent" Margin="5" HorizontalContentAlignment="Stretch" ItemTemplate="{StaticResource DefaultTaskInListTemplate}" ItemsSource="{Binding AvailableTasks, UpdateSourceTrigger=PropertyChanged}">
                             </ListView>
                         </Grid>
                     </Border>
@@ -146,13 +147,12 @@
                                         <Grid ShowGridLines="False" HorizontalAlignment="Stretch">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="70"/>
-                                                <ColumnDefinition Width="360"/>
                                                 <ColumnDefinition Width="*"/>
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
                                             <TextBlock Grid.Column="0" Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                            <TextBlock Grid.Column="1" Text="{Binding Alias}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                                            <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="View" FontSize="11" VerticalContentAlignment="Center" Grid.Column="2" Click="AvalableTasks_ButtonOptionSelected">
+                                            <TextBlock Grid.Column="1" Text="{Binding Alias}" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+                                            <Button Background="LightGray" Foreground="Black" Height="20" Width="40" Content="View" FontSize="11" HorizontalAlignment="Right" VerticalContentAlignment="Center" Grid.Column="2" Click="AvalableTasks_ButtonOptionSelected">
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Style.Triggers>
@@ -168,7 +168,7 @@
                                     </Border>
                                 </DataTemplate>
                             </Grid.Resources>
-                            <ListView  Background="Transparent" Margin="5" ItemTemplate="{StaticResource DefaultTaskInListTemplate}" ItemsSource="{Binding TasksInProgress, UpdateSourceTrigger=PropertyChanged}"/>
+                            <ListView BorderThickness="0" Background="Transparent" HorizontalContentAlignment="Stretch" Margin="5" ItemTemplate="{StaticResource DefaultTaskInListTemplate}" ItemsSource="{Binding TasksInProgress, UpdateSourceTrigger=PropertyChanged}"/>
                         </Grid>
                     </Border>
                     <!--border for the buttons on the buttom-->
@@ -262,10 +262,11 @@
                                                 </Grid>
                                                 <Border Grid.Column="1">
                                                     <Rectangle
-                                                   RadiusX="10" RadiusY="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Stretch" Height="20"
-                                                   Width="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecWidth}}"  
-                                                   Margin="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecMargin}}"
-                                                   Fill="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecBackground}}">
+                                                           ToolTipService.InitialShowDelay="500"
+                                                           RadiusX="10" RadiusY="10" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Stretch" Height="20"
+                                                           Width="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecWidth}}"  
+                                                           Margin="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecMargin}}"
+                                                           Fill="{Binding Id, Converter={StaticResource ConvertTaskToGanttTaskRecBackground}}">
                                                         <!--tool tip for each task-->
                                                         <Rectangle.ToolTip>
                                                             <ToolTip Background="Gray" StaysOpen="True">
@@ -344,30 +345,7 @@
                             </Border>
                         </Grid>
                     </ScrollViewer>
-                    <!-- Main ItemsControl for tasks -->
-
-                    <!--<ItemsControl ItemsSource="{Binding AllTasks}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Rectangle
-                                   Fill="LightBlue" 
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Stretch"
-                                   Width="100" Margin="3,0,0,0"
-                                   Height="20"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Grid/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemContainerStyle>
-                        <Style>
-                            <Setter Property="Grid.Row" Value="{Binding RowIndex}"/>
-                        </Style>
-                    </ItemsControl.ItemContainerStyle>
-                </ItemsControl>-->
+                    
                 </Grid>
             </TabItem>
         </TabControl>

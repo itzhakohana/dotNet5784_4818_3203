@@ -265,16 +265,6 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:IconToggleButton}">
-                    <!--<Border x:Name="border" 
-                 Background="Transparent" 
-                 BorderBrush="Black" 
-                 BorderThickness="{TemplateBinding BorderThickness}" 
-                 CornerRadius="8">
-                 <Grid>
-                     <Image Margin="3" Source="{TemplateBinding Icon}"/>
-                 </Grid>
-             </Border>-->
-
                     <Border x:Name="border" CornerRadius="3" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
                         <Image Source="{TemplateBinding Icon}"/>
                     </Border>
@@ -288,6 +278,50 @@
                             <Setter Property="Background" TargetName="border" Value="white"/>
                             <Setter Property="Opacity" TargetName="border" Value="0.7"/>
                             <!--<Setter Property="BorderThickness" TargetName="border" Value="0"/>-->
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--style for toggle Button icon button with transparent background-->
+    <Style x:Key="ToggleIconButtonTransparent" TargetType="{x:Type controls:IconToggleButton}" BasedOn="{StaticResource ToggleIconButton1}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:IconToggleButton}">
+                    <Border x:Name="border" CornerRadius="3" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                        <Image Source="{TemplateBinding Icon}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="Transparent"/>
+                            <Setter Property="Opacity" TargetName="border" Value="0.3"/>
+                            <!--<Setter Property="BorderThickness" TargetName="border" Value="0"/>-->
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="Transparent"/>
+                            <Setter Property="Opacity" TargetName="border" Value="0.3"/>
+                            <!--<Setter Property="BorderThickness" TargetName="border" Value="0"/>-->
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--style for toggle Button icon button with transparent background with no IsChecked visual-->
+    <Style x:Key="ToggleIconButtonTransparent_NoIsCheckedVisual" TargetType="{x:Type controls:IconToggleButton}" BasedOn="{StaticResource ToggleIconButtonTransparent}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:IconToggleButton}">
+                    <Border x:Name="border" CornerRadius="3" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                        <Image Source="{TemplateBinding Icon}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="Transparent"/>
+                            <Setter Property="Opacity" TargetName="border" Value="0.3"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -428,6 +462,7 @@
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="FontSize" Value="17"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Padding" Value="2"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="LightGray"/>

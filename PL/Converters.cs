@@ -216,7 +216,7 @@ internal class ConvertUserNameToChar : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {        
-        return (string)value != null ? ((string)value).ElementAt(0) : 'D';
+        return (string)value != null ? char.ToUpper(((string)value).ElementAt(0)) : 'D';
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -480,6 +480,102 @@ internal class ConvertTaskToGanttTaskRecBackground : IValueConverter
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+internal class ConvertUserTypeToNumber : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if ((BO.UserType)value == BO.UserType.Engineer) return 1;
+        else if ((BO.UserType)value == BO.UserType.Admin) return 2;
+        else return 1;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+internal class ConvertLastLoginDateToString : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is DateTime myDate && GetBlAccess.getBl.Clock >= myDate)
+        {            
+            TimeSpan timePassed = GetBlAccess.getBl.Clock - myDate;
+            return new string($"{timePassed.Days} Days & {timePassed.Hours} Hours ago");
+        }
+        else 
+            return new string(@"N/A");
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+internal class ConvertEngineerInUserToString : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (value is BO.Engineer myEng)
+        {            
+            return new string($"{myEng.Name}");
+        }
+        else 
+            return new string("--------");
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+internal class ConvertUserAndEngineerToVisibility : IMultiValueConverter
+{
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (values.Length == 2 && values[0] is BO.User user && values[1] is BO.Engineer eng)
+        {
+            if (user.Engineer != null && user.Engineer.Id == eng.Id)
+                return Visibility.Visible;
+            if (user.UserType == BO.UserType.Admin)
+                return Visibility.Visible;
+            return Visibility.Collapsed;
+        }
+        return Visibility.Collapsed;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+internal class ConvertUserAndEngineerToIsEnabled : IMultiValueConverter
+{
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (values.Length == 2 && values[0] is BO.User user && values[1] is BO.Engineer eng)
+        {
+            if (user.Engineer != null && user.Engineer.Id == eng.Id)
+                return (bool)true;
+            if (user.UserType == BO.UserType.Admin)
+                return (bool)true;
+            return (bool)false;
+        }
+        return (bool)false;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

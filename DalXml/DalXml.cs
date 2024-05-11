@@ -2,6 +2,7 @@
 using DalApi;
 using System;
 using System.Diagnostics;
+using System.Reflection.Metadata.Ecma335;
 using System.Xml.Linq;
 
 /// <summary>
@@ -17,6 +18,13 @@ sealed internal class DalXml : IDal
     public IEngineer Engineer => new EngineerImplementation();
     public ITask Task => new TaskImplementation();
     public IUser User => new UserImplementation();
+
+    public bool IsRealTimeClock 
+    { 
+        get => Config.IsRealTimeClock; 
+        set => Config.IsRealTimeClock = value; 
+    }
+
     public void Reset()
     {
         Task.Reset();

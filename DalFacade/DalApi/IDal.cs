@@ -7,6 +7,7 @@ public interface IDal
     IEngineer Engineer { get; }
     ITask Task { get; }
     IUser User { get; }
+    bool IsRealTimeClock { get; set; }
     void SetProjectSchedule(DateTime? start, DateTime? end);
     DateTime? ReadStartDate();
     DateTime? ReadEndDate();

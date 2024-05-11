@@ -297,7 +297,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
                     <RowDefinition Height="65"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -310,11 +310,10 @@
                 <!--alias-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.ColumnSpan="2" Width="300" Grid.Row="1">
                     <Label VerticalContentAlignment="Bottom" Content="Name/Alias:"/>
-                    <TextBox 
-                         Template="{StaticResource TextBoxControlTemplate}"
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"
                          Text="{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                          IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
-                    </TextBox>
+                    </controls:CustomTextBox>
                 </StackPanel>
 
                 <!--required effort time-->
@@ -322,10 +321,9 @@
                     <!--required days-->
                     <StackPanel VerticalAlignment="Center" Margin="15,0" >
                         <Label VerticalContentAlignment="Bottom" Content="Days Required:"/>
-                        <TextBox
+                        <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"
                                 HorizontalAlignment="Left"
-                                Width="130"
-                                Template="{StaticResource TextBoxControlTemplate}"                                                            
+                                Width="130"                                                       
                                 Text="{Binding Task.RequiredEffortTime, Mode=TwoWay,  ValidatesOnExceptions=true, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ConvertTimeSpanToDaysOnlyString}}" PreviewTextInput="EnteredKey_RequiredDaysFieldChanged">
                             <TextBox.IsEnabled>
                                 <MultiBinding Converter="{StaticResource ConvertUserAndProjectStateToBool}">
@@ -333,7 +331,7 @@
                                     <Binding Path="ProjectHasStarted"/>
                                 </MultiBinding>
                             </TextBox.IsEnabled>
-                        </TextBox>
+                        </controls:CustomTextBox>
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="2" Grid.Row="2">
@@ -347,12 +345,11 @@
                             <Label VerticalContentAlignment="Bottom" Content="Assign Engineer:"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox 
-                                Name="textBox" Width="200" IsReadOnly="True"
-                                Template="{DynamicResource TextBoxControlTemplate}"                                
+                            <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" 
+                                x:Name="textBox" Width="200" IsReadOnly="True"
                                 Text="{Binding Task.Engineer.Name, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                                 IsEnabled="{Binding ElementName= AssignEngineerCheckBox, Path=IsChecked}">
-                            </TextBox>
+                            </controls:CustomTextBox>
                             <controls:IconToggleButton x:Name="TaskPopupOpener" Style="{StaticResource ToggleIconButton1}" 
                                                        Icon="/Graphics/Icons/add1.png" Height="30" Width="30" Background="Gray"
                                                        IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
@@ -413,11 +410,10 @@
                 <!--Remarks-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="3">
                     <Label VerticalContentAlignment="Bottom" Content="Remarks:"/>
-                    <TextBox        
-                          Template="{StaticResource TextBoxControlTemplate}"
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"                                 
                           IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
                           Text="{Binding Task.Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
-                    </TextBox>
+                    </controls:CustomTextBox>
                 </StackPanel>
 
                 <!--task complexity-->
@@ -446,23 +442,19 @@
                 <!--Deliverables-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="4">
                     <Label VerticalContentAlignment="Bottom" Content="Deliverables:"/>
-                    <TextBox                         
-                          Template="{StaticResource TextBoxControlTemplate}"
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" Height="130"  TextWrapping="Wrap"                                               
                           Text="{Binding Task.Deliverables, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                           IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
-                    </TextBox>
+                    </controls:CustomTextBox>
                 </StackPanel>
 
                 <!--description-->
                 <StackPanel Name="DescriptionPanel" VerticalAlignment="Center" Margin="15,0"  Grid.Column="2" Grid.Row="4">
                     <Label VerticalContentAlignment="Bottom" Content="Description:"/>
-                    <TextBox 
-                          TextWrapping="Wrap"
-                          Name="DesTextBox"                          
-                          Template="{StaticResource TextBoxControlTemplate}"
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" Height="130" TextWrapping="Wrap" x:Name="DesTextBox"
                           Text="{Binding Task.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                           IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
-                    </TextBox>
+                    </controls:CustomTextBox>
                 </StackPanel>
 
                 <!--Go Back button-->

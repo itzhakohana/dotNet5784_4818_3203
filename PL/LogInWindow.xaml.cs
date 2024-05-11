@@ -61,8 +61,13 @@ namespace PL
         {
             InitializeComponent();
             Loading = false;
+
+            //for testing purposes, we make sure an admin user with the name "test" always exists upon startup
+            if (s_bl.User.Read(u => u.UserName == "test" && u.Password == "12" && u.UserType == BO.UserType.Admin) == null)
+                s_bl.User.Add(new BO.User() { UserName = "test", Password = "12", UserType = BO.UserType.Admin });            
+            
             CurrentUser = new BO.User();
-            OnShutDown += s_bl.stopClock;
+            OnShutDown += s_bl.stopClock!;
         }
 
         async private void AttemptLogIn_btnClick(object sender, RoutedEventArgs e)
@@ -81,6 +86,7 @@ namespace PL
             catch (Exception ex)
             {
                 Loading = false;
+                this.WindowState = WindowState.Normal;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
                         

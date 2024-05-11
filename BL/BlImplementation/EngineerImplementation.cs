@@ -66,7 +66,9 @@ internal class EngineerImplementation : IEngineer
         if (engineer.Cost <= 0)
             throw new BO.BlInvalidValuesException("Invalid Engineer Cost. Engineer Cost must be a positive number");
         if (!engineer.Email.EndsWith("@gmail.com") && !engineer.Email.EndsWith("@gmail.co.il"))
-            throw new BO.BlInvalidValuesException("Invalid Email Address. Address must end with '@gmail.com'/'@gmail.co.il'");
+            throw new BO.BlInvalidValuesException("Illegal Email Address. Address must end with '@gmail.com'/'@gmail.co.il'");
+        if (engineer.Phone != null && engineer.Phone != "" && engineer.Phone.Length != 10)
+            throw new BO.BlInvalidValuesException("Illegal Phone Number");
         if (_dal.Engineer.ReadAll(e => e.Id != engineer.Id && e.Email == engineer.Email).Count() > 0)
             throw new BO.BlAlreadyExistsException($"{engineer.Email} Already in use");
         try
@@ -186,10 +188,11 @@ internal class EngineerImplementation : IEngineer
                 }
             }
 
-            else 
-                //project has started, not allowed to change assigned task
-                if (s_bl.Task.ProjectHasStarted())
-                    engineer.Task = originalEng.Task;
+            //else 
+            //    //project has started, not allowed to change assigned task
+            //    if (s_bl.Task.ProjectHasStarted())
+            //        engineer.Task = originalEng.Task;
+
             //finally perform the updates on the engineer
             _dal.Engineer.Update(convertEngineerFromBlToDal(engineer));
 
@@ -215,6 +218,7 @@ internal class EngineerImplementation : IEngineer
             Id = dalEngineer.Id,
             Name = dalEngineer.Name,
             Email = dalEngineer.Email,
+            Phone = dalEngineer.Phone,
             Level = (BO.EngineerExperience)((int)dalEngineer.Level),
             Cost = dalEngineer.Cost,
             Picture = dalEngineer.Picture,
@@ -254,6 +258,7 @@ internal class EngineerImplementation : IEngineer
             Id = blEngineer.Id,
             Name = blEngineer.Name,
             Email = blEngineer.Email,
+            Phone = blEngineer.Phone,
             Cost = blEngineer.Cost,
             Picture = blEngineer.Picture,
             Level = (DO.EngineerExperience)((int)blEngineer.Level)
@@ -313,6 +318,17 @@ internal class EngineerImplementation : IEngineer
             }
             else
                 throw new BO.BlDoesNotExistException($"Task with ID {engineer.Task.Id} does not exist");
+        }
+        else
+        {
+            //if the engineer already started working on the task
+            var originalEngineer = s_bl.Engineer.Read(engineer.Id);
+            if (originalEngineer != null && originalEngineer.Task != null)
+            {
+                var originalTask = s_bl.Task.Read(originalEngineer.Task.Id);
+                if (originalTask != null && originalTask.Status == Status.OnTrack)
+                    throw new BO.BlLogicViolationException($"Engineer with ID {engineer.Id} is currently working on a Task");
+            }
         }
     }
     /// <summary>

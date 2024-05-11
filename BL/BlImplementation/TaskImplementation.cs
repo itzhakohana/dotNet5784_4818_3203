@@ -143,6 +143,10 @@ internal class TaskImplementation : ITask
         BO.Task originalTask = convertTaskFromDalToBl(_dal.Task.Read(task.Id) 
             ?? throw new BO.BlDoesNotExistException($"Task with ID {task.Id} does not exist"));
 
+        //if the task is being worked on currently, we cant change engineer
+        if (task.Status == Status.OnTrack && (originalTask.Engineer.Id != task.Engineer.Id))
+            throw new BO.BlLogicViolationException($"Cannot change engineer after work has started");
+
         //deleting dependencies of the original task
         try
         {
@@ -541,7 +545,7 @@ internal class TaskImplementation : ITask
     {
         BO.Engineer engineer = s_bl.Engineer.Read(engineerId)
             ?? throw new BO.BlDoesNotExistException($"Engineer with Id {engineerId} does not exist");
-        return (from task in ReadAll(t => !t.IsMilestone && (t.Dependencies is null || t.Dependencies.All(dep => dep.Status == BO.Status.Done)))
+        return (from task in ReadAll(t => !t.IsMilestone && (t.Dependencies is null || t.Dependencies.All(dep => dep.Status == BO.Status.Done)) && t.Status != Status.Done && t.Status != Status.OnTrack)
                      where task.Complexity <= (BO.EngineerExperience)engineer.Level && task.Engineer is null
                      select new BO.TaskInList()
                      {

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <User>
-    <Id>399466454</Id>
+    <Id>349594408</Id>
     <Password>12</Password>
     <UserName>test</UserName>
-    <LastLoginDate>2024-05-14T01:41:05.523309+03:00</LastLoginDate>
-    <CreationDate>2024-09-28T15:51:53.6753949+03:00</CreationDate>
+    <LastLoginDate>2024-05-12T03:29:50.5957876+03:00</LastLoginDate>
+    <CreationDate>2024-06-11T14:04:12.1866096+03:00</CreationDate>
     <UserType>Admin</UserType>
+  </User>
+  <User>
+    <Id>385508403</Id>
+    <Password>4432</Password>
+    <UserName>Luc</UserName>
+    <LastLoginDate>2024-05-12T03:44:50.5957876+03:00</LastLoginDate>
+    <CreationDate>2024-05-12T01:41:24.505348+03:00</CreationDate>
+    <UserType>Engineer</UserType>
   </User>
 </ArrayOfUser>

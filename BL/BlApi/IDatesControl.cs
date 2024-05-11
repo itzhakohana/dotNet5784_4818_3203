@@ -11,6 +11,8 @@ public interface IDatesControl
     public DateTime? GetStartDate();
     public DateTime? GetEndDate();
     public DateTime GetCurrentDate();
+    public bool GetIsRealTimeClock();
+    public void setIsRealTimeClock(bool value);
     public void SetStartDate(DateTime? start);
     public void SetEndDate(DateTime? end);
     public void SetCurrentDate(DateTime? current);

@@ -71,11 +71,10 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="280"/>
-                        <ColumnDefinition Width="270"/>
-                        <ColumnDefinition Width="180"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="80"/>
                     </Grid.ColumnDefinitions>
                     <!--icon for task status-->
                     <Image HorizontalAlignment="Center" Margin="10" Grid.Column="0">
@@ -109,30 +108,21 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <TextBlock Name="NameBlock" VerticalAlignment="Bottom" Grid.Row="0" Background="Transparent" FontFamily="Bahnschrift SemiBold" FontSize="20" Foreground="Black" Text="{Binding Path = Alias}"/>
-                        <Separator Background="Black" Grid.Row="0" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom"  />
+                        <Separator Background="Black" Grid.Row="0" Width="200" HorizontalAlignment="Left" VerticalAlignment="Bottom"  />
                         <TextBlock Height="{Binding ElementName=NameBlock, Path=ActualHeight}" VerticalAlignment="Top" Grid.Row="1" Background="Transparent" FontSize="14" FontFamily="Bahnschrift" Foreground="Black" Text="{Binding Path = Id}"/>
                     </Grid>
                     <!--amount of tasks dependent-->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="2" Width="300" Background="{DynamicResource EngineerListBackround3}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="2" Width="270" Background="{DynamicResource EngineerListBackround3}">
                         <Image HorizontalAlignment="Center" Margin="10,17,0,12" Grid.Column="0" Source="/Graphics/Icons/TaskList1.png"/>
                         <TextBlock Margin="5,0,0,0"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Text="{Binding Dependencies, Converter={StaticResource GetTaskInListCollectionCount}, StringFormat={}{0} Dependencies Attached}" FontFamily="Bahnschrift SemiCondensed" FontWeight="Bold"/>
                     </StackPanel>
                     <!--progress prescentage display-->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="3" Width="300">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Column="3" Width="220">
                         <Image HorizontalAlignment="Center" Margin="4,15" Grid.Column="0" Source="/Graphics/Icons/progress1.png"/>
-                        <TextBlock Margin="5,0,0,0"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Text="{Binding CompletionPercentage, StringFormat={}{0:P0} Completed}" FontFamily="Bahnschrift SemiCondensed" FontWeight="Bold"/>
+                        <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Foreground="Black" Text="{Binding CompletionPercentage, StringFormat={}{0:P0} Completed}" FontFamily="Bahnschrift SemiCondensed" FontWeight="Bold"/>
                     </StackPanel>
-                    <!--description expander-->
-                    <Grid  Background="{DynamicResource EngineerListBackround3}" Grid.Column="4">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Orientation="Horizontal" >
-                            <Expander Header="Description" IsExpanded="False" FontSize="16" FontWeight="Bold">
-                                <TextBlock Text="{Binding Description}" Width="200" Height="60"/>
-                            </Expander>
-                            <!--<ToolTip Content="{Binding Description}"/>-->
-                        </StackPanel>
-                    </Grid>
                     <!--Button for displaying dependencies menu-->
-                    <Grid Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Background="{DynamicResource EngineerListBackround3}" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <controls:IconToggleButton Style="{StaticResource ToggleIconButton1}" Background="Transparent" 
                                                    x:Name="ToggleButtonExpander" Height="30" Width="30" 
                                                    Icon="/Graphics/Icons/expander1.png" >

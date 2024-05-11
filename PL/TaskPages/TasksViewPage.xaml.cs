@@ -80,6 +80,7 @@ namespace PL.TaskPages
                         try
                         {
                             s_bl.Task.Delete(task.Id);
+                            TaskList = s_bl.Task.ReadAllTasks();
                             MessageBox.Show("Deletion Successful", "Success", MessageBoxButton.OK, MessageBoxImage.None);
                             return;
                         }
@@ -125,6 +126,7 @@ namespace PL.TaskPages
                 if (result == MessageBoxResult.Yes)
                 {
                     s_bl.Task.Reset();
+                    TaskList = s_bl.Task.ReadAllTasks();
                     MessageBox.Show("All Tasks Successfuly Deleted", "Success", MessageBoxButton.OK, MessageBoxImage.None);
                 }
             }
@@ -180,5 +182,6 @@ namespace PL.TaskPages
                                 select task);
             }
         }
+       
     }
 }

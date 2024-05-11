@@ -61,7 +61,7 @@ namespace PL.ProjectPages
 
                 TasksInProgress = await Task.Run(() => s_bl.Task.ReadAllTasksInList(t => t.Status == BO.Status.OnTrack || (t.Status == BO.Status.InJeopardy && s_bl.Task.Read(t.Id)!.StartDate != null))?.ToList());
 
-                if (CurrentUser.UserType == BO.UserType.Engineer)
+                if (CurrentUser.Engineer != null)
                 {
                     int tmpUserId = CurrentUser.Id;
                     AvailableTasks = await Task.Run(() => s_bl.Task.ReadAllAvailableTasks(tmpUserId)?.ToList());
@@ -220,8 +220,7 @@ namespace PL.ProjectPages
             {
                 var result = MessageBox.Show("All data will be permenantly deleted, Are you sure you want to proceed?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
-                {
-                    s_bl.Reset();
+                {                    
                     Loading = true;
                     await Task.Run(() => s_bl.Reset());
                     Loading = false;
@@ -241,7 +240,24 @@ namespace PL.ProjectPages
         {
             try
             {
-                var result = MessageBox.Show("The data base will be initiated with randomly generated data, are you sure you want to proceed?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult result;
+                if(s_bl.Task.ProjectHasStarted())
+                {
+                    result = MessageBox.Show("Cannot add data to an ongoing project. randomizing the data-base requires reseting the current project, do you want to proceed?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        result = MessageBox.Show("All data will be permenantly deleted, Are you sure you want to proceed?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            Loading = true;
+                            await Task.Run(() => s_bl.Reset()); 
+                        }
+                    }
+                }
+                else
+                {
+                    result = MessageBox.Show("The data base will be initiated with randomly generated data, are you sure you want to proceed?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                }
                 if (result == MessageBoxResult.Yes)
                 {
                     Loading = true;

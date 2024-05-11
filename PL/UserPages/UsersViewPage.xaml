@@ -13,32 +13,215 @@
       Title="UsersViewPage"
       Loaded="Page_Loaded">
 
-    <Grid>
-        <ListView Background="LightGray" Margin="25,20,25,90"
-                  ItemsSource="{Binding UsersList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="UserSelected_listViewItemSelected">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" Width="130" DisplayMemberBinding="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"/>
-                    <GridViewColumn Header="Permission" Width="130" DisplayMemberBinding="{Binding Path=UserType, UpdateSourceTrigger=PropertyChanged ,Mode=OneWay}"/>
-                    <GridViewColumn Header="Password" Width="130" DisplayMemberBinding="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged ,Mode=OneWay}"/>
-                    <GridViewColumn Header="Last Log-In" Width="180" DisplayMemberBinding="{Binding Path=LastLoginDate, UpdateSourceTrigger=PropertyChanged ,Mode=OneWay}"/>
-                    <!--<GridViewColumn Header="Password" Width="200" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Background="Gray" HorizontalAlignment="Center" TextAlignment="Center" Foreground="White" VerticalAlignment="Center" Text="kookie"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>-->
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <controls:IconButton 
-                Background="{DynamicResource Backround6}" Style="{DynamicResource IconButton1}" Icon="/Graphics/Icons/add1.png"
-                Height="40" Width="60" IconHeight="1" IconWidth="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="25" Click="AddNewUser_BtnClick"
-                Visibility="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToVisibility}}">
-            <ButtonBase.Effect>
-                <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
-            </ButtonBase.Effect>
-        </controls:IconButton>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/Dark.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--data template for diplaying user in list-->
+            <DataTemplate x:Key="UserTemplate" DataType="bl:User">
+                <Border                     
+                   Name="border"
+                   HorizontalAlignment="Stretch"            
+                   Background="{DynamicResource EngineerListBackround2}"            
+                   CornerRadius="8">
+                    <Grid>
+                        <Grid.RowDefinitions >
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*" MinWidth="150"/>
+                            <ColumnDefinition Width="0.4*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--icon for user type-->
+                        <Image HorizontalAlignment="Center" Margin="10" Grid.Column="0">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Source" Value="/Graphics/Icons/worker2.png" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path = UserType, Converter={StaticResource ConvertUserTypeToNumber}}" Value="1">
+                                            <Setter Property="Source" Value="/Graphics/Icons/worker2.png" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path = UserType, Converter={StaticResource ConvertUserTypeToNumber}}" Value="2">
+                                            <Setter Property="Source" Value="/Graphics/Icons/manager.png" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <!--user name-->
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Name="NameBlock" VerticalAlignment="Bottom" Grid.Row="0" Background="Transparent" FontFamily="Bahnschrift SemiBold" FontSize="20" Foreground="Black" Text="{Binding Path = UserName}"/>
+                            <Separator Background="Black" Grid.Row="0" Width="180" HorizontalAlignment="Left" VerticalAlignment="Bottom"  />
+                            <TextBlock Height="{Binding ElementName=NameBlock, Path=ActualHeight}" VerticalAlignment="Top" Grid.Row="1" Background="Transparent" FontSize="14" FontFamily="Bahnschrift" Foreground="Black" Text="{Binding Path = UserType}"/>
+                        </Grid>
+                        <!--assigned engineer-->
+                        <Grid Grid.Column="2" Background="{DynamicResource EngineerListBackround3}">
+                            <TextBlock Margin="5,0,0,0"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="Black" Text="{Binding Path = Engineer, Converter={StaticResource ConvertEngineerInUserToString}}" FontFamily="Bahnschrift SemiBold Condensed">
+                            </TextBlock>
+                        </Grid>
+                        <!--Completed Tasks-->
+                        <StackPanel VerticalAlignment="Center"  HorizontalAlignment="Center" Grid.Column="3" Orientation="Horizontal" Margin="10,0,10,0">
+                            <TextBlock VerticalAlignment="Center" Background="Transparent" FontSize="18" Foreground="Black" Text="{Binding Path = CompletedTasks, StringFormat=Completed Tasks: {0}}" FontFamily="Bahnschrift SemiBold Condensed"/>
+                        </StackPanel>
+                        <!--last log-in date-->
+                        <Grid Background="{DynamicResource EngineerListBackround3}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="4">
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="45"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Height="30" Width="30" Source="/Graphics/Icons/loggedIn1.png">
+                                    <Image.Effect>
+                                        <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                                    </Image.Effect>
+                                </Image>
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0,5,0" FontSize="18" Foreground="Black" FontFamily="Bahnschrift SemiBold Condensed" Text="{Binding LastLoginDate, Converter={StaticResource ConvertLastLoginDateToString}}"/>
+                            </Grid>
+                        </Grid>
+                        <!-- Button for displaying popup menu -->
+                        <Grid Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            <CheckBox Name="CheckBoxExpander">
+                                <CheckBox.Template>
+                                    <ControlTemplate TargetType="CheckBox">
+                                        <Grid>
+                                            <Ellipse Name="ellipse" Height="45" Width="45" Fill="DarkGray"/>
+                                            <Image Margin="15" Source="/Graphics/Icons/3dots.png"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="true">
+                                                <Setter Property="Fill" TargetName="ellipse" Value="{DynamicResource Backround3}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </CheckBox.Template>
+                            </CheckBox>
+                            <ComboBox Width="100" VerticalAlignment="Top" HorizontalAlignment="Left" IsEnabled="{Binding ElementName=CheckBoxExpander, Path=IsChecked}">
+                                <ComboBoxItem Content="Edit" Height="50" Width="100"/>
+                                <ComboBoxItem Content="Delete" Height="50" Width="100"/>
+                                <ComboBox.Template>
+                                    <ControlTemplate TargetType="ComboBox">
+                                        <Grid Background="Transparent">
+                                            <ContentPresenter 
+                                                x:Name="ContentSite"                                                                                                      
+                                                Margin="3,0,0,0"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center">
+                                            </ContentPresenter>
+                                            <Popup 
+                                                    x:Name="Popup"                                                
+                                                    Placement="Bottom"
+                                                    IsOpen="{Binding ElementName=CheckBoxExpander, Path=IsChecked}"
+                                                    StaysOpen="False"
+                                                    AllowsTransparency="True"
+                                                    Focusable="False"
+                                                    PopupAnimation="Slide">
+                                                <Border Background="{DynamicResource Backround3}" Width="140" BorderBrush="Black" CornerRadius="9" BorderThickness="0">
+                                                    <StackPanel>
+                                                        <ComboBoxItem FontSize="15" Foreground="{DynamicResource fontColor1}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Edit" Height="50" Width="140" PreviewMouseLeftButtonDown="UserOptions_ComboBoxItemSelected" />
+                                                        <ComboBoxItem FontSize="15" Foreground="{DynamicResource fontColor1}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Delete" Height="50" Width="140" PreviewMouseLeftButtonDown="UserOptions_ComboBoxItemSelected" />
+                                                        <ComboBoxItem FontSize="15" Foreground="{DynamicResource fontColor1}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="View Engineer" Height="50" Width="140" PreviewMouseLeftButtonDown="UserOptions_ComboBoxItemSelected" />
+                                                        <!--Visibility="{Binding  CurrentUser.UserType, Mode=OneWay, Converter={StaticResource ConvertUserTypeToVisibility}}" Height="50" Width="100" PreviewMouseLeftButtonDown="EngineerOptions_ComboBoxItemSelected"-->
+                                                    </StackPanel>
+                                                </Border>
+                                            </Popup>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ComboBox.Template>
+                            </ComboBox>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <DataTemplate.Triggers>
+                    <Trigger Property="IsFocused" Value="true" SourceName="border">
+                        <Setter Property="BorderThickness" Value="4" TargetName="border"/>
+                        <Setter Property="BorderBrush" Value="Black" TargetName="border"/>
+                    </Trigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+
+
+    <Grid ShowGridLines="False" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="4.5*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!--loading spinner-->
+        <Grid Margin="5" Panel.ZIndex="99">
+            <controls:LoadingSpinner IsLoading="{Binding Loading}"/>
+        </Grid>
+
+        <!--sorting combo box-->
+        <StackPanel Orientation="Horizontal" Margin="0" Grid.Column="1" Grid.Row="0" >
+            <Label HorizontalAlignment="Center" Margin="0" Content="Order By:" />
+            <ComboBox 
+                    Margin="0"
+                    Width="250"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource DefaultComboBoxStyle}" SelectionChanged="SelectionChanged_OrederByComboBox">
+                <ComboBoxItem Content="Name"/>
+                <ComboBoxItem Content="Last Activity"/>
+                <ComboBoxItem Content="User Type"/>
+                <ComboBoxItem Content="Creation Date"/>
+            </ComboBox>
+        </StackPanel>
+
+        <!--search by name text box-->
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Column="0" Grid.Row="0">
+            <controls:CustomTextBox TextChanged="TextChanged_SearchTextBox" HeaderText="Search.." BorderBrush="Black" HorizontalAlignment="Center" Style="{StaticResource TextBoxStyle2}" Width="450" MaxLength="50" Height="32">
+            </controls:CustomTextBox>
+        </StackPanel>
+
+        <Border Name="ListBorder" Grid.ColumnSpan="2" Grid.Row="1" Margin="8,8,10,3"  Background="{DynamicResource Backround1}" CornerRadius="15">
+            <ListView 
+                     ItemsSource="{Binding UsersList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  
+                     Margin="10"
+                     BorderThickness="0"
+                     HorizontalContentAlignment="Stretch"
+                     Background="{Binding ElementName=ListBorder,Path=Background}"
+                     DataContext="{Binding RelativeSource={RelativeSource AncestorType=Page}}"
+                     ItemTemplate="{StaticResource UserTemplate}" 
+                     MouseDoubleClick="UserSelected_listViewItemSelected">  
+            </ListView>
+        </Border>
+        
+        <!--buttons on the bottom-->
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="60,0,60,3">
+            <!--reload page button-->
+            <controls:IconButton 
+                    Background="{DynamicResource Backround6}" Style="{DynamicResource IconButton1}" Icon="/Graphics/Icons/reset1.png"
+                    Height="40" Width="60" Padding="8" Margin="0,0,20,0" Click="RefreshUsersList_BtnClick">
+                <ButtonBase.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                </ButtonBase.Effect>
+            </controls:IconButton>
+            <!--add user button-->
+            <controls:IconButton 
+                    Background="{DynamicResource Backround6}" Style="{DynamicResource IconButton1}" Icon="/Graphics/Icons/add1.png"
+                    Height="40" Width="60" Margin="0,0,20,0" Click="AddNewUser_BtnClick" 
+                    Visibility="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToVisibility}}">
+                <ButtonBase.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                </ButtonBase.Effect>
+            </controls:IconButton>
+        </StackPanel>
+        
     </Grid>
 </Page>

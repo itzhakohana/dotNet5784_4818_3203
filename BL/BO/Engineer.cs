@@ -19,6 +19,10 @@ public class Engineer
     /// </summary>
     public string Email { get; set; }
     /// <summary>
+    /// Phone number of the engineer
+    /// </summary>
+    public string? Phone { get; set; }
+    /// <summary>
     /// Engineers display-Picture 
     /// </summary>
     public string Picture { get; set; }
@@ -41,6 +45,7 @@ public class Engineer
         return ($"\nId: {Id, -9} " +
                 $"Name: {Name, -20} " +
                 $"\nEmail: {Email, -20} " +
+                $"\nPhone: {Phone,-12} " +
                 $"\nLevel: {Level, -18} " +
                 $"\nCost: {Cost, -4} " +
                 $"\nAssigned Task: {(Task is not null ? Task : "Unassigned")} ");

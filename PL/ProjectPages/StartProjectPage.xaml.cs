@@ -74,6 +74,10 @@ namespace PL.ProjectPages
 
         async private void StartProject_BtnClick(object sender, RoutedEventArgs e)
         {
+            string message = "Are you sure you want to proceed with the selected schedule? This can only be done once per project!\nAfter starting the project, you wont be able to add tasks and certain modification options will be unavailable";
+            MessageBoxResult choice = MessageBox.Show(message, default, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (choice != MessageBoxResult.Yes) 
+                return;
             DateTime startDate = _startDate;
             DateTime deadlineDate = _deadlineDate;
             Loading = true;

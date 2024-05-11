@@ -18,12 +18,17 @@ internal class Bl : IBl
     }
     private void WorkerReloadClock_ProgressChanged(object sender, ProgressChangedEventArgs e)
     {
-        if (_toBeAdded != TimeSpan.Zero)
+        if (!DateControl.GetIsRealTimeClock())
         {
-            s_Clock += _toBeAdded;
-            _toBeAdded = TimeSpan.Zero;
-        }
-        s_Clock += new TimeSpan(0, 0, 60);        
+            if (_toBeAdded != TimeSpan.Zero)
+            {
+                s_Clock += _toBeAdded;
+                _toBeAdded = TimeSpan.Zero;
+            }
+            s_Clock += new TimeSpan(0, 0, 60);     
+        }    
+        else
+            s_Clock = DateTime.Now;
     }
 
     public Bl()
@@ -43,7 +48,6 @@ internal class Bl : IBl
         if (s_Clock == DateTime.MinValue)
             s_Clock = DateControl.GetCurrentDate();
 
-        //new Thread(() => { runClock(); }).Start();
     }
     public ITask Task => new BlImplementation.TaskImplementation(this);
 

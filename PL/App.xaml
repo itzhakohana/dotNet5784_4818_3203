@@ -10,10 +10,6 @@
                 <ResourceDictionary Source="/Themes/Dark.xaml"/>
                 <ResourceDictionary Source="/Themes/Styles.xaml"/>
                 <ResourceDictionary Source="/Themes/Templates.xaml"/>
-                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />-->
             </ResourceDictionary.MergedDictionaries>
 
             <!--Binding Enums-->
@@ -47,6 +43,11 @@
             <local:ConvertTaskToGanttTaskRecWidth x:Key="ConvertTaskToGanttTaskRecWidth"/>
             <local:ConvertTaskToGanttTaskRecMargin x:Key="ConvertTaskToGanttTaskRecMargin"/>
             <local:ConvertTaskToGanttTaskRecBackground x:Key="ConvertTaskToGanttTaskRecBackground"/>
+            <local:ConvertUserTypeToNumber x:Key="ConvertUserTypeToNumber"/>
+            <local:ConvertLastLoginDateToString x:Key="ConvertLastLoginDateToString"/>
+            <local:ConvertEngineerInUserToString x:Key="ConvertEngineerInUserToString"/>
+            <local:ConvertUserAndEngineerToVisibility x:Key="ConvertUserAndEngineerToVisibility"/>
+            <local:ConvertUserAndEngineerToIsEnabled x:Key="ConvertUserAndEngineerToIsEnabled"/>
             
         </ResourceDictionary>
     </Application.Resources>

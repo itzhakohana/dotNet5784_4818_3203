@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
-  <NextDependencyId>20681</NextDependencyId>
-  <NextTaskId>5026</NextTaskId>
-  <startDate>2024-04-11T00:00:00</startDate>
-  <endDate>2024-08-09T00:00:00</endDate>
-  <currentDate>2024-05-13T19:59:26.1543196+03:00</currentDate>
+  <NextDependencyId>23581</NextDependencyId>
+  <NextTaskId>5424</NextTaskId>
+  <isRealTimeClock>False</isRealTimeClock>
+  <startDate>2024-05-12T00:00:00</startDate>
+  <endDate>2025-01-04T00:00:00</endDate>
+  <currentDate>2024-05-12T10:36:50.5957876+03:00</currentDate>
 </config>

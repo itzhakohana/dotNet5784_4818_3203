@@ -63,10 +63,12 @@
     <None Remove="Graphics\Icons\intermediate.png" />
     <None Remove="Graphics\Icons\laptop1.png" />
     <None Remove="Graphics\Icons\level1.png" />
+    <None Remove="Graphics\Icons\loggedIn1.png" />
     <None Remove="Graphics\Icons\logIn1.png" />
     <None Remove="Graphics\Icons\logOff1.png" />
     <None Remove="Graphics\Icons\logOff2.png" />
     <None Remove="Graphics\Icons\logOff3.png" />
+    <None Remove="Graphics\Icons\manager.png" />
     <None Remove="Graphics\Icons\milestone1.png" />
     <None Remove="Graphics\Icons\milestones1.png" />
     <None Remove="Graphics\Icons\minimize.png" />
@@ -85,6 +87,7 @@
     <None Remove="Graphics\Icons\tasks1.png" />
     <None Remove="Graphics\Icons\tasks2.png" />
     <None Remove="Graphics\Icons\timeSpan1.png" />
+    <None Remove="Graphics\Icons\tipBulb.png" />
     <None Remove="Graphics\Icons\unscheduled1.png" />
     <None Remove="Graphics\Icons\unscheduled2.png" />
     <None Remove="Graphics\Icons\upload1.png" />
@@ -93,6 +96,8 @@
     <None Remove="Graphics\Icons\users.png" />
     <None Remove="Graphics\Icons\users1.png" />
     <None Remove="Graphics\Icons\users2.png" />
+    <None Remove="Graphics\Icons\worker1.png" />
+    <None Remove="Graphics\Icons\worker2.png" />
     <None Remove="Graphics\Icons\workers.png" />
     <None Remove="Graphics\Icons\workers2.png" />
     <None Remove="Graphics\Icons\wrench1.png" />
@@ -121,6 +126,9 @@
     <Resource Include="Graphics\Icons\guide.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\loggedIn1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\logIn1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -131,6 +139,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\logOff3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\manager.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\milestones1.png">
@@ -202,10 +213,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\DalTest\DalTest.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Graphics\Images\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -293,6 +300,9 @@
     <Resource Include="Graphics\Icons\taskList1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\tipBulb.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\unscheduled1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -315,6 +325,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\users2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\worker1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\worker2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\workers.png">

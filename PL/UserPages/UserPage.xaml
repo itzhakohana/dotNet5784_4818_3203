@@ -7,147 +7,147 @@
       xmlns:controls="clr-namespace:PL.CustomControls"
       xmlns:local="clr-namespace:PL.UserPages"
       mc:Ignorable="d" 
-      Height="600" Width="1050"
+      d:DesignHeight="600" d:DesignWidth="1050"
       Title="UserPage"      
       DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
-    <Border Background="#FF26223C" CornerRadius="20">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="0.7*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Column="1" Grid.Row="0">
-                <!--Name-->
-                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="1">
-                    <Label VerticalContentAlignment="Bottom" Content="User Name:"/>
-                    <TextBox 
-                        Template="{StaticResource TextBoxControlTemplate}" Width="170"
-                        Text="{Binding MyUser.UserName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
-                        IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
-                    </TextBox>
-                </StackPanel>
-                <!--password-->
-                <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="1">
-                    <Label VerticalContentAlignment="Bottom" Content="Password"/>
-                    <TextBox 
-                        PreviewTextInput="PasswordUpdated_TextBoxChanged" MaxLength="8"
-                         Template="{StaticResource TextBoxControlTemplate}" Width="170"
-                         Text="{Binding MyUser.Password, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
-                         IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
-                    </TextBox>
-                </StackPanel>
-            </StackPanel>
+    <Grid Margin="25,10">
+        <Border Background="#FF26223C" CornerRadius="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.7*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <!--assign engineer-->
-            <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="1">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <CheckBox Name="AssignEngineerCheckBox" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0"                             
-                             Unchecked="NoEngineerSelected_checkBoxUnchecked" IsChecked="{Binding MyUser.Engineer, Mode=OneWay, Converter={StaticResource ConvertNullToBool}}" IsEnabled="{Binding InAddMode}"/>
-                    <Label VerticalContentAlignment="Bottom" Content="Assign Engineer:"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Column="1" Grid.Row="1">
+                    <!--Name-->
+                    <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="1">
+                        <Label VerticalContentAlignment="Bottom" Content="User Name:"/>
+                        <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" Width="170"
+                                    Text="{Binding MyUser.UserName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                    IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
+                        </controls:CustomTextBox>
+                    </StackPanel>
+                    <!--password-->
+                    <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="1">
+                        <Label VerticalContentAlignment="Bottom" Content="Password"/>
+                        <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" 
+                                    PreviewTextInput="PasswordUpdated_TextBoxChanged" MaxLength="8" Width="170"
+                                    Text="{Binding MyUser.Password, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
+                                    IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
+                        </controls:CustomTextBox>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBox 
-                        Name="textBox" Width="200" IsReadOnly="True"
-                        Template="{DynamicResource TextBoxControlTemplate}"                                
-                        Text="{Binding MyUser.Engineer.Name, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                        IsEnabled="{Binding ElementName= AssignEngineerCheckBox, Path=IsChecked}">
-                    </TextBox>
-                    <controls:IconToggleButton x:Name="TaskPopupOpener" Style="{StaticResource ToggleIconButton1}" 
+
+                <!--assign engineer-->
+                <StackPanel Orientation="Vertical"  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="2">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <CheckBox Name="AssignEngineerCheckBox" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0"                             
+                             Unchecked="NoEngineerSelected_checkBoxUnchecked" IsChecked="{Binding MyUser.Engineer, Mode=OneWay, Converter={StaticResource ConvertNullToBool}}" IsEnabled="{Binding InAddMode}"/>
+                        <Label VerticalContentAlignment="Bottom" Content="Assign Engineer:"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" 
+                                    x:Name="textBox" Width="200" IsReadOnly="True"                             
+                                    Text="{Binding MyUser.Engineer.Name, Mode=TwoWay, NotifyOnSourceUpdated=True, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                                    IsEnabled="{Binding ElementName= AssignEngineerCheckBox, Path=IsChecked}">
+                        </controls:CustomTextBox>
+                        <controls:IconToggleButton x:Name="TaskPopupOpener" Style="{StaticResource ToggleIconButton1}" 
                                    Icon="/Graphics/Icons/add1.png" Height="30" Width="30" Background="Gray"
                                    IsEnabled="{Binding InAddMode}">
-                        <Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleIconButton1}">
-                            <Style.Triggers>
-                                <MultiDataTrigger >
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="True"/>
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </MultiDataTrigger>
-                                <DataTrigger Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="False">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </controls:IconToggleButton>
-                </StackPanel>
-                <Popup AllowsTransparency="True" StaysOpen="False" Placement="Top" PopupAnimation="Slide" IsOpen="{Binding ElementName=TaskPopupOpener, Path=IsChecked}">
-                    <Border CornerRadius="10" Height="300" Width="450" Background="Gray">
-                        <Border.Resources>
-                            <!--default template for engineer-->
-                            <DataTemplate x:Key="DefaultEngineerTemplate" DataType="bl:Engineer" >
-                                <Border CornerRadius="10" Background="#FF848484" Height="40" HorizontalAlignment="Stretch">
-                                    <Grid HorizontalAlignment="Stretch">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="60"/>
-                                            <ColumnDefinition Width="150"/>
-                                            <ColumnDefinition Width="200"/>
-                                            <ColumnDefinition Width="auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <!--icon for engineer status-->
-                                        <Image HorizontalAlignment="Center" Grid.Column="0" Height="30" Width="30" Source="/Graphics/Icons/user2.png">
-                                        </Image>
-                                        <Grid Grid.Column="1" Background="#FF929292">
-                                            <TextBlock  Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                            <Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleIconButton1}">
+                                <Style.Triggers>
+                                    <MultiDataTrigger >
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </MultiDataTrigger>
+                                    <DataTrigger Binding="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </controls:IconToggleButton>
+                    </StackPanel>
+                    <Popup AllowsTransparency="True" StaysOpen="False" Placement="Top" PopupAnimation="Slide" IsOpen="{Binding ElementName=TaskPopupOpener, Path=IsChecked}">
+                        <Border CornerRadius="10" Height="300" Width="450" Background="Gray">
+                            <Border.Resources>
+                                <!--default template for engineer-->
+                                <DataTemplate x:Key="DefaultEngineerTemplate" DataType="bl:Engineer" >
+                                    <Border CornerRadius="10" Background="#FF848484" Height="40" HorizontalAlignment="Stretch">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60"/>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="200"/>
+                                                <ColumnDefinition Width="auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <!--icon for engineer status-->
+                                            <Image HorizontalAlignment="Center" Grid.Column="0" Height="30" Width="30" Source="/Graphics/Icons/user2.png">
+                                            </Image>
+                                            <Grid Grid.Column="1" Background="#FF929292">
+                                                <TextBlock  Text="{Binding Id}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+                                            </Grid>
+                                            <TextBlock Grid.Column="2" Text="{Binding Name}"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
                                         </Grid>
-                                        <TextBlock Grid.Column="2" Text="{Binding Name}"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold"/>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </Border.Resources>
-                        <Border.Effect>
-                            <DropShadowEffect ShadowDepth="15" BlurRadius="5" Opacity="0.5" Color="Black"/>
-                        </Border.Effect>
-                        <ListView 
+                                    </Border>
+                                </DataTemplate>
+                            </Border.Resources>
+                            <Border.Effect>
+                                <DropShadowEffect ShadowDepth="15" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                            </Border.Effect>
+                            <ListView 
                             x:Name="AvailableTasksDisplay" HorizontalContentAlignment="Stretch"
                             ItemTemplate="{StaticResource DefaultEngineerTemplate}"
                             SelectedValue="{Binding MyUser.Engineer, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                             ItemsSource="{Binding AvailableEngineers}"
                             SelectionChanged="EngineerSelected_ListView">
-                            <!--SelectedValue="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"-->
-                        </ListView>
-                    </Border>
-                </Popup>
-                
-            </StackPanel>
+                                <!--SelectedValue="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"-->
+                            </ListView>
+                        </Border>
+                    </Popup>
 
-            <StackPanel Grid.Row="2" Grid.Column="1" Margin="0,0,0,0" VerticalAlignment="Center">
-                <Label HorizontalAlignment="Center" Content="User Permission:"/>
-                <ComboBox 
-                    x:Name="UserTypeComboBox" Background="White" Foreground="Black" Width="270" VerticalAlignment="Center" Style="{StaticResource DefaultComboBoxStyle}"
-                    SelectedValue="{Binding Path =MyUser.UserType, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource UserTypeEnumCollection}}" SelectionChanged="UserTypeSelectionChanged_ComboBox"
-                    IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
-                </ComboBox>
-            </StackPanel>
+                </StackPanel>
 
-            <!--Back button-->
-            <controls:IconButton 
+                <StackPanel Grid.Row="3" Grid.Column="1" Margin="0,0,0,0" VerticalAlignment="Center">
+                    <Label HorizontalAlignment="Center" Content="User Permission:"/>
+                    <ComboBox 
+                            x:Name="UserTypeComboBox" Background="White" Foreground="Black" Width="270" VerticalAlignment="Center" Style="{StaticResource DefaultComboBoxStyle}"
+                            SelectedValue="{Binding Path =MyUser.UserType, Mode=TwoWay}" ItemsSource="{Binding Source={StaticResource UserTypeEnumCollection}}" SelectionChanged="UserTypeSelectionChanged_ComboBox"
+                            IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
+                    </ComboBox>
+                </StackPanel>
+
+                <!--Back button-->
+                <controls:IconButton 
                     Grid.Row="0" Background="White" Margin="25" HorizontalAlignment="Left" VerticalAlignment="Top"
                     Height="30" Width="30"
                     Style="{DynamicResource IconButton1}"  
                     Content="Back" Click="GoBack_BtnClick" 
                     Icon="/Graphics/Icons/backArrow1.png"/>
-            <!--Button for adding\updating-->
-            <Button 
+                <!--Button for adding\updating-->
+                <Button 
                     Style="{DynamicResource ButtonStyle1}" Margin="25" HorizontalAlignment="Right" VerticalAlignment="Top"
                     Content="Save"
                     IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
                     Background="#FF414243" Foreground="White" FontSize="14" VerticalContentAlignment="Center"
                     Grid.Column="3" Grid.Row="0" Padding="8" Width="75" Height="40"  Click="AddOrUpdateUser_btnClick"/>
-            <!--Button for reseting changes-->
-            <Button 
+                <!--Button for reseting changes-->
+                <Button 
                     Style="{DynamicResource ButtonStyle1}"
                     Content="Reset Changes" Background="#FF414243" Foreground="White" FontSize="14"
-                    VerticalContentAlignment="Center" Width="180" Height="40" HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="3"
+                    VerticalContentAlignment="Center" Width="180" Height="40" HorizontalContentAlignment="Center" Grid.Column="1" Grid.Row="4"
                     Click="ResetChanges_btnClick"/>
-        </Grid>
-    </Border>
+            </Grid>
+        </Border>
+    </Grid>
 </Page>

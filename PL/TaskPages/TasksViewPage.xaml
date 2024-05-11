@@ -22,6 +22,8 @@
                 <Border                     
                     Name="border"            
                     HorizontalAlignment="Stretch"
+                    ToolTipService.InitialShowDelay="500"
+                    ToolTipService.BetweenShowDelay="2000"
                     Background="{DynamicResource EngineerListBackround2}"            
                     CornerRadius="8">
                     <Grid HorizontalAlignment="Stretch">
@@ -94,9 +96,7 @@
                         <!--description expander-->
                         <Grid Background="{DynamicResource EngineerListBackround3}" Grid.Column="4">
                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4" Orientation="Horizontal" >
-                                <Expander Header="Description" IsExpanded="False" FontSize="16" FontWeight="Bold">
-                                    <TextBlock Text="{Binding Description}" Width="200" Height="60"/>                                    
-                                </Expander>
+                                <TextBlock Margin="5" Text="{Binding RequiredEffortTime, StringFormat={}{0:dd} Days}" Width="80" FontSize="18" Foreground="Black" FontFamily="Bahnschrift SemiBold Condensed"/>
                                 <!--<ToolTip Content="{Binding Description}"/>-->
                             </StackPanel>
                         </Grid>
@@ -130,7 +130,7 @@
                                                         Margin="3,0,0,0"
                                                         VerticalAlignment="Center"
                                                         HorizontalAlignment="Center">
-                                                
+
                                             </ContentPresenter>
                                             <Popup 
                                                 x:Name="Popup"                                                
@@ -153,6 +153,63 @@
                             </ComboBox>
                         </Grid>
                     </Grid>
+                    <!--tooltip for displaying basic task's info (mainly for quickly viewing task's description)-->
+                    <Border.ToolTip>
+                        <ToolTip Background="Gray" StaysOpen="True">
+                            <ToolTip.Template>
+                                <ControlTemplate TargetType="ToolTip">
+                                    <Border IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="180" Width="350">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel>
+                                                <!--task alias-->
+                                                <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="20" FontWeight="Bold" Text="{Binding Alias}"/>
+                                                <!--task status with icon-->
+                                                <StackPanel Margin="7,7,0,0" Orientation="Horizontal">
+                                                    <Image Height="20" Width="20">
+                                                        <Image.Style>
+                                                            <Style TargetType="Image">
+                                                                <Setter Property="Source" Value="/Graphics/Icons/level1.png" />
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="1">
+                                                                        <Setter Property="Source" Value="/Graphics/Icons/unscheduled1.png" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="2">
+                                                                        <Setter Property="Source" Value="/Graphics/Icons/scheduled2.png" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="3">
+                                                                        <Setter Property="Source" Value="/Graphics/Icons/in progress1.png" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="5">
+                                                                        <Setter Property="Source" Value="/Graphics/Icons/done1.png" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding Status, Converter={StaticResource ConvertStatusToNumber}}" Value="4">
+                                                                        <Setter Property="Source" Value="/Graphics/Icons/in jeopardy1.png" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Image.Style>
+                                                    </Image>
+                                                    <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding Status}"/>
+                                                </StackPanel>
+                                                <Separator HorizontalAlignment="Stretch" Foreground="White"/>
+                                                <!--creation date-->
+                                                <StackPanel Orientation="Horizontal" Margin="7,0,0,0">
+                                                    <Image Margin="7,7,0,0" Height="15" Width="15" Source="/Graphics/Icons/calendar1.png"/>
+                                                    <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding CreatedAtDate, StringFormat={}Creation Date: {0:dd/MM/yy hh:mm:ss}}"/>
+                                                </StackPanel>
+                                                <Separator HorizontalAlignment="Stretch" Foreground="White"/>
+                                                <!--task's description-->
+                                                <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding Description}" TextWrapping="Wrap"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </ToolTip.Template>
+                        </ToolTip>
+                    </Border.ToolTip>
                 </Border>
                 <DataTemplate.Triggers>
                     <Trigger Property="IsFocused" Value="true" SourceName="border">

@@ -54,53 +54,54 @@
                             <ImageBrush ImageSource="{Binding MyImage, NotifyOnSourceUpdated=True}"/>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <controls:IconButton VerticalAlignment="Bottom" Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/upload1.png" Height="30" Width="30" Padding="0" Click="UpdateProfilePicture_btnClick"/>
+                    <controls:IconButton VerticalAlignment="Bottom" Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/upload1.png" Height="30" Width="30" Padding="0" Click="UpdateProfilePicture_btnClick">
+                        <controls:IconButton.Visibility>
+                            <MultiBinding Converter="{StaticResource ConvertUserAndEngineerToVisibility}">
+                                <Binding Path="CurrentUser"/>
+                                <Binding Path="Engineer"/>
+                            </MultiBinding>
+                        </controls:IconButton.Visibility>
+                    </controls:IconButton>
                 </StackPanel>
                 <!--Name-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="2">
                     <Label VerticalContentAlignment="Bottom" Content="Name:"/>
-                    <TextBox 
-                        Template="{StaticResource TextBoxControlTemplate}"
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"
                         Text="{Binding Engineer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                         IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
-                    </TextBox>
+                    </controls:CustomTextBox>
                 </StackPanel>
                 <!--Id-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="2">
                     <Label VerticalContentAlignment="Bottom" Content="Id:"/>
-                    <TextBox                         
-                        Template="{StaticResource TextBoxControlTemplate}"
-                        IsEnabled="{Binding Engineer.Id, Mode=OneWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource convertEngIdToIsEnabled}}" 
-                        MaxLength="9"
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" MaxLength="9"
+                        IsEnabled="{Binding Engineer.Id, Mode=OneWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource convertEngIdToIsEnabled}}"                         
                         Text="{Binding Engineer.Id, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" PreviewTextInput="EnteredKey_IdFieldChanged" >
-                    </TextBox>
+                    </controls:CustomTextBox>
                 </StackPanel>
                 <!--Email-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="3">
                     <Label VerticalContentAlignment="Bottom" Content="Email:"/>
-                    <TextBox 
-                        Template="{StaticResource TextBoxControlTemplate}"
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"
                         IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
                         Text="{Binding Engineer.Email, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
-                    </TextBox>
+                    </controls:CustomTextBox>
                 </StackPanel>
                 <!--phone number-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="3">
                     <Label VerticalContentAlignment="Bottom" Content="Phone number:"/>
-                    <TextBox 
-                        IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
-                        Template="{StaticResource TextBoxControlTemplate}"
-                        Text="TO DO">
-                    </TextBox>
+                    <controls:CustomTextBox MaxLength="10" Style="{StaticResource TextBoxStyle1}" Background="White"
+                        IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"                        
+                        Text="{Binding Engineer.Phone, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" PreviewTextInput="EnteredKey_IdFieldChanged">
+                    </controls:CustomTextBox>
                 </StackPanel>
                 <!--Cost-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="4">
                     <Label VerticalContentAlignment="Bottom" Content="Cost Per Hour:"/>
-                    <TextBox 
-                        IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
-                        Template="{DynamicResource TextBoxControlTemplate}"
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"
+                        IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"                        
                         Text="{Binding Engineer.Cost, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
-                    </TextBox>
+                    </controls:CustomTextBox>
                 </StackPanel>
                 <!--Level-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="4">
@@ -120,19 +121,15 @@
                 <!--Task-->
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5">
                     <Label VerticalContentAlignment="Bottom" Content="Assign Task:"/>
-                    <!--<CheckBox Name="AssignTaskCheckBox" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0" 
-                         IsChecked="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullTaskInEngineerToBool}}"/>-->
+                    <CheckBox Name="AssignTaskCheckBox" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0" 
+                         IsChecked="{Binding Engineer.Task, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true, Converter={StaticResource ConvertNullTaskInEngineerToBool}}"/>
                     <StackPanel Orientation="Horizontal">
-                        <controls:IconButton Style="{StaticResource IconButton1}" Icon="/Graphics/Icons/reset1.png" Height="30" Width="30" Background="Gray" Padding=" 5" Click="ResetAssignedTask_btnClick"/>
-                        <TextBox 
-                            Width="280"
-                            Name="textBox"
-                            IsReadOnly="True"
-                            Template="{DynamicResource TextBoxControlTemplate}"                            
-                            Text="{Binding Engineer.Task.Alias, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                            IsEnabled="True">
-                            <!--IsEnabled="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}"-->
-                        </TextBox>
+                        <!--<controls:IconButton Style="{StaticResource IconButton1}" Icon="/Graphics/Icons/reset1.png" Height="30" Width="30" Background="Gray" Padding=" 5" Click="ResetAssignedTask_btnClick"/>-->
+                        <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"
+                            Width="280" x:Name="textBox" IsReadOnly="True"                         
+                            Text="{Binding Engineer.Task.Alias, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, NotifyOnValidationError=true, ValidatesOnExceptions=true}"                            
+                            IsEnabled="{Binding ElementName=AssignTaskCheckBox, Path=IsChecked}">
+                        </controls:CustomTextBox>
                         <controls:IconToggleButton x:Name="TaskPopupOpener" Style="{StaticResource ToggleIconButton1}" 
                                                    Icon="/Graphics/Icons/add1.png" Height="30" Width="30" Background="Gray"
                                                    IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
@@ -221,9 +218,15 @@
                 <Button 
                     Style="{DynamicResource ButtonStyle1}"
                     Content="Save"
-                    IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
                     Background="#FF414243" Foreground="White" FontSize="14" VerticalContentAlignment="Center"
-                    Grid.Column="3" Grid.Row="0" Padding="8" Width="75" Height="40"  Click="AddOrUpdateEngineer_btnClick"/>
+                    Grid.Column="3" Grid.Row="0" Padding="8" Width="75" Height="40"  Click="AddOrUpdateEngineer_btnClick">
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource ConvertUserAndEngineerToIsEnabled}">
+                            <Binding Path="CurrentUser"/>
+                            <Binding Path="Engineer"/>
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
                 <!--Button for reseting changes-->
                 <Button 
                     Style="{DynamicResource ButtonStyle1}"
