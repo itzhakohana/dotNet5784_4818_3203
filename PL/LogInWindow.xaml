@@ -15,7 +15,7 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="/Graphics/Icons/laptop1.png"
         Closed="WindowClosed" MouseDown="Window_MouseDown"
-        Title="LogInWindow">
+        Title="Log-In">
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
@@ -59,15 +59,33 @@
                 </controls:IconButton>
             </Grid>
             <!--tip for entering with an existing admin user-->
-            <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Height="40" Background="#FFB4D7A0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,80">
-                <StackPanel Orientation="Horizontal" Margin="5,0">
-                    <controls:IconToggleButton x:Name="TipExpander" Icon="/Graphics/Icons/tipBulb.png" Margin="3,5" Background="Transparent" Style="{StaticResource ToggleIconButtonTransparent_NoIsCheckedVisual}"/>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding ElementName=TipExpander, Path=IsChecked, Converter={StaticResource ConvertBoolToVisibility}}">
-                        <TextBlock FontSize="18" FontWeight="Bold" Text="For demonstraion purposes, enter as admin: " FontFamily="Bahnschrift SemiCondensed"/>
-                        <TextBlock FontSize="18" FontWeight="Bold" Text="User Name: test, Password: 12" Foreground="#FF1D40CC" FontFamily="Bahnschrift SemiCondensed"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,80">
+                <Grid Width="50" Height="50">
+                    <controls:IconToggleButton x:Name="TipExpander" Icon="/Graphics/Icons/tipBulb.png" Background="Transparent" Style="{StaticResource FlashingToggleIconButtonTransparent_NoIsCheckedVisual}"/>
+                </Grid>
+                <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Height="50" 
+                        Background="#FFB4D7A0" HorizontalAlignment="Center" Visibility="{Binding ElementName=TipExpander, Path=IsChecked, Converter={StaticResource ConvertBoolToVisibility}}">
+                    <StackPanel Orientation="Horizontal" Margin="5,0">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding ElementName=TipExpander, Path=IsChecked, Converter={StaticResource ConvertBoolToVisibility}}">
+                            <TextBlock FontSize="18" Text="Demo User: " FontFamily="Arial"/>
+                            <TextBlock FontSize="18" Foreground="#FF1D40CC" FontFamily="Arial">
+                                <Run FontWeight="Bold">
+                                    User Name: 
+                                </Run>
+                                 <Run>
+                                     test 
+                                 </Run>         
+                                <Run FontWeight="Bold">
+                                    Password: 
+                                </Run>  
+                                <Run>
+                                    1234
+                                </Run>
+                            </TextBlock>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-            </Border>
+                </Border>
+            </StackPanel>
             <!--user name and password boxes for logging in-->
             <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center">
                 <Border BorderBrush="Black" BorderThickness="0" Background="#FF393939" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="AddUserBorder"
@@ -92,7 +110,7 @@
                         <Label Margin="0,15,0,0" Content="User Name:" HorizontalAlignment="Left" FontWeight="Bold" Foreground="White" FontFamily="Arial Black"/>
                         <controls:CustomTextBox MaxLength="20" HorizontalContentAlignment="Center" Background="Transparent" Foreground="White" Style="{StaticResource PasswordTextBoxStyle1}" Text="{Binding CurrentUser.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Label Content="Password:" HorizontalAlignment="Left" FontWeight="Bold" Foreground="White" FontFamily="Arial Black"/>
-                        <controls:CustomTextBox HorizontalContentAlignment="Center" Background="Transparent" Foreground="White" Style="{StaticResource PasswordTextBoxStyle1}" MaxLength="8" Text="{Binding CurrentUser.Password, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="PasswordUpdated_TextBoxChanged"/>
+                        <PasswordBox x:Name="PasswordBox" HorizontalContentAlignment="Center" Background="Transparent" Foreground="White" Style="{StaticResource PasswordBoxStyle1}" MaxLength="8" PasswordChanged="PasswordBox_PasswordChanged" PreviewTextInput="PasswordBox_PreviewTextInput"/>
                     </StackPanel>
                 </Border>
                 <!--log-in button-->

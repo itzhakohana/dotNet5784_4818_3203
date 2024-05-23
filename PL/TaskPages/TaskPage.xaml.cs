@@ -100,7 +100,8 @@ namespace PL.TaskPages
 
         public TaskPage(BO.User user, int id = 0)
         {
-            InitializeComponent();            
+            InitializeComponent();
+            TaskAliasTextBox.Focus();
             if (id == 0)
             {
                 Task = new BO.Task() {Engineer = null };

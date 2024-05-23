@@ -279,6 +279,10 @@
                             <Setter Property="Opacity" TargetName="border" Value="0.7"/>
                             <!--<Setter Property="BorderThickness" TargetName="border" Value="0"/>-->
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="border" Value="white"/>
+                            <Setter Property="Opacity" TargetName="border" Value="0.4"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -304,6 +308,10 @@
                             <Setter Property="Opacity" TargetName="border" Value="0.3"/>
                             <!--<Setter Property="BorderThickness" TargetName="border" Value="0"/>-->
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" TargetName="border" Value="Transparent"/>
+                            <Setter Property="Opacity" TargetName="border" Value="0.3"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -328,10 +336,54 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!--style for toggle Button icon button with transparent background and flashing image with no IsChecked visual-->
+    <Style x:Key="FlashingToggleIconButtonTransparent_NoIsCheckedVisual" TargetType="{x:Type controls:IconToggleButton}" BasedOn="{StaticResource ToggleIconButtonTransparent_NoIsCheckedVisual}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:IconToggleButton}">
+                    <Border x:Name="border" CornerRadius="3" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                        <Image x:Name="flashingImage" Source="{TemplateBinding Icon}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="Transparent"/>
+                            <Setter Property="Opacity" TargetName="border" Value="0.3"/>
+                        </Trigger>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                    <!--<DoubleAnimation
+                                        Storyboard.TargetName="flashingImage"
+                                        Storyboard.TargetProperty="Opacity"                                        
+                                        From="1.0"
+                                        To="0.3"
+                                        Duration="0:0:0.7"/>-->
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="flashingImage"
+                                        Storyboard.TargetProperty="Width"                                        
+                                        From="30"
+                                        To="50"
+                                        Duration="0:0:1"/>
+                                    <DoubleAnimation
+                                        Storyboard.TargetName="flashingImage"
+                                        Storyboard.TargetProperty="Height"                                        
+                                        From="30"
+                                        To="50"
+                                        Duration="0:0:1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <!--style for combo box-->
     <Style x:Key="DefaultComboBoxStyle" TargetType="{x:Type ComboBox}">
         <Setter Property="Background" Value="#FF717171"/>
+        <Setter Property="Focusable" Value="False"/>
         <Setter Property="Foreground" Value="{StaticResource fontColor1}"/>
         <Setter Property="Margin" Value="0"/>
         <Setter Property="FontSize" Value="18"/>
@@ -342,20 +394,22 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
                     <Border 
-                     Name="MainBorder"
-                     Background="{TemplateBinding Background}"
-                     BorderThickness="1" 
-                     BorderBrush="Black" 
-                     CornerRadius="6">
-                        <Grid>
+                         Name="MainBorder"
+                         Focusable="False"
+                         Background="{TemplateBinding Background}"
+                         BorderThickness="1" 
+                         BorderBrush="Black" 
+                         CornerRadius="6">
+                        <Grid Focusable="False">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="30"/>
                             </Grid.ColumnDefinitions>
                             <ToggleButton 
-                             Name="ToggleButton"                                     
-                             Grid.Column="1"                                
-                             IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}">
+                                 Focusable="True"
+                                 Name="ToggleButton"                                     
+                                 Grid.Column="1"                                
+                                 IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}">
                                 <ToggleButton.Template>
                                     <ControlTemplate TargetType="{x:Type ToggleButton}">
                                         <Border Background="{StaticResource Backround1}"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="0,6,6,0">
@@ -412,6 +466,7 @@
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            <Setter TargetName="MainBorder" Property="Background" Value="{DynamicResource UnmodifiableFieldColor}"/>
                         </Trigger>
                         <Trigger Property="IsGrouping" Value="True">
                             <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
@@ -427,10 +482,11 @@
         </Setter>
     </Style>
 
-    <!--Custom text box for password-->
-    <Style x:Key="PasswordTextBoxStyle1" TargetType="controls:CustomTextBox">
+    <!--Custom style for password box-->
+    <Style x:Key="PasswordBoxStyle1" TargetType="PasswordBox">
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="FontSize" Value="17"/>
+        <!--<Setter Property="FontFamily" Value="/Graphics/Fonts/Password Regular.ttf #Password"/>-->
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="Padding" Value="2"/>
         <Setter Property="BorderThickness" Value="1"/>
@@ -439,7 +495,7 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="controls:CustomTextBox">
+                <ControlTemplate TargetType="PasswordBox">
                     <Border x:Name="Border" Height="{TemplateBinding Height}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" CornerRadius="5">
                         <StackPanel Orientation="Vertical">
                             <ScrollViewer x:Name="PART_ContentHost"/>
@@ -457,9 +513,41 @@
         </Setter>
     </Style>
 
+    <!--Custom style for text box-->
+    <Style x:Key="PasswordTextBoxStyle1" TargetType="controls:CustomTextBox">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="FontSize" Value="17"/>
+        <!--<Setter Property="FontFamily" Value="/Graphics/Fonts/Password Regular.ttf #Password"/>-->
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="LightGray"/>
+        <Setter Property="Background" Value="#FF717171"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:CustomTextBox">
+                    <Border x:Name="Border" Height="{TemplateBinding Height}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" CornerRadius="5">
+                        <StackPanel Orientation="Vertical">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                            <Separator HorizontalAlignment="Stretch" Background="White"/>
+                        </StackPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!--<Trigger Property="IsFocused" Value="True">
+                        <Setter TargetName="Border" Property="Background" Value="LightBlue"/>
+                        <Setter TargetName="Border" Property="BorderBrush" Value="DodgerBlue"/>
+                    </Trigger>-->
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--Custom text box style 1--> 
     <Style x:Key="TextBoxStyle1" TargetType="controls:CustomTextBox">
         <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Focusable" Value="True"/>
         <Setter Property="FontSize" Value="17"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -479,6 +567,14 @@
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="LightBlue"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="DodgerBlue"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource UnmodifiableFieldColor}"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource UnmodifiableFieldColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsReadOnly" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource UnmodifiableFieldColor}"/>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="{DynamicResource UnmodifiableFieldColor}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -518,6 +614,41 @@
                             </MultiTrigger.Conditions>
                             <Setter TargetName="HeaderTextBlock" Property="Visibility" Value="Visible"/>
                         </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!--style for icon in list -->
+    <Style x:Key="IconPictureDisplayStyle" TargetType="{x:Type controls:ImageListItem}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource fontColor1}"/>
+        <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Margin" Value="4"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:ImageListItem}">
+                    <Border Width="70" Height="70" x:Name="border" BorderBrush="Black" CornerRadius="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Margin="5" Source="{TemplateBinding Image}"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderThickness" TargetName="border" Value="3"/>
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Backround7}"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="BorderThickness" TargetName="border" Value="3"/>
+                            <Setter Property="Background" TargetName="border" Value="{DynamicResource Backround7}"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

@@ -62,6 +62,7 @@ namespace PL.MilestonePages
         public MilestonePage(BO.User user, int id)
         {
             InitializeComponent();
+            MsAliasTextBox.Focus();
             _id = id;
             CurrentUser = user;
             Milestone = s_bl.Milestone.Read(_id) ?? new BO.Milestone();

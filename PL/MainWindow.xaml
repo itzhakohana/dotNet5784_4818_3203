@@ -6,7 +6,7 @@
         xmlns:controls="clr-namespace:PL.CustomControls"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="1100"
+        Title="{Binding CurrentUser.UserName,StringFormat = NoPro - {0}}" Height="650" Width="1100"
         AllowsTransparency="True"
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
@@ -73,10 +73,40 @@
                         <ToggleButton.Template>
                             <ControlTemplate TargetType="ToggleButton">
                                 <Grid>
-                                    <Ellipse x:Name="ellipse" Grid.Column="1" Fill="LightBlue" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Ellipse x:Name="ellipse" ToolTipService.InitialShowDelay="0" ToolTipService.HorizontalOffset="-70" ToolTipService.Placement="Bottom" Grid.Column="1" Fill="LightBlue" Height="60" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center">
                                         <Ellipse.Effect>
                                             <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.5" Color="Black"/>
                                         </Ellipse.Effect>
+                                        <Ellipse.ToolTip>
+                                            <ToolTip Background="Gray" StaysOpen="True">
+                                                <ToolTip.Template>
+                                                    <ControlTemplate TargetType="ToolTip">
+                                                        <Border IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="auto" Width="auto">
+                                                            <Grid Margin="12">
+                                                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                    <StackPanel>
+                                                                        <StackPanel Orientation="Vertical">
+                                                                            <TextBlock HorizontalAlignment="Center" Foreground="Yellow" FontSize="18" FontWeight="Bold" Text="User Name:"/>
+                                                                            <TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="18" FontWeight="Bold" Text="{Binding CurrentUser.UserName}"/>
+                                                                        </StackPanel>
+                                                                        <Separator HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="White"/>
+                                                                        <StackPanel Orientation="Vertical">
+                                                                            <TextBlock HorizontalAlignment="Center" Foreground="Yellow" FontSize="18" FontWeight="Bold" Text="User Role:"/>
+                                                                            <TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="18" FontWeight="Bold" Text="{Binding CurrentUser.UserType}"/>
+                                                                        </StackPanel>
+                                                                    </StackPanel>
+                                                                    <StackPanel Orientation="Vertical" Visibility="{Binding CurrentUser.Engineer, Converter={StaticResource ConvertNullToVisibility}}">
+                                                                        <Separator HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="White"/>
+                                                                        <TextBlock HorizontalAlignment="Center" Foreground="Yellow" FontSize="18" FontWeight="Bold" Text="Name:"/>
+                                                                        <TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="18" FontWeight="Bold" Text="{Binding CurrentUser.Engineer.Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                    </StackPanel>
+                                                                </StackPanel>
+                                                            </Grid>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </ToolTip.Template>
+                                            </ToolTip>
+                                        </Ellipse.ToolTip>
                                     </Ellipse>
                                     <TextBlock IsHitTestVisible="False" Grid.Column="1" Text="{Binding CurrentUser.UserName, Converter={StaticResource ConvertUserNameToChar}}" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
                                 </Grid>
@@ -95,15 +125,15 @@
                     </ToggleButton>
                     <!--user display-->
                     <Popup Placement="Left" Margin="20" HorizontalAlignment="Left" PopupAnimation="Slide" AllowsTransparency="True" StaysOpen="False" AllowDrop="True" IsOpen="{Binding ElementName=CurrentUserViewToggleButton,Path=IsChecked}">
-                        <Border Width="250" Height="380" CornerRadius="15" Background="#FF0F243E">
+                        <Border Width="250" Height="auto" CornerRadius="15" Background="#FF0F243E">
                             <Border.Effect>
                                 <DropShadowEffect ShadowDepth="15" BlurRadius="5" Opacity="0.5" Color="Black"/>
                             </Border.Effect>
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="130"/>
-                                    <RowDefinition Height="90"/>
-                                    <RowDefinition Height="110"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
                                 <Grid.Resources>
                                     <Style x:Key="DefaultLableStyle" TargetType="Label">
@@ -114,7 +144,7 @@
                                 </Grid.Resources>
                                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                                     <!--user image-->
-                                    <Ellipse Margin="20" Height="85" Width="85">
+                                    <Ellipse  Margin="20" Height="85" Width="85">
                                         <Ellipse.Effect>
                                             <DropShadowEffect ShadowDepth="4" BlurRadius="5" Opacity="0.5" Color="Black" />
                                         </Ellipse.Effect>
@@ -142,23 +172,25 @@
                                     <!--user name display-->
                                     <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                                         <Label Style="{StaticResource DefaultLableStyle}" HorizontalAlignment="Center" Margin="0,20,0,0" Content="{Binding CurrentUser.UserName, UpdateSourceTrigger=PropertyChanged}"/>
-                                        <Label Style="{StaticResource DefaultLableStyle}" HorizontalAlignment="Center" Content="{Binding CurrentUser.UserType, UpdateSourceTrigger=PropertyChanged, StringFormat= Role: {0}}"/>
-                                        <Button Style="{DynamicResource ButtonStyle1}" Content="View" FontSize="14" Height="26" Click="ViewCurrentUser_BtnClick">
+                                        <Label Style="{StaticResource DefaultLableStyle}" HorizontalAlignment="Center" Foreground="Yellow" Content="{Binding CurrentUser.UserType, UpdateSourceTrigger=PropertyChanged, StringFormat= Role: {0}}"/>
+                                        <Button Style="{DynamicResource ButtonStyle1}" Content="View" FontSize="14" Height="26" Width="70" Click="ViewCurrentUser_BtnClick">
                                             <Button.Effect>
                                                 <DropShadowEffect ShadowDepth="2" BlurRadius="5" Opacity="0.5" Color="Black" />
                                             </Button.Effect>
                                         </Button>
                                     </StackPanel>
                                 </StackPanel>
-                                <Separator VerticalAlignment="Bottom" Grid.Row="0" FontWeight="Bold" Background="White" Foreground="AliceBlue" Width="200"/>
+                                <!--current task display inside user overview pop-up-->
                                 <StackPanel  HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Orientation="Vertical" Visibility="{Binding CurrentUser.CurrentTask, Converter={StaticResource ConvertNullToVisibility}}">
+                                    <Separator VerticalAlignment="Top" FontWeight="Bold" Background="White" Foreground="AliceBlue" Width="200"/>
                                     <Label VerticalContentAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="Task:" Foreground="Yellow" FontSize="16"/>
                                     <Border BorderBrush="Black" BorderThickness="0" CornerRadius="5" Margin="-20,0">
-                                        <Label VerticalContentAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="{Binding CurrentTask.Alias, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" FontSize="16"/>
+                                        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="{Binding CurrentTask.Alias, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" FontSize="16"/>
                                     </Border>
                                 </StackPanel>
-                                <Separator VerticalAlignment="Bottom" Grid.Row="1" FontWeight="Bold" Background="White" Foreground="AliceBlue" Width="200"/>
+                                <!--engineer display inside user overview pop-up-->
                                 <StackPanel  HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" Orientation="Vertical" Visibility="{Binding CurrentUser.Engineer, Converter={StaticResource ConvertNullToVisibility}}">
+                                    <Separator VerticalAlignment="Top" FontWeight="Bold" Background="White" Foreground="AliceBlue" Width="200"/>
                                     <Label VerticalContentAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="Engineer:" Foreground="Yellow" FontSize="16"/>
                                     <Border BorderBrush="Black" BorderThickness="0" CornerRadius="5" Width="200" HorizontalAlignment="Stretch">
                                         <StackPanel>
@@ -177,13 +209,34 @@
                 </Grid>
                 <!--asigned task display-->
                 <Grid Grid.Column="0" Width="100" VerticalAlignment="Center" HorizontalAlignment="Right">
+                    <!--toggle-button for opening the task pop up-->
                     <ToggleButton x:Name="CurrentTaskViewToggleButton" IsEnabled="{Binding CurrentTask, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ConvertNullToBool}}">
                         <ToggleButton.Template>
                             <ControlTemplate TargetType="ToggleButton">
-                                <Border x:Name="border" Width="55" MaxHeight="50" Height="50" HorizontalAlignment="Right" CornerRadius="10" Background="{Binding CurrentTask, NotifyOnSourceUpdated=True,Converter={StaticResource ConvertTaskStatusToBackgroundColor}}">
+                                <Border x:Name="border" ToolTipService.ShowOnDisabled="True" ToolTipService.InitialShowDelay="0" ToolTipService.VerticalOffset="54" ToolTipService.Placement="Left" Width="55" MaxHeight="50" Height="50" HorizontalAlignment="Right" CornerRadius="10" Background="{Binding CurrentTask, NotifyOnSourceUpdated=True,Converter={StaticResource ConvertTaskStatusToBackgroundColor}}">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                                     </Border.Effect>
+                                    <Border.ToolTip>
+                                        <ToolTip Background="Gray" StaysOpen="True">
+                                            <ToolTip.Template>
+                                                <ControlTemplate TargetType="ToolTip">
+                                                    <Border IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="auto" Width="auto">
+                                                        <Grid Margin="10">
+                                                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <StackPanel Visibility="{Binding CurrentTask, Converter={StaticResource ConvertNullToVisibility}}">
+                                                                    <TextBlock HorizontalAlignment="Center" Foreground="Yellow" FontSize="18" FontWeight="Bold" Text="Your Task:"/>
+                                                                    <TextBlock HorizontalAlignment="Center" Foreground="White" FontSize="18" FontWeight="Bold" Text="{Binding CurrentTask.Alias, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                    <Separator HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="White"/>
+                                                                </StackPanel>
+                                                                <TextBlock Foreground="White" FontSize="18" FontWeight="Bold" Text="{Binding CurrentTask, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, Converter={StaticResource ConvertTaskToStatusMessage}}"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </ToolTip.Template>
+                                        </ToolTip>
+                                    </Border.ToolTip>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <!--<Label Content="Your Task" FontSize="19"  FontFamily="Bahnschrift SemiBold"/>-->
                                         <Image Height="30" Width="30" Source="/Graphics/Icons/laptop1.png" Margin="12,0" >
@@ -196,11 +249,10 @@
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Opacity" TargetName="border" Value="0.4"/>
-                                        <!--<Setter Property="BorderThickness" TargetName="border" Value="0"/>-->
                                     </Trigger>
                                     <Trigger Property="IsChecked" Value="True">
                                         <Setter Property="Opacity" TargetName="border" Value="0.4"/>
-                                        <!--<Setter Property="BorderThickness" TargetName="border" Value="0"/>-->
+                                        
                                     </Trigger>
                                     <Trigger Property="IsEnabled" Value="false">
                                         <Setter Property="Opacity" TargetName="border" Value="0.9"/>
@@ -246,13 +298,14 @@
                                     </Button>
                                 </StackPanel>
                                 <Separator VerticalAlignment="Bottom" Grid.Row="1" FontWeight="Bold" Background="White" Foreground="AliceBlue" Width="200"/>
-                                
-                                <StackPanel Grid.Row="2" Orientation="Vertical">
-                                    <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical">
-                                        <Label VerticalContentAlignment="Center" Style="{StaticResource DefaultLableStyle}" Content="{Binding CurrentTask, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, Converter={StaticResource ConvertTaskToStatusMessage}}" FontSize="16"/>
+                                <!--detailed task message-->
+                                <StackPanel  Margin="10,0" Grid.Row="2" Orientation="Vertical">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical">
+                                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding CurrentTask, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True, Converter={StaticResource ConvertTaskToStatusMessage}}" FontWeight="Bold" Foreground="White" FontSize="16"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <Separator VerticalAlignment="Bottom" Grid.Row="2" FontWeight="Bold" Background="White" Foreground="AliceBlue" Width="200"/>
+                                <!--button for navigating to task page-->
                                 <Button Grid.Row="3" Margin="30,10" FontSize="20" 
                                             IsEnabled="{Binding CanUpdateTaskProgress, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"
                                             Style="{DynamicResource ButtonStyle1}" 
@@ -274,8 +327,8 @@
                     </Border.Effect>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" >
-                            <controls:IconToggleButton x:Name="ClockControlsToggleBottun" Style="{DynamicResource ToggleIconButton1}" Background="DimGray" Height="30" Width="30" Icon="/Graphics/Icons/wrench1.png" Padding="3" 
-                                                       Visibility="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToVisibility}}"/>
+                            <controls:IconToggleButton x:Name="ClockControlsToggleBottun" Style="{DynamicResource ToggleIconButtonTransparent}" Background="Transparent" Height="30" Width="30" Icon="/Graphics/Icons/wrench1.png" Padding="3" 
+                                                       Visibility="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToVisibility}}" IsEnabled="{Binding IsArtificialClock}"/>
                             <Label HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" Background="Transparent" Width="200" FontSize="20" >
                                 <Label.Content>
                                     <TextBlock Text="{Binding CurrentTime, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:dd/MM/yy  HH:mm:ss}}" />

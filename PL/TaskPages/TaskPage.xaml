@@ -310,7 +310,7 @@
                 <!--alias-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.ColumnSpan="2" Width="300" Grid.Row="1">
                     <Label VerticalContentAlignment="Bottom" Content="Name/Alias:"/>
-                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"
+                    <controls:CustomTextBox x:Name="TaskAliasTextBox" Style="{StaticResource TextBoxStyle1}" Background="White"
                          Text="{Binding Task.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                          IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
                     </controls:CustomTextBox>
@@ -410,7 +410,7 @@
                 <!--Remarks-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="3">
                     <Label VerticalContentAlignment="Bottom" Content="Remarks:"/>
-                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"                                 
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left"                              
                           IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
                           Text="{Binding Task.Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
                     </controls:CustomTextBox>
@@ -442,7 +442,7 @@
                 <!--Deliverables-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="4">
                     <Label VerticalContentAlignment="Bottom" Content="Deliverables:"/>
-                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" Height="130"  TextWrapping="Wrap"                                               
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" Height="130"  TextWrapping="Wrap"                                               
                           Text="{Binding Task.Deliverables, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                           IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
                     </controls:CustomTextBox>
@@ -451,7 +451,7 @@
                 <!--description-->
                 <StackPanel Name="DescriptionPanel" VerticalAlignment="Center" Margin="15,0"  Grid.Column="2" Grid.Row="4">
                     <Label VerticalContentAlignment="Bottom" Content="Description:"/>
-                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" Height="130" TextWrapping="Wrap" x:Name="DesTextBox"
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" Height="130" HorizontalContentAlignment="Left" TextWrapping="Wrap" x:Name="DesTextBox"
                           Text="{Binding Task.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                           IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
                     </controls:CustomTextBox>

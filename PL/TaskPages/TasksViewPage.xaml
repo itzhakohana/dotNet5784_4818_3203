@@ -22,8 +22,10 @@
                 <Border                     
                     Name="border"            
                     HorizontalAlignment="Stretch"
-                    ToolTipService.InitialShowDelay="500"
-                    ToolTipService.BetweenShowDelay="2000"
+                    ToolTipService.InitialShowDelay="200"
+                    ToolTipService.BetweenShowDelay="0"
+                    ToolTipService.Placement="Relative"
+                    ToolTipService.HorizontalOffset="50"
                     Background="{DynamicResource EngineerListBackround2}"            
                     CornerRadius="8">
                     <Grid HorizontalAlignment="Stretch">

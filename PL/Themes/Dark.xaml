@@ -64,6 +64,9 @@
     <SolidColorBrush x:Key="TextBoxBorderColorOnFocus1" Color="Blue">
     </SolidColorBrush>
 
+    <SolidColorBrush x:Key="UnmodifiableFieldColor" Color="#FF9C9A9A">
+    </SolidColorBrush>
+
    
         
 </ResourceDictionary>

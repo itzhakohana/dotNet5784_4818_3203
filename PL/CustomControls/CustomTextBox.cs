@@ -34,7 +34,18 @@ namespace PL.CustomControls
 
         static CustomTextBox()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomTextBox), new FrameworkPropertyMetadata(typeof(CustomTextBox)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(CustomTextBox), new FrameworkPropertyMetadata(typeof(CustomTextBox)));            
         }
+
+        public CustomTextBox()
+        {
+            this.GotKeyboardFocus += OnGotKeyboardFocusHandler;
+        }
+
+        private void OnGotKeyboardFocusHandler(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            this.Select(0, this.Text.Length);
+        }
+
     }
 }

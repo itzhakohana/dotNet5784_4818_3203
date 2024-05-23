@@ -48,6 +48,7 @@
             <local:ConvertEngineerInUserToString x:Key="ConvertEngineerInUserToString"/>
             <local:ConvertUserAndEngineerToVisibility x:Key="ConvertUserAndEngineerToVisibility"/>
             <local:ConvertUserAndEngineerToIsEnabled x:Key="ConvertUserAndEngineerToIsEnabled"/>
+            <local:ConverImageListItemToBitMapImage x:Key="ConverImageListItemToBitMapImage"/>
             
         </ResourceDictionary>
     </Application.Resources>

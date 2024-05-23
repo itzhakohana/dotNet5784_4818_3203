@@ -55,9 +55,7 @@ internal class UserImplementation : BlApi.IUser
             if (_dal.User.Read(user.Engineer!.Id) is not null)
                 throw new BO.BlAlreadyExistsException($"User with Id {user.Id} already exists");
             if (user.UserType == BO.UserType.Engineer && _dal.Engineer.Read(user.Engineer.Id) is null)
-                throw new BO.BlDoesNotExistException($"Engineer with Id {user.Engineer.Id} does not exist");
-            if (_dal.User.Read(u => u.Password == user.Password) is not null)
-                throw new BO.BlAlreadyExistsException($"Password {user.Password} already in use");
+                throw new BO.BlDoesNotExistException($"Engineer with Id {user.Engineer.Id} does not exist");            
             user.Id = user.Engineer.Id;
         }
         else
@@ -67,7 +65,13 @@ internal class UserImplementation : BlApi.IUser
             var rand = new Random();
             user.Id = rand.Next(200000000, 400000000);
         }
-        
+
+        if (_dal.User.Read(u => u.Password == user.Password) is not null)
+            throw new BO.BlAlreadyExistsException($"Password {user.Password} already in use");
+        if (user.Password.Length < 4)
+            throw new BO.BlLogicViolationException("Password too short. password must be at least 4 characters long");
+        if (user.Password.Length > 8)
+            throw new BO.BlLogicViolationException("Password too long. password must be 8 characters at most");
 
         _dal.User.Create(new DO.User()
         {
@@ -156,8 +160,17 @@ internal class UserImplementation : BlApi.IUser
     /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void Update(BO.User user)
     {
-        if(Read(user.Id) is null)
-            throw new BO.BlDoesNotExistException($"User with Id {user.Id} does not exist");       
+        if (user.UserType == BO.UserType.Engineer && user.Engineer == null)
+            throw new BO.BlAlreadyExistsException($"No Engineer is assigned to this User");
+        if (user.Password.Length < 4)
+            throw new BO.BlLogicViolationException("Password too short. password must be at least 4 characters long");
+        if (user.Password.Length > 8)
+            throw new BO.BlLogicViolationException("Password too long. password must be 8 characters at most");
+        if (Read(user.Id) is null)
+            throw new BO.BlDoesNotExistException($"User with Id {user.Id} does not exist");
+        if (_dal.User.Read(u => u.Id != user.Id  && u.Password == user.Password) is not null)
+            throw new BO.BlLogicViolationException("Password is already in use");        
+
         _dal.User.Update(new DO.User()
         {
             Id = user.Id,
@@ -189,7 +202,7 @@ internal class UserImplementation : BlApi.IUser
     {
         var user = Read(u => u.Password == password && u.UserName == userName);
         if (user is null)
-            throw new BO.BlDoesNotExistException($"User '{userName}' not found");        
+            throw new BO.BlDoesNotExistException($"User '{userName}' not found. Invalid user name or password");        
         user.LastLoginDate = s_bl.Clock;
         Update(user);
         return user;

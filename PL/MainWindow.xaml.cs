@@ -73,6 +73,18 @@ namespace PL
 
 
 
+        public bool IsArtificialClock
+        {
+            get { return (bool)GetValue(IsArtificialClockProperty); }
+            set { SetValue(IsArtificialClockProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for RealTimeClock.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsArtificialClockProperty =
+            DependencyProperty.Register("IsArtificialClock", typeof(bool), typeof(MainWindow), new PropertyMetadata(null));
+
+
+
         public bool Loading
         {
             get { return (bool)GetValue(LoadingProperty); }
@@ -94,6 +106,7 @@ namespace PL
         private void WorkerReloadClock_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             CurrentTime = s_bl.Clock;
+            IsArtificialClock = !s_bl.DateControl.GetIsRealTimeClock();
         }
 
         private void WorkerReloadUser_DoWork(object sender, DoWorkEventArgs e)
@@ -102,13 +115,20 @@ namespace PL
             {
                 Thread.Sleep(3000);
                 userUpdaterWorker.ReportProgress(0);
-            }
+            }            
         }
-        private void WorkerReloadUser_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private async void WorkerReloadUser_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            CurrentUser = s_bl.User.Read(CurrentUser.Id) ?? new BO.User();
+            int tmpId = CurrentUser.Id;
+            BO.User? tmpUser = await Task.Run(() => s_bl.User.Read(tmpId) ?? new BO.User());
+            CurrentUser = tmpUser;
             CurrentTask = CurrentUser.CurrentTask;
-            if (CurrentTask != null) CanUpdateTaskProgress = s_bl.Task.CanStartWork(CurrentTask.Id) || CurrentTask.Status == BO.Status.OnTrack;
+            bool tmpCanStartWork = await Task.Run(() =>
+                tmpUser.CurrentTask != null ?
+                    s_bl.Task.CanStartWork(tmpUser.CurrentTask.Id) : false
+            );
+                        
+            if (CurrentTask != null) CanUpdateTaskProgress = tmpCanStartWork || CurrentTask.Status == BO.Status.OnTrack;
             else CanUpdateTaskProgress = false;            
         }
 
@@ -290,32 +310,6 @@ namespace PL
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            //try
-            //{
-            //    //Set up SMTP client
-            //    SmtpClient client = new SmtpClient("smtp.elasticemail.com", 2525);
-            //    client.EnableSsl = true; // Enable SSL/TLS
-            //    client.UseDefaultCredentials = false;
-            //    client.Credentials = new NetworkCredential("pinip5000@gmail.com", "ADB92DAF8EAEEE6B60845B17192FBF2AF2CD");
-
-            //    // Set up email message
-            //    MailMessage message = new MailMessage();
-            //    message.From = new MailAddress("pinip5000@gmail.com");
-            //    message.Sender = new MailAddress("pinip5000@gmail.com");
-            //    message.To.Add("pinig50@gmail.com");
-            //    message.Subject = "Account Verification";
-            //    message.Body = "Please verify your account by clicking the link below.";                
-
-            //    // Send email
-            //    client.Send(message);
-
-            //    MessageBox.Show("Verification email sent successfully.");
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error: " + ex.Message);
-            //}
-            //MainFrame.NavigationService.Navigate(new UserPages.UserPage(CurrentUser, CurrentUser.Id));
         }
 
         private void WindowClosed(object sender, EventArgs e)

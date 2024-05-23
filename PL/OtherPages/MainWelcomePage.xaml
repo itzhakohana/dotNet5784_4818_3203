@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PL.OtherPages"
+      xmlns:controls="clr-namespace:PL.CustomControls"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1050"
       Title="MainWelcomePage">
@@ -18,6 +19,16 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        
+        <!--guides and info pop-up windows-->
+        <Grid Panel.ZIndex="10" Width="550" Height="350" VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <controls:HowToUseGuide x:Name="HowToUseGuide"/>
+            <controls:AboutTheMakersBox x:Name="AboutTheMakersBox" Visibility="Collapsed"/>
+            <Grid.Effect>
+                <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+            </Grid.Effect>
+        </Grid>
+        
         <Grid Grid.ColumnSpan="3" Background="Transparent" Margin="30">
             <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="1000">
                 <!--logo-->
@@ -46,13 +57,14 @@
         <!--squares at the bottom-->
         <Grid Grid.Row="1" Grid.ColumnSpan="3" Margin="10,0,15,15">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Border Margin="30,0,0,0" CornerRadius="10" Height="160" Width="200" Background="#FFA4FFC2">
+                <!--about the makers-->
+                <Border Margin="30,0,0,0" CornerRadius="10" Height="140" Width="250" Background="#FFA4FFC2" PreviewMouseLeftButtonDown="AboutTheMakersOpener_btnClick">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="5" BlurRadius="5" Opacity="0.3" Color="Black"/>
                     </Border.Effect>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock FontSize="18" Text="About the makers" FontFamily="Arial Black" Foreground="#FF505050"/>
-                        <Image  Source="/Graphics/Icons/workers2.png" Height="100" Width="100">
+                        <Image  Source="/Graphics/Icons/workers2.png" Height="80" Width="80">
                             <Image.Effect>
                                 <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.3" Color="Black"/>
                             </Image.Effect>
@@ -68,13 +80,14 @@
                         </Style>
                     </Border.Style>
                 </Border>
-                <Border Margin="30,0,0,0" CornerRadius="10" Height="160" Width="200" Background="#FFFFE28F">
+                <!--how to use-->
+                <Border Margin="30,0,0,0" CornerRadius="10" Height="140" Width="250" Background="#FFFFE28F" PreviewMouseLeftButtonDown="HowToUseOpener_btnClick">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="5" BlurRadius="5" Opacity="0.3" Color="Black"/>
                     </Border.Effect>
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                         <TextBlock FontSize="18" Text="How to use" FontFamily="Arial Black" Foreground="#FF505050"/>
-                        <Image  Source="/Graphics/Icons/guide.png" Height="100" Width="100">
+                        <Image  Source="/Graphics/Icons/guide.png" Height="80" Width="80">
                             <Image.Effect>
                                 <DropShadowEffect ShadowDepth="6" BlurRadius="5" Opacity="0.3" Color="Black"/>
                             </Image.Effect>
@@ -90,7 +103,8 @@
                         </Style>
                     </Border.Style>
                 </Border>
-                <Border Margin="30,0,0,0" CornerRadius="10" Height="160" Width="200" Background="#FFA3B5E9">
+                <!--feedback-->
+                <!--<Border Margin="30,0,0,0" CornerRadius="10" Height="160" Width="200" Background="#FFA3B5E9">
                     <Border.Effect>
                         <DropShadowEffect ShadowDepth="5" BlurRadius="5" Opacity="0.3" Color="Black"/>
                     </Border.Effect>
@@ -111,7 +125,7 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                </Border>
+                </Border>-->
             </StackPanel>
         </Grid>
     </Grid>

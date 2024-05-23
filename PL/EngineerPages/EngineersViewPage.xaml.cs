@@ -152,10 +152,11 @@ namespace PL.EngineerPages
                                 MessageBox.Show("You dont have permission to creat users", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                                 return;
                             }
+                            EnterUserNameTextBox.Focus();
                             NewUser.Id = engineer.Id;
                             NewUser.UserType = BO.UserType.Engineer;
                             NewUser.Engineer = engineer;
-                            AddUserBorder.Visibility = Visibility.Visible;                              
+                            AddUserBorder.Visibility = Visibility.Visible;                                                        
                             break;
                     }                                
                 }
@@ -182,6 +183,7 @@ namespace PL.EngineerPages
         private void CloseAddUserPopup_btnClick(object sender, RoutedEventArgs e)
         {
             AddUserBorder.Visibility = Visibility.Collapsed;
+            NewUser = new BO.User();
         }
 
         private void CreatUser_btnClick(object sender, RoutedEventArgs e)
@@ -189,14 +191,14 @@ namespace PL.EngineerPages
             try
             {
                 s_bl.User.Add(NewUser);
-                MessageBox.Show("Successfuly Created a New User Profile", "Success", MessageBoxButton.OK, MessageBoxImage.None);                
+                AddUserBorder.Visibility = Visibility.Collapsed;
+                MessageBox.Show("Successfuly Created a New User Profile", "Success", MessageBoxButton.OK, MessageBoxImage.None);
+                NewUser = new BO.User();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            NewUser = new BO.User();
-            AddUserBorder.Visibility = Visibility.Collapsed;
         }
 
         private void PasswordUpdated_TextBoxChanged(object sender, TextCompositionEventArgs e)
@@ -239,20 +241,7 @@ namespace PL.EngineerPages
                 }
 
             }
-        }
-
-        static BitmapImage BytesToImage(byte[] bytes)
-        {
-            using (MemoryStream memoryStream = new MemoryStream(bytes))
-            {
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memoryStream;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                return bitmapImage;
-            }
-        }
+        }        
 
         private void TextChanged_SearchTextBox(object sender, TextChangedEventArgs e)
         {

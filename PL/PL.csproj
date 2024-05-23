@@ -101,6 +101,18 @@
     <None Remove="Graphics\Icons\workers.png" />
     <None Remove="Graphics\Icons\workers2.png" />
     <None Remove="Graphics\Icons\wrench1.png" />
+    <None Remove="Graphics\ProfileIcons\concerned-face.png" />
+    <None Remove="Graphics\ProfileIcons\emoji.png" />
+    <None Remove="Graphics\ProfileIcons\face-recognition.png" />
+    <None Remove="Graphics\ProfileIcons\happy.png" />
+    <None Remove="Graphics\ProfileIcons\happy1.png" />
+    <None Remove="Graphics\ProfileIcons\happyFace.png" />
+    <None Remove="Graphics\ProfileIcons\head.png" />
+    <None Remove="Graphics\ProfileIcons\man.png" />
+    <None Remove="Graphics\ProfileIcons\model.png" />
+    <None Remove="Graphics\ProfileIcons\sad.png" />
+    <None Remove="Graphics\ProfileIcons\thinking-face.png" />
+    <None Remove="Graphics\ProfileIcons\woman.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -340,6 +352,42 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\wrench1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\concerned-face.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\emoji.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\face-recognition.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\happyFace.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\happy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\happy1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\head.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\man.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\model.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\sad.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\thinking-face.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\woman.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

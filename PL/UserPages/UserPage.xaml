@@ -29,16 +29,16 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  Grid.Column="1" Grid.Row="1">
                     <!--Name-->
-                    <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="1">
+                    <StackPanel  VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="1">
                         <Label VerticalContentAlignment="Bottom" Content="User Name:"/>
-                        <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" Width="170"
+                        <controls:CustomTextBox x:Name="UserNameTextBox" Style="{StaticResource TextBoxStyle1}" Background="White" Width="170"
                                     Text="{Binding MyUser.UserName, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"
                                     IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
                         </controls:CustomTextBox>
                     </StackPanel>
                     <!--password-->
                     <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="1">
-                        <Label VerticalContentAlignment="Bottom" Content="Password"/>
+                        <Label VerticalContentAlignment="Bottom" Content="Password:"/>
                         <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" 
                                     PreviewTextInput="PasswordUpdated_TextBoxChanged" MaxLength="8" Width="170"
                                     Text="{Binding MyUser.Password, Mode=TwoWay, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}"

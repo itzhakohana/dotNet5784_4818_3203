@@ -89,6 +89,7 @@ namespace PL.UserPages
         public UserPage(BO.User user, string password)
         {
             InitializeComponent();
+            UserNameTextBox.Focus();
             CurrentUser = user;
             Password = password;            
             AvailableEngineers = s_bl.Engineer.ReadAll(e => s_bl.User.Read(e.Id) is null)?.ToList();

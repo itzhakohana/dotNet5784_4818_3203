@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="PL.CustomControls.ChooseIconBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PL.CustomControls"
+             xmlns:controls="clr-namespace:PL.CustomControls" mc:Ignorable="d"
+             d:DesignHeight="350" d:DesignWidth="550" Visibility="Collapsed"
+             DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    
+    
+    <Border CornerRadius="10" Background="{StaticResource Backround2}" BorderBrush="Black" BorderThickness="1">
+        <Grid>
+            <!--Back button-->
+            <controls:IconButton 
+                Margin="10" Background="White" Height="15" Width="15" IconHeight="70" HorizontalAlignment="Left" VerticalAlignment="Top"
+                Style="{DynamicResource IconButton1}" Content="Back" Click="GoBack_BtnClick" 
+                Icon="/Graphics/Icons/backArrow1.png"/>
+            <!--Button for saving the picutre-->
+            <Button 
+                Style="{DynamicResource ButtonStyle1}"  Content="Save"
+                Background="{StaticResource Backround4}" Foreground="White" FontSize="10" VerticalAlignment="Top" HorizontalAlignment="Right"
+                Margin="7" Width="70" Height="30"  Click="Save_btnClick">
+            </Button>
+
+            <Border x:Name="IconsListBorder" Margin="5,35,5,5" Background="Transparent" BorderThickness="0">
+                <ListBox ScrollViewer.HorizontalScrollBarVisibility="Hidden" x:Name="IconsCollection" Background="Transparent" HorizontalAlignment="Center" HorizontalContentAlignment="Center" BorderThickness="0">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Width="{Binding ElementName=IconsListBorder,Path=ActualWidth}"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+                    <ItemsControl.Items>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/concerned-face.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/face-recognition.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/happy.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/happy1.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/happyFace.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/head.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/man.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/model.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/sad.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/woman.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/thinking-face.png"/>
+
+                    </ItemsControl.Items>
+
+                </ListBox>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>

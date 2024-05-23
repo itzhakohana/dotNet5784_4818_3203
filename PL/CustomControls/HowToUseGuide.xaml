@@ -1,0 +1,176 @@
+﻿<UserControl x:Class="PL.CustomControls.HowToUseGuide"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PL.CustomControls"
+             xmlns:controls="clr-namespace:PL.CustomControls"             
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="550"
+             Visibility="Collapsed">
+    
+    <Border x:Name="MainBorder" CornerRadius="10" Background="{DynamicResource Backround6}">
+        <Grid Margin="3,10,3,3">
+            <TabControl HorizontalContentAlignment="Center" Background="Transparent" BorderThickness="0">
+                <TabItem Header="English" Width="110" Style="{StaticResource CustomTabItemStyle}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid Margin="15" HorizontalAlignment="Center">
+                            <TextBlock TextWrapping="Wrap" FontSize="16" Foreground="Black">
+                                <Run FontWeight="Bold" FontSize="20" TextDecorations="Underline">Welcome to our project-management program!</Run>
+                                <LineBreak/>
+                                <Run>Here is a basic guide for using the program:</Run>
+                                <LineBreak/>
+                                <LineBreak/>
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">1) Tasks Configuration</Run>
+                                <LineBreak/>
+                                <Run>Creat tasks and configure their comlexity, text fields, duration and more</Run>
+                                <LineBreak/>
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">2) Task-Dependencies Configuration(optional)</Run>
+                                <LineBreak/>
+                                <Run>Form dependencies between tasks for a custom project structure. milestones will be created authomatically from the task-dependencies when forming the project's schedule</Run>
+                                <LineBreak/>
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">3) Engineers Configuration</Run>
+                                <LineBreak/>
+                                <Run>Add engineers to the project. their expertise level will determine the tasks they will be able to work on. engineers can be added after the project starts as well</Run>
+                                <LineBreak/>
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">4) Users</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    (Creating users is possible at any stage of the project) In order for engineers to be able to sign in to the programm and do work, they need a user profile
+                                    to be created and assigned to them.
+                                    there are two user types: Engineer and Admin. Engineer-user is just a worker in the project and can do nothing more besides
+                                    working on tasks and configuring his/her own engineer profile(promotion from Engineer to Admin is possible at any time). 
+                                    Admin-user can also be a working engineer but not neccessarily. the admin can
+                                    access all information regrading engineers and users, creat/modify/delete tasks and engineers, promote other engineers, start and reset the current project, 
+                                    control the system's clock and more.</Run>
+                                <LineBreak/>
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">Two methods of creating users</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    To creat users you will need to be an Admin. go to the users page and click on the + icon on the bottom right.
+                                    alternatively, you can quickly creat user for a specific engineer. go to the engineers page and click the 3 dots on the right of your chosen engineer. 
+                                    then, select the option 'Creat User' and give the user a name and password.
+                                </Run>
+                                <LineBreak/>                                                                
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">5) Starting the project</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    When you are done adding all the tasks to the project,the project can be started.
+                                    to start the project, go to the project page and click 'Start Project' on the bottom right.
+                                    choose the project's planned starting date and the project's finish date(which is the date at which the project must be finished e.i project deadline)
+                                    the program will then set a schedule for each individual task(which can be viewed on the task's page) and divide the tasks into milestones based on task dependencies.
+                                    after a project-schedule is successfuly created, the project has officialy started and work on tasks can commence. adding/deleting tasks options will
+                                    be unavailable.
+                                </Run>  
+                                <LineBreak/>                                                                
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">The system clock</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    By default the system follows the real-time clock. for testing purposes, this can be changed in the configuration file.
+                                    by seting the 'IsRealTimeClock' in the data-config file to false, the system will run on an artificial, faster clock and a pop-up menu will open up for admins 
+                                    with the options to skip time in intervals of hour/day/month.
+                                </Run>
+                                <LineBreak/>                                                                
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">Tracking project progress</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    On the project page, the current on-going tasks will be displayed for everyone. and the tasks which are available to be worked on, will be displayed to 
+                                    Engineer-users based on their competence level.
+                                </Run>
+                                <LineBreak/>                                                                
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">Reporting progress on tasks</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    When engineer is assigned a task, the engineer must report starting/completing work through the task menu on the top right(which is only available when a task is assigned). 
+                                    if the task is dependant on other tasks, they must be finished first by other engineers in order to start working
+                                    (i.e an engineer can only start working on a task whose previous tasks are all completed)
+                                </Run>          
+                            </TextBlock>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="עברית" Width="110" Style="{StaticResource CustomTabItemStyle}">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <Grid Margin="15" HorizontalAlignment="Center">
+                            <TextBlock FlowDirection="RightToLeft" TextWrapping="Wrap" FontSize="16" Foreground="Black">
+                                <Run FontWeight="Bold" FontSize="20" TextDecorations="Underline">ברוכים הבאים לתכנת ניהול הפרוייקטים שלנו!</Run>
+                                <LineBreak/>
+                                <Run>זהו מדריך בסיסי לשימוש בתכנה:</Run>
+                                <LineBreak/>
+                                <LineBreak/>
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">1) הגדרת משימות</Run>
+                                <LineBreak/>
+                                <Run>צרו משימות והגדירו את רמת הקושי, השדות הטקסט, משך הזמן ועוד</Run>
+                                <LineBreak/>
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">2) הגדרת תלוית בין משימות (אופציונלי)</Run>
+                                <LineBreak/>
+                                <Run>צור תלותים בין המשימות לבניית מבנה פרויקט מותאם אישית. מיילסטונים ייווצרו אוטומטית מהתלויות שהגדרתם בשלב איתחול הפרויקט </Run>
+                                <LineBreak/>
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">3) הגדרת מהנדסים</Run>
+                                <LineBreak/>
+                                <Run>הוסיפו מהנדסים לפרויקט. רמת המומחיות שלהם תקבע אילו משימות הם יוכלו לעבוד עליהן. ניתן להוסיף מהנדסים גם לאחר התחלת הפרויקט</Run>
+                                <LineBreak/>
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">4) משתמשים</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    (יצירת משתמשים אפשרית בכל שלב של הפרויקט) כדי שהמהנדסים יוכלו להיכנס לתוכנית ולעבוד, נדרש ליצור פרופיל משתמש ולשייך אותו אליהם.
+                                    ישנם שני סוגי משתמשים: מהנדס(Engineer) ומנהל (Admin).
+                                    משתמש המהנדס הוא פשוט עובד בפרויקט ולא יכול לעשות דבר משמעותי לפרויקט מעבר. (הקידום ממהנדס למנהל אפשרי בכל עת). 
+                                    משתמש המנהל יכול גם להיות מהנדס עובד אך לא בהכרח. המנהל יכול לגשת לכל המידע הנוגע למהנדסים ולמשתמשים, ליצור/לשנות/למחוק משימות ומהנדסים, לקדם מהנדסים אחרים, להתחיל ולאפס את הפרויקט הנוכחי, לשלוט בשעון המערכת ועוד.
+                                </Run>
+                                <LineBreak/>
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">שני שיטות ליצירת משתמשים</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    כדי ליצור משתמשים יהיה עליכם להיות מנהלים. עברו לדף המשתמשים ולחצו על סמל ההוספה (+) בצד ימין למטה.
+                                    בנוסף, תוכלו ליצור משתמש באופן מהיר למהנדס ספציפי. עברו לדף המהנדסים ולחצו על השלוש נקודות בימין של המהנדס שבחרתם. 
+                                    לאחר מכן, בחרו את האפשרות "יצירת משתמש" והקצינו שם וסיסמה למשתמש.
+                                </Run>
+                                <LineBreak/>                                                                
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">5) התחלת הפרויקט</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    כאשר תסיימו להוסיף את כל המשימות לפרויקט, ניתן להתחיל את הפרויקט.
+                                    כדי להתחיל את הפרויקט, עברו לדף הפרויקט ולחצו על 'Start Project' בחלקו התחתון הימני.
+                                    בחרו את תאריך ההתחלה המתוכנן לפרויקט ואת תאריך הסיום של הפרויקט (שהוא תאריך בו הפרויקט חייב להסתיים, כלומר המועד הסופי לביצוע הפרויקט)
+                                    התוכנית תקבע לוח זמנים לכל משימה בנפרד (שאותו ניתן לראות בדף המשימה) ותחלק את המשימות למיילסטונים על סמך התלויות שהגדרו בין המשימות.
+                                    לאחר שלו"ז הפרויקט נוצר בהצלחה, הפרויקט מתחיל רשמית וניתן להתחיל את העבודה על המשימות. אפשרויות להוספת/מחיקת משימות
+                                    תהיינה לא זמינות.
+                                </Run>  
+                                <LineBreak/>                                                                
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">שעון המערכת</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    ברירת המחדל של המערכת היא לעקוב אחרי השעון האמיתי. למטרות בדיקה/הצגה, ניתן לשנות זאת בקובץ התצורה.
+                                    על ידי הגדרת 'IsRealTimeClock' בקובץ ה- data-config לערך false, המערכת תרוץ על שעון מלאכותי, ותפתח למנהלים
+                                    האפשרות לדלג על הזמן במרווחי שעה/יום/חודש.
+                                </Run>
+                                <LineBreak/>                                                                
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">מעקב אחר התקדמות הפרויקט</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    בדף הפרויקט, המשימות שכרגע בהתקדמות יוצגו לכולם. והמשימות הזמינות לעבודה תוצגו למשתמשי מהנדס על פי רמת ההתמחות שלהם.
+                                </Run>
+                                <LineBreak/>                                                                
+                                <Run TextDecorations="Underline" Foreground="DarkKhaki">דיווח על התקדמות הפרויקט</Run>
+                                <LineBreak/>                                
+                                <Run>
+                                    כאשר המהנדס מוקצה למשימה, הוא חייב לדווח על התחלת/סיום העבודה דרך תפריט המשימות בצד ימין למעלה (שזמין רק כאשר משימה מוקצת). 
+                                    אם המשימה תלויה במשימות אחרות, יש להשלים אותן תחילה כדי להתחיל בעבודה
+                                    (כלומר, מהנדס יכול להתחיל לעבוד על משימה רק אם המשימות הקודמות שלה הושלמו כולן).
+                                </Run>
+                            </TextBlock>
+                        </Grid> 
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+            <!--close button-->
+            <controls:IconButton Margin="23,15" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="21" Height="21" 
+                Icon="/Graphics/Icons/exit2.png" Click="CloseButton_Click">
+                <ButtonBase.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                </ButtonBase.Effect>
+            </controls:IconButton>
+        </Grid>
+    </Border>
+</UserControl>

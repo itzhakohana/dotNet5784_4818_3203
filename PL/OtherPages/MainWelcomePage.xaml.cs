@@ -24,5 +24,21 @@ namespace PL.OtherPages
         {
             InitializeComponent();
         }
+
+        private void HowToUseOpener_btnClick(object sender, MouseButtonEventArgs e)
+        {
+            HowToUseGuide.Open();
+        }
+
+        private void AboutTheMakersOpener_btnClick(object sender, MouseButtonEventArgs e)
+        {
+            AboutTheMakersBox.Open();
+        }
+
+        private void CloseGuidesButton_Click(object sender, RoutedEventArgs e)
+        {
+            HowToUseGuide.Visibility = Visibility.Collapsed;
+            AboutTheMakersBox.Visibility = Visibility.Collapsed;
+        }
     }
 }

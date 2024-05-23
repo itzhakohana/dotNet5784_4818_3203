@@ -47,26 +47,71 @@
                     <ColumnDefinition Width="0.6*"/>
                 </Grid.ColumnDefinitions>
                 
+                <!--picking pre-made icons as profile picture box-->
+                <Grid Panel.ZIndex="100" HorizontalAlignment="Center" VerticalAlignment="Center" Width="600" Height="400" Grid.ColumnSpan="4" Grid.RowSpan="7">
+                    <controls:ChooseIconBox x:Name="IconsBox">
+                        <controls:ChooseIconBox.Effect>
+                            <DropShadowEffect ShadowDepth="5" BlurRadius="7" Opacity="0.5" Color="Black"/>
+                        </controls:ChooseIconBox.Effect>
+                    </controls:ChooseIconBox>
+                </Grid>
+                
                 <!--Profile picture-->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0" >
+                <StackPanel Focusable="False" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0" >
                     <Ellipse Height="130" Width="130">
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="{Binding MyImage, NotifyOnSourceUpdated=True}"/>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <controls:IconButton VerticalAlignment="Bottom" Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/upload1.png" Height="30" Width="30" Padding="0" Click="UpdateProfilePicture_btnClick">
+                    <!--upload picture button-->
+                    <controls:IconButton Focusable="False" ToolTipService.InitialShowDelay="0" VerticalAlignment="Bottom" Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/upload1.png" Height="30" Width="30" Padding="0" Click="UpdateProfilePicture_btnClick">
                         <controls:IconButton.Visibility>
                             <MultiBinding Converter="{StaticResource ConvertUserAndEngineerToVisibility}">
                                 <Binding Path="CurrentUser"/>
                                 <Binding Path="Engineer"/>
                             </MultiBinding>
                         </controls:IconButton.Visibility>
+                        <controls:IconButton.ToolTip>
+                            <ToolTip Background="Gray" StaysOpen="True">
+                                <ToolTip.Template>
+                                    <ControlTemplate TargetType="ToolTip">
+                                        <Border IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="auto" Width="auto">
+                                            <Grid>
+                                                <TextBlock Margin="10" Foreground="White" FontSize="18" FontWeight="Bold" Text="Upload Picture"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToolTip.Template>
+                            </ToolTip>
+                        </controls:IconButton.ToolTip>
+                    </controls:IconButton>
+                    <!--upload pre made icon as picture-->
+                    <controls:IconButton Focusable="False" ToolTipService.InitialShowDelay="0" VerticalAlignment="Bottom" Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/upload1.png" Height="30" Width="30" Padding="0" Click="ChoosePreMadeIcon_btnClick">
+                        <controls:IconButton.Visibility>
+                            <MultiBinding Converter="{StaticResource ConvertUserAndEngineerToVisibility}">
+                                <Binding Path="CurrentUser"/>
+                                <Binding Path="Engineer"/>
+                            </MultiBinding>
+                        </controls:IconButton.Visibility>
+                        <controls:IconButton.ToolTip>
+                            <ToolTip Background="Gray" StaysOpen="True">
+                                <ToolTip.Template>
+                                    <ControlTemplate TargetType="ToolTip">
+                                        <Border IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="auto" Width="auto">
+                                            <Grid>
+                                                <TextBlock Margin="10" Foreground="White" FontSize="18" FontWeight="Bold" Text="Choose Icon"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToolTip.Template>
+                            </ToolTip>
+                        </controls:IconButton.ToolTip>
                     </controls:IconButton>
                 </StackPanel>
                 <!--Name-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="2">
                     <Label VerticalContentAlignment="Bottom" Content="Name:"/>
-                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"
+                    <controls:CustomTextBox x:Name="NameTextBox" Style="{StaticResource TextBoxStyle1}" Background="White"
                         Text="{Binding Engineer.Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                         IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
                     </controls:CustomTextBox>
@@ -98,7 +143,7 @@
                 <!--Cost-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="4">
                     <Label VerticalContentAlignment="Bottom" Content="Cost Per Hour:"/>
-                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White" PreviewTextInput="EnteredKey_IdFieldChanged"
                         IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"                        
                         Text="{Binding Engineer.Cost, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
                     </controls:CustomTextBox>
@@ -107,7 +152,7 @@
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="4">
                     <Label VerticalContentAlignment="Bottom" Content="Level:"/>
                     <ComboBox 
-                        Margin="0,0,0,0"
+                        Margin="0,0,0,0"                        
                         Background="{DynamicResource TextBoxColor1}"
                         Foreground="Black"
                         VerticalAlignment="Center"

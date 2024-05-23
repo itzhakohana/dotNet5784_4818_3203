@@ -231,32 +231,28 @@
                 <!--alias-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.ColumnSpan="2" Width="300" Grid.Row="1">
                     <Label VerticalContentAlignment="Bottom" Content="Name/Alias:"/>
-                    <TextBox 
-                     Template="{StaticResource TextBoxControlTemplate}"
-                     Text="{Binding Milestone.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                     IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
-                    </TextBox>
+                    <controls:CustomTextBox x:Name="MsAliasTextBox" Style="{StaticResource TextBoxStyle1}" Background="White"
+                         Text="{Binding Milestone.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                         IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
+                    </controls:CustomTextBox>
                 </StackPanel>
 
                 <!--Remarks-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="2" Grid.Row="2">
                     <Label VerticalContentAlignment="Bottom" Content="Remarks:"/>
-                    <TextBox        
-                      Template="{StaticResource TextBoxControlTemplate}"
-                      IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}"
-                      Text="{Binding Milestone.Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}">
-                    </TextBox>
+                    <controls:CustomTextBox Style="{StaticResource TextBoxStyle1}" Background="White"
+                            Text="{Binding Milestone.Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                            IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
+                    </controls:CustomTextBox>
                 </StackPanel>
 
                 <!--description-->
                 <StackPanel Name="DescriptionPanel" VerticalAlignment="Center" Margin="15,0"  Grid.Column="1" Grid.Row="2">
                     <Label VerticalContentAlignment="Bottom" Content="Description:"/>
-                    <TextBox 
-                          Name="DesTextBox"                          
-                          Template="{StaticResource TextBoxControlTemplate}"
-                          Text="{Binding Milestone.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                          IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
-                    </TextBox>
+                    <controls:CustomTextBox x:Name="DesTextBox" Style="{StaticResource TextBoxStyle1}" Background="White"
+                            Text="{Binding Milestone.Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                            IsEnabled="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToIsEnabled}}">
+                    </controls:CustomTextBox>
                 </StackPanel>
 
                 <!--Display milestone's tasks-->

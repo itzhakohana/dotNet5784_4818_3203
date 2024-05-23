@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="PL.CustomControls.AboutTheMakersBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PL.CustomControls"
+             xmlns:controls="clr-namespace:PL.CustomControls"             
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="550"
+             Visibility="Collapsed">
+
+    <Border x:Name="MainBorder" CornerRadius="10" Background="{DynamicResource Backround6}">
+        <!--close button-->
+        <controls:IconButton Margin="23,15" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="21" Height="21" 
+            Icon="/Graphics/Icons/exit2.png" Click="CloseButton_Click">
+            <ButtonBase.Effect>
+                <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+            </ButtonBase.Effect>
+        </controls:IconButton>
+    </Border>
+</UserControl>
