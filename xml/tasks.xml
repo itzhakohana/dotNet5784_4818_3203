@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask>
   <task>
-    <id>5543</id>
+    <id>5895</id>
     <alias>start</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:28.0295732+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:05.3428147+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-05-21T00:00:00</scheduledDate>
-      <deadlineDate>2024-11-14T21:00:00</deadlineDate>
+      <scheduledDate>2024-06-08T00:00:00</scheduledDate>
+      <deadlineDate>2024-09-16T03:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -19,143 +19,107 @@
     <engineerId />
   </task>
   <task>
-    <id>5510</id>
-    <alias>Documentation Overhaul</alias>
-    <description>Turning chaos into clarity, one page of documentation at a time.</description>
-    <requiredEffortTime>P1DT13H</requiredEffortTime>
-    <complexity>AdvancedBeginner</complexity>
+    <id>5861</id>
+    <alias>API Documentation</alias>
+    <description>Documenting APIs so others can understand your genius.</description>
+    <requiredEffortTime>P3DT8H</requiredEffortTime>
+    <complexity>Intermediate</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-07-28T00:00:00</createdAtDate>
+      <createdAtDate>2023-02-14T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-05-21T00:00:00</scheduledDate>
-      <deadlineDate>2024-11-28T09:00:00</deadlineDate>
+      <scheduledDate>2024-06-08T00:00:00</scheduledDate>
+      <deadlineDate>2024-09-30T23:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>Documentation overhauled with more love than a grandma's secret recipe!</deliverables>
-    <remarks>Documentation: because mind reading isn’t a feature (yet).</remarks>
+    <deliverables>APIs documented clearer than crystal!</deliverables>
+    <remarks>APIs are only as good as their docs.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5512</id>
-    <alias>Backend Development</alias>
-    <description>Crafting the server-side magic behind the scenes of your favorite apps.</description>
-    <requiredEffortTime>P10DT12H</requiredEffortTime>
+    <id>5862</id>
+    <alias>AB Testing</alias>
+    <description>Running A/B tests to see what works best for users.</description>
+    <requiredEffortTime>P7DT5H</requiredEffortTime>
+    <complexity>Intermediate</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-06-21T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate>2024-06-08T00:00:00</scheduledDate>
+      <deadlineDate>2024-09-30T23:00:00</deadlineDate>
+      <completeDate />
+    </dates>
+    <deliverables>AB testing more intriguing than a mystery novel!</deliverables>
+    <remarks>A/B testing: science for better user experiences.</remarks>
+    <engineerId />
+  </task>
+  <task>
+    <id>5863</id>
+    <alias>Dashboard Creation</alias>
+    <description>Creating visual dashboards that make data look good and easy to understand.</description>
+    <requiredEffortTime>P8DT2H</requiredEffortTime>
+    <complexity>Advanced</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-08-06T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate>2024-06-08T00:00:00</scheduledDate>
+      <deadlineDate>2024-09-30T23:00:00</deadlineDate>
+      <completeDate />
+    </dates>
+    <deliverables>Dashboards created fancier than a royal palace!</deliverables>
+    <remarks>Dashboards: making data dance on screen.</remarks>
+    <engineerId />
+  </task>
+  <task>
+    <id>5864</id>
+    <alias>Schema Design</alias>
+    <description>Designing schemas to organize data effectively.</description>
+    <requiredEffortTime>P12DT23H</requiredEffortTime>
+    <complexity>Advanced</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-10-08T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate>2024-06-08T00:00:00</scheduledDate>
+      <deadlineDate>2024-09-30T23:00:00</deadlineDate>
+      <completeDate />
+    </dates>
+    <deliverables>Schema design more solid than a brick house!</deliverables>
+    <remarks>Schemas: organizing data with precision and care.</remarks>
+    <engineerId />
+  </task>
+  <task>
+    <id>5865</id>
+    <alias>Data Visualization Implementation</alias>
+    <description>Visualizing data to make complex information easy to understand.</description>
+    <requiredEffortTime>P14DT20H</requiredEffortTime>
     <complexity>Expert</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-08-14T00:00:00</createdAtDate>
+      <createdAtDate>2023-05-05T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-05-21T00:00:00</scheduledDate>
-      <deadlineDate>2024-11-28T09:00:00</deadlineDate>
+      <scheduledDate>2024-06-08T00:00:00</scheduledDate>
+      <deadlineDate>2024-09-30T23:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>Backend developed stronger than a bodybuilder's biceps!</deliverables>
-    <remarks>Backend: where the real magic happens.</remarks>
+    <deliverables>Data visualization implementation more beautiful than a sunset!</deliverables>
+    <remarks>Data visualization: making numbers look good.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5513</id>
-    <alias>System Architecture Design</alias>
-    <description>Designing the big picture, because someone has to be the architect.</description>
-    <requiredEffortTime>P2DT7H</requiredEffortTime>
-    <complexity>Advanced</complexity>
-    <isMilestone>false</isMilestone>
-    <dates>
-      <createdAtDate>2023-08-02T00:00:00</createdAtDate>
-      <startDate />
-      <scheduledDate>2024-05-21T00:00:00</scheduledDate>
-      <deadlineDate>2024-11-28T09:00:00</deadlineDate>
-      <completeDate />
-    </dates>
-    <deliverables>System architecture designed more meticulously than a Swiss watch!</deliverables>
-    <remarks>Architecting systems: more satisfying than Lego.</remarks>
-    <engineerId />
-  </task>
-  <task>
-    <id>5514</id>
-    <alias>Carousel Development</alias>
-    <description>Building carousels to cycle through content attractively.</description>
-    <requiredEffortTime>P12DT10H</requiredEffortTime>
-    <complexity>Expert</complexity>
-    <isMilestone>false</isMilestone>
-    <dates>
-      <createdAtDate>2023-08-10T00:00:00</createdAtDate>
-      <startDate />
-      <scheduledDate>2024-05-21T00:00:00</scheduledDate>
-      <deadlineDate>2024-11-28T09:00:00</deadlineDate>
-      <completeDate />
-    </dates>
-    <deliverables>Carousel development more captivating than a merry-go-round!</deliverables>
-    <remarks>Carousel development: spinning up interactive content.</remarks>
-    <engineerId />
-  </task>
-  <task>
-    <id>5518</id>
-    <alias>CD Setup</alias>
-    <description>Automating deployment because manual labor is so last century.</description>
-    <requiredEffortTime>P13DT12H</requiredEffortTime>
-    <complexity>Advanced</complexity>
-    <isMilestone>false</isMilestone>
-    <dates>
-      <createdAtDate>2023-01-09T00:00:00</createdAtDate>
-      <startDate />
-      <scheduledDate>2024-05-21T00:00:00</scheduledDate>
-      <deadlineDate>2024-11-28T09:00:00</deadlineDate>
-      <completeDate />
-    </dates>
-    <deliverables>CD setup tighter than a squirrel stashing its nuts for winter!</deliverables>
-    <remarks>CD: delivering code faster than pizza.</remarks>
-    <engineerId />
-  </task>
-  <task>
-    <id>5524</id>
-    <alias>Data Replication Implementation</alias>
-    <description>Implementing data replication to ensure data availability.</description>
-    <requiredEffortTime>P12DT7H</requiredEffortTime>
-    <complexity>Advanced</complexity>
-    <isMilestone>false</isMilestone>
-    <dates>
-      <createdAtDate>2023-08-21T00:00:00</createdAtDate>
-      <startDate />
-      <scheduledDate>2024-05-21T00:00:00</scheduledDate>
-      <deadlineDate>2024-11-28T09:00:00</deadlineDate>
-      <completeDate />
-    </dates>
-    <deliverables>Data replication implementation tighter than a drum!</deliverables>
-    <remarks>Data replication: keeping copies safe and sound.</remarks>
-    <engineerId />
-  </task>
-  <task>
-    <id>5530</id>
-    <alias>M0</alias>
-    <description></description>
-    <requiredEffortTime>PT0S</requiredEffortTime>
-    <complexity>0</complexity>
-    <isMilestone>true</isMilestone>
-    <dates>
-      <createdAtDate>2024-05-21T19:38:27.0281676+03:00</createdAtDate>
-      <startDate />
-      <scheduledDate>2024-06-03T12:00:00</scheduledDate>
-      <deadlineDate>2024-11-28T09:00:00</deadlineDate>
-      <completeDate />
-    </dates>
-    <deliverables></deliverables>
-    <remarks></remarks>
-    <engineerId />
-  </task>
-  <task>
-    <id>5515</id>
+    <id>5873</id>
     <alias>Big Data Management</alias>
     <description>Managing big data to handle massive amounts of information.</description>
-    <requiredEffortTime>P2DT18H</requiredEffortTime>
-    <complexity>Advanced</complexity>
+    <requiredEffortTime>P12DT14H</requiredEffortTime>
+    <complexity>Intermediate</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-05-21T00:00:00</createdAtDate>
+      <createdAtDate>2023-06-15T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-06-03T12:00:00</scheduledDate>
-      <deadlineDate>2024-12-01T03:00:00</deadlineDate>
+      <scheduledDate>2024-06-08T00:00:00</scheduledDate>
+      <deadlineDate>2024-09-30T23:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables>Big data management bigger than the Grand Canyon!</deliverables>
@@ -163,17 +127,53 @@
     <engineerId />
   </task>
   <task>
-    <id>5531</id>
+    <id>5881</id>
+    <alias>M0</alias>
+    <description></description>
+    <requiredEffortTime>PT0S</requiredEffortTime>
+    <complexity>0</complexity>
+    <isMilestone>true</isMilestone>
+    <dates>
+      <createdAtDate>2024-06-08T22:01:04.3391023+03:00</createdAtDate>
+      <startDate />
+      <scheduledDate>2024-06-22T20:00:00</scheduledDate>
+      <deadlineDate>2024-09-30T23:00:00</deadlineDate>
+      <completeDate />
+    </dates>
+    <deliverables></deliverables>
+    <remarks></remarks>
+    <engineerId />
+  </task>
+  <task>
+    <id>5869</id>
+    <alias>Codebase Optimization</alias>
+    <description>Making the codebase faster, leaner, and more elegant.</description>
+    <requiredEffortTime>P5DT18H</requiredEffortTime>
+    <complexity>Intermediate</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-09-06T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate>2024-06-22T20:00:00</scheduledDate>
+      <deadlineDate>2024-10-06T17:00:00</deadlineDate>
+      <completeDate />
+    </dates>
+    <deliverables>Codebase optimized with more precision than a Swiss Army knife!</deliverables>
+    <remarks>Making the codebase sleek and chic.</remarks>
+    <engineerId />
+  </task>
+  <task>
+    <id>5882</id>
     <alias>M1</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:27.0281676+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:04.3391023+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-06-06T06:00:00</scheduledDate>
-      <deadlineDate>2024-12-01T03:00:00</deadlineDate>
+      <scheduledDate>2024-06-28T14:00:00</scheduledDate>
+      <deadlineDate>2024-10-06T17:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -181,35 +181,35 @@
     <engineerId />
   </task>
   <task>
-    <id>5516</id>
-    <alias>User Permissions Design</alias>
-    <description>Designing user permissions to control access effectively.</description>
-    <requiredEffortTime>P5DT11H</requiredEffortTime>
-    <complexity>Advanced</complexity>
+    <id>5870</id>
+    <alias>Frontend Development</alias>
+    <description>Creating the shiny interface that users interact with, because looks do matter.</description>
+    <requiredEffortTime>P13DT17H</requiredEffortTime>
+    <complexity>Beginner</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-02-11T00:00:00</createdAtDate>
+      <createdAtDate>2023-09-04T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-06-06T06:00:00</scheduledDate>
-      <deadlineDate>2024-12-06T14:00:00</deadlineDate>
+      <scheduledDate>2024-06-28T14:00:00</scheduledDate>
+      <deadlineDate>2024-10-20T10:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>User permissions design tighter than Fort Knox!</deliverables>
-    <remarks>User permissions: granting access like a digital doorman.</remarks>
+    <deliverables>Frontend developed smoother than a dolphin gliding through water!</deliverables>
+    <remarks>Frontend: making sure users see the magic.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5532</id>
+    <id>5883</id>
     <alias>M2</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:27.0281676+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:04.3391023+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-06-11T17:00:00</scheduledDate>
-      <deadlineDate>2024-12-06T14:00:00</deadlineDate>
+      <scheduledDate>2024-07-12T07:00:00</scheduledDate>
+      <deadlineDate>2024-10-20T10:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -217,35 +217,35 @@
     <engineerId />
   </task>
   <task>
-    <id>5517</id>
-    <alias>Incident Response Plan Development</alias>
-    <description>Developing incident response plans for quick recovery.</description>
-    <requiredEffortTime>P5DT20H</requiredEffortTime>
-    <complexity>Advanced</complexity>
+    <id>5866</id>
+    <alias>User Interface Creation</alias>
+    <description>Creating beautiful user interfaces that users will love.</description>
+    <requiredEffortTime>P14DT5H</requiredEffortTime>
+    <complexity>AdvancedBeginner</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-02-16T00:00:00</createdAtDate>
+      <createdAtDate>2023-05-15T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-06-11T17:00:00</scheduledDate>
-      <deadlineDate>2024-12-12T10:00:00</deadlineDate>
+      <scheduledDate>2024-07-12T07:00:00</scheduledDate>
+      <deadlineDate>2024-11-03T15:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>Incident response plan development more solid than a brick!</deliverables>
-    <remarks>Incident response plans: because accidents happen.</remarks>
+    <deliverables>User interface creation more user-friendly than a golden retriever!</deliverables>
+    <remarks>UI creation: making screens that users love.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5533</id>
+    <id>5884</id>
     <alias>M3</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:27.0281676+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:04.3391023+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-06-17T13:00:00</scheduledDate>
-      <deadlineDate>2024-12-12T10:00:00</deadlineDate>
+      <scheduledDate>2024-07-26T12:00:00</scheduledDate>
+      <deadlineDate>2024-11-03T15:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -253,35 +253,35 @@
     <engineerId />
   </task>
   <task>
-    <id>5519</id>
-    <alias>Pull Request Reviewing</alias>
-    <description>Reviewing pull requests like a digital detective, ensuring quality.</description>
-    <requiredEffortTime>P5DT6H</requiredEffortTime>
+    <id>5867</id>
+    <alias>Audio Player Implementation</alias>
+    <description>Implementing audio players for great sound experiences.</description>
+    <requiredEffortTime>P3DT10H</requiredEffortTime>
     <complexity>Advanced</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-06-15T00:00:00</createdAtDate>
+      <createdAtDate>2023-08-17T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-06-17T13:00:00</scheduledDate>
-      <deadlineDate>2024-12-17T16:00:00</deadlineDate>
+      <scheduledDate>2024-07-26T12:00:00</scheduledDate>
+      <deadlineDate>2024-11-07T01:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>Pull requests reviewed friendlier than a family reunion!</deliverables>
-    <remarks>Pull requests: the modern handshake of developers.</remarks>
+    <deliverables>Audio player implementation more melodic than a symphony!</deliverables>
+    <remarks>Audio player implementation: the sound of smooth functionality.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5534</id>
+    <id>5885</id>
     <alias>M4</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:27.0281676+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:04.3391023+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-06-22T19:00:00</scheduledDate>
-      <deadlineDate>2024-12-17T16:00:00</deadlineDate>
+      <scheduledDate>2024-07-29T22:00:00</scheduledDate>
+      <deadlineDate>2024-11-07T01:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -289,35 +289,35 @@
     <engineerId />
   </task>
   <task>
-    <id>5523</id>
-    <alias>Microservices Design</alias>
-    <description>Designing microservices to keep the codebase modular and scalable.</description>
-    <requiredEffortTime>P12DT21H</requiredEffortTime>
-    <complexity>Beginner</complexity>
+    <id>5868</id>
+    <alias>CI Setup</alias>
+    <description>Setting up continuous integration, so your codebase is always ready for the runway.</description>
+    <requiredEffortTime>P7DT19H</requiredEffortTime>
+    <complexity>Advanced</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-03-06T00:00:00</createdAtDate>
+      <createdAtDate>2023-07-18T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-06-22T19:00:00</scheduledDate>
-      <deadlineDate>2024-12-30T13:00:00</deadlineDate>
+      <scheduledDate>2024-07-29T22:00:00</scheduledDate>
+      <deadlineDate>2024-11-14T20:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>Microservices design cooler than the flip side of the pillow!</deliverables>
-    <remarks>Microservices: modularizing for the win.</remarks>
+    <deliverables>CI setup smoother than butter on a warm biscuit!</deliverables>
+    <remarks>CI: because broken builds are so last century.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5535</id>
+    <id>5886</id>
     <alias>M5</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:27.0281676+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:04.3391023+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-07-05T16:00:00</scheduledDate>
-      <deadlineDate>2024-12-30T13:00:00</deadlineDate>
+      <scheduledDate>2024-08-06T17:00:00</scheduledDate>
+      <deadlineDate>2024-11-14T20:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -325,35 +325,35 @@
     <engineerId />
   </task>
   <task>
-    <id>5521</id>
-    <alias>UI Design</alias>
-    <description>Crafting the visual design that users will love and remember.</description>
-    <requiredEffortTime>P11DT7H</requiredEffortTime>
+    <id>5874</id>
+    <alias>Analytics Tool Development</alias>
+    <description>Building tools to track and analyze user interactions.</description>
+    <requiredEffortTime>P12DT1H</requiredEffortTime>
     <complexity>Expert</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-10-10T00:00:00</createdAtDate>
+      <createdAtDate>2023-07-09T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-07-05T16:00:00</scheduledDate>
-      <deadlineDate>2025-01-10T20:00:00</deadlineDate>
+      <scheduledDate>2024-08-06T17:00:00</scheduledDate>
+      <deadlineDate>2024-11-26T21:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>UI designed prettier than a picture-perfect sunset!</deliverables>
-    <remarks>UI: where form meets function with style.</remarks>
+    <deliverables>Analytics tool development snappier than a whip crack!</deliverables>
+    <remarks>Analytics tools: turning data into decisions.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5536</id>
+    <id>5887</id>
     <alias>M6</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:27.0281676+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:04.3391023+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-07-16T23:00:00</scheduledDate>
-      <deadlineDate>2025-01-10T20:00:00</deadlineDate>
+      <scheduledDate>2024-08-18T18:00:00</scheduledDate>
+      <deadlineDate>2024-11-26T21:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -361,35 +361,35 @@
     <engineerId />
   </task>
   <task>
-    <id>5522</id>
-    <alias>Code Merging</alias>
-    <description>Merging code like a pro to keep the project moving forward.</description>
-    <requiredEffortTime>P5DT20H</requiredEffortTime>
-    <complexity>Advanced</complexity>
+    <id>5872</id>
+    <alias>Web Form Creation</alias>
+    <description>Creating web forms for user input, making data collection a breeze.</description>
+    <requiredEffortTime>P10DT7H</requiredEffortTime>
+    <complexity>AdvancedBeginner</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-08-15T00:00:00</createdAtDate>
+      <createdAtDate>2023-06-16T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-07-16T23:00:00</scheduledDate>
-      <deadlineDate>2025-01-16T16:00:00</deadlineDate>
+      <scheduledDate>2024-08-18T18:00:00</scheduledDate>
+      <deadlineDate>2024-12-07T04:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>Code merging more harmonious than a choir!</deliverables>
-    <remarks>Merging code: the ultimate test of teamwork.</remarks>
+    <deliverables>Web form creation smoother than a baby's bottom!</deliverables>
+    <remarks>Web forms: collecting data with ease.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5537</id>
+    <id>5888</id>
     <alias>M7</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:27.0281676+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:04.3391023+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-07-22T19:00:00</scheduledDate>
-      <deadlineDate>2025-01-16T16:00:00</deadlineDate>
+      <scheduledDate>2024-08-29T01:00:00</scheduledDate>
+      <deadlineDate>2024-12-07T04:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -397,35 +397,35 @@
     <engineerId />
   </task>
   <task>
-    <id>5520</id>
-    <alias>Storage Optimization</alias>
-    <description>Optimizing storage to make the most of available space.</description>
-    <requiredEffortTime>P10DT17H</requiredEffortTime>
-    <complexity>Advanced</complexity>
+    <id>5875</id>
+    <alias>Database Management</alias>
+    <description>Maintaining databases so they run smoothly and efficiently.</description>
+    <requiredEffortTime>P11DT5H</requiredEffortTime>
+    <complexity>AdvancedBeginner</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-04-08T00:00:00</createdAtDate>
+      <createdAtDate>2023-10-07T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-07-22T19:00:00</scheduledDate>
-      <deadlineDate>2025-01-27T09:00:00</deadlineDate>
+      <scheduledDate>2024-08-29T01:00:00</scheduledDate>
+      <deadlineDate>2024-12-18T09:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>Storage optimization more efficient than a Swiss watch!</deliverables>
-    <remarks>Storage optimization: more space for your digital knick-knacks.</remarks>
+    <deliverables>Database management smoother than a ballroom dance!</deliverables>
+    <remarks>Databases: the unsung heroes of data storage.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5538</id>
+    <id>5889</id>
     <alias>M8</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:27.0281676+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:04.3391023+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-08-02T12:00:00</scheduledDate>
-      <deadlineDate>2025-01-27T09:00:00</deadlineDate>
+      <scheduledDate>2024-09-09T06:00:00</scheduledDate>
+      <deadlineDate>2024-12-18T09:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -433,35 +433,35 @@
     <engineerId />
   </task>
   <task>
-    <id>5529</id>
-    <alias>Environment Setup</alias>
-    <description>Setting up environments where code can live, grow, and thrive.</description>
-    <requiredEffortTime>P7DT3H</requiredEffortTime>
-    <complexity>Intermediate</complexity>
+    <id>5871</id>
+    <alias>Concurrency Handling</alias>
+    <description>Handling concurrency to avoid race conditions and data corruption.</description>
+    <requiredEffortTime>P14DT21H</requiredEffortTime>
+    <complexity>Advanced</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-05-24T00:00:00</createdAtDate>
+      <createdAtDate>2023-06-24T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-08-02T12:00:00</scheduledDate>
-      <deadlineDate>2025-02-03T12:00:00</deadlineDate>
+      <scheduledDate>2024-09-09T06:00:00</scheduledDate>
+      <deadlineDate>2025-01-02T06:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>Environments setup quicker than a pizza delivery!</deliverables>
-    <remarks>Environments: the stage for your code’s debut.</remarks>
+    <deliverables>Concurrency handling smoother than a well-oiled machine!</deliverables>
+    <remarks>Concurrency: keeping the threads from tangling.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5539</id>
+    <id>5890</id>
     <alias>M9</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:28.0295732+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:04.3391023+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-08-09T15:00:00</scheduledDate>
-      <deadlineDate>2025-02-03T12:00:00</deadlineDate>
+      <scheduledDate>2024-09-24T03:00:00</scheduledDate>
+      <deadlineDate>2025-01-02T06:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -469,35 +469,35 @@
     <engineerId />
   </task>
   <task>
-    <id>5528</id>
-    <alias>Cloud Cost Optimization</alias>
-    <description>Cutting cloud costs like a savvy shopper during sales season.</description>
-    <requiredEffortTime>P2DT5H</requiredEffortTime>
-    <complexity>Intermediate</complexity>
+    <id>5877</id>
+    <alias>Slider Creation</alias>
+    <description>Creating sliders to display content interactively.</description>
+    <requiredEffortTime>P11DT20H</requiredEffortTime>
+    <complexity>Beginner</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-01-15T00:00:00</createdAtDate>
+      <createdAtDate>2023-03-14T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-08-09T15:00:00</scheduledDate>
-      <deadlineDate>2025-02-05T17:00:00</deadlineDate>
+      <scheduledDate>2024-09-24T03:00:00</scheduledDate>
+      <deadlineDate>2025-01-14T02:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>Cloud cost optimization more budget-friendly than a clearance sale!</deliverables>
-    <remarks>Saving on cloud costs, so there’s more for coffee.</remarks>
+    <deliverables>Slider creation smoother than silk!</deliverables>
+    <remarks>Slider creation: sliding into a better user experience.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5540</id>
+    <id>5891</id>
     <alias>M10</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:28.0295732+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:04.3391023+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-08-11T20:00:00</scheduledDate>
-      <deadlineDate>2025-02-05T17:00:00</deadlineDate>
+      <scheduledDate>2024-10-05T23:00:00</scheduledDate>
+      <deadlineDate>2025-01-14T02:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -505,35 +505,35 @@
     <engineerId />
   </task>
   <task>
-    <id>5525</id>
-    <alias>Cloud Resource Management</alias>
-    <description>Managing cloud resources efficiently to avoid runaway bills.</description>
-    <requiredEffortTime>P14DT2H</requiredEffortTime>
+    <id>5880</id>
+    <alias>Incident Response Optimization</alias>
+    <description>Optimizing incident response to minimize downtime.</description>
+    <requiredEffortTime>P12DT15H</requiredEffortTime>
     <complexity>Expert</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-03-31T00:00:00</createdAtDate>
+      <createdAtDate>2023-07-09T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-08-11T20:00:00</scheduledDate>
-      <deadlineDate>2025-02-19T19:00:00</deadlineDate>
+      <scheduledDate>2024-10-05T23:00:00</scheduledDate>
+      <deadlineDate>2025-01-26T17:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>Cloud resource management more efficient than a Swiss watch!</deliverables>
-    <remarks>Cloud management: making sure we don’t blow the budget.</remarks>
+    <deliverables>Incident response optimization smoother than butter!</deliverables>
+    <remarks>Incident response optimization: turning chaos into order.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5541</id>
+    <id>5892</id>
     <alias>M11</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:28.0295732+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:05.3428147+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-08-25T22:00:00</scheduledDate>
-      <deadlineDate>2025-02-19T19:00:00</deadlineDate>
+      <scheduledDate>2024-10-18T14:00:00</scheduledDate>
+      <deadlineDate>2025-01-26T17:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -541,35 +541,35 @@
     <engineerId />
   </task>
   <task>
-    <id>5526</id>
-    <alias>Regression Testing</alias>
-    <description>Conducting regression tests to ensure nothing broke.</description>
-    <requiredEffortTime>P9DT16H</requiredEffortTime>
-    <complexity>Beginner</complexity>
+    <id>5879</id>
+    <alias>User Flow Design</alias>
+    <description>Designing seamless user flows that feel as natural as a morning coffee.</description>
+    <requiredEffortTime>P9DT14H</requiredEffortTime>
+    <complexity>AdvancedBeginner</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-09-27T00:00:00</createdAtDate>
+      <createdAtDate>2023-01-24T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-08-25T22:00:00</scheduledDate>
-      <deadlineDate>2025-03-01T11:00:00</deadlineDate>
+      <scheduledDate>2024-10-18T14:00:00</scheduledDate>
+      <deadlineDate>2025-02-05T07:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>Regression testing more thorough than a detective's investigation!</deliverables>
-    <remarks>Regression testing: making sure old friends don’t become new enemies.</remarks>
+    <deliverables>User flow design smoother than a gentle breeze!</deliverables>
+    <remarks>User flows: the river guiding users to their destination.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5542</id>
+    <id>5893</id>
     <alias>M12</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:28.0295732+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:05.3428147+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-09-04T14:00:00</scheduledDate>
-      <deadlineDate>2025-03-01T11:00:00</deadlineDate>
+      <scheduledDate>2024-10-28T04:00:00</scheduledDate>
+      <deadlineDate>2025-02-05T07:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
@@ -577,57 +577,75 @@
     <engineerId />
   </task>
   <task>
-    <id>5527</id>
-    <alias>GraphQL Implementation</alias>
-    <description>Setting up GraphQL for more efficient data queries.</description>
-    <requiredEffortTime>P6DT13H</requiredEffortTime>
-    <complexity>Intermediate</complexity>
+    <id>5876</id>
+    <alias>Web Dashboard Optimization</alias>
+    <description>Optimizing web dashboards to be both informative and efficient.</description>
+    <requiredEffortTime>P9DT19H</requiredEffortTime>
+    <complexity>Advanced</complexity>
     <isMilestone>false</isMilestone>
     <dates>
-      <createdAtDate>2023-09-12T00:00:00</createdAtDate>
+      <createdAtDate>2023-02-12T00:00:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-09-04T14:00:00</scheduledDate>
-      <deadlineDate>2025-03-08T00:00:00</deadlineDate>
+      <scheduledDate>2024-10-28T04:00:00</scheduledDate>
+      <deadlineDate>2025-02-15T02:00:00</deadlineDate>
       <completeDate />
     </dates>
-    <deliverables>GraphQL implementation cooler than the other side of the pillow!</deliverables>
-    <remarks>GraphQL: query efficiency on steroids.</remarks>
+    <deliverables>Web dashboard optimization quicker than a blink of an eye!</deliverables>
+    <remarks>Web dashboard optimization: because every pixel counts.</remarks>
     <engineerId />
   </task>
   <task>
-    <id>5544</id>
+    <id>5894</id>
+    <alias>M13</alias>
+    <description></description>
+    <requiredEffortTime>PT0S</requiredEffortTime>
+    <complexity>0</complexity>
+    <isMilestone>true</isMilestone>
+    <dates>
+      <createdAtDate>2024-06-08T22:01:05.3428147+03:00</createdAtDate>
+      <startDate />
+      <scheduledDate>2024-11-06T23:00:00</scheduledDate>
+      <deadlineDate>2025-02-15T02:00:00</deadlineDate>
+      <completeDate />
+    </dates>
+    <deliverables></deliverables>
+    <remarks></remarks>
+    <engineerId />
+  </task>
+  <task>
+    <id>5878</id>
+    <alias>Scroll Event Handling</alias>
+    <description>Handling scroll events to create dynamic user experiences.</description>
+    <requiredEffortTime>P5DT22H</requiredEffortTime>
+    <complexity>Expert</complexity>
+    <isMilestone>false</isMilestone>
+    <dates>
+      <createdAtDate>2023-10-16T00:00:00</createdAtDate>
+      <startDate />
+      <scheduledDate>2024-11-06T23:00:00</scheduledDate>
+      <deadlineDate>2025-02-21T00:00:00</deadlineDate>
+      <completeDate />
+    </dates>
+    <deliverables>Scroll event handling more fluid than a river!</deliverables>
+    <remarks>Scroll event handling: navigating the digital seas with ease.</remarks>
+    <engineerId />
+  </task>
+  <task>
+    <id>5896</id>
     <alias>end</alias>
     <description></description>
     <requiredEffortTime>PT0S</requiredEffortTime>
     <complexity>0</complexity>
     <isMilestone>true</isMilestone>
     <dates>
-      <createdAtDate>2024-05-21T19:38:28.0295732+03:00</createdAtDate>
+      <createdAtDate>2024-06-08T22:01:05.3428147+03:00</createdAtDate>
       <startDate />
-      <scheduledDate>2024-09-11T03:00:00</scheduledDate>
-      <deadlineDate>2025-03-08T00:00:00</deadlineDate>
+      <scheduledDate>2024-11-12T21:00:00</scheduledDate>
+      <deadlineDate>2025-02-21T00:00:00</deadlineDate>
       <completeDate />
     </dates>
     <deliverables></deliverables>
     <remarks></remarks>
     <engineerId />
-  </task>
-  <task>
-    <id>5511</id>
-    <alias>Real-Time Feature Development</alias>
-    <description>Developing real-time features to keep data fresh and current.</description>
-    <requiredEffortTime>P7DT14H</requiredEffortTime>
-    <complexity>Beginner</complexity>
-    <isMilestone>false</isMilestone>
-    <dates>
-      <createdAtDate>2023-06-27T00:00:00</createdAtDate>
-      <startDate />
-      <scheduledDate>2024-05-21T00:00:00</scheduledDate>
-      <deadlineDate>2024-11-28T09:00:00</deadlineDate>
-      <completeDate />
-    </dates>
-    <deliverables>Real-time feature development more dynamic than a tornado!</deliverables>
-    <remarks>Real-time feature development: keeping data fresh.</remarks>
-    <engineerId>288336194</engineerId>
   </task>
 </ArrayOfTask>

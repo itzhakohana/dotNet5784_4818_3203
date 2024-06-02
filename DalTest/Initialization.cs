@@ -27,27 +27,38 @@ public static class Initialization
     private static void creatEngineers()
     {
         string[] privateNames = new string[]
-{
-            "Aiden", "Jackson", "Liam", "Noah", "Lucas", "Mason", "Ethan", "Caden", "Logan", "Jacob",
-            "Jayden", "Elijah", "Jack", "Luke", "Michael", "Benjamin", "Alexander", "James", "William", "Oliver",
-            "Daniel", "Gabriel", "Owen", "Carter", "Matthew", "Ryan", "Nathan", "Dylan", "Henry", "Caleb",
-            "Wyatt", "Connor", "Isaac", "Joseph", "Samuel", "Grayson", "David", "Hunter", "Andrew", "Joshua",
+        {
+            // Male Names           
             "John", "Landon", "Christian", "Jaxon", "Julian", "Levi", "Christopher", "Jonathan", "Colton", "Elias",
             "Anthony", "Gavin", "Isaiah", "Charles", "Austin", "Dominic", "Adrian", "Thomas", "Lincoln", "Leo",
             "Sebastian", "Hudson", "Brayden", "Eli", "Asher", "Cooper", "Jeremiah", "Jordan", "Ezekiel", "Angel",
-            "Aaron", "Jameson", "Ian", "Nicholas", "Easton", "Ezra", "Jaxson", "Adam", "Lucas", "Micah",
-            "Jose", "Carson", "Kayden", "Silas", "Jason", "Parker", "Xavier", "Jace", "Miles", "Sawyer",
-            "Declan", "Bryson", "Greyson", "Weston", "Kevin", "Luis", "Blake", "George", "Ashton", "Nolan",
-            "Emmett", "Ryder", "Beau", "Tristan", "Bennett", "Carson", "Ayden", "Zane", "Leonardo", "Cameron",
-            "Brody", "Felix", "Jayce", "Giovanni", "Diego", "Bryce", "Jaden", "Jonah", "Paul", "Max",
-            "Maddox", "Kai", "Everett", "Dean", "Emerson", "Archer", "Reid", "Kaden", "Malachi", "Roman",
-            "River", "Beckett", "Zayden", "Barrett", "Avery", "Grant", "Amos", "Louis", "Bodhi", "Matteo"
+            "Aaron", "Jameson", "Ian", "Nicholas", "Easton", "Ezra", "Jaxson", "Adam", "Micah", "Jose",
+            "Carson", "Kayden", "Silas", "Jason", "Parker", "Xavier", "Jace", "Miles", "Sawyer", "Declan",
+            "Bryson", "Greyson", "Weston", "Kevin", "Luis", "Blake", "George", "Ashton", "Nolan", "Atticus",
+            "Sherlock", "Holden", "Frodo", "Dorian", "Gatsby", "Aragorn", "Draco", "Hannibal", "Thor",
+
+            // Female Names           
+            "Emilia", "Everly", "Leah", "Aubrey", "Willow", "Addison", "Lucy", "Audrey", "Bella",
+            "Caroline", "Eliana", "Anna", "Maya", "Valentina", "Ruby", "Kennedy", "Ivy", "Ariana", "Aaliyah",
+            "Cora", "Madelyn", "Alice", "Kinsley", "Hailey", "Gabriella", "Allison", "Gianna", "Serenity",
+            "Samantha", "Sarah", "Autumn", "Quinn", "Eva", "Piper", "Sophie", "Sadie", "Delilah", "Josephine",
+            "Nevaeh", "Adeline", "Arya", "Emery", "Lydia", "Clara", "Vivian", "Madeline", "Julia", "Peyton",
+            "Rylee", "Reagan", "Liliana", "Melanie", "Mackenzie", "Hadley", "Raelynn", "Kaylee", "Sienna",
+            "Adalynn", "Alaina", "Jasmine", "Scout", "Hermione", "Arwen", "Daenerys", "Katniss", "Ophelia",
+            "Eowyn", "Luna", "Leia", "Sansa",
+
+            // New Unique and Interesting/Funny Reference Names
+            "Yoda", "Morpheus", "Neo", "Trinity", "Gandalf", "Bilbo", "Legolas", "Elrond", "Galadriel", "Samwise",
+            "Pippin", "Merry", "Boromir", "Eowyn", "Gimli", "Eomer", "Faramir", "Theoden", "Gollum", "Smeagol",
+            "Saruman", "Celeborn", "Tom", "Goldberry", "Treebeard", "Shadowfax", "Balin", "Dwalin", "Kili",
+            "Fili", "Dori", "Nori", "Ori", "Bifur", "Bofur", "Bombur", "Thorin", "Bard", "Thranduil", "Smaug",
+            "Beorn", "Radagast", "Shelob", "Denethor", "Gothmog", "Erestor", "Glorfindel", "Cirdan", "Gil-galad",
+            "Elendil", "Isildur", "Anarion", "Beren", "Luthien", "Feanor"
         };
 
         string[] surnames = new string[]
-{
-            "Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez",
-            "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin",
+        {
+            // Common Surnames
             "Lee", "Perez", "Thompson", "White", "Harris", "Sanchez", "Clark", "Ramirez", "Lewis", "Robinson",
             "Walker", "Young", "Allen", "King", "Wright", "Scott", "Torres", "Nguyen", "Hill", "Flores",
             "Green", "Adams", "Nelson", "Baker", "Hall", "Rivera", "Campbell", "Mitchell", "Carter", "Roberts",
@@ -55,11 +66,14 @@ public static class Initialization
             "Stewart", "Morris", "Morales", "Murphy", "Cook", "Rogers", "Gutierrez", "Ortiz", "Morgan", "Cooper",
             "Peterson", "Bailey", "Reed", "Kelly", "Howard", "Ramos", "Kim", "Cox", "Alexander", "Ward",
             "Richardson", "Watson", "Brooks", "Chavez", "Wood", "James", "Bennett", "Gray", "Mendoza", "Ruiz",
-            "Hughes", "Price", "Alvarez", "Castillo", "Sanders", "Patel", "Myers", "Long", "Ross", "Foster",
-            "Jimenez", "Powell", "Jenkins", "Perry", "Russell", "Sullivan", "Bell", "Coleman", "Butler", "Henderson",
-            "Barnes", "Gonzales", "Fisher", "Vasquez", "Simmons", "Romero", "Jordan", "Patterson", "Alexander", "Hamilton",
-            "Graham", "Reynolds", "Griffin", "Wallace", "Moreno", "West", "Cole", "Hayes", "Bryant", "Herrera",
-            "Gibson", "Ellis", "Tran", "Vasquez", "Kim", "Schmidt", "Hunter", "Harrison", "Hart", "Stone"
+            "Hughes", "Price", "Alvarez", "Castillo", "Sanders", "Patel", "Myers", "Long", "Ross", "Foster",            
+
+            // Unique and Interesting/Funny Reference Surnames
+            "Skywalker", "Stark", "Potter", "Dumbledore", "Holmes", "Wayne", "Bond", "Solo", "Baggins", "Lannister", "Targaryen",
+            "Malfoy", "Grey", "Gatsby", "Vader", "Kenobi", "Granger", "Snape", "Thorin", "Spock", "Kirk", "Luthar", "Ninefingers",
+            "Picard", "Sulu", "McFly", "Tannen", "Hannibal", "Rocky", "Balboa", "Munson", "Lebowski", "Biggs", "Oakenshield",
+            "Strange", "Banner", "Riddle", "Weasley", "Dursley", "Durden", "Gump", "Wick", "Corleone", "Ripley",
+            "Soprano", "Banks", "Draper", "Bourne", "Rambo", "McClane", "Thatcher", "Fisher", "Travolta", "Schrute"
         };
 
         int emailFiller = 1000;

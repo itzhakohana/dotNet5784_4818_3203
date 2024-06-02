@@ -164,18 +164,16 @@
         </Grid.ColumnDefinitions>
         
         <!--loading spinner-->
-        <Grid Margin="5" Panel.ZIndex="99">
-            <controls:LoadingSpinner IsLoading="{Binding Loading}"/>
+        <Grid Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="5" Panel.ZIndex="99" >
+            <controls:LoadingSpinner  IsLoading="{Binding Loading}"/>
         </Grid>
 
         <!--sorting combo box-->
         <StackPanel Orientation="Horizontal" Margin="0" Grid.Column="1" Grid.Row="0" >
             <Label HorizontalAlignment="Center" Margin="0" Content="Order By:" />
             <ComboBox 
-                    Margin="0"
-                    Width="250"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource DefaultComboBoxStyle}" SelectionChanged="SelectionChanged_OrederByComboBox">
+                    Margin="0" Width="250" VerticalAlignment="Center" Style="{StaticResource DefaultComboBoxStyle}" 
+                SelectionChanged="SelectionChanged_OrederByComboBox" Loaded="SortingComboBoxLoaded">
                 <ComboBoxItem Content="Name"/>
                 <ComboBoxItem Content="Last Activity"/>
                 <ComboBoxItem Content="User Type"/>
@@ -185,7 +183,7 @@
 
         <!--search by name text box-->
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0" Grid.Column="0" Grid.Row="0">
-            <controls:CustomTextBox TextChanged="TextChanged_SearchTextBox" HeaderText="Search.." BorderBrush="Black" HorizontalAlignment="Center" Style="{StaticResource TextBoxStyle2}" Width="450" MaxLength="50" Height="32">
+            <controls:CustomTextBox TextChanged="TextChanged_SearchTextBox" Loaded="SearchBoxLoaded" HeaderText="Search.." BorderBrush="Black" HorizontalAlignment="Center" Style="{StaticResource TextBoxStyle2}" Width="450" MaxLength="50" Height="32">
             </controls:CustomTextBox>
         </StackPanel>
 

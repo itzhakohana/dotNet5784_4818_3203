@@ -213,5 +213,15 @@ namespace PL.UserPages
                     refreshPage();
             }
         }
+
+        private void SearchBoxLoaded(object sender, RoutedEventArgs e)
+        {
+            TextChanged_SearchTextBox(sender, null);
+        }
+
+        private void SortingComboBoxLoaded(object sender, RoutedEventArgs e)
+        {
+            SelectionChanged_OrederByComboBox(sender, null);
+        }
     }
 }

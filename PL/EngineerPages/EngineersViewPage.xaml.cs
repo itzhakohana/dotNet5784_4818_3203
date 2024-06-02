@@ -248,9 +248,26 @@ namespace PL.EngineerPages
             if (sender is CustomControls.CustomTextBox textBox)
             {
                 EngineerList = (from eng in EngineerList
+                                let lastName = eng.Name.Substring(eng.Name.IndexOf(" ") + 1)
                                 where eng.Name.StartsWith(textBox.Text, StringComparison.OrdinalIgnoreCase)
+                                    || lastName.StartsWith(textBox.Text, StringComparison.OrdinalIgnoreCase)
                                 select eng);
             }
+        }
+
+        private void Loaded_OrderByComboBox(object sender, RoutedEventArgs e)
+        {
+            SelectionChanged_OrederByComboBox(sender, null);
+        }
+
+        private void Loaded_FilterByComboBox(object sender, RoutedEventArgs e)
+        {
+            SelectionChanged_FilterBox(sender, null);
+        }
+
+        private void SearchBoxLoaded(object sender, RoutedEventArgs e)
+        {
+            TextChanged_SearchTextBox(sender, null);
         }
     }
 }

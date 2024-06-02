@@ -182,6 +182,20 @@ namespace PL.TaskPages
                                 select task);
             }
         }
-       
+
+        private void SearchBoxLoaded(object sender, RoutedEventArgs e)
+        {
+            TextChanged_SearchTextBox(sender, null);
+        }
+
+        private void FilteringComboBoxLoaded(object sender, RoutedEventArgs e)
+        {
+            SelectionChanged_FilterBox(sender, null);
+        }
+
+        private void SortingComboBoxLoaded(object sender, RoutedEventArgs e)
+        {
+            SelectionChanged_OrederByComboBox(sender, null);
+        }
     }
 }

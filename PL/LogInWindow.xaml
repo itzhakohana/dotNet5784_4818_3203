@@ -14,8 +14,8 @@
         Height="650" Width="1100"          
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Icon="/Graphics/Icons/laptop1.png"
-        Closed="WindowClosed" MouseDown="Window_MouseDown"
-        Title="Log-In">
+        Closing="Window_Closing" MouseDown="Window_MouseDown"
+        Title="Log-In" StateChanged="WindowStateChanged">
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="0" ResizeBorderThickness="5"/>
@@ -63,25 +63,15 @@
                 <Grid Width="50" Height="50">
                     <controls:IconToggleButton x:Name="TipExpander" Icon="/Graphics/Icons/tipBulb.png" Background="Transparent" Style="{StaticResource FlashingToggleIconButtonTransparent_NoIsCheckedVisual}"/>
                 </Grid>
-                <Border BorderThickness="1" BorderBrush="Black" CornerRadius="5" Height="50" 
+                <Border MouseDown="Border_MouseDown" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Height="50" 
                         Background="#FFB4D7A0" HorizontalAlignment="Center" Visibility="{Binding ElementName=TipExpander, Path=IsChecked, Converter={StaticResource ConvertBoolToVisibility}}">
                     <StackPanel Orientation="Horizontal" Margin="5,0">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding ElementName=TipExpander, Path=IsChecked, Converter={StaticResource ConvertBoolToVisibility}}">
-                            <TextBlock FontSize="18" Text="Demo User: " FontFamily="Arial"/>
-                            <TextBlock FontSize="18" Foreground="#FF1D40CC" FontFamily="Arial">
-                                <Run FontWeight="Bold">
-                                    User Name: 
-                                </Run>
-                                 <Run>
-                                     test 
-                                 </Run>         
-                                <Run FontWeight="Bold">
-                                    Password: 
-                                </Run>  
-                                <Run>
-                                    1234
-                                </Run>
-                            </TextBlock>
+                            <TextBlock FontSize="18" Text="Demo User: " FontWeight="Bold" FontFamily="Arial"/>
+                           
+                            <TextBox IsReadOnly="True" BorderThickness="0" Background="Transparent" FontSize="18" Foreground="#FF1D40CC" FontFamily="Arial">
+                                test 1234
+                            </TextBox>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -108,7 +98,7 @@
                         </Grid>
                         <!--<Separator HorizontalAlignment="Stretch" Background="black"/>-->
                         <Label Margin="0,15,0,0" Content="User Name:" HorizontalAlignment="Left" FontWeight="Bold" Foreground="White" FontFamily="Arial Black"/>
-                        <controls:CustomTextBox MaxLength="20" HorizontalContentAlignment="Center" Background="Transparent" Foreground="White" Style="{StaticResource PasswordTextBoxStyle1}" Text="{Binding CurrentUser.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <controls:CustomTextBox x:Name="NameTextBox" MaxLength="20" HorizontalContentAlignment="Center" Background="Transparent" Foreground="White" Style="{StaticResource PasswordTextBoxStyle1}" Text="{Binding CurrentUser.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         <Label Content="Password:" HorizontalAlignment="Left" FontWeight="Bold" Foreground="White" FontFamily="Arial Black"/>
                         <PasswordBox x:Name="PasswordBox" HorizontalContentAlignment="Center" Background="Transparent" Foreground="White" Style="{StaticResource PasswordBoxStyle1}" MaxLength="8" PasswordChanged="PasswordBox_PasswordChanged" PreviewTextInput="PasswordBox_PreviewTextInput"/>
                     </StackPanel>

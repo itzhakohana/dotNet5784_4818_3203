@@ -104,7 +104,7 @@
                                 <LineBreak/>
                                 <Run TextDecorations="Underline" Foreground="DarkKhaki">2) הגדרת תלוית בין משימות (אופציונלי)</Run>
                                 <LineBreak/>
-                                <Run>צור תלותים בין המשימות לבניית מבנה פרויקט מותאם אישית. מיילסטונים ייווצרו אוטומטית מהתלויות שהגדרתם בשלב איתחול הפרויקט </Run>
+                                <Run>צור תלויות בין המשימות לבניית מבנה פרויקט מותאם אישית. מיילסטונים(Milestones) ייווצרו אוטומטית מהתלויות שהגדרתם בשלב איתחול הפרויקט </Run>
                                 <LineBreak/>
                                 <Run TextDecorations="Underline" Foreground="DarkKhaki">3) הגדרת מהנדסים</Run>
                                 <LineBreak/>

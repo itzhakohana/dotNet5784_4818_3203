@@ -85,6 +85,18 @@ namespace PL
 
 
 
+        public bool ProjectStarted
+        {
+            get { return (bool)GetValue(ProjectStartedProperty); }
+            set { SetValue(ProjectStartedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ProjectStarted.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ProjectStartedProperty =
+            DependencyProperty.Register("ProjectStarted", typeof(bool), typeof(MainWindow), new PropertyMetadata(null));
+
+
+
         public bool Loading
         {
             get { return (bool)GetValue(LoadingProperty); }
@@ -129,7 +141,9 @@ namespace PL
             );
                         
             if (CurrentTask != null) CanUpdateTaskProgress = tmpCanStartWork || CurrentTask.Status == BO.Status.OnTrack;
-            else CanUpdateTaskProgress = false;            
+            else CanUpdateTaskProgress = false;
+
+            ProjectStarted = s_bl.Task.ProjectHasStarted();
         }
 
 

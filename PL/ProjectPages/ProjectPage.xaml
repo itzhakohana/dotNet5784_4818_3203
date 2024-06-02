@@ -246,7 +246,7 @@
 
                             <!--actual tasks view-->
                             <Border  Margin="0,30,0,0" CornerRadius="5" Background="Transparent">
-                                <ListView BorderThickness="0" Background="Transparent" ItemsSource="{Binding AllTasks}" SelectionChanged="GanttTaskSelected_ListViewSelectionChanged">
+                                <ListView BorderThickness="0" Background="Transparent" ItemsSource="{Binding AllTasks}" MouseDoubleClick="GanttTaskSelected_ListViewSelectionChanged">
                                     <ListView.ItemTemplate>
                                         <DataTemplate DataType="bl:Task">
                                             <Grid>
@@ -319,7 +319,7 @@
                                                                                     </StackPanel>
                                                                                     <Separator HorizontalAlignment="Stretch" Foreground="White"/>
                                                                                 </StackPanel>
-                                                                                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="3" Foreground="White" FontSize="15" FontStyle="Italic" Text="Click to navigate to task page"/>
+                                                                                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="3" Foreground="White" FontSize="15" FontStyle="Italic" Text="Double-Click to navigate to task page"/>
                                                                                 <!--<Button VerticalAlignment="Bottom" Style="{StaticResource ButtonStyle1}" Margin="4" FontSize="15" Height="30" Width="160" Content="Go to task page" MouseDoubleClick="GanttTaskRectangle_MouseDoubleClick" Focusable="True"/>-->
                                                                             </Grid>
                                                                         </Border>
