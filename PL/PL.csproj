@@ -135,10 +135,63 @@
     <None Remove="Graphics\ProfileIcons\happy1.png" />
     <None Remove="Graphics\ProfileIcons\happyFace.png" />
     <None Remove="Graphics\ProfileIcons\head.png" />
+    <None Remove="Graphics\ProfileIcons\jester.png" />
+    <None Remove="Graphics\ProfileIcons\jew %281%29.png" />
+    <None Remove="Graphics\ProfileIcons\jew %282%29.png" />
+    <None Remove="Graphics\ProfileIcons\jew %283%29.png" />
+    <None Remove="Graphics\ProfileIcons\jew %284%29.png" />
+    <None Remove="Graphics\ProfileIcons\jew %285%29.png" />
+    <None Remove="Graphics\ProfileIcons\jew %286%29.png" />
+    <None Remove="Graphics\ProfileIcons\jew.png" />
+    <None Remove="Graphics\ProfileIcons\joker.png" />
+    <None Remove="Graphics\ProfileIcons\judge.png" />
+    <None Remove="Graphics\ProfileIcons\man %281%29.png" />
+    <None Remove="Graphics\ProfileIcons\man %282%29.png" />
+    <None Remove="Graphics\ProfileIcons\man %283%29.png" />
+    <None Remove="Graphics\ProfileIcons\man-avatar.png" />
     <None Remove="Graphics\ProfileIcons\man.png" />
     <None Remove="Graphics\ProfileIcons\model.png" />
+    <None Remove="Graphics\ProfileIcons\office-worker %281%29.png" />
+    <None Remove="Graphics\ProfileIcons\office-worker.png" />
+    <None Remove="Graphics\ProfileIcons\officer %281%29.png" />
+    <None Remove="Graphics\ProfileIcons\officer %282%29.png" />
+    <None Remove="Graphics\ProfileIcons\officer.png" />
+    <None Remove="Graphics\ProfileIcons\party-hat.png" />
+    <None Remove="Graphics\ProfileIcons\people %281%29.png" />
+    <None Remove="Graphics\ProfileIcons\people %282%29.png" />
+    <None Remove="Graphics\ProfileIcons\people-snacking.png" />
+    <None Remove="Graphics\ProfileIcons\people.png" />
+    <None Remove="Graphics\ProfileIcons\poker-face.png" />
+    <None Remove="Graphics\ProfileIcons\police-officer.png" />
+    <None Remove="Graphics\ProfileIcons\policeman %281%29.png" />
+    <None Remove="Graphics\ProfileIcons\policeman.png" />
+    <None Remove="Graphics\ProfileIcons\professor.png" />
+    <None Remove="Graphics\ProfileIcons\rabbi %281%29.png" />
+    <None Remove="Graphics\ProfileIcons\rabbi.png" />
+    <None Remove="Graphics\ProfileIcons\reading.png" />
     <None Remove="Graphics\ProfileIcons\sad.png" />
+    <None Remove="Graphics\ProfileIcons\shape %282%29.png" />
+    <None Remove="Graphics\ProfileIcons\shape.png" />
+    <None Remove="Graphics\ProfileIcons\smile.png" />
+    <None Remove="Graphics\ProfileIcons\star.png" />
+    <None Remove="Graphics\ProfileIcons\student %281%29.png" />
+    <None Remove="Graphics\ProfileIcons\student %282%29.png" />
+    <None Remove="Graphics\ProfileIcons\student.png" />
+    <None Remove="Graphics\ProfileIcons\tax-inspector.png" />
+    <None Remove="Graphics\ProfileIcons\teacher %281%29.png" />
+    <None Remove="Graphics\ProfileIcons\teacher.png" />
     <None Remove="Graphics\ProfileIcons\thinking-face.png" />
+    <None Remove="Graphics\ProfileIcons\touch-face.png" />
+    <None Remove="Graphics\ProfileIcons\traveler.png" />
+    <None Remove="Graphics\ProfileIcons\traveller.png" />
+    <None Remove="Graphics\ProfileIcons\waiter.png" />
+    <None Remove="Graphics\ProfileIcons\waitress.png" />
+    <None Remove="Graphics\ProfileIcons\woman %281%29.png" />
+    <None Remove="Graphics\ProfileIcons\woman %283%29.png" />
+    <None Remove="Graphics\ProfileIcons\woman %284%29.png" />
+    <None Remove="Graphics\ProfileIcons\woman %285%29.png" />
+    <None Remove="Graphics\ProfileIcons\woman %286%29.png" />
+    <None Remove="Graphics\ProfileIcons\woman %287%29.png" />
     <None Remove="Graphics\ProfileIcons\woman.png" />
     <None Remove="Graphics\ProfileIcons\worker %281%29.png" />
     <None Remove="Graphics\ProfileIcons\worker.png" />
@@ -386,16 +439,82 @@
     <Resource Include="Graphics\Icons\wrench1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Graphics\ProfileIcons\concerned-face.png">
+    <Resource Include="Graphics\ProfileIcons\baby-boy (1).png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Graphics\ProfileIcons\emoji.png">
+    <Resource Include="Graphics\ProfileIcons\baby-boy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Graphics\ProfileIcons\face-recognition.png">
+    <Resource Include="Graphics\ProfileIcons\baby1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Graphics\ProfileIcons\happyFace.png">
+    <Resource Include="Graphics\ProfileIcons\bandit (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\bandit.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\beard.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\boy (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\boy (2).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\boy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\burglar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\businesswoman (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\businesswoman.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\cowboy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\cream.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\devil.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\eating.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\education.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\evil.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\face-wash.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\female-student.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\female.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\gangster.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\girl (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\girl.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\girl2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\happy-face.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\ProfileIcons\happy-face.png">
@@ -407,16 +526,166 @@
     <Resource Include="Graphics\ProfileIcons\head.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\ProfileIcons\jester.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\jew (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\jew (2).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\jew (3).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\jew (4).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\jew (5).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\jew (6).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\jew.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\joker.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\judge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\man (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\man (2).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\man (3).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\man-avatar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\ProfileIcons\man.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\ProfileIcons\model.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Graphics\ProfileIcons\sad.png">
+    <Resource Include="Graphics\ProfileIcons\office-worker (1).png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Graphics\ProfileIcons\thinking-face.png">
+    <Resource Include="Graphics\ProfileIcons\office-worker.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\officer (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\officer (2).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\officer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\party-hat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\people (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\people (2).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\people-snacking.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\people.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\poker-face.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\police-officer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\policeman (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\policeman.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\professor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\rabbi (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\rabbi.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\reading.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\shape (2).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\shape.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\smile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\student (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\student (2).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\student.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\tax-inspector.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\teacher (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\teacher.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\touch-face.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\traveler.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\traveller.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\waiter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\waitress.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\woman (1).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\woman (3).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\woman (4).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\woman (5).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\woman (6).png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\ProfileIcons\woman (7).png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\ProfileIcons\woman.png">
