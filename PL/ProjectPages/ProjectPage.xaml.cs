@@ -224,7 +224,7 @@ namespace PL.ProjectPages
                     Loading = true;
                     await Task.Run(() => s_bl.Reset());
                     Loading = false;
-                    MessageBox.Show("Reset Successfull", default, MessageBoxButton.OK, MessageBoxImage.None);
+                    MessageBox.Show("Reset Successfull", "Success", MessageBoxButton.OK, MessageBoxImage.None);
                     refreshData();
                 }
             }
@@ -263,7 +263,7 @@ namespace PL.ProjectPages
                     Loading = true;
                     await Task.Run(() => s_bl.InitializeDataBase());
                     Loading = false;
-                    MessageBox.Show("Randomazation Successfull", default, MessageBoxButton.OK, MessageBoxImage.None);
+                    MessageBox.Show("Randomazation Successfull", "Success", MessageBoxButton.OK, MessageBoxImage.None);
                     refreshData();
                 }                
             }
@@ -306,15 +306,7 @@ namespace PL.ProjectPages
         private void GanttTaskRectangle_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (!e.Handled) { }
-        }
-        
-
-        private void GanttTaskSelected_ListViewSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            BO.Task task = (sender as ListView)?.SelectedItem as BO.Task;
-            if (task != null)
-                NavigationService.Navigate(new TaskPage(CurrentUser, task.Id));
-        }
+        }       
 
         private void PageLoaded_Loaded(object sender, RoutedEventArgs e)
         {
@@ -324,6 +316,13 @@ namespace PL.ProjectPages
         private void ReloadPage_BtnClick(object sender, RoutedEventArgs e)
         {
             refreshData();
+        }
+
+        private void GanttTaskSelected_ListViewSelectionChanged(object sender, MouseButtonEventArgs e)
+        {
+            BO.Task task = (sender as ListView)?.SelectedItem as BO.Task;
+            if (task != null)
+                NavigationService.Navigate(new TaskPage(CurrentUser, task.Id));
         }
     }
 }

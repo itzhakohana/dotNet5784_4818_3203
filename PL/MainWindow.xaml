@@ -350,24 +350,24 @@
             
             <Border PreviewMouseDown="GoToWelcomPage_LogoClicked" CornerRadius="5" Grid.Row="1" Margin="5" BorderBrush="Black" VerticalAlignment="Center">
                 <!--logo-->
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel x:Name="LogoText" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <StackPanel Margin="0,0,0,0">
-                        <TextBlock  Text="NoPro" FontSize="28" FontFamily="Segoe UI Black" FontWeight="ExtraBold" FontStyle="Oblique" FontStretch="Expanded" Foreground="White">
+                        <TextBlock Text="NoPro" FontSize="28" FontFamily="Segoe UI Black" FontWeight="ExtraBold" FontStyle="Oblique" FontStretch="Expanded" Foreground="White">
                             <TextBlock.Effect>
                                 <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.3" Color="Black"/>
                             </TextBlock.Effect>
                         </TextBlock>
                     </StackPanel>
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
                 </StackPanel>
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderThickness" Value="1"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
             </Border>
             <!--stack panel which contains the left nav buttons-->
             <Separator Grid.Row="1" VerticalAlignment="Bottom" Background="White" HorizontalContentAlignment="Stretch"/>

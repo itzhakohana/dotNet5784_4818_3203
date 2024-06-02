@@ -10,12 +10,23 @@
              Visibility="Collapsed">
 
     <Border x:Name="MainBorder" CornerRadius="10" Background="{DynamicResource Backround6}">
-        <!--close button-->
-        <controls:IconButton Margin="23,15" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="21" Height="21" 
+        <Grid>
+            <!--close button-->
+            <controls:IconButton Margin="23,15" Style="{DynamicResource TransparentIconButton1}" Background="Transparent" Padding="0" HorizontalAlignment="Right" VerticalAlignment="Top" Width="21" Height="21" 
             Icon="/Graphics/Icons/exit2.png" Click="CloseButton_Click">
-            <ButtonBase.Effect>
-                <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
-            </ButtonBase.Effect>
-        </controls:IconButton>
+                <ButtonBase.Effect>
+                    <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
+                </ButtonBase.Effect>
+            </controls:IconButton>
+            <TextBlock Margin="25,40" TextWrapping="Wrap" Foreground="Black" FontSize="20" FontWeight="Medium">
+                <Run TextDecorations="Underline" FontWeight="Bold">
+                    This project was made by: </Run>
+                <LineBreak/>
+                <Run >Pini Goldfraind and Itzhak Ohana</Run>
+                <LineBreak/>
+                <Run>Using .NET as the core platform and C# as the programing language.</Run>
+                <LineBreak/>
+            </TextBlock>
+        </Grid>
     </Border>
 </UserControl>

@@ -107,6 +107,32 @@
         </Setter>
     </Style>
 
+    <!--style for dates display-->
+    <Style x:Key="DateDisplayStyle" TargetType="TextBox">
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid Background="Transparent" MinHeight="25" Margin="{TemplateBinding Margin}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Grid.Row="0" Margin="4" Source="/Graphics/Icons/calendar1.png">
+                            <Image.Effect>
+                                <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.3" Color="Black"/>
+                            </Image.Effect>
+                        </Image>
+                        <Separator Grid.ColumnSpan="2" Background="Black" VerticalAlignment="Bottom" VerticalContentAlignment="Bottom" HorizontalAlignment="Stretch"/>
+                        <TextBox Margin="4,0,0,0" IsReadOnly="True" Focusable="True" Grid.Column="1" Text="{TemplateBinding Text}" Foreground="White" 
+                                 FontSize="16" VerticalAlignment="Center" FontWeight="DemiBold" Background="Transparent" BorderThickness="0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <!--default vertical style for menu navigation button -->
     <Style x:Key="MainNavButtonVertical" TargetType="{x:Type controls:NavigationButton}">
         <Setter Property="Background" Value="{StaticResource Backround1}"/>
@@ -183,6 +209,10 @@
                             <Setter Property="Opacity" Value="0.75"/>
                             <Setter Property="BorderThickness" Value="1" TargetName="border"/>
                         </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Opacity" Value="0.75"/>
+                            <Setter Property="BorderThickness" Value="1" TargetName="border"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -211,7 +241,10 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" TargetName="border" Value="white"/>
                             <Setter Property="Opacity" TargetName="border" Value="0.7"/>
-                            <!--<Setter Property="BorderThickness" TargetName="border" Value="0"/>-->
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Background" TargetName="border" Value="white"/>
+                            <Setter Property="Opacity" TargetName="border" Value="0.7"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -242,7 +275,9 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Opacity" TargetName="border" Value="0.5"/>
-                            <!--<Setter Property="BorderThickness" TargetName="border" Value="0"/>-->
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="Opacity" TargetName="border" Value="0.5"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -499,14 +534,13 @@
                     <Border x:Name="Border" Height="{TemplateBinding Height}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" CornerRadius="5">
                         <StackPanel Orientation="Vertical">
                             <ScrollViewer x:Name="PART_ContentHost"/>
-                            <Separator HorizontalAlignment="Stretch" Background="White"/>
+                            <Separator x:Name="seperator" HorizontalAlignment="Stretch" Background="White"/>
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <!--<Trigger Property="IsFocused" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="LightBlue"/>
-                            <Setter TargetName="Border" Property="BorderBrush" Value="DodgerBlue"/>
-                        </Trigger>-->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="seperator" Property="Background" Value="#FF7382BA"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -530,14 +564,13 @@
                     <Border x:Name="Border" Height="{TemplateBinding Height}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" CornerRadius="5">
                         <StackPanel Orientation="Vertical">
                             <ScrollViewer x:Name="PART_ContentHost"/>
-                            <Separator HorizontalAlignment="Stretch" Background="White"/>
+                            <Separator x:Name="seperator" HorizontalAlignment="Stretch" Background="White"/>
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
-                        <!--<Trigger Property="IsFocused" Value="True">
-                        <Setter TargetName="Border" Property="Background" Value="LightBlue"/>
-                        <Setter TargetName="Border" Property="BorderBrush" Value="DodgerBlue"/>
-                    </Trigger>-->
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="seperator" Property="Background" Value="#FF7382BA"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

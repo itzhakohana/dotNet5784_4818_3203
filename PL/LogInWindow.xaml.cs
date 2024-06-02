@@ -61,6 +61,7 @@ namespace PL
         public LogInWindow()
         {
             InitializeComponent();
+            NameTextBox.Focus();
             Loading = false;
             OnSuccessfulLogIn += ResetLogInWindow_OnSuccessfulLogIn!;
 
@@ -115,13 +116,7 @@ namespace PL
         private void Minimize_btnClick(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
-        }
-        private async void WindowClosed(object sender, EventArgs e)
-        {
-            s_bl.SaveClock();
-            OnShutDown.Invoke(this, EventArgs.Empty);
-            Application.Current.Shutdown();            
-        }
+        }   
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -153,6 +148,32 @@ namespace PL
                     passwordBox.Password = "";
                 }
                 CurrentUser.Password = passwordBox.Password;
+            }
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to exit?", "Are you sure?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                s_bl.SaveClock();
+                OnShutDown.Invoke(this, EventArgs.Empty);
+                Application.Current.Shutdown();
+            }
+            else
+                e.Cancel = true;
+        }
+
+        private void WindowStateChanged(object sender, EventArgs e)
+        {
+            if(this.WindowState != WindowState.Minimized) 
+            {
+                NameTextBox.Focus();
             }
         }
     }

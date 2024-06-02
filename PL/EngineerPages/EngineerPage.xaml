@@ -57,57 +57,65 @@
                 </Grid>
                 
                 <!--Profile picture-->
-                <StackPanel Focusable="False" Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0" >
-                    <Ellipse Height="130" Width="130">
+                <Grid Focusable="False" HorizontalAlignment="Stretch" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Ellipse Grid.Column="1" Height="130" Width="130">
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="{Binding MyImage, NotifyOnSourceUpdated=True}"/>
                         </Ellipse.Fill>
                     </Ellipse>
-                    <!--upload picture button-->
-                    <controls:IconButton Focusable="False" ToolTipService.InitialShowDelay="0" VerticalAlignment="Bottom" Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/upload1.png" Height="30" Width="30" Padding="0" Click="UpdateProfilePicture_btnClick">
-                        <controls:IconButton.Visibility>
-                            <MultiBinding Converter="{StaticResource ConvertUserAndEngineerToVisibility}">
-                                <Binding Path="CurrentUser"/>
-                                <Binding Path="Engineer"/>
-                            </MultiBinding>
-                        </controls:IconButton.Visibility>
-                        <controls:IconButton.ToolTip>
-                            <ToolTip Background="Gray" StaysOpen="True">
-                                <ToolTip.Template>
-                                    <ControlTemplate TargetType="ToolTip">
-                                        <Border IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="auto" Width="auto">
-                                            <Grid>
-                                                <TextBlock Margin="10" Foreground="White" FontSize="18" FontWeight="Bold" Text="Upload Picture"/>
-                                            </Grid>
-                                        </Border>
-                                    </ControlTemplate>
-                                </ToolTip.Template>
-                            </ToolTip>
-                        </controls:IconButton.ToolTip>
-                    </controls:IconButton>
-                    <!--upload pre made icon as picture-->
-                    <controls:IconButton Focusable="False" ToolTipService.InitialShowDelay="0" VerticalAlignment="Bottom" Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/upload1.png" Height="30" Width="30" Padding="0" Click="ChoosePreMadeIcon_btnClick">
-                        <controls:IconButton.Visibility>
-                            <MultiBinding Converter="{StaticResource ConvertUserAndEngineerToVisibility}">
-                                <Binding Path="CurrentUser"/>
-                                <Binding Path="Engineer"/>
-                            </MultiBinding>
-                        </controls:IconButton.Visibility>
-                        <controls:IconButton.ToolTip>
-                            <ToolTip Background="Gray" StaysOpen="True">
-                                <ToolTip.Template>
-                                    <ControlTemplate TargetType="ToolTip">
-                                        <Border IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="auto" Width="auto">
-                                            <Grid>
-                                                <TextBlock Margin="10" Foreground="White" FontSize="18" FontWeight="Bold" Text="Choose Icon"/>
-                                            </Grid>
-                                        </Border>
-                                    </ControlTemplate>
-                                </ToolTip.Template>
-                            </ToolTip>
-                        </controls:IconButton.ToolTip>
-                    </controls:IconButton>
-                </StackPanel>
+                    <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="8">
+                        <!--upload picture button-->
+                        <controls:IconButton Focusable="False" Margin="1,0,0,2" ToolTipService.InitialShowDelay="0" VerticalAlignment="Bottom" Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/upload1.png" Height="22" Width="22" Padding="0" Click="UpdateProfilePicture_btnClick">
+                            <controls:IconButton.Visibility>
+                                <MultiBinding Converter="{StaticResource ConvertUserAndEngineerToVisibility}">
+                                    <Binding Path="CurrentUser"/>
+                                    <Binding Path="Engineer"/>
+                                </MultiBinding>
+                            </controls:IconButton.Visibility>
+                            <controls:IconButton.ToolTip>
+                                <ToolTip Background="Gray" StaysOpen="True">
+                                    <ToolTip.Template>
+                                        <ControlTemplate TargetType="ToolTip">
+                                            <Border IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="auto" Width="auto">
+                                                <Grid>
+                                                    <TextBlock Margin="10" Foreground="White" FontSize="18" FontWeight="Bold" Text="Upload Picture"/>
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </ToolTip.Template>
+                                </ToolTip>
+                            </controls:IconButton.ToolTip>
+                        </controls:IconButton>
+                        <!--upload pre made icon as picture-->
+                        <controls:IconButton Focusable="False" ToolTipService.InitialShowDelay="0" VerticalAlignment="Bottom" Style="{DynamicResource TransparentIconButton1}" Icon="/Graphics/Icons/chooseIcon.png" Height="22" Width="22" Padding="0" Click="ChoosePreMadeIcon_btnClick">
+                            <controls:IconButton.Visibility>
+                                <MultiBinding Converter="{StaticResource ConvertUserAndEngineerToVisibility}">
+                                    <Binding Path="CurrentUser"/>
+                                    <Binding Path="Engineer"/>
+                                </MultiBinding>
+                            </controls:IconButton.Visibility>
+                            <controls:IconButton.ToolTip>
+                                <ToolTip Background="Gray" StaysOpen="True">
+                                    <ToolTip.Template>
+                                        <ControlTemplate TargetType="ToolTip">
+                                            <Border IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="auto" Width="auto">
+                                                <Grid>
+                                                    <TextBlock Margin="10" Foreground="White" FontSize="18" FontWeight="Bold" Text="Choose Pre-Made"/>
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </ToolTip.Template>
+                                </ToolTip>
+                            </controls:IconButton.ToolTip>
+                        </controls:IconButton>
+                    </StackPanel>
+                </Grid>
                 <!--Name-->
                 <StackPanel VerticalAlignment="Center" Margin="15,0" Grid.Column="1" Grid.Row="2">
                     <Label VerticalContentAlignment="Bottom" Content="Name:"/>

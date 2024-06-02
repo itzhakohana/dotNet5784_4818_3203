@@ -160,12 +160,12 @@
                         <ToolTip Background="Gray" StaysOpen="True">
                             <ToolTip.Template>
                                 <ControlTemplate TargetType="ToolTip">
-                                    <Border IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="180" Width="350">
+                                    <Border IsHitTestVisible="True" BorderThickness="1" BorderBrush="Black" Background="DimGray" CornerRadius="7" Height="auto" Width="350">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
-                                            <StackPanel>
+                                            <StackPanel Height="auto">
                                                 <!--task alias-->
                                                 <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="20" FontWeight="Bold" Text="{Binding Alias}"/>
                                                 <!--task status with icon-->
@@ -194,17 +194,24 @@
                                                             </Style>
                                                         </Image.Style>
                                                     </Image>
-                                                    <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding Status}"/>
+                                                    <TextBlock Margin="7,7,0,0" Foreground="Yellow" FontSize="15" FontWeight="Bold" Text="{Binding Status}"/>
                                                 </StackPanel>
                                                 <Separator HorizontalAlignment="Stretch" Foreground="White"/>
                                                 <!--creation date-->
                                                 <StackPanel Orientation="Horizontal" Margin="7,0,0,0">
                                                     <Image Margin="7,7,0,0" Height="15" Width="15" Source="/Graphics/Icons/calendar1.png"/>
-                                                    <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding CreatedAtDate, StringFormat={}Creation Date: {0:dd/MM/yy hh:mm:ss}}"/>
+                                                    <TextBlock Margin="7,7,0,0" Foreground="Yellow" FontSize="15" FontWeight="Bold" Text="Creation Date:"/>
+                                                    <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding CreatedAtDate, StringFormat={}{0:dd/MM/yy hh:mm:ss}}"/>
+                                                </StackPanel>
+                                                <!--assigned engineer-->
+                                                <StackPanel Orientation="Horizontal" Margin="7,0,0,0" Visibility="{Binding Engineer, Converter={StaticResource ConvertNullToVisibility}}">
+                                                    <Image Margin="7,7,0,0" Height="15" Width="15" Source="/Graphics/Icons/worker2.png"/>
+                                                    <TextBlock Margin="7,7,0,0" Foreground="Yellow" FontSize="15" FontWeight="Bold" Text="Assigned Engineer:"/>
+                                                    <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding Engineer.Name}"/>
                                                 </StackPanel>
                                                 <Separator HorizontalAlignment="Stretch" Foreground="White"/>
                                                 <!--task's description-->
-                                                <TextBlock Margin="7,7,0,0" Foreground="White" FontSize="15" FontWeight="Bold" Text="{Binding Description}" TextWrapping="Wrap"/>
+                                                <TextBlock Margin="7,7,7,10" Foreground="White" Height="auto" FontSize="15" FontWeight="Bold" Text="{Binding Description}" TextWrapping="Wrap"/>
                                             </StackPanel>
                                         </Grid>
                                     </Border>
@@ -311,13 +318,8 @@
                     IconHeight="1"
                     IconWidth="1"
                     VerticalAlignment="Top"
+                    Visibility="{Binding CurrentUser.UserType, Converter={StaticResource ConvertUserTypeToVisibility}}"
                     Click="AddNewTask_BtnClick">
-                <controls:IconButton.IsEnabled>
-                    <MultiBinding Converter="{StaticResource ConvertUserAndProjectStateToBool}">
-                        <Binding Path="CurrentUser.UserType"/>
-                        <Binding Path="ProjectHasStarted"/>
-                    </MultiBinding>
-                </controls:IconButton.IsEnabled>
                 <ButtonBase.Effect>
                     <DropShadowEffect ShadowDepth="3" BlurRadius="5" Opacity="0.5" Color="Black"/>
                 </ButtonBase.Effect>
