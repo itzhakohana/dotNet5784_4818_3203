@@ -23,13 +23,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Graphics\UserProfilePictures\**" />
-    <EmbeddedResource Remove="Graphics\UserProfilePictures\**" />
-    <None Remove="Graphics\UserProfilePictures\**" />
-    <Page Remove="Graphics\UserProfilePictures\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Graphics\Icons\3dots.png" />
     <None Remove="Graphics\Icons\add1.png" />
     <None Remove="Graphics\Icons\advanced.png" />
@@ -114,15 +107,12 @@
     <None Remove="Graphics\ProfileIcons\burglar.png" />
     <None Remove="Graphics\ProfileIcons\businesswoman %281%29.png" />
     <None Remove="Graphics\ProfileIcons\businesswoman.png" />
-    <None Remove="Graphics\ProfileIcons\concerned-face.png" />
     <None Remove="Graphics\ProfileIcons\cowboy.png" />
     <None Remove="Graphics\ProfileIcons\cream.png" />
     <None Remove="Graphics\ProfileIcons\devil.png" />
     <None Remove="Graphics\ProfileIcons\eating.png" />
     <None Remove="Graphics\ProfileIcons\education.png" />
-    <None Remove="Graphics\ProfileIcons\emoji.png" />
     <None Remove="Graphics\ProfileIcons\evil.png" />
-    <None Remove="Graphics\ProfileIcons\face-recognition.png" />
     <None Remove="Graphics\ProfileIcons\face-wash.png" />
     <None Remove="Graphics\ProfileIcons\female-student.png" />
     <None Remove="Graphics\ProfileIcons\female.png" />
@@ -133,7 +123,6 @@
     <None Remove="Graphics\ProfileIcons\happy-face.png" />
     <None Remove="Graphics\ProfileIcons\happy.png" />
     <None Remove="Graphics\ProfileIcons\happy1.png" />
-    <None Remove="Graphics\ProfileIcons\happyFace.png" />
     <None Remove="Graphics\ProfileIcons\head.png" />
     <None Remove="Graphics\ProfileIcons\jester.png" />
     <None Remove="Graphics\ProfileIcons\jew %281%29.png" />
@@ -169,18 +158,15 @@
     <None Remove="Graphics\ProfileIcons\rabbi %281%29.png" />
     <None Remove="Graphics\ProfileIcons\rabbi.png" />
     <None Remove="Graphics\ProfileIcons\reading.png" />
-    <None Remove="Graphics\ProfileIcons\sad.png" />
     <None Remove="Graphics\ProfileIcons\shape %282%29.png" />
     <None Remove="Graphics\ProfileIcons\shape.png" />
     <None Remove="Graphics\ProfileIcons\smile.png" />
-    <None Remove="Graphics\ProfileIcons\star.png" />
     <None Remove="Graphics\ProfileIcons\student %281%29.png" />
     <None Remove="Graphics\ProfileIcons\student %282%29.png" />
     <None Remove="Graphics\ProfileIcons\student.png" />
     <None Remove="Graphics\ProfileIcons\tax-inspector.png" />
     <None Remove="Graphics\ProfileIcons\teacher %281%29.png" />
     <None Remove="Graphics\ProfileIcons\teacher.png" />
-    <None Remove="Graphics\ProfileIcons\thinking-face.png" />
     <None Remove="Graphics\ProfileIcons\touch-face.png" />
     <None Remove="Graphics\ProfileIcons\traveler.png" />
     <None Remove="Graphics\ProfileIcons\traveller.png" />
@@ -197,84 +183,29 @@
     <None Remove="Graphics\ProfileIcons\worker.png" />
   </ItemGroup>
 
+ 
   <ItemGroup>
     <Content Include="Graphics\exeIcon.ico" />
   </ItemGroup>
 
+
   <ItemGroup>
-    <Resource Include="Graphics\Icons\chooseIcon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\engineers1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\engineers2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\feedback.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\full-screen2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\full-screen3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\guide.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\loggedIn1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\logIn1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\logOff1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\logOff2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\logOff3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\manager.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\milestones1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\minimize3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\project.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\rocket.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\shutdown2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\tasks1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\tasks2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Graphics\Icons\timeSpan1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.0.0">
+      <GeneratePathProperty>False</GeneratePathProperty>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Graphics\Icons\add1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <ProjectReference Include="..\BL\BL.csproj" />
+    <ProjectReference Include="..\DalTest\DalTest.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Graphics\Icons\3dots.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\add1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\advanced.png">
@@ -298,22 +229,10 @@
     <Resource Include="Graphics\Icons\calendar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
-    <PackageReference Include="MaterialDesignThemes" Version="5.0.0">
-      <GeneratePathProperty>False</GeneratePathProperty>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BL\BL.csproj" />
-    <ProjectReference Include="..\DalTest\DalTest.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Graphics\Icons\calendar1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\chooseIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\clock1.png">
@@ -331,6 +250,12 @@
     <Resource Include="Graphics\Icons\edit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\engineers1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\engineers2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\exit.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -346,7 +271,19 @@
     <Resource Include="Graphics\Icons\expert.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\feedback.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\full-screen1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\full-screen2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\full-screen3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\guide.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\in jeopardy1.png">
@@ -367,7 +304,28 @@
     <Resource Include="Graphics\Icons\level1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\loggedIn1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\logIn1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\logOff1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\logOff2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\logOff3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\manager.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\milestone1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\milestones1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\minimize.png">
@@ -376,16 +334,28 @@
     <Resource Include="Graphics\Icons\minimize2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\minimize3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\previousArrow1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\progress1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\project.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\reset1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Graphics\Icons\rocket.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Graphics\Icons\scheduled2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\shutdown2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\spinning.png">
@@ -395,6 +365,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\taskList1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\tasks1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\tasks2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Graphics\Icons\timeSpan1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\Icons\tipBulb.png">
@@ -517,7 +496,7 @@
     <Resource Include="Graphics\ProfileIcons\happy-face.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Graphics\ProfileIcons\happy-face.png">
+    <Resource Include="Graphics\ProfileIcons\happy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Graphics\ProfileIcons\happy1.png">
@@ -698,6 +677,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
