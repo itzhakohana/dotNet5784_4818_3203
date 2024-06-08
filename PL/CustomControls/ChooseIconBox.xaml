@@ -43,71 +43,14 @@
                         <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/girl.png"/>
                         <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/girl2.png"/>
                         <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/happy1.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/happy-face.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/jester.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/joker.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/happyFace.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/head.png"/>
                         <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/man.png"/>
                         <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/man-avatar.png"/>
                         <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/model.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/office-worker (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/office-worker.png"/>
-                        
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/people-snacking.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/poker-face.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/shape (2).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/shape.png"/>
-                        
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/student (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/student (2).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/student.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/touch-face.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/traveler.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/traveller.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/woman (3).png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/sad.png"/>
                         <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/woman.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/worker (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/worker.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/waiter.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/waitress.png"/>
-                        
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/gangster.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/people.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/people (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/evil.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/devil.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/burglar.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/cowboy.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/bandit.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/bandit (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/jew.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/jew (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/rabbi.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/rabbi (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/man (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/jew (5).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/jew (6).png"/>
-                        
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/officer (2).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/policeman (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/officer (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/policeman.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/officer.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/police-officer.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/professor.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/teacher (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/teacher.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/boy (2).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/tax-inspector.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/judge.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/man (2).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/man (3).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/woman (4).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/woman (5).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/businesswoman (1).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/happy.png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/woman (6).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/woman (7).png"/>
-                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/businesswoman.png"/>
+                        <controls:ImageListItem Width="70" Style="{StaticResource IconPictureDisplayStyle}" Image="/Graphics/ProfileIcons/thinking-face.png"/>
 
                     </ItemsControl.Items>
 
