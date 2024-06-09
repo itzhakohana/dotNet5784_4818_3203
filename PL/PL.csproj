@@ -187,15 +187,6 @@
   <ItemGroup>
     <Content Include="Graphics\exeIcon.ico" />
   </ItemGroup>
-
-
-  <ItemGroup>
-    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
-    <PackageReference Include="MaterialDesignThemes" Version="5.0.0">
-      <GeneratePathProperty>False</GeneratePathProperty>
-    </PackageReference>
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
     <ProjectReference Include="..\DalTest\DalTest.csproj" />
