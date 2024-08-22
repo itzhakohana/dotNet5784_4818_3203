@@ -12,7 +12,8 @@ Creating an application from the ground up is a significant challenge, and our a
 -------------------------------------------------------------------------------------------------------
 
 **Startup instructions:**
-- Clone the repository: Make sure to set PL as the 'startup project' in order for the program to boot.
+- For running the application, you can download the zip-folder of the latest version and run the programm via the executable inside the bin folder.
+- For inspecting the source-code, you will need to Clone the repository. Make sure to set PL as the 'startup project' in order for the program to boot properly.
 - Demo Login: You can always log in to the system with a pre-made user for demonstration purposes:
         Username: test
         Password: 1234
