@@ -124,7 +124,7 @@
                         </ToggleButton.Template>
                     </ToggleButton>
                     <!--user display-->
-                    <Popup Placement="Left" Margin="20" HorizontalAlignment="Left" PopupAnimation="Slide" AllowsTransparency="True" StaysOpen="False" AllowDrop="True" IsOpen="{Binding ElementName=CurrentUserViewToggleButton,Path=IsChecked}">
+                    <Popup Placement="Left" Margin="20" HorizontalAlignment="Left" PopupAnimation="None" AllowsTransparency="True" StaysOpen="False" AllowDrop="True" IsOpen="{Binding ElementName=CurrentUserViewToggleButton,Path=IsChecked}">
                         <Border Width="250" Height="auto" CornerRadius="15" Background="#FF0F243E">
                             <Border.Effect>
                                 <DropShadowEffect ShadowDepth="15" BlurRadius="5" Opacity="0.5" Color="Black"/>
@@ -261,7 +261,7 @@
                             </ControlTemplate>
                         </ToggleButton.Template>
                     </ToggleButton>
-                    <Popup Placement="Left" PopupAnimation="Slide" AllowsTransparency="True" StaysOpen="False" AllowDrop="True" IsOpen="{Binding ElementName=CurrentTaskViewToggleButton,Path=IsChecked}">
+                    <Popup Placement="Left" PopupAnimation="None" AllowsTransparency="True" StaysOpen="False" AllowDrop="True" IsOpen="{Binding ElementName=CurrentTaskViewToggleButton,Path=IsChecked}">
                         <Border Width="250" Height="400" CornerRadius="15" Background="#FF0F243E">
                             <Border.Effect>
                                 <DropShadowEffect ShadowDepth="15" BlurRadius="5" Opacity="0.5" Color="Black"/>
@@ -336,7 +336,7 @@
                             </Label>
                             <Image Source="/Graphics/Icons/clock3.png" Margin="0,8,15,8"/>
                         </StackPanel>
-                        <Popup Placement="Bottom" PopupAnimation="Slide" AllowsTransparency="True" StaysOpen="False" AllowDrop="True" IsOpen="{Binding ElementName=ClockControlsToggleBottun,Path=IsChecked}">
+                        <Popup Placement="Bottom" PopupAnimation="None" AllowsTransparency="True" StaysOpen="False" AllowDrop="True" IsOpen="{Binding ElementName=ClockControlsToggleBottun,Path=IsChecked}">
                             <StackPanel Orientation="Horizontal">
                                 <Button Style="{DynamicResource ButtonStyle1}" Height="35" Width="75" FontSize="15" Content="+ Month" Click="ManageClock_BtnClick"/>
                                 <Button Style="{DynamicResource ButtonStyle1}" Height="35" Width="75" FontSize="15" Content="+ Day" Click="ManageClock_BtnClick"/>

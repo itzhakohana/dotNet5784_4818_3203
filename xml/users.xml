@@ -9,14 +9,6 @@
     <UserType>Admin</UserType>
   </User>
   <User>
-    <Id>385134307</Id>
-    <Password>1234</Password>
-    <UserName>test</UserName>
-    <LastLoginDate>2024-06-08T23:02:27.7965417+03:00</LastLoginDate>
-    <CreationDate>2024-10-10T17:09:50.5957876+03:00</CreationDate>
-    <UserType>Admin</UserType>
-  </User>
-  <User>
     <Id>341214105</Id>
     <Password>5454</Password>
     <UserName>thor</UserName>
@@ -41,10 +33,18 @@
     <UserType>Engineer</UserType>
   </User>
   <User>
+    <Id>385134307</Id>
+    <Password>1234</Password>
+    <UserName>test</UserName>
+    <LastLoginDate>2024-08-22T19:06:51.6406031+03:00</LastLoginDate>
+    <CreationDate>2024-10-10T17:09:50.5957876+03:00</CreationDate>
+    <UserType>Admin</UserType>
+  </User>
+  <User>
     <Id>315289814</Id>
     <Password>3232</Password>
     <UserName>gand</UserName>
-    <LastLoginDate>2024-06-08T23:07:24.9420467+03:00</LastLoginDate>
+    <LastLoginDate>2024-08-22T19:09:59.7569511+03:00</LastLoginDate>
     <CreationDate>2024-06-08T23:07:24.9420467+03:00</CreationDate>
     <UserType>Engineer</UserType>
   </User>
